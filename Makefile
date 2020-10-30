@@ -11,9 +11,9 @@ HADOOP_VER=3.2
 PACKAGES_FOLDER=venv/lib/python3.6/site-packages
 SPF_BASE=${PACKAGES_FOLDER}
 
-include spark_pipeline_framework_testing/Makefile.spark
-include spark_pipeline_framework_testing/Makefile.docker
-include spark_pipeline_framework_testing/Makefile.python
+include spark_fhir_schemas/Makefile.spark
+include spark_fhir_schemas/Makefile.docker
+include spark_fhir_schemas/Makefile.python
 
 .PHONY:devsetup
 devsetup:venv
@@ -28,8 +28,8 @@ devsetup:venv
 checks:venv
 	. $(VENV_NAME)/bin/activate && \
     pip install --upgrade -r requirements.txt && \
-    flake8 spark_pipeline_framework_testing && \
-    mypy spark_pipeline_framework_testing --strict && \
+    flake8 spark_fhir_schemas && \
+    mypy spark_fhir_schemas --strict && \
     flake8 tests && \
     mypy tests --strict
 
