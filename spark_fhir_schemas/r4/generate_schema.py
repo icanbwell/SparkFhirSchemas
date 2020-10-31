@@ -13,6 +13,7 @@ class PropertyInfo:
     Type: Optional[str]
     UnderlyingDataType: Optional[str]
     Description: Optional[str]
+    IsResourceType: bool
 
     def __str__(self) -> str:
         return f"property_name:{self.Name}, type={self.Type}, underlying_type={self.UnderlyingDataType}"
@@ -87,7 +88,8 @@ def main() -> bool:
                     Name=property_name,
                     Type=type_,
                     UnderlyingDataType=ref_clean,
-                    Description=description
+                    Description=description,
+                    IsResourceType=ref_clean in resources_dict
                 )
             )
             # print(properties_info[-1])
@@ -99,9 +101,15 @@ def main() -> bool:
             template = Template(template_contents)
             result: str = template.render(resource=resource_name, properties=properties_info)
 
-            print(f"Writing {resource_name.lower()}.py...")
-            with open(data_dir.joinpath("resources").joinpath(f"{resource_name.lower()}.py"), "w+") as file2:
-                file2.write(result)
+            if resource_name in resources_dict:
+                print(f"Writing {resource_name.lower()}.py...")
+                with open(data_dir.joinpath("resources").joinpath(f"{resource_name.lower()}.py"), "w+") as file2:
+                    file2.write(result)
+            else:
+                print(f"Writing {resource_name.lower()}.py...")
+                with open(data_dir.joinpath("complex_types").joinpath(f"{resource_name.lower()}.py"), "w+") as file2:
+                    file2.write(result)
+
             # print(result)
     return True
 

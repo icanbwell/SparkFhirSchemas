@@ -2,8 +2,12 @@ from pyspark.sql.types import StructType, StructField, StringType, ArrayType, Da
 
 
 {%- for property in properties -%}
-    {% if property.UnderlyingDataType %}
+    {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
+        {% if property.IsResourceType %}
 from spark_fhir_schemas.r4.resources.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
+        {% else %}
+from spark_fhir_schemas.r4.complex_types.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
+        {% endif %}
     {%- endif -%}
 {% endfor %}
 
