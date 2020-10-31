@@ -82,10 +82,10 @@ run-pre-commit:
 .PHONY:init
 init: installspark up devsetup proxies tests
 
-.PHONY:proxies
-proxies:
+.PHONY:schema
+schema:
 	. ${VENV_NAME}/bin/activate && \
-	python3 ${PACKAGES_FOLDER}/spark_pipeline_framework/proxy_generator/generate_proxies.py
+	python3 spark_fhir_schemas/r4/generate_schema.py
 
 .PHONY:continuous_integration
 continuous_integration:

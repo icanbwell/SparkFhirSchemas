@@ -20,7 +20,7 @@ class PropertyInfo:
         return f"property_name:{self.Name}, type={self.Type}, underlying_type={self.UnderlyingDataType}"
 
 
-def main() -> bool:
+def main() -> int:
     data_dir: Path = Path(__file__).parent.joinpath('./')
 
     with open(data_dir.joinpath("fhir.schema.json"), "r+") as file:
@@ -31,10 +31,13 @@ def main() -> bool:
     if os.path.exists(resources_folder):
         shutil.rmtree(resources_folder)
     os.mkdir(resources_folder)
+    resources_folder.joinpath("__init__.py").touch()
+
     complex_types_folder = data_dir.joinpath("complex_types")
     if os.path.exists(complex_types_folder):
         shutil.rmtree(complex_types_folder)
     os.mkdir(complex_types_folder)
+    complex_types_folder.joinpath("__init__.py").touch()
 
     fhir_schema = json.loads(contents)
     resources_dict: Dict[str, str] = fhir_schema["discriminator"]["mapping"]
@@ -121,7 +124,7 @@ def main() -> bool:
                     file2.write(result)
 
             # print(result)
-    return True
+    return 0
 
 
 if __name__ == "__main__":
