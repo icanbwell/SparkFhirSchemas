@@ -1,0 +1,33 @@
+from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+
+from library.schemas.fhir.r4.complex_types.human_name import FhirHumanName
+from library.schemas.fhir.r4.complex_types.reference import FhirReference
+
+
+class {{resource}}:
+    @staticmethod
+    def get_schema() -> StructType:
+        # from https://hl7.org/FHIR/patient.html
+        schema = StructType(
+            [
+{% for property in properties %}
+{% if property.Type == "array" %}
+                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}.get_schema()), True),
+{% elif not property.Type and not property.UnderlyingDataType %}
+                StructField("{{property.Name}}", StringType(), True),
+{ % elif property.Type == "string" or property.UnderlyingDataType == "string" %}
+                StructField("{{property.Name}}", StringType(), True),
+{% elif property.Type == "boolean" or property.UnderlyingDataType == "boolean" %}
+                StructField("{{property.Name}}", BooleanType(), True),
+{ % elif property.Type == "date" or property.UnderlyingDataType == "date" %}
+                StructField("{{property.Name}}", DateType(), True),
+{ % elif property.Type == "number" or property.UnderlyingDataType == "number" %}
+                StructField("{{property.Name}}", IntegerType(), True),
+{ % else %}
+                StructField("{{property.Name}}", {{property.UnderlyingDataType}}.get_schema(), True),
+{% endif %}
+{% endfor %}
+            ]
+        )
+
+        return schema
