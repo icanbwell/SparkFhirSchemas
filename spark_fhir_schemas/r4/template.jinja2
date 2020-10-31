@@ -61,7 +61,6 @@ class {{resource.Name}}Schema:
             return StructType([])
         schema = StructType(
             [
-                StructField("resourceType", StringType(), True),
     {% for property in properties%}
                 # {{ property.Description | wordwrap(78) | replace("\n", "\n                # ") | replace("\r", "\n                # ")}}
         {% if property.Type == "array" %}

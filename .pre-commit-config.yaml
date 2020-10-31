@@ -32,3 +32,4 @@ repos:
             - pyspark>=2.4.0
             - logger
             - sparkautomapper>=0.1.27
+            - pytest

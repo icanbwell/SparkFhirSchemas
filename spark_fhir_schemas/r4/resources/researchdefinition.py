@@ -223,7 +223,6 @@ class ResearchDefinitionSchema:
             return StructType([])
         schema = StructType(
             [
-                StructField("resourceType", StringType(), True),
                 # This is a ResearchDefinition resource
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once

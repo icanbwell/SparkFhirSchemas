@@ -94,7 +94,6 @@ class ImmunizationRecommendationSchema:
             return StructType([])
         schema = StructType(
             [
-                StructField("resourceType", StringType(), True),
                 # This is a ImmunizationRecommendation resource
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once

@@ -1,0 +1,583 @@
+{
+  "resourceType": "Patient",
+  "id": "27384972",
+  "meta": {
+    "versionId": "44",
+    "lastUpdated": "2020-10-20T13:49:00.000Z"
+  },
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Patient</b></p><p><b>Name</b>: REGRESSION, FSMC INPATIENT</p><p><b>Status</b>: Active</p><p><b>DOB</b>: Feb 22, 1967</p><p><b>Birth Sex</b>: Male</p><p><b>Administrative Gender</b>: Male</p><p><b>Marital Status</b>: Single</p></div>"
+  },
+  "extension": [
+    {
+      "valueCode": "M",
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex"
+    },
+    {
+      "extension": [
+        {
+          "valueCoding": {
+            "system": "urn:oid:2.16.840.1.113883.6.238",
+            "code": "2131-1",
+            "display": "Other Race",
+            "userSelected": false
+          },
+          "url": "detailed"
+        },
+        {
+          "valueString": "Hispanic",
+          "url": "text"
+        }
+      ],
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+    },
+    {
+      "extension": [
+        {
+          "valueCoding": {
+            "system": "urn:oid:2.16.840.1.113883.6.238",
+            "code": "2186-5",
+            "display": "Not Hispanic or Latino",
+            "userSelected": false
+          },
+          "url": "ombCategory"
+        },
+        {
+          "valueString": "Non-Hispanic",
+          "url": "text"
+        }
+      ],
+      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity"
+    }
+  ],
+  "identifier": [
+    {
+      "id": "CI-3005885213-0",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "2",
+            "display": "Community Medical Record Number",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "Community Medical Record Number"
+      },
+      "system": "urn:oid:2.16.840.1.113883.3.1662.100",
+      "value": "3770144",
+      "period": {
+        "start": "2019-01-25T20:15:27.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778237-1",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "8102055",
+      "period": {
+        "start": "2019-08-30T00:58:12.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778162-2",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "990000314",
+      "period": {
+        "start": "2019-08-30T00:54:27.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778139-3",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "110000699",
+      "period": {
+        "start": "2019-08-30T00:53:13.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778107-4",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "120000325",
+      "period": {
+        "start": "2019-08-30T00:51:55.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778069-5",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "8013271",
+      "period": {
+        "start": "2019-08-30T00:50:36.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778013-6",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "801321057",
+      "period": {
+        "start": "2019-08-30T00:48:21.000Z"
+      }
+    },
+    {
+      "id": "CI-3006778008-7",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "936340",
+      "period": {
+        "start": "2019-08-30T00:47:09.000Z"
+      }
+    },
+    {
+      "id": "CI-3006049221-8",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "8061911",
+      "period": {
+        "start": "2019-05-14T17:31:53.000Z"
+      }
+    },
+    {
+      "id": "CI-3005877243-9",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "10",
+            "display": "MRN",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR",
+            "display": "Medical record number",
+            "userSelected": false
+          }
+        ],
+        "text": "MRN"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "904771821",
+      "period": {
+        "start": "2019-01-23T04:38:19.000Z"
+      }
+    },
+    {
+      "id": "CI-3005894863-10",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "670843",
+            "display": "Messaging",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "U",
+            "display": "Unspecified identifier",
+            "userSelected": false
+          }
+        ],
+        "text": "Messaging"
+      },
+      "_system": {
+        "extension": [
+          {
+            "valueCode": "unknown",
+            "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          }
+        ]
+      },
+      "value": "D777E966261F4CE1B7538877A294F72A",
+      "period": {
+        "start": "2019-01-28T16:28:13.000Z"
+      }
+    },
+    {
+      "id": "CI-3006014441-11",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "1327496425",
+            "display": "Federated Person Principal",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "AN",
+            "display": "Account number",
+            "userSelected": false
+          }
+        ],
+        "text": "Federated Person Principal"
+      },
+      "system": "urn:oid:2.16.840.1.113883.3.13.6",
+      "value": "URN:CERNER:IDENTITY-FEDERATION:REALM:1D09DFF8-83BC-4001-92AE-C4B3AC10CA06-CH:PRINCIPAL:XS5HR2FQ62D5SS8V",
+      "period": {
+        "start": "2019-04-02T18:03:43.000Z"
+      }
+    },
+    {
+      "id": "CI-3005894860-12",
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/4",
+            "code": "1327496425",
+            "display": "Federated Person Principal",
+            "userSelected": true
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "AN",
+            "display": "Account number",
+            "userSelected": false
+          }
+        ],
+        "text": "Federated Person Principal"
+      },
+      "system": "urn:oid:2.16.840.1.113883.3.13.6",
+      "value": "URN:CERNER:IDENTITY-FEDERATION:REALM:1D09DFF8-83BC-4001-92AE-C4B3AC10CA06-CH:PRINCIPAL:6C2CH9HX3CZ96W4V",
+      "period": {
+        "start": "2019-01-28T16:28:11.000Z"
+      }
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "id": "CI-27384972-0",
+      "use": "official",
+      "text": "REGRESSION, FSMC INPATIENT",
+      "family": "REGRESSION",
+      "given": [
+        "FSMC",
+        "INPATIENT"
+      ],
+      "period": {
+        "start": "2019-01-23T04:38:19.000Z"
+      }
+    },
+    {
+      "id": "CI-3006600359-0",
+      "use": "old",
+      "text": "Regression, FSMC Inpatient",
+      "family": "Regression",
+      "given": [
+        "FSMC",
+        "Inpatient"
+      ],
+      "period": {
+        "start": "2019-01-23T04:38:19.000Z",
+        "end": "2019-01-23T04:38:19.000Z"
+      }
+    }
+  ],
+  "telecom": [
+    {
+      "id": "CI-PH-121926537-0",
+      "system": "phone",
+      "value": "(410)234-2343",
+      "use": "home",
+      "rank": "1",
+      "period": {
+        "start": "2020-07-16T13:33:26.000Z"
+      }
+    },
+    {
+      "id": "CI-EM-121840625-0",
+      "system": "email",
+      "value": "michele.c.hall@medstar.net",
+      "use": "home",
+      "rank": "1",
+      "period": {
+        "start": "2019-01-28T16:18:51.000Z"
+      }
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1967-02-22",
+  "address": [
+    {
+      "id": "CI-90765588-0",
+      "use": "home",
+      "text": "MICHELE.C.HALL MEDSTAR.NET\n123 TEST ROAD\nPARKVILLE, MD 21234\nUSA",
+      "line": [
+        "MICHELE.C.HALL MEDSTAR.NET",
+        "123 TEST ROAD"
+      ],
+      "city": "PARKVILLE",
+      "district": "Baltimore",
+      "state": "MD",
+      "postalCode": "21234",
+      "country": "USA",
+      "period": {
+        "start": "2019-05-14T17:31:53.000Z"
+      }
+    }
+  ],
+  "maritalStatus": {
+    "coding": [
+      {
+        "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/38",
+        "code": "309239",
+        "display": "Single",
+        "userSelected": true
+      },
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+        "code": "U",
+        "display": "unmarried",
+        "userSelected": false
+      }
+    ],
+    "text": "Single"
+  },
+  "communication": [
+    {
+      "language": {
+        "coding": [
+          {
+            "system": "https://fhir.cerner.com/1d09dff8-83bc-4001-92ae-c4b3ac10ca06/codeSet/36",
+            "code": "151",
+            "display": "English",
+            "userSelected": true
+          },
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en",
+            "display": "English",
+            "userSelected": false
+          }
+        ],
+        "text": "English"
+      },
+      "preferred": true
+    }
+  ],
+  "generalPractitioner": [
+    {
+      "id": "CI-3005877247-0",
+      "reference": "Practitioner/27383962",
+      "display": "Test, AmbulatoryPA10"
+    }
+  ]
+}

@@ -69,7 +69,6 @@ class Medication_IngredientSchema:
             return StructType([])
         schema = StructType(
             [
-                StructField("resourceType", StringType(), True),
                 # Unique id for the element within a resource (for internal references). This
                 # may be any string value that does not contain spaces.
                 StructField("id", StringType(), True),
