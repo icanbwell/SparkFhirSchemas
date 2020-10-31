@@ -1,0 +1,34 @@
+from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from spark_fhir_schemas.r4.resources.string import string
+from spark_fhir_schemas.r4.resources.extension import Extension
+from spark_fhir_schemas.r4.resources.extension import Extension
+from spark_fhir_schemas.r4.resources.codeableconcept import CodeableConcept
+from spark_fhir_schemas.r4.resources.codeableconcept import CodeableConcept
+from spark_fhir_schemas.r4.resources.codeableconcept import CodeableConcept
+from spark_fhir_schemas.r4.resources.codeableconcept import CodeableConcept
+from spark_fhir_schemas.r4.resources.string import string
+from spark_fhir_schemas.r4.resources.substancesourcematerial_author import SubstanceSourceMaterial_Author
+from spark_fhir_schemas.r4.resources.substancesourcematerial_hybrid import SubstanceSourceMaterial_Hybrid
+from spark_fhir_schemas.r4.resources.substancesourcematerial_organismgeneral import SubstanceSourceMaterial_OrganismGeneral
+
+
+class SubstanceSourceMaterial_Organism:
+    @staticmethod
+    def get_schema() -> StructType:
+        # from https://hl7.org/FHIR/patient.html
+        schema = StructType(
+            [
+                StructField("id", StringType(), True),
+                StructField("extension",ArrayType(Extension.get_schema()), True),
+                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField("family", CodeableConcept.get_schema(), True),
+                StructField("genus", CodeableConcept.get_schema(), True),
+                StructField("species", CodeableConcept.get_schema(), True),
+                StructField("intraspecificType", CodeableConcept.get_schema(), True),
+                StructField("intraspecificDescription", StringType(), True),
+                StructField("author",ArrayType(SubstanceSourceMaterial_Author.get_schema()), True),
+                StructField("hybrid", SubstanceSourceMaterial_Hybrid.get_schema(), True),
+                StructField("organismGeneral", SubstanceSourceMaterial_OrganismGeneral.get_schema(), True),]
+        )
+
+        return schema
