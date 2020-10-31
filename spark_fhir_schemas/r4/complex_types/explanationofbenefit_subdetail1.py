@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ExplanationOfBenefit_SubDetail1Schema:
     processing of a Claim; and optionally account balance information, for
     informing the subscriber of the benefits provided.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource provides: the claim details; adjudication details from the
         processing of a Claim; and optionally account balance information, for
@@ -79,8 +85,14 @@ class ExplanationOfBenefit_SubDetail1Schema:
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.explanationofbenefit_adjudication import ExplanationOfBenefit_AdjudicationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ExplanationOfBenefit_SubDetail1"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ExplanationOfBenefit_SubDetail1"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -93,8 +105,13 @@ class ExplanationOfBenefit_SubDetail1Schema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -111,62 +128,99 @@ class ExplanationOfBenefit_SubDetail1Schema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # When the value is a group code then this item collects a set of related claim
                 # details, otherwise this contains the product, service, drug or other billing
                 # code for the item.
                 StructField(
                     "productOrService",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Item typification or modifiers codes to convey additional context for the
                 # product or service.
                 StructField(
                     "modifier",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The number of repetitions of a service or product.
                 StructField(
-                    "quantity", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "quantity",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the item is not a group then this is the fee for the product or service,
                 # otherwise this is the total of the fees for the details of the group.
                 StructField(
-                    "unitPrice", MoneySchema.get_schema(recursion_depth + 1),
-                    True
+                    "unitPrice",
+                    MoneySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A real number that represents a multiplier used in determining the overall
                 # value of services delivered and/or goods received. The concept of a Factor
                 # allows for a discount or surcharge multiplier to be applied to a monetary
                 # amount.
                 StructField(
-                    "factor", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "factor",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The quantity times the unit price for an additional service or product or
                 # charge.
                 StructField(
-                    "net", MoneySchema.get_schema(recursion_depth + 1), True
+                    "net",
+                    MoneySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The numbers associated with notes below which apply to the adjudication of
                 # this item.
                 StructField(
                     "noteNumber",
                     ArrayType(
-                        positiveIntSchema.get_schema(recursion_depth + 1)
+                        positiveIntSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The adjudication results.
                 StructField(
                     "adjudication",
                     ArrayType(
-                        ExplanationOfBenefit_AdjudicationSchema.
-                        get_schema(recursion_depth + 1)
+                        ExplanationOfBenefit_AdjudicationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class SubstancePolymer_RepeatUnitSchema:
     """
     Todo.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Todo.
 
@@ -58,8 +64,14 @@ class SubstancePolymer_RepeatUnitSchema:
         from spark_fhir_schemas.r4.complex_types.substanceamount import SubstanceAmountSchema
         from spark_fhir_schemas.r4.complex_types.substancepolymer_degreeofpolymerisation import SubstancePolymer_DegreeOfPolymerisationSchema
         from spark_fhir_schemas.r4.complex_types.substancepolymer_structuralrepresentation import SubstancePolymer_StructuralRepresentationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstancePolymer_RepeatUnit"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SubstancePolymer_RepeatUnit"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -72,8 +84,13 @@ class SubstancePolymer_RepeatUnitSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -90,27 +107,44 @@ class SubstancePolymer_RepeatUnitSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Todo.
                 StructField(
                     "orientationOfPolymerisation",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Todo.
                 StructField("repeatUnit", StringType(), True),
                 # Todo.
                 StructField(
                     "amount",
-                    SubstanceAmountSchema.get_schema(recursion_depth + 1), True
+                    SubstanceAmountSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Todo.
                 StructField(
                     "degreeOfPolymerisation",
                     ArrayType(
                         SubstancePolymer_DegreeOfPolymerisationSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Todo.
@@ -118,7 +152,11 @@ class SubstancePolymer_RepeatUnitSchema:
                     "structuralRepresentation",
                     ArrayType(
                         SubstancePolymer_StructuralRepresentationSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MolecularSequence_QualitySchema:
     """
     Raw data describing a biological sequence.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
 
@@ -99,8 +105,14 @@ class MolecularSequence_QualitySchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.complex_types.molecularsequence_roc import MolecularSequence_RocSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MolecularSequence_Quality"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MolecularSequence_Quality"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -113,8 +125,13 @@ class MolecularSequence_QualitySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -131,54 +148,88 @@ class MolecularSequence_QualitySchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # INDEL / SNP / Undefined variant.
                 StructField("type", StringType(), True),
                 # Gold standard sequence used for comparing against.
                 StructField(
                     "standardSequence",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Start position of the sequence. If the coordinate system is either 0-based or
                 # 1-based, then start position is inclusive.
                 StructField(
-                    "start", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "start",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # End position of the sequence. If the coordinate system is 0-based then end is
                 # exclusive and does not include the last position. If the coordinate system is
                 # 1-base, then end is inclusive and includes the last position.
                 StructField(
-                    "end", integerSchema.get_schema(recursion_depth + 1), True
+                    "end",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The score of an experimentally derived feature such as a p-value ([SO:0001685]
                 # (http://www.sequenceontology.org/browser/current_svn/term/SO:0001685)).
                 StructField(
-                    "score", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "score",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Which method is used to get sequence quality.
                 StructField(
                     "method",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # True positives, from the perspective of the truth data, i.e. the number of
                 # sites in the Truth Call Set for which there are paths through the Query Call
                 # Set that are consistent with all of the alleles at this site, and for which
                 # there is an accurate genotype call for the event.
                 StructField(
-                    "truthTP", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "truthTP",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # True positives, from the perspective of the query data, i.e. the number of
                 # sites in the Query Call Set for which there are paths through the Truth Call
                 # Set that are consistent with all of the alleles at this site, and for which
                 # there is an accurate genotype call for the event.
                 StructField(
-                    "queryTP", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "queryTP",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # False negatives, i.e. the number of sites in the Truth Call Set for which
                 # there is no path through the Query Call Set that is consistent with all of the
@@ -186,44 +237,72 @@ class MolecularSequence_QualitySchema:
                 # for the event. Sites with correct variant but incorrect genotype are counted
                 # here.
                 StructField(
-                    "truthFN", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "truthFN",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # False positives, i.e. the number of sites in the Query Call Set for which
                 # there is no path through the Truth Call Set that is consistent with this site.
                 # Sites with correct variant but incorrect genotype are counted here.
                 StructField(
-                    "queryFP", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "queryFP",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The number of false positives where the non-REF alleles in the Truth and Query
                 # Call Sets match (i.e. cases where the truth is 1/1 and the query is 0/1 or
                 # similar).
                 StructField(
-                    "gtFP", decimalSchema.get_schema(recursion_depth + 1), True
+                    "gtFP",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # QUERY.TP / (QUERY.TP + QUERY.FP).
                 StructField(
-                    "precision", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "precision",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # TRUTH.TP / (TRUTH.TP + TRUTH.FN).
                 StructField(
-                    "recall", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "recall",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Harmonic mean of Recall and Precision, computed as: 2 * precision * recall /
                 # (precision + recall).
                 StructField(
-                    "fScore", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "fScore",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Receiver Operator Characteristic (ROC) Curve  to give sensitivity/specificity
                 # tradeoff.
                 StructField(
                     "roc",
-                    MolecularSequence_RocSchema.
-                    get_schema(recursion_depth + 1), True
+                    MolecularSequence_RocSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

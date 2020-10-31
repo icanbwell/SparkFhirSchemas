@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ClaimResponseSchema:
     This resource provides the adjudication details from the processing of a Claim
     resource.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource provides the adjudication details from the processing of a Claim
         resource.
@@ -160,8 +166,12 @@ class ClaimResponseSchema:
         from spark_fhir_schemas.r4.complex_types.claimresponse_processnote import ClaimResponse_ProcessNoteSchema
         from spark_fhir_schemas.r4.complex_types.claimresponse_insurance import ClaimResponse_InsuranceSchema
         from spark_fhir_schemas.r4.complex_types.claimresponse_error import ClaimResponse_ErrorSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ClaimResponse"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ClaimResponse"]
         schema = StructType(
             [
                 # This is a ClaimResponse resource
@@ -169,26 +179,44 @@ class ClaimResponseSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -197,8 +225,12 @@ class ClaimResponseSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -206,7 +238,11 @@ class ClaimResponseSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -216,8 +252,13 @@ class ClaimResponseSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -234,31 +275,53 @@ class ClaimResponseSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A unique identifier assigned to this claim response.
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The status of the resource instance.
                 StructField(
-                    "status", codeSchema.get_schema(recursion_depth + 1), True
+                    "status",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A finer grained suite of claim type codes which may convey additional
                 # information such as Inpatient vs Outpatient and/or a specialty service.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A finer grained suite of claim type codes which may convey additional
                 # information such as Inpatient vs Outpatient and/or a specialty service.
                 StructField(
                     "subType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code to indicate whether the nature of the request is: to request
                 # adjudication of products and services previously rendered; or requesting
@@ -266,39 +329,69 @@ class ClaimResponseSchema:
                 # non-binding adjudication of the listed products and services which could be
                 # provided in the future.
                 StructField(
-                    "use", codeSchema.get_schema(recursion_depth + 1), True
+                    "use",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The party to whom the professional services and/or products have been supplied
                 # or are being considered and for whom actual for facast reimbursement is
                 # sought.
                 StructField(
-                    "patient", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "patient",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date this resource was created.
                 StructField(
-                    "created", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "created",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The party responsible for authorization, adjudication and reimbursement.
                 StructField(
-                    "insurer", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "insurer",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The provider which is responsible for the claim, predetermination or
                 # preauthorization.
                 StructField(
                     "requestor",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Original request resource reference.
                 StructField(
-                    "request", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "request",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The outcome of the claim, predetermination, or preauthorization processing.
                 StructField(
-                    "outcome", codeSchema.get_schema(recursion_depth + 1), True
+                    "outcome",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human readable description of the status of the adjudication.
                 StructField("disposition", StringType(), True),
@@ -308,28 +401,42 @@ class ClaimResponseSchema:
                 # The time frame during which this authorization is effective.
                 StructField(
                     "preAuthPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Type of Party to be reimbursed: subscriber, provider, other.
                 StructField(
                     "payeeType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A claim line. Either a simple (a product or service) or a 'group' of details
                 # which can also be a simple items or groups of sub-details.
                 StructField(
                     "item",
                     ArrayType(
-                        ClaimResponse_ItemSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_ItemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The first-tier service adjudications for payor added product or service lines.
                 StructField(
                     "addItem",
                     ArrayType(
-                        ClaimResponse_AddItemSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_AddItemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The adjudication results which are presented at the header level rather than
@@ -337,71 +444,106 @@ class ClaimResponseSchema:
                 StructField(
                     "adjudication",
                     ArrayType(
-                        ClaimResponse_AdjudicationSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_AdjudicationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Categorized monetary totals for the adjudication.
                 StructField(
                     "total",
                     ArrayType(
-                        ClaimResponse_TotalSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_TotalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Payment details for the adjudication of the claim.
                 StructField(
                     "payment",
-                    ClaimResponse_PaymentSchema.
-                    get_schema(recursion_depth + 1), True
+                    ClaimResponse_PaymentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code, used only on a response to a preauthorization, to indicate whether the
                 # benefits payable have been reserved and for whom.
                 StructField(
                     "fundsReserve",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code for the form to be used for printing the content.
                 StructField(
                     "formCode",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual form, by reference or inclusion, for printing the content or an
                 # EOB.
                 StructField(
-                    "form", AttachmentSchema.get_schema(recursion_depth + 1),
-                    True
+                    "form",
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A note that describes or explains adjudication results in a human readable
                 # form.
                 StructField(
                     "processNote",
                     ArrayType(
-                        ClaimResponse_ProcessNoteSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_ProcessNoteSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Request for additional supporting or authorizing information.
                 StructField(
                     "communicationRequest",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Financial instruments for reimbursement for the health care products and
                 # services specified on the claim.
                 StructField(
                     "insurance",
                     ArrayType(
-                        ClaimResponse_InsuranceSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_InsuranceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Errors encountered during the processing of the adjudication.
                 StructField(
                     "error",
                     ArrayType(
-                        ClaimResponse_ErrorSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_ErrorSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

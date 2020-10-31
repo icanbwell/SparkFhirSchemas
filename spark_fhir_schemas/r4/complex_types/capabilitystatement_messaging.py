@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class CapabilityStatement_MessagingSchema:
     actual server functionality or a statement of required or desired server
     implementation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
         Server for a particular version of FHIR that may be used as a statement of
@@ -67,8 +73,14 @@ class CapabilityStatement_MessagingSchema:
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_supportedmessage import CapabilityStatement_SupportedMessageSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "CapabilityStatement_Messaging"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "CapabilityStatement_Messaging"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -81,8 +93,13 @@ class CapabilityStatement_MessagingSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -99,38 +116,57 @@ class CapabilityStatement_MessagingSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An endpoint (network accessible address) to which messages and/or replies are
                 # to be sent.
                 StructField(
                     "endpoint",
                     ArrayType(
-                        CapabilityStatement_EndpointSchema.
-                        get_schema(recursion_depth + 1)
+                        CapabilityStatement_EndpointSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Length if the receiver's reliable messaging cache in minutes (if a receiver)
                 # or how long the cache length on the receiver should be (if a sender).
                 StructField(
                     "reliableCache",
-                    unsignedIntSchema.get_schema(recursion_depth + 1), True
+                    unsignedIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Documentation about the system's messaging capabilities for this endpoint not
                 # otherwise documented by the capability statement.  For example, the process
                 # for becoming an authorized messaging exchange partner.
                 StructField(
                     "documentation",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # References to message definitions for messages this system can send or
                 # receive.
                 StructField(
                     "supportedMessage",
                     ArrayType(
-                        CapabilityStatement_SupportedMessageSchema.
-                        get_schema(recursion_depth + 1)
+                        CapabilityStatement_SupportedMessageSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

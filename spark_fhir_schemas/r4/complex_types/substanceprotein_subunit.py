@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -20,8 +21,13 @@ class SubstanceProtein_SubunitSchema:
     peptide/SubstanceProtein hormones, enzymes, toxins, toxoids, recombinant
     vaccines, and immunomodulators.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A SubstanceProtein is defined as a single unit of a linear amino acid
         sequence, or a combination of subunits that are either covalently linked or
@@ -95,8 +101,14 @@ class SubstanceProtein_SubunitSchema:
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstanceProtein_Subunit"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SubstanceProtein_Subunit"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -109,8 +121,13 @@ class SubstanceProtein_SubunitSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -127,16 +144,25 @@ class SubstanceProtein_SubunitSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Index of primary sequences of amino acids linked through peptide bonds in
                 # order of decreasing length. Sequences of the same length will be ordered by
                 # molecular weight. Subunits that have identical sequences will be repeated and
                 # have sequential subscripts.
                 StructField(
-                    "subunit", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "subunit",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The sequence information shall be provided enumerating the amino acids from N-
                 # to C-terminal end using standard single-letter amino acid codes. Uppercase
@@ -148,8 +174,12 @@ class SubstanceProtein_SubunitSchema:
                 StructField("sequence", StringType(), True),
                 # Length of linear sequences of amino acids contained in the subunit.
                 StructField(
-                    "length", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "length",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The sequence information shall be provided enumerating the amino acids from N-
                 # to C-terminal end using standard single-letter amino acid codes. Uppercase
@@ -160,13 +190,21 @@ class SubstanceProtein_SubunitSchema:
                 # acids will be distinguished by their position in the sequence.
                 StructField(
                     "sequenceAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Unique identifier for molecular fragment modification based on the ISO 11238
                 # Substance ID.
                 StructField(
                     "nTerminalModificationId",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The name of the fragment modified at the N-terminal of the SubstanceProtein
                 # shall be specified.
@@ -175,7 +213,11 @@ class SubstanceProtein_SubunitSchema:
                 # Substance ID.
                 StructField(
                     "cTerminalModificationId",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The modification at the C-terminal shall be specified.
                 StructField("cTerminalModification", StringType(), True),

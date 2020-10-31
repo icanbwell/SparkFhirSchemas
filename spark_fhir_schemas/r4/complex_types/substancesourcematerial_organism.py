@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -26,8 +27,13 @@ class SubstanceSourceMaterial_OrganismSchema:
     further explanation the Substance Class: Structurally Diverse and the herbal
     annex.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Source material shall capture information on the taxonomic and anatomical
         origins as well as the fraction of a material that can result in or can be
@@ -96,8 +102,14 @@ class SubstanceSourceMaterial_OrganismSchema:
         from spark_fhir_schemas.r4.complex_types.substancesourcematerial_author import SubstanceSourceMaterial_AuthorSchema
         from spark_fhir_schemas.r4.complex_types.substancesourcematerial_hybrid import SubstanceSourceMaterial_HybridSchema
         from spark_fhir_schemas.r4.complex_types.substancesourcematerial_organismgeneral import SubstanceSourceMaterial_OrganismGeneralSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstanceSourceMaterial_Organism"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SubstanceSourceMaterial_Organism"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -110,8 +122,13 @@ class SubstanceSourceMaterial_OrganismSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -128,32 +145,53 @@ class SubstanceSourceMaterial_OrganismSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The family of an organism shall be specified.
                 StructField(
                     "family",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The genus of an organism shall be specified; refers to the Latin epithet of
                 # the genus element of the plant/animal scientific name; it is present in names
                 # for genera, species and infraspecies.
                 StructField(
                     "genus",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The species of an organism shall be specified; refers to the Latin epithet of
                 # the species of the plant/animal; it is present in names for species and
                 # infraspecies.
                 StructField(
                     "species",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The Intraspecific type of an organism shall be specified.
                 StructField(
                     "intraspecificType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The intraspecific description of an organism shall be specified based on a
                 # controlled vocabulary. For Influenza Vaccine, the intraspecific description
@@ -163,21 +201,30 @@ class SubstanceSourceMaterial_OrganismSchema:
                 StructField(
                     "author",
                     ArrayType(
-                        SubstanceSourceMaterial_AuthorSchema.
-                        get_schema(recursion_depth + 1)
+                        SubstanceSourceMaterial_AuthorSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # 4.9.13.8.1 Hybrid species maternal organism ID (Optional).
                 StructField(
                     "hybrid",
-                    SubstanceSourceMaterial_HybridSchema.
-                    get_schema(recursion_depth + 1), True
+                    SubstanceSourceMaterial_HybridSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # 4.9.13.7.1 Kingdom (Conditional).
                 StructField(
                     "organismGeneral",
-                    SubstanceSourceMaterial_OrganismGeneralSchema.
-                    get_schema(recursion_depth + 1), True
+                    SubstanceSourceMaterial_OrganismGeneralSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

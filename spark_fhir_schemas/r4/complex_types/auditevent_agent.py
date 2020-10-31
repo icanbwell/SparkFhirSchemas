@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class AuditEvent_AgentSchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
         uses include detection of intrusion attempts and monitoring for inappropriate
@@ -88,8 +94,12 @@ class AuditEvent_AgentSchema:
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.auditevent_network import AuditEvent_NetworkSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "AuditEvent_Agent"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["AuditEvent_Agent"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -102,8 +112,13 @@ class AuditEvent_AgentSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -120,14 +135,23 @@ class AuditEvent_AgentSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Specification of the participation type the user plays when performing the
                 # event.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The security role that the user was acting under, that come from local codes
                 # defined by the access control security system (e.g. RBAC, ABAC) used in the
@@ -135,13 +159,21 @@ class AuditEvent_AgentSchema:
                 StructField(
                     "role",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Reference to who this agent is that was involved in the event.
                 StructField(
-                    "who", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "who",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Alternative agent Identifier. For a human, this should be a user identifier
                 # text string from authentication system. This identifier would be one known to
@@ -155,7 +187,11 @@ class AuditEvent_AgentSchema:
                 # Where the event occurred.
                 StructField(
                     "location",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The policy or plan that authorized the activity being recorded. Typically, a
                 # single activity may have multiple applicable policies, such as patient
@@ -163,26 +199,44 @@ class AuditEvent_AgentSchema:
                 # token used.
                 StructField(
                     "policy",
-                    ArrayType(uriSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        uriSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Type of media involved. Used when the event is about exporting/importing onto
                 # media.
                 StructField(
-                    "media", CodingSchema.get_schema(recursion_depth + 1), True
+                    "media",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Logical network location for application activity, if the activity has a
                 # network location.
                 StructField(
                     "network",
-                    AuditEvent_NetworkSchema.get_schema(recursion_depth + 1),
-                    True
+                    AuditEvent_NetworkSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The reason (purpose of use), specific to this agent, that was used during the
                 # event being recorded.
                 StructField(
                     "purposeOfUse",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

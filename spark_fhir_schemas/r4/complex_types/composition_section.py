@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -21,8 +22,13 @@ class Composition_SectionSchema:
     Composition must be included as subsequent entries in the Bundle (for example
     Patient, Practitioner, Encounter, etc.).
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A set of healthcare-related information that is assembled together into a
         single logical package that provides a single coherent statement of meaning,
@@ -102,8 +108,12 @@ class Composition_SectionSchema:
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.narrative import NarrativeSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Composition_Section"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Composition_Section"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -116,8 +126,13 @@ class Composition_SectionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -134,8 +149,13 @@ class Composition_SectionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The label for this particular section.  This will be part of the rendered
                 # content for the document, and is often used to build a table of contents.
@@ -144,14 +164,23 @@ class Composition_SectionSchema:
                 # be consistent with the section title.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies who is responsible for the information in this section, not
                 # necessarily who typed it in.
                 StructField(
                     "author",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The actual focus of the section when it is not the subject of the composition,
                 # but instead represents something or someone associated with the subject such
@@ -162,48 +191,77 @@ class Composition_SectionSchema:
                 # subject, focus, etc.) matches the section focus, or the resources have no
                 # logical subject (few resources).
                 StructField(
-                    "focus", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "focus",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains the attested content of the section,
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
                 # detail to make it "clinically safe" for a human to just read the narrative.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # How the entry list was prepared - whether it is a working list that is
                 # suitable for being maintained on an ongoing basis, or if it represents a
                 # snapshot of a list of items from another source, or whether it is a prepared
                 # list where items may be marked as added, modified or deleted.
                 StructField(
-                    "mode", codeSchema.get_schema(recursion_depth + 1), True
+                    "mode",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specifies the order applied to the items in the section entries.
                 StructField(
                     "orderedBy",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to the actual resource from which the narrative in the section is
                 # derived.
                 StructField(
                     "entry",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # If the section is empty, why the list is empty. An empty section typically has
                 # some text explaining the empty reason.
                 StructField(
                     "emptyReason",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A nested sub-section within this section.
                 StructField(
                     "section",
                     ArrayType(
-                        Composition_SectionSchema.
-                        get_schema(recursion_depth + 1)
+                        Composition_SectionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

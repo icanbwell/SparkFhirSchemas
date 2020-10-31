@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class Bundle_RequestSchema:
     """
     A container for a collection of resources.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
 
@@ -66,8 +72,12 @@ class Bundle_RequestSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.instant import instantSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Bundle_Request"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Bundle_Request"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -80,8 +90,13 @@ class Bundle_RequestSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -98,8 +113,13 @@ class Bundle_RequestSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # In a transaction or batch, this is the HTTP action to be executed for this
                 # entry. In a history bundle, this indicates the HTTP action that occurred.
@@ -107,7 +127,12 @@ class Bundle_RequestSchema:
                 # The URL for this entry, relative to the root (the address to which the request
                 # is posted).
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the ETag values match, return a 304 Not Modified status. See the API
                 # documentation for ["Conditional Read"](http.html#cread).
@@ -116,7 +141,11 @@ class Bundle_RequestSchema:
                 # documentation for ["Conditional Read"](http.html#cread).
                 StructField(
                     "ifModifiedSince",
-                    instantSchema.get_schema(recursion_depth + 1), True
+                    instantSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Only perform the operation if the Etag value matches. For more information,
                 # see the API section ["Managing Resource Contention"](http.html#concurrency).

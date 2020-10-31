@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ValueSet_ExpansionSchema:
     between [[[CodeSystem]]] definitions and their use in [coded
     elements](terminologies.html).
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
         code systems, intended for use in a particular context. Value sets link
@@ -78,8 +84,12 @@ class ValueSet_ExpansionSchema:
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.valueset_parameter import ValueSet_ParameterSchema
         from spark_fhir_schemas.r4.complex_types.valueset_contains import ValueSet_ContainsSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ValueSet_Expansion"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ValueSet_Expansion"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -92,8 +102,13 @@ class ValueSet_ExpansionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -110,8 +125,13 @@ class ValueSet_ExpansionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An identifier that uniquely identifies this expansion of the valueset, based
                 # on a unique combination of the provided parameters, the system default
@@ -120,27 +140,43 @@ class ValueSet_ExpansionSchema:
                 # expansion is the same, but are not required to do so. This is a business
                 # identifier.
                 StructField(
-                    "identifier", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "identifier",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The time at which the expansion was produced by the expanding system.
                 StructField(
                     "timestamp",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The total number of concepts in the expansion. If the number of concept nodes
                 # in this resource is less than the stated number, then the server can return
                 # more using the offset parameter.
                 StructField(
-                    "total", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "total",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If paging is being used, the offset at which this resource starts.  I.e. this
                 # resource is a partial view into the expansion. If paging is not being used,
                 # this element SHALL NOT be present.
                 StructField(
-                    "offset", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "offset",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A parameter that controlled the expansion process. These parameters may be
                 # used by users of expanded value sets to check whether the expansion is
@@ -148,16 +184,22 @@ class ValueSet_ExpansionSchema:
                 StructField(
                     "parameter",
                     ArrayType(
-                        ValueSet_ParameterSchema.
-                        get_schema(recursion_depth + 1)
+                        ValueSet_ParameterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The codes that are contained in the value set expansion.
                 StructField(
                     "contains",
                     ArrayType(
-                        ValueSet_ContainsSchema.
-                        get_schema(recursion_depth + 1)
+                        ValueSet_ContainsSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

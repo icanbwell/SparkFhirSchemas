@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class Observation_ReferenceRangeSchema:
     Measurements and simple assertions made about a patient, device or other
     subject.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Measurements and simple assertions made about a patient, device or other
         subject.
@@ -76,8 +82,14 @@ class Observation_ReferenceRangeSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Observation_ReferenceRange"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "Observation_ReferenceRange"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -90,8 +102,13 @@ class Observation_ReferenceRangeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -108,29 +125,47 @@ class Observation_ReferenceRangeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The value of the low bound of the reference range.  The low bound of the
                 # reference range endpoint is inclusive of the value (e.g.  reference range is
                 # >=5 - <=9). If the low bound is omitted,  it is assumed to be meaningless
                 # (e.g. reference range is <=2.3).
                 StructField(
-                    "low", QuantitySchema.get_schema(recursion_depth + 1), True
+                    "low",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The value of the high bound of the reference range.  The high bound of the
                 # reference range endpoint is inclusive of the value (e.g.  reference range is
                 # >=5 - <=9). If the high bound is omitted,  it is assumed to be meaningless
                 # (e.g. reference range is >= 2.3).
                 StructField(
-                    "high", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "high",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Codes to indicate the what part of the targeted reference population it
                 # applies to. For example, the normal or therapeutic range.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Codes to indicate the target population this reference range applies to.  For
                 # example, a reference range may be based on the normal population or a
@@ -141,13 +176,22 @@ class Observation_ReferenceRangeSchema:
                 StructField(
                     "appliesTo",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The age at which this reference range is applicable. This is a neonatal age
                 # (e.g. number of weeks at term) if the meaning says so.
                 StructField(
-                    "age", RangeSchema.get_schema(recursion_depth + 1), True
+                    "age",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Text based reference range in an observation which may be used when a
                 # quantitative range is not appropriate for an observation.  An example would be

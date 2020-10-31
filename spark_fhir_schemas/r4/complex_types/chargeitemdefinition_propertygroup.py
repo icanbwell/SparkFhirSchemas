@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ChargeItemDefinition_PropertyGroupSchema:
     differ largely depending on type and realm, therefore this resource gives only
     a rough structure and requires profiling for each type of billing code system.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The ChargeItemDefinition resource provides the properties that apply to the
         (billing) codes necessary to calculate costs and prices. The properties may
@@ -61,8 +67,14 @@ class ChargeItemDefinition_PropertyGroupSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.chargeitemdefinition_applicability import ChargeItemDefinition_ApplicabilitySchema
         from spark_fhir_schemas.r4.complex_types.chargeitemdefinition_pricecomponent import ChargeItemDefinition_PriceComponentSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ChargeItemDefinition_PropertyGroup"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ChargeItemDefinition_PropertyGroup"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -75,8 +87,13 @@ class ChargeItemDefinition_PropertyGroupSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -93,15 +110,23 @@ class ChargeItemDefinition_PropertyGroupSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Expressions that describe applicability criteria for the priceComponent.
                 StructField(
                     "applicability",
                     ArrayType(
-                        ChargeItemDefinition_ApplicabilitySchema.
-                        get_schema(recursion_depth + 1)
+                        ChargeItemDefinition_ApplicabilitySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The price for a ChargeItem may be calculated as a base price with
@@ -113,8 +138,11 @@ class ChargeItemDefinition_PropertyGroupSchema:
                 StructField(
                     "priceComponent",
                     ArrayType(
-                        ChargeItemDefinition_PriceComponentSchema.
-                        get_schema(recursion_depth + 1)
+                        ChargeItemDefinition_PriceComponentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ExampleScenario_StepSchema:
     """
     Example of workflow instance.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Example of workflow instance.
 
@@ -57,8 +63,14 @@ class ExampleScenario_StepSchema:
         from spark_fhir_schemas.r4.complex_types.examplescenario_process import ExampleScenario_ProcessSchema
         from spark_fhir_schemas.r4.complex_types.examplescenario_operation import ExampleScenario_OperationSchema
         from spark_fhir_schemas.r4.complex_types.examplescenario_alternative import ExampleScenario_AlternativeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ExampleScenario_Step"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ExampleScenario_Step"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -71,8 +83,13 @@ class ExampleScenario_StepSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -89,15 +106,23 @@ class ExampleScenario_StepSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Nested process.
                 StructField(
                     "process",
                     ArrayType(
-                        ExampleScenario_ProcessSchema.
-                        get_schema(recursion_depth + 1)
+                        ExampleScenario_ProcessSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # If there is a pause in the flow.
@@ -105,16 +130,22 @@ class ExampleScenario_StepSchema:
                 # Each interaction or action.
                 StructField(
                     "operation",
-                    ExampleScenario_OperationSchema.
-                    get_schema(recursion_depth + 1), True
+                    ExampleScenario_OperationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates an alternative step that can be taken instead of the operations on
                 # the base step in exceptional/atypical circumstances.
                 StructField(
                     "alternative",
                     ArrayType(
-                        ExampleScenario_AlternativeSchema.
-                        get_schema(recursion_depth + 1)
+                        ExampleScenario_AlternativeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

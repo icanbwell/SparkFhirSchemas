@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class NarrativeSchema:
     A human-readable summary of the resource conveying the essential clinical and
     business information for the resource.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A human-readable summary of the resource conveying the essential clinical and
         business information for the resource.
@@ -39,8 +45,12 @@ class NarrativeSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.xhtml import xhtmlSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Narrative"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Narrative"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -53,8 +63,13 @@ class NarrativeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The status of the narrative - whether it's entirely generated (from just the
                 # defined data or the extensions too), or whether a human authored it and it may
@@ -62,7 +77,12 @@ class NarrativeSchema:
                 StructField("status", StringType(), True),
                 # The actual narrative content, a stripped down version of XHTML.
                 StructField(
-                    "div", xhtmlSchema.get_schema(recursion_depth + 1), True
+                    "div",
+                    xhtmlSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

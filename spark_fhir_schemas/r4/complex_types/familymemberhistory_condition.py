@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class FamilyMemberHistory_ConditionSchema:
     Significant health conditions for a person related to the patient relevant in
     the context of care for the patient.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Significant health conditions for a person related to the patient relevant in
         the context of care for the patient.
@@ -80,8 +86,14 @@ class FamilyMemberHistory_ConditionSchema:
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "FamilyMemberHistory_Condition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "FamilyMemberHistory_Condition"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -94,8 +106,13 @@ class FamilyMemberHistory_ConditionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -112,21 +129,34 @@ class FamilyMemberHistory_ConditionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The actual condition specified. Could be a coded condition (like MI or
                 # Diabetes) or a less specific string like 'cancer' depending on how much is
                 # known about the condition and the capabilities of the creating system.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates what happened following the condition.  If the condition resulted in
                 # death, deceased date is captured on the relation.
                 StructField(
                     "outcome",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # This condition contributed to the cause of death of the related person. If
                 # contributedToDeath is not populated, then it is unknown.
@@ -135,21 +165,34 @@ class FamilyMemberHistory_ConditionSchema:
                 # recorded.  For conditions with multiple occurrences, this describes the first
                 # known occurrence.
                 StructField(
-                    "onsetAge", AgeSchema.get_schema(recursion_depth + 1), True
+                    "onsetAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
                 # known occurrence.
                 StructField(
-                    "onsetRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "onsetRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
                 # known occurrence.
                 StructField(
                     "onsetPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
@@ -159,7 +202,11 @@ class FamilyMemberHistory_ConditionSchema:
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

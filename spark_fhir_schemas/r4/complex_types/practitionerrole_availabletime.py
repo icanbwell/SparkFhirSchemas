@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class PractitionerRole_AvailableTimeSchema:
     A specific set of Roles/Locations/specialties/services that a practitioner may
     perform at an organization for a period of time.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A specific set of Roles/Locations/specialties/services that a practitioner may
         perform at an organization for a period of time.
@@ -60,8 +66,14 @@ class PractitionerRole_AvailableTimeSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.time import timeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "PractitionerRole_AvailableTime"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "PractitionerRole_AvailableTime"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,8 +86,13 @@ class PractitionerRole_AvailableTimeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -92,14 +109,25 @@ class PractitionerRole_AvailableTimeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates which days of the week are available between the start and end
                 # Times.
                 StructField(
                     "daysOfWeek",
-                    ArrayType(codeSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Is this always available? (hence times are irrelevant) e.g. 24 hour service.
                 StructField("allDay", BooleanType(), True),
@@ -107,13 +135,21 @@ class PractitionerRole_AvailableTimeSchema:
                 # ignored.
                 StructField(
                     "availableStartTime",
-                    timeSchema.get_schema(recursion_depth + 1), True
+                    timeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The closing time of day. Note: If the AllDay flag is set, then this time is
                 # ignored.
                 StructField(
                     "availableEndTime",
-                    timeSchema.get_schema(recursion_depth + 1), True
+                    timeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

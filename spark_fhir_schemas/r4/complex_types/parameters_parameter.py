@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class Parameters_ParameterSchema:
     back from an [operation](operations.html). It has no other use, and there is
     no RESTful endpoint associated with it.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource is a non-persisted resource used to pass information into and
         back from an [operation](operations.html). It has no other use, and there is
@@ -188,8 +194,14 @@ class Parameters_ParameterSchema:
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Parameters_Parameter"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "Parameters_Parameter"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -202,8 +214,13 @@ class Parameters_ParameterSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -220,8 +237,13 @@ class Parameters_ParameterSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The name of the parameter (reference to the operation definition).
                 StructField("name", StringType(), True),
@@ -266,170 +288,300 @@ class Parameters_ParameterSchema:
                 # If the parameter is a data type.
                 StructField(
                     "valueAddress",
-                    AddressSchema.get_schema(recursion_depth + 1), True
+                    AddressSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
-                    "valueAge", AgeSchema.get_schema(recursion_depth + 1), True
+                    "valueAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueAnnotation",
-                    AnnotationSchema.get_schema(recursion_depth + 1), True
+                    AnnotationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueCoding",
-                    CodingSchema.get_schema(recursion_depth + 1), True
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueContactPoint",
-                    ContactPointSchema.get_schema(recursion_depth + 1), True
+                    ContactPointSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
-                    "valueCount", CountSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueCount",
+                    CountSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueDistance",
-                    DistanceSchema.get_schema(recursion_depth + 1), True
+                    DistanceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueHumanName",
-                    HumanNameSchema.get_schema(recursion_depth + 1), True
+                    HumanNameSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueIdentifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
-                    "valueMoney", MoneySchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueMoney",
+                    MoneySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valuePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
-                    "valueRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
-                    "valueRatio", RatioSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRatio",
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueSampledData",
-                    SampledDataSchema.get_schema(recursion_depth + 1), True
+                    SampledDataSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueSignature",
-                    SignatureSchema.get_schema(recursion_depth + 1), True
+                    SignatureSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueContactDetail",
-                    ContactDetailSchema.get_schema(recursion_depth + 1), True
+                    ContactDetailSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueContributor",
-                    ContributorSchema.get_schema(recursion_depth + 1), True
+                    ContributorSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueDataRequirement",
-                    DataRequirementSchema.get_schema(recursion_depth + 1), True
+                    DataRequirementSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueExpression",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueParameterDefinition",
-                    ParameterDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    ParameterDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueRelatedArtifact",
-                    RelatedArtifactSchema.get_schema(recursion_depth + 1), True
+                    RelatedArtifactSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueTriggerDefinition",
-                    TriggerDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    TriggerDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueUsageContext",
-                    UsageContextSchema.get_schema(recursion_depth + 1), True
+                    UsageContextSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
                     "valueDosage",
-                    DosageSchema.get_schema(recursion_depth + 1), True
+                    DosageSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a data type.
                 StructField(
-                    "valueMeta", MetaSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueMeta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If the parameter is a whole resource.
                 StructField(
                     "resource",
-                    ResourceListSchema.get_schema(recursion_depth + 1), True
+                    ResourceListSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A named part of a multi-part parameter.
                 StructField(
                     "part",
                     ArrayType(
-                        Parameters_ParameterSchema.
-                        get_schema(recursion_depth + 1)
+                        Parameters_ParameterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

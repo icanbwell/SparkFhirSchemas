@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class CapabilityStatement_RestSchema:
     actual server functionality or a statement of required or desired server
     implementation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
         Server for a particular version of FHIR that may be used as a statement of
@@ -83,8 +89,14 @@ class CapabilityStatement_RestSchema:
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_searchparam import CapabilityStatement_SearchParamSchema
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_operation import CapabilityStatement_OperationSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "CapabilityStatement_Rest"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "CapabilityStatement_Rest"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -97,8 +109,13 @@ class CapabilityStatement_RestSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -115,8 +132,13 @@ class CapabilityStatement_RestSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifies whether this portion of the statement is describing the ability to
                 # initiate or receive restful operations.
@@ -125,30 +147,43 @@ class CapabilityStatement_RestSchema:
                 # applications, such as security.
                 StructField(
                     "documentation",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Information about security implementation from an interface perspective - what
                 # a client needs to know.
                 StructField(
                     "security",
-                    CapabilityStatement_SecuritySchema.
-                    get_schema(recursion_depth + 1), True
+                    CapabilityStatement_SecuritySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A specification of the restful capabilities of the solution for a specific
                 # resource type.
                 StructField(
                     "resource",
                     ArrayType(
-                        CapabilityStatement_ResourceSchema.
-                        get_schema(recursion_depth + 1)
+                        CapabilityStatement_ResourceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A specification of restful operations supported by the system.
                 StructField(
                     "interaction",
                     ArrayType(
-                        CapabilityStatement_Interaction1Schema.
-                        get_schema(recursion_depth + 1)
+                        CapabilityStatement_Interaction1Schema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Search parameters that are supported for searching all resources for
@@ -158,8 +193,11 @@ class CapabilityStatement_RestSchema:
                 StructField(
                     "searchParam",
                     ArrayType(
-                        CapabilityStatement_SearchParamSchema.
-                        get_schema(recursion_depth + 1)
+                        CapabilityStatement_SearchParamSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Definition of an operation or a named query together with its parameters and
@@ -167,8 +205,11 @@ class CapabilityStatement_RestSchema:
                 StructField(
                     "operation",
                     ArrayType(
-                        CapabilityStatement_OperationSchema.
-                        get_schema(recursion_depth + 1)
+                        CapabilityStatement_OperationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An absolute URI which is a reference to the definition of a compartment that
@@ -176,8 +217,13 @@ class CapabilityStatement_RestSchema:
                 # its canonical URL .
                 StructField(
                     "compartment",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

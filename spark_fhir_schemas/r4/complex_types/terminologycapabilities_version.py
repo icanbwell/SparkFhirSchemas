@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class TerminologyCapabilities_VersionSchema:
     of a FHIR Terminology Server that may be used as a statement of actual server
     functionality or a statement of required or desired server implementation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A TerminologyCapabilities resource documents a set of capabilities (behaviors)
         of a FHIR Terminology Server that may be used as a statement of actual server
@@ -64,8 +70,14 @@ class TerminologyCapabilities_VersionSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.terminologycapabilities_filter import TerminologyCapabilities_FilterSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TerminologyCapabilities_Version"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "TerminologyCapabilities_Version"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -78,8 +90,13 @@ class TerminologyCapabilities_VersionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -96,8 +113,13 @@ class TerminologyCapabilities_VersionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # For version-less code systems, there should be a single version with no
                 # identifier.
@@ -109,20 +131,35 @@ class TerminologyCapabilities_VersionSchema:
                 # Language Displays supported.
                 StructField(
                     "language",
-                    ArrayType(codeSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Filter Properties supported.
                 StructField(
                     "filter",
                     ArrayType(
-                        TerminologyCapabilities_FilterSchema.
-                        get_schema(recursion_depth + 1)
+                        TerminologyCapabilities_FilterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Properties supported for $lookup.
                 StructField(
                     "property",
-                    ArrayType(codeSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

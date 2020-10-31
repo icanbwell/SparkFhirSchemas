@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class StructureMap_RuleSchema:
     A Map of relationships between 2 structures that can be used to transform
     data.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A Map of relationships between 2 structures that can be used to transform
         data.
@@ -62,8 +68,12 @@ class StructureMap_RuleSchema:
         from spark_fhir_schemas.r4.complex_types.structuremap_source import StructureMap_SourceSchema
         from spark_fhir_schemas.r4.complex_types.structuremap_target import StructureMap_TargetSchema
         from spark_fhir_schemas.r4.complex_types.structuremap_dependent import StructureMap_DependentSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "StructureMap_Rule"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["StructureMap_Rule"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -76,8 +86,13 @@ class StructureMap_RuleSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -94,43 +109,65 @@ class StructureMap_RuleSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Name of the rule for internal references.
                 StructField(
-                    "name", idSchema.get_schema(recursion_depth + 1), True
+                    "name",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Source inputs to the mapping.
                 StructField(
                     "source",
                     ArrayType(
-                        StructureMap_SourceSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureMap_SourceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Content to create because of this mapping rule.
                 StructField(
                     "target",
                     ArrayType(
-                        StructureMap_TargetSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureMap_TargetSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Rules contained in this rule.
                 StructField(
                     "rule",
                     ArrayType(
-                        StructureMap_RuleSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureMap_RuleSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Which other rules to apply in the context of this rule.
                 StructField(
                     "dependent",
                     ArrayType(
-                        StructureMap_DependentSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureMap_DependentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Documentation for this instance of data.

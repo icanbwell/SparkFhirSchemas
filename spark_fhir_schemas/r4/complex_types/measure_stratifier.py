@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class Measure_StratifierSchema:
     """
     The Measure resource provides the definition of a quality measure.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The Measure resource provides the definition of a quality measure.
 
@@ -61,8 +67,12 @@ class Measure_StratifierSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
         from spark_fhir_schemas.r4.complex_types.measure_component import Measure_ComponentSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Measure_Stratifier"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Measure_Stratifier"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -75,8 +85,13 @@ class Measure_StratifierSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -93,15 +108,24 @@ class Measure_StratifierSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates a meaning for the stratifier. This can be as simple as a unique
                 # identifier, or it can establish meaning in a broader context by drawing from a
                 # terminology, allowing stratifiers to be correlated across measures.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The human readable description of this stratifier criteria.
                 StructField("description", StringType(), True),
@@ -110,7 +134,11 @@ class Measure_StratifierSchema:
                 # it may also be a path to a stratifier element.
                 StructField(
                     "criteria",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A component of the stratifier criteria for the measure report, specified as
                 # either the name of a valid CQL expression defined within a referenced library
@@ -118,8 +146,11 @@ class Measure_StratifierSchema:
                 StructField(
                     "component",
                     ArrayType(
-                        Measure_ComponentSchema.
-                        get_schema(recursion_depth + 1)
+                        Measure_ComponentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

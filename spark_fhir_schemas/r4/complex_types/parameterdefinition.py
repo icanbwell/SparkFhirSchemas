@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ParameterDefinitionSchema:
     output parameters. Input parameters are provided by the caller as part of the
     $evaluate operation. Output parameters are included in the GuidanceResponse.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The parameters to the module. This collection specifies both the input and
         output parameters. Input parameters are provided by the caller as part of the
@@ -56,8 +62,12 @@ class ParameterDefinitionSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ParameterDefinition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ParameterDefinition"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -70,22 +80,42 @@ class ParameterDefinitionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The name of the parameter used to allow access to the value of the parameter
                 # in evaluation contexts.
                 StructField(
-                    "name", codeSchema.get_schema(recursion_depth + 1), True
+                    "name",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether the parameter is input or output for the module.
                 StructField(
-                    "use", codeSchema.get_schema(recursion_depth + 1), True
+                    "use",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The minimum number of times this parameter SHALL appear in the request or
                 # response.
                 StructField(
-                    "min", integerSchema.get_schema(recursion_depth + 1), True
+                    "min",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The maximum number of times this element is permitted to appear in the request
                 # or response.
@@ -95,13 +125,22 @@ class ParameterDefinitionSchema:
                 StructField("documentation", StringType(), True),
                 # The type of the parameter.
                 StructField(
-                    "type", codeSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If specified, this indicates a profile that the input data must conform to, or
                 # that the output data will conform to.
                 StructField(
-                    "profile", canonicalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "profile",
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class SpecimenDefinition_TypeTestedSchema:
     """
     A kind of specimen with associated set of requirements.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A kind of specimen with associated set of requirements.
 
@@ -68,8 +74,14 @@ class SpecimenDefinition_TypeTestedSchema:
         from spark_fhir_schemas.r4.complex_types.specimendefinition_container import SpecimenDefinition_ContainerSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.specimendefinition_handling import SpecimenDefinition_HandlingSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SpecimenDefinition_TypeTested"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SpecimenDefinition_TypeTested"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -82,8 +94,13 @@ class SpecimenDefinition_TypeTestedSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -100,23 +117,35 @@ class SpecimenDefinition_TypeTestedSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Primary of secondary specimen.
                 StructField("isDerived", BooleanType(), True),
                 # The kind of specimen conditioned for testing expected by lab.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The preference for this type of conditioned specimen.
                 StructField("preference", StringType(), True),
                 # The specimen's container.
                 StructField(
                     "container",
-                    SpecimenDefinition_ContainerSchema.
-                    get_schema(recursion_depth + 1), True
+                    SpecimenDefinition_ContainerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Requirements for delivery and special handling of this kind of conditioned
                 # specimen.
@@ -125,13 +154,21 @@ class SpecimenDefinition_TypeTestedSchema:
                 # tests are completed, for the purpose of additional testing.
                 StructField(
                     "retentionTime",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Criterion for rejection of the specimen in its container by the laboratory.
                 StructField(
                     "rejectionCriterion",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Set of instructions for preservation/transport of the specimen at a defined
@@ -139,8 +176,11 @@ class SpecimenDefinition_TypeTestedSchema:
                 StructField(
                     "handling",
                     ArrayType(
-                        SpecimenDefinition_HandlingSchema.
-                        get_schema(recursion_depth + 1)
+                        SpecimenDefinition_HandlingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

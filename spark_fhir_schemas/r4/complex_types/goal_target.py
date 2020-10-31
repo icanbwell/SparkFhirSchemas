@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class Goal_TargetSchema:
     for example, weight loss, restoring an activity of daily living, obtaining
     herd immunity via immunization, meeting a process improvement objective, etc.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Describes the intended objective(s) for a patient, group or organization care,
         for example, weight loss, restoring an activity of daily living, obtaining
@@ -113,8 +119,12 @@ class Goal_TargetSchema:
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Goal_Target"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Goal_Target"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -127,8 +137,13 @@ class Goal_TargetSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -145,14 +160,23 @@ class Goal_TargetSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The parameter whose value is being tracked, e.g. body weight, blood pressure,
                 # or hemoglobin A1c level.
                 StructField(
                     "measure",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -162,7 +186,11 @@ class Goal_TargetSchema:
                 # value at or above the low value.
                 StructField(
                     "detailQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -171,8 +199,12 @@ class Goal_TargetSchema:
                 # the high value is missing, it indicates that the goal is achieved at any focus
                 # value at or above the low value.
                 StructField(
-                    "detailRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "detailRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -182,7 +214,11 @@ class Goal_TargetSchema:
                 # value at or above the low value.
                 StructField(
                     "detailCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -212,8 +248,12 @@ class Goal_TargetSchema:
                 # the high value is missing, it indicates that the goal is achieved at any focus
                 # value at or above the low value.
                 StructField(
-                    "detailRatio", RatioSchema.get_schema(recursion_depth + 1),
-                    True
+                    "detailRatio",
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates either the date or the duration after start by which the goal should
                 # be met.
@@ -222,7 +262,11 @@ class Goal_TargetSchema:
                 # be met.
                 StructField(
                     "dueDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

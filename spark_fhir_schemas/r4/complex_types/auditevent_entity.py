@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class AuditEvent_EntitySchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
         uses include detection of intrusion attempts and monitoring for inappropriate
@@ -71,8 +77,12 @@ class AuditEvent_EntitySchema:
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.simple_types.base64binary import base64BinarySchema
         from spark_fhir_schemas.r4.complex_types.auditevent_detail import AuditEvent_DetailSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "AuditEvent_Entity"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["AuditEvent_Entity"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -85,8 +95,13 @@ class AuditEvent_EntitySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -103,33 +118,61 @@ class AuditEvent_EntitySchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifies a specific instance of the entity. The reference should be version
                 # specific.
                 StructField(
-                    "what", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "what",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The type of the object that was involved in this audit event.
                 StructField(
-                    "type", CodingSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Code representing the role the entity played in the event being audited.
                 StructField(
-                    "role", CodingSchema.get_schema(recursion_depth + 1), True
+                    "role",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifier for the data life-cycle stage for the entity.
                 StructField(
-                    "lifecycle", CodingSchema.get_schema(recursion_depth + 1),
-                    True
+                    "lifecycle",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Security labels for the identified entity.
                 StructField(
                     "securityLabel",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A name of the entity in the audit event.
                 StructField("name", StringType(), True),
@@ -138,14 +181,21 @@ class AuditEvent_EntitySchema:
                 # The query parameters for a query-type entities.
                 StructField(
                     "query",
-                    base64BinarySchema.get_schema(recursion_depth + 1), True
+                    base64BinarySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Tagged value pairs for conveying additional information about the entity.
                 StructField(
                     "detail",
                     ArrayType(
-                        AuditEvent_DetailSchema.
-                        get_schema(recursion_depth + 1)
+                        AuditEvent_DetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

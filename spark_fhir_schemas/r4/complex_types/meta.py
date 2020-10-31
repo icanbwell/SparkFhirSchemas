@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class MetaSchema:
     maintained by the infrastructure. Changes to the content might not always be
     associated with version changes to the resource.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The metadata about a resource. This is content in the resource that is
         maintained by the infrastructure. Changes to the content might not always be
@@ -60,8 +66,12 @@ class MetaSchema:
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Meta"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Meta"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,48 +84,82 @@ class MetaSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The version specific identifier, as it appears in the version portion of the
                 # URL. This value changes when the resource is created, updated, or deleted.
                 StructField(
-                    "versionId", idSchema.get_schema(recursion_depth + 1), True
+                    "versionId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # When the resource last changed - e.g. when the version changed.
                 StructField(
                     "lastUpdated",
-                    instantSchema.get_schema(recursion_depth + 1), True
+                    instantSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A uri that identifies the source system of the resource. This provides a
                 # minimal amount of [[[Provenance]]] information that can be used to track or
                 # differentiate the source of information in the resource. The source may
                 # identify another FHIR server, document, message, database, etc.
                 StructField(
-                    "source", uriSchema.get_schema(recursion_depth + 1), True
+                    "source",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A list of profiles (references to [[[StructureDefinition]]] resources) that
                 # this resource claims to conform to. The URL is a reference to
                 # [[[StructureDefinition.url]]].
                 StructField(
                     "profile",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Security labels applied to this resource. These tags connect specific
                 # resources to the overall security policy and infrastructure.
                 StructField(
                     "security",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Tags applied to this resource. Tags are intended to be used to identify and
                 # relate resources to process and workflow, and applications are not required to
                 # consider the tags when interpreting the meaning of a resource.
                 StructField(
                     "tag",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ObservationDefinition_QualifiedIntervalSchema:
     Set of definitional characteristics for a kind of observation or measurement
     produced or consumed by an orderable health care service.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Set of definitional characteristics for a kind of observation or measurement
         produced or consumed by an orderable health care service.
@@ -69,8 +75,14 @@ class ObservationDefinition_QualifiedIntervalSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ObservationDefinition_QualifiedInterval"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ObservationDefinition_QualifiedInterval"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -83,8 +95,13 @@ class ObservationDefinition_QualifiedIntervalSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -101,8 +118,13 @@ class ObservationDefinition_QualifiedIntervalSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The category of interval of values for continuous or ordinal observations
                 # conforming to this ObservationDefinition.
@@ -110,19 +132,32 @@ class ObservationDefinition_QualifiedIntervalSchema:
                 # The low and high values determining the interval. There may be only one of the
                 # two.
                 StructField(
-                    "range", RangeSchema.get_schema(recursion_depth + 1), True
+                    "range",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Codes to indicate the health context the range applies to. For example, the
                 # normal or therapeutic range.
                 StructField(
                     "context",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Codes to indicate the target population this reference range applies to.
                 StructField(
                     "appliesTo",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Sex of the population the range applies to.
@@ -130,13 +165,22 @@ class ObservationDefinition_QualifiedIntervalSchema:
                 # The age at which this reference range is applicable. This is a neonatal age
                 # (e.g. number of weeks at term) if the meaning says so.
                 StructField(
-                    "age", RangeSchema.get_schema(recursion_depth + 1), True
+                    "age",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The gestational age to which this reference range is applicable, in the
                 # context of pregnancy.
                 StructField(
                     "gestationalAge",
-                    RangeSchema.get_schema(recursion_depth + 1), True
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Text based condition for which the reference range is valid.
                 StructField("condition", StringType(), True),

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class GraphDefinition_TargetSchema:
     set of resources that form a graph by following references. The Graph
     Definition resource defines a set and makes rules about the set.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A formal computable definition of a graph of resources - that is, a coherent
         set of resources that form a graph by following references. The Graph
@@ -62,8 +68,14 @@ class GraphDefinition_TargetSchema:
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.graphdefinition_compartment import GraphDefinition_CompartmentSchema
         from spark_fhir_schemas.r4.complex_types.graphdefinition_link import GraphDefinition_LinkSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "GraphDefinition_Target"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "GraphDefinition_Target"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -76,8 +88,13 @@ class GraphDefinition_TargetSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -94,34 +111,54 @@ class GraphDefinition_TargetSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Type of resource this link refers to.
                 StructField(
-                    "type", codeSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A set of parameters to look up.
                 StructField("params", StringType(), True),
                 # Profile for the target resource.
                 StructField(
-                    "profile", canonicalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "profile",
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Compartment Consistency Rules.
                 StructField(
                     "compartment",
                     ArrayType(
-                        GraphDefinition_CompartmentSchema.
-                        get_schema(recursion_depth + 1)
+                        GraphDefinition_CompartmentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Additional links from target resource.
                 StructField(
                     "link",
                     ArrayType(
-                        GraphDefinition_LinkSchema.
-                        get_schema(recursion_depth + 1)
+                        GraphDefinition_LinkSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

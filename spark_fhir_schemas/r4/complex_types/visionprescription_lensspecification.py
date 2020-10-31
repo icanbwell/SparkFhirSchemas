@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class VisionPrescription_LensSpecificationSchema:
     An authorization for the provision of glasses and/or contact lenses to a
     patient.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         An authorization for the provision of glasses and/or contact lenses to a
         patient.
@@ -81,8 +87,14 @@ class VisionPrescription_LensSpecificationSchema:
         from spark_fhir_schemas.r4.complex_types.visionprescription_prism import VisionPrescription_PrismSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "VisionPrescription_LensSpecification"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "VisionPrescription_LensSpecification"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +107,13 @@ class VisionPrescription_LensSpecificationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,62 +130,108 @@ class VisionPrescription_LensSpecificationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifies the type of vision correction product which is required for the
                 # patient.
                 StructField(
                     "product",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The eye for which the lens specification applies.
                 StructField("eye", StringType(), True),
                 # Lens power measured in dioptres (0.25 units).
                 StructField(
-                    "sphere", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "sphere",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Power adjustment for astigmatism measured in dioptres (0.25 units).
                 StructField(
-                    "cylinder", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "cylinder",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Adjustment for astigmatism measured in integer degrees.
                 StructField(
-                    "axis", integerSchema.get_schema(recursion_depth + 1), True
+                    "axis",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Allows for adjustment on two axis.
                 StructField(
                     "prism",
                     ArrayType(
-                        VisionPrescription_PrismSchema.
-                        get_schema(recursion_depth + 1)
+                        VisionPrescription_PrismSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Power adjustment for multifocal lenses measured in dioptres (0.25 units).
                 StructField(
-                    "add", decimalSchema.get_schema(recursion_depth + 1), True
+                    "add",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Contact lens power measured in dioptres (0.25 units).
                 StructField(
-                    "power", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "power",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Back curvature measured in millimetres.
                 StructField(
-                    "backCurve", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "backCurve",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Contact lens diameter measured in millimetres.
                 StructField(
-                    "diameter", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "diameter",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The recommended maximum wear period for the lens.
                 StructField(
-                    "duration", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "duration",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Special color or pattern.
                 StructField("color", StringType(), True),
@@ -178,7 +241,11 @@ class VisionPrescription_LensSpecificationSchema:
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

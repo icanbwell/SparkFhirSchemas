@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class StructureMap_GroupSchema:
     A Map of relationships between 2 structures that can be used to transform
     data.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A Map of relationships between 2 structures that can be used to transform
         data.
@@ -64,8 +70,12 @@ class StructureMap_GroupSchema:
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.structuremap_input import StructureMap_InputSchema
         from spark_fhir_schemas.r4.complex_types.structuremap_rule import StructureMap_RuleSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "StructureMap_Group"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["StructureMap_Group"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -78,8 +88,13 @@ class StructureMap_GroupSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -96,16 +111,31 @@ class StructureMap_GroupSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A unique name for the group for the convenience of human readers.
                 StructField(
-                    "name", idSchema.get_schema(recursion_depth + 1), True
+                    "name",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Another group that this group adds rules to.
                 StructField(
-                    "extends", idSchema.get_schema(recursion_depth + 1), True
+                    "extends",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If this is the default rule set to apply for the source type or this
                 # combination of types.
@@ -118,16 +148,22 @@ class StructureMap_GroupSchema:
                 StructField(
                     "input",
                     ArrayType(
-                        StructureMap_InputSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureMap_InputSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Transform Rule from source to target.
                 StructField(
                     "rule",
                     ArrayType(
-                        StructureMap_RuleSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureMap_RuleSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

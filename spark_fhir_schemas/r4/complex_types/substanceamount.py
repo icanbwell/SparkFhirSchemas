@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -18,8 +19,13 @@ class SubstanceAmountSchema:
     grade, physical form or particle size are not taken into account in the
     definition of a chemical substance or in the assignment of a Substance ID.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Chemical substances are a single substance type whose primary defining element
         is the molecular structure. Chemical substances shall be defined on the basis
@@ -82,8 +88,12 @@ class SubstanceAmountSchema:
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.substanceamount_referencerange import SubstanceAmount_ReferenceRangeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstanceAmount"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["SubstanceAmount"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -96,8 +106,13 @@ class SubstanceAmountSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -114,22 +129,35 @@ class SubstanceAmountSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Used to capture quantitative values for a variety of elements. If only limits
                 # are given, the arithmetic mean would be the average. If only a single definite
                 # value for a given element is given, it would be captured in this field.
                 StructField(
                     "amountQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Used to capture quantitative values for a variety of elements. If only limits
                 # are given, the arithmetic mean would be the average. If only a single definite
                 # value for a given element is given, it would be captured in this field.
                 StructField(
-                    "amountRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "amountRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Used to capture quantitative values for a variety of elements. If only limits
                 # are given, the arithmetic mean would be the average. If only a single definite
@@ -144,15 +172,22 @@ class SubstanceAmountSchema:
                 # related definitional elements.
                 StructField(
                     "amountType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A textual comment on a numeric value.
                 StructField("amountText", StringType(), True),
                 # Reference range of possible or expected values.
                 StructField(
                     "referenceRange",
-                    SubstanceAmount_ReferenceRangeSchema.
-                    get_schema(recursion_depth + 1), True
+                    SubstanceAmount_ReferenceRangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

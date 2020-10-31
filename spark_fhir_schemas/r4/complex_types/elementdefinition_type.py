@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ElementDefinition_TypeSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
         extension.
@@ -78,8 +84,14 @@ class ElementDefinition_TypeSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ElementDefinition_Type"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ElementDefinition_Type"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -92,8 +104,13 @@ class ElementDefinition_TypeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -110,8 +127,13 @@ class ElementDefinition_TypeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # URL of Data type or Resource that is a(or the) type used for this element.
                 # References are URLs that are relative to
@@ -119,7 +141,12 @@ class ElementDefinition_TypeSchema:
                 # http://hl7.org/fhir/StructureDefinition/string. Absolute URLs are only allowed
                 # in logical models.
                 StructField(
-                    "code", uriSchema.get_schema(recursion_depth + 1), True
+                    "code",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies a profile structure or implementation Guide that applies to the
                 # datatype this element refers to. If any profiles are specified, then the
@@ -130,8 +157,13 @@ class ElementDefinition_TypeSchema:
                 # profile defined in the implementation guide.
                 StructField(
                     "profile",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Used when the type is "Reference" or "canonical", and identifies a profile
                 # structure or implementation Guide that applies to the target of the reference
@@ -143,8 +175,13 @@ class ElementDefinition_TypeSchema:
                 # in the implementation guide.
                 StructField(
                     "targetProfile",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # If the type is a reference to another resource, how the resource is or can be
                 # aggregated - is it a contained resource, or a reference, and if the context is

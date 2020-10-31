@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import DataType
@@ -13,8 +14,13 @@ class dateSchema:
     zone. The format is a union of the schema types gYear, gYearMonth and date.
     Dates SHALL be valid dates.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A date or partial date (e.g. just year or year + month). There is no time
         zone. The format is a union of the schema types gYear, gYearMonth and date.

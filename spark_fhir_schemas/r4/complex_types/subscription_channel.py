@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class Subscription_ChannelSchema:
     resource matches the given criteria, it sends a message on the defined
     "channel" so that another system can take an appropriate action.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The subscription resource is used to define a push-based subscription from a
         server to another system. Once a subscription is registered with the server,
@@ -65,8 +71,14 @@ class Subscription_ChannelSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Subscription_Channel"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "Subscription_Channel"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -79,8 +91,13 @@ class Subscription_ChannelSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -97,21 +114,36 @@ class Subscription_ChannelSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The type of channel to send notifications on.
                 StructField("type", StringType(), True),
                 # The url that describes the actual end-point to send messages to.
                 StructField(
-                    "endpoint", urlSchema.get_schema(recursion_depth + 1), True
+                    "endpoint",
+                    urlSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The mime type to send the payload in - either application/fhir+xml, or
                 # application/fhir+json. If the payload is not present, then there is no payload
                 # in the notification, just a notification. The mime type "text/plain" may also
                 # be used for Email and SMS subscriptions.
                 StructField(
-                    "payload", codeSchema.get_schema(recursion_depth + 1), True
+                    "payload",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Additional headers / information to send as part of the notification.
                 StructField("header", ArrayType(StringType()), True),

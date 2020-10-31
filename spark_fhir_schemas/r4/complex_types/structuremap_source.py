@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class StructureMap_SourceSchema:
     A Map of relationships between 2 structures that can be used to transform
     data.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A Map of relationships between 2 structures that can be used to transform
         data.
@@ -207,8 +213,12 @@ class StructureMap_SourceSchema:
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "StructureMap_Source"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["StructureMap_Source"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -221,8 +231,13 @@ class StructureMap_SourceSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -239,17 +254,32 @@ class StructureMap_SourceSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Type or variable this rule applies to.
                 StructField(
-                    "context", idSchema.get_schema(recursion_depth + 1), True
+                    "context",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specified minimum cardinality for the element. This is optional; if present,
                 # it acts an implicit check on the input content.
                 StructField(
-                    "min", integerSchema.get_schema(recursion_depth + 1), True
+                    "min",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specified maximum cardinality for the element - a number or a "*". This is
                 # optional; if present, it acts an implicit check on the input content (* just
@@ -299,159 +329,281 @@ class StructureMap_SourceSchema:
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueAddress",
-                    AddressSchema.get_schema(recursion_depth + 1), True
+                    AddressSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueAge",
-                    AgeSchema.get_schema(recursion_depth + 1), True
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueAnnotation",
-                    AnnotationSchema.get_schema(recursion_depth + 1), True
+                    AnnotationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueCoding",
-                    CodingSchema.get_schema(recursion_depth + 1), True
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueContactPoint",
-                    ContactPointSchema.get_schema(recursion_depth + 1), True
+                    ContactPointSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueCount",
-                    CountSchema.get_schema(recursion_depth + 1), True
+                    CountSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueDistance",
-                    DistanceSchema.get_schema(recursion_depth + 1), True
+                    DistanceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueHumanName",
-                    HumanNameSchema.get_schema(recursion_depth + 1), True
+                    HumanNameSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueIdentifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueMoney",
-                    MoneySchema.get_schema(recursion_depth + 1), True
+                    MoneySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValuePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueRange",
-                    RangeSchema.get_schema(recursion_depth + 1), True
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueRatio",
-                    RatioSchema.get_schema(recursion_depth + 1), True
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueSampledData",
-                    SampledDataSchema.get_schema(recursion_depth + 1), True
+                    SampledDataSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueSignature",
-                    SignatureSchema.get_schema(recursion_depth + 1), True
+                    SignatureSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueContactDetail",
-                    ContactDetailSchema.get_schema(recursion_depth + 1), True
+                    ContactDetailSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueContributor",
-                    ContributorSchema.get_schema(recursion_depth + 1), True
+                    ContributorSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueDataRequirement",
-                    DataRequirementSchema.get_schema(recursion_depth + 1), True
+                    DataRequirementSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueExpression",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueParameterDefinition",
-                    ParameterDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    ParameterDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueRelatedArtifact",
-                    RelatedArtifactSchema.get_schema(recursion_depth + 1), True
+                    RelatedArtifactSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueTriggerDefinition",
-                    TriggerDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    TriggerDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueUsageContext",
-                    UsageContextSchema.get_schema(recursion_depth + 1), True
+                    UsageContextSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueDosage",
-                    DosageSchema.get_schema(recursion_depth + 1), True
+                    DosageSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value to use if there is no existing value in the source object.
                 StructField(
                     "defaultValueMeta",
-                    MetaSchema.get_schema(recursion_depth + 1), True
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Optional field for this source.
                 StructField("element", StringType(), True),
@@ -459,7 +611,12 @@ class StructureMap_SourceSchema:
                 StructField("listMode", StringType(), True),
                 # Named context for field, if a field is specified.
                 StructField(
-                    "variable", idSchema.get_schema(recursion_depth + 1), True
+                    "variable",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # FHIRPath expression  - must be true or the rule does not apply.
                 StructField("condition", StringType(), True),

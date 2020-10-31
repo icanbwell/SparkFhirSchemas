@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class Timing_RepeatSchema:
     when planning care of various kinds, and may be used for reporting the
     schedule to which past regular activities were carried out.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Specifies an event that may occur multiple times. Timing schedules are used to
         record when things are planned, expected or requested to occur. The most
@@ -113,8 +119,12 @@ class Timing_RepeatSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.time import timeSchema
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Timing_Repeat"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Timing_Repeat"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -127,8 +137,13 @@ class Timing_RepeatSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -145,51 +160,84 @@ class Timing_RepeatSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
                 StructField(
                     "boundsDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
                 StructField(
-                    "boundsRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "boundsRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
                 StructField(
                     "boundsPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A total count of the desired number of repetitions across the duration of the
                 # entire timing specification. If countMax is present, this element indicates
                 # the lower bound of the allowed range of count values.
                 StructField(
-                    "count", positiveIntSchema.get_schema(recursion_depth + 1),
-                    True
+                    "count",
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If present, indicates that the count is a range - so to perform the action
                 # between [count] and [countMax] times.
                 StructField(
                     "countMax",
-                    positiveIntSchema.get_schema(recursion_depth + 1), True
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # How long this thing happens for when it happens. If durationMax is present,
                 # this element indicates the lower bound of the allowed range of the duration.
                 StructField(
-                    "duration", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "duration",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If present, indicates that the duration is a range - so to perform the action
                 # between [duration] and [durationMax] time length.
                 StructField(
                     "durationMax",
-                    decimalSchema.get_schema(recursion_depth + 1), True
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The units of time for the duration, in UCUM units.
                 StructField("durationUnit", StringType(), True),
@@ -198,27 +246,43 @@ class Timing_RepeatSchema:
                 # range of the frequency.
                 StructField(
                     "frequency",
-                    positiveIntSchema.get_schema(recursion_depth + 1), True
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If present, indicates that the frequency is a range - so to repeat between
                 # [frequency] and [frequencyMax] times within the period or period range.
                 StructField(
                     "frequencyMax",
-                    positiveIntSchema.get_schema(recursion_depth + 1), True
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the duration of time over which repetitions are to occur; e.g. to
                 # express "3 times per day", 3 would be the frequency and "1 day" would be the
                 # period. If periodMax is present, this element indicates the lower bound of the
                 # allowed range of the period length.
                 StructField(
-                    "period", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "period",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If present, indicates that the period is a range from [period] to [periodMax],
                 # allowing expressing concepts such as "do this once every 3-5 days.
                 StructField(
-                    "periodMax", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "periodMax",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The units of time for the period in UCUM units.
                 StructField("periodUnit", StringType(), True),
@@ -226,12 +290,24 @@ class Timing_RepeatSchema:
                 # specified day(s).
                 StructField(
                     "dayOfWeek",
-                    ArrayType(codeSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Specified time of day for action to take place.
                 StructField(
                     "timeOfDay",
-                    ArrayType(timeSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        timeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An approximate time period during the day, potentially linked to an event of
                 # daily living that indicates when the action should occur.
@@ -240,7 +316,11 @@ class Timing_RepeatSchema:
                 # to be after the event.
                 StructField(
                     "offset",
-                    unsignedIntSchema.get_schema(recursion_depth + 1), True
+                    unsignedIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

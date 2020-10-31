@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class QuantitySchema:
     measured amounts include amounts that are not precisely quantified, including
     amounts involving arbitrary units and floating currencies.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A measured amount (or an amount that can potentially be measured). Note that
         measured amounts include amounts that are not precisely quantified, including
@@ -50,8 +56,12 @@ class QuantitySchema:
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Quantity"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Quantity"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -64,14 +74,23 @@ class QuantitySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The value of the measured amount. The value includes an implicit precision in
                 # the presentation of the value.
                 StructField(
-                    "value", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "value",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # How the value should be understood and represented - whether the actual value
                 # is greater or less than the stated value due to measurement issues; e.g. if
@@ -81,11 +100,21 @@ class QuantitySchema:
                 StructField("unit", StringType(), True),
                 # The identification of the system that provides the coded form of the unit.
                 StructField(
-                    "system", uriSchema.get_schema(recursion_depth + 1), True
+                    "system",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A computer processable form of the unit in some unit representation system.
                 StructField(
-                    "code", codeSchema.get_schema(recursion_depth + 1), True
+                    "code",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class CodingSchema:
     """
     A reference to a code defined by a terminology system.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A reference to a code defined by a terminology system.
 
@@ -52,8 +58,12 @@ class CodingSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Coding"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Coding"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -66,13 +76,23 @@ class CodingSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The identification of the code system that defines the meaning of the symbol
                 # in the code.
                 StructField(
-                    "system", uriSchema.get_schema(recursion_depth + 1), True
+                    "system",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The version of the code system which was used when choosing this code. Note
                 # that a well-maintained code system does not need the version reported, because
@@ -84,7 +104,12 @@ class CodingSchema:
                 # or an expression in a syntax defined by the coding system (e.g. post-
                 # coordination).
                 StructField(
-                    "code", codeSchema.get_schema(recursion_depth + 1), True
+                    "code",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A representation of the meaning of the code in the system, following the rules
                 # of the system.

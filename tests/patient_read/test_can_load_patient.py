@@ -45,3 +45,5 @@ def test_can_load_patient(spark_session: SparkSession) -> None:
     assert spark_session.sql(
         "SELECT identifier[0].type.coding[0].code FROM result_view where id = '27384972'"
     ).collect()[0][0] == "2"
+
+    # now make sure we can persist it

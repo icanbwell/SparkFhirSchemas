@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class TerminologyCapabilitiesSchema:
     of a FHIR Terminology Server that may be used as a statement of actual server
     functionality or a statement of required or desired server implementation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A TerminologyCapabilities resource documents a set of capabilities (behaviors)
         of a FHIR Terminology Server that may be used as a statement of actual server
@@ -183,8 +189,14 @@ class TerminologyCapabilitiesSchema:
         from spark_fhir_schemas.r4.complex_types.terminologycapabilities_validatecode import TerminologyCapabilities_ValidateCodeSchema
         from spark_fhir_schemas.r4.complex_types.terminologycapabilities_translation import TerminologyCapabilities_TranslationSchema
         from spark_fhir_schemas.r4.complex_types.terminologycapabilities_closure import TerminologyCapabilities_ClosureSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TerminologyCapabilities"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "TerminologyCapabilities"
+        ]
         schema = StructType(
             [
                 # This is a TerminologyCapabilities resource
@@ -192,26 +204,44 @@ class TerminologyCapabilitiesSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -220,8 +250,12 @@ class TerminologyCapabilitiesSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -229,7 +263,11 @@ class TerminologyCapabilitiesSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -239,8 +277,13 @@ class TerminologyCapabilitiesSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -257,8 +300,13 @@ class TerminologyCapabilitiesSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An absolute URI that is used to identify this terminology capabilities when it
                 # is referenced in a specification, model, design or an instance; also called
@@ -268,7 +316,12 @@ class TerminologyCapabilitiesSchema:
                 # of a canonical reference. It SHALL remain the same when the terminology
                 # capabilities is stored on different servers.
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The identifier that is used to identify this version of the terminology
                 # capabilities when it is referenced in a specification, model, design or
@@ -295,8 +348,12 @@ class TerminologyCapabilitiesSchema:
                 # change if the status code changes. In addition, it should change when the
                 # substantive content of the terminology capabilities changes.
                 StructField(
-                    "date", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "date",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The name of the organization or individual that published the terminology
                 # capabilities.
@@ -306,7 +363,11 @@ class TerminologyCapabilitiesSchema:
                 StructField(
                     "contact",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A free text natural language description of the terminology capabilities from
@@ -315,7 +376,11 @@ class TerminologyCapabilitiesSchema:
                 # formal expression of requirements as part of an RFP.
                 StructField(
                     "description",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -325,7 +390,11 @@ class TerminologyCapabilitiesSchema:
                 StructField(
                     "useContext",
                     ArrayType(
-                        UsageContextSchema.get_schema(recursion_depth + 1)
+                        UsageContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A legal or geographic region in which the terminology capabilities is intended
@@ -333,43 +402,66 @@ class TerminologyCapabilitiesSchema:
                 StructField(
                     "jurisdiction",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Explanation of why this terminology capabilities is needed and why it has been
                 # designed as it has.
                 StructField(
-                    "purpose", markdownSchema.get_schema(recursion_depth + 1),
-                    True
+                    "purpose",
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A copyright statement relating to the terminology capabilities and/or its
                 # contents. Copyright statements are generally legal restrictions on the use and
                 # publishing of the terminology capabilities.
                 StructField(
                     "copyright",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The way that this statement is intended to be used, to describe an actual
                 # running instance of software, a particular product (kind, not instance of
                 # software) or a class of implementation (e.g. a desired purchase).
                 StructField(
-                    "kind", codeSchema.get_schema(recursion_depth + 1), True
+                    "kind",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Software that is covered by this terminology capability statement.  It is used
                 # when the statement describes the capabilities of a particular software
                 # version, independent of an installation.
                 StructField(
                     "software",
-                    TerminologyCapabilities_SoftwareSchema.
-                    get_schema(recursion_depth + 1), True
+                    TerminologyCapabilities_SoftwareSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies a specific implementation instance that is described by the
                 # terminology capability statement - i.e. a particular installation, rather than
                 # the capabilities of a software program.
                 StructField(
                     "implementation",
-                    TerminologyCapabilities_ImplementationSchema.
-                    get_schema(recursion_depth + 1), True
+                    TerminologyCapabilities_ImplementationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether the server supports lockedDate.
                 StructField("lockedDate", BooleanType(), True),
@@ -379,16 +471,22 @@ class TerminologyCapabilitiesSchema:
                 StructField(
                     "codeSystem",
                     ArrayType(
-                        TerminologyCapabilities_CodeSystemSchema.
-                        get_schema(recursion_depth + 1)
+                        TerminologyCapabilities_CodeSystemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Information about the [ValueSet/$expand](valueset-operation-expand.html)
                 # operation.
                 StructField(
                     "expansion",
-                    TerminologyCapabilities_ExpansionSchema.
-                    get_schema(recursion_depth + 1), True
+                    TerminologyCapabilities_ExpansionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The degree to which the server supports the code search parameter on ValueSet,
                 # if it is supported.
@@ -397,21 +495,30 @@ class TerminologyCapabilitiesSchema:
                 # code.html) operation.
                 StructField(
                     "validateCode",
-                    TerminologyCapabilities_ValidateCodeSchema.
-                    get_schema(recursion_depth + 1), True
+                    TerminologyCapabilities_ValidateCodeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Information about the [ConceptMap/$translate](conceptmap-operation-
                 # translate.html) operation.
                 StructField(
                     "translation",
-                    TerminologyCapabilities_TranslationSchema.
-                    get_schema(recursion_depth + 1), True
+                    TerminologyCapabilities_TranslationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether the $closure operation is supported.
                 StructField(
                     "closure",
-                    TerminologyCapabilities_ClosureSchema.
-                    get_schema(recursion_depth + 1), True
+                    TerminologyCapabilities_ClosureSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class Bundle_ResponseSchema:
     """
     A container for a collection of resources.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
 
@@ -63,8 +69,12 @@ class Bundle_ResponseSchema:
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.instant import instantSchema
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Bundle_Response"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Bundle_Response"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -77,8 +87,13 @@ class Bundle_ResponseSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -95,8 +110,13 @@ class Bundle_ResponseSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The status code returned by processing this entry. The status SHALL start with
                 # a 3 digit HTTP code (e.g. 404) and may contain the standard HTTP description
@@ -105,7 +125,12 @@ class Bundle_ResponseSchema:
                 # The location header created by processing this operation, populated if the
                 # operation returns a location.
                 StructField(
-                    "location", uriSchema.get_schema(recursion_depth + 1), True
+                    "location",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The Etag for the resource, if the operation for the entry produced a versioned
                 # resource (see [Resource Metadata and Versioning](http.html#versioning) and
@@ -114,13 +139,21 @@ class Bundle_ResponseSchema:
                 # The date/time that the resource was modified on the server.
                 StructField(
                     "lastModified",
-                    instantSchema.get_schema(recursion_depth + 1), True
+                    instantSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An OperationOutcome containing hints and warnings produced as part of
                 # processing this entry in a batch or transaction.
                 StructField(
                     "outcome",
-                    ResourceListSchema.get_schema(recursion_depth + 1), True
+                    ResourceListSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )
