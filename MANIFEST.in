@@ -2,4 +2,4 @@ include README.md
 include requirements.txt
 include requirements-test.txt
 include VERSION
-include spark_auto_mapper_fhir/py.typed
+include spark_fhir_schemas/py.typed

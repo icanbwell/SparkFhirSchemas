@@ -1,5 +1,9 @@
 exclude: ^.idea/
 repos:
+-   repo: https://github.com/sqlalchemyorg/zimports/
+    rev: 0.1.3
+    hooks:
+    -   id: zimports
 -   repo: https://github.com/humitos/mirrors-autoflake
     rev: v1.3
     hooks:
@@ -28,3 +32,4 @@ repos:
             - pyspark>=2.4.0
             - logger
             - sparkautomapper>=0.1.27
+            - pytest

@@ -131,3 +131,4 @@ dmypy.json
 /.idea/
 /**/metastore_db/
 **/.DS_Store
+/tests/**/temp/
