@@ -2,7 +2,10 @@ import json
 import os
 from pathlib import Path
 import shutil
-from typing import Dict, Optional, List, Any
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
 
 from attr import dataclass
 
@@ -15,9 +18,17 @@ class PropertyInfo:
     IsUniqueUnderlyingDataType: bool
     Description: Optional[str]
     IsResourceType: bool
+    IsSimpleType: bool
+    IsComplexType: bool
 
     def __str__(self) -> str:
         return f"property_name:{self.Name}, type={self.Type}, underlying_type={self.UnderlyingDataType}"
+
+
+@dataclass
+class ResourceInfo:
+    Name: str
+    Type: Optional[str]
 
 
 def main() -> int:
@@ -39,6 +50,12 @@ def main() -> int:
     os.mkdir(complex_types_folder)
     complex_types_folder.joinpath("__init__.py").touch()
 
+    simple_types_folder = data_dir.joinpath("simple_types")
+    if os.path.exists(simple_types_folder):
+        shutil.rmtree(simple_types_folder)
+    os.mkdir(simple_types_folder)
+    simple_types_folder.joinpath("__init__.py").touch()
+
     fhir_schema = json.loads(contents)
     resources_dict: Dict[str, str] = fhir_schema["discriminator"]["mapping"]
     definitions = fhir_schema["definitions"]
@@ -47,9 +64,40 @@ def main() -> int:
     # for key, value in definitions.items():
     #     print(f"{key}:{value}")
     # print(definitions["Patient"])
+    simple_types: List[str] = [
+        "number", "array"
+    ]  # number is not defined in fhir schema
+    complex_types: List[str] = []
+    resource_types: List[str] = []
+
+    # first pass, decide which items are resources or simple_types or complex_types
+    # have to do two passes since an item at the beginning of the file may refer to an item at the end
     for resource_name, resource in definitions.items():
         # resource_name: str = "Patient"
         # resource = definitions[resource_name]
+        if resource_name in []:
+            continue
+
+        if resource_name in resources_dict:
+            print(f"Added Resource: {resource_name}")
+            resource_types.append(resource_name.lower())
+        elif "properties" not in resource and "oneOf" not in resource:
+            print(f"Added Simple Type: {resource_name}")
+            simple_types.append(resource_name.lower())
+        else:
+            print(f"Added Complex Type: {resource_name}")
+            complex_types.append(resource_name.lower())
+
+    # 2nd Pass
+    # Create the entities
+    for resource_name, resource in definitions.items():
+        # resource_name: str = "Patient"
+        # resource = definitions[resource_name]
+        if resource_name in []:
+            continue
+        print(f"Processing {resource_name}")
+        resource_type: Optional[
+            str] = resource["type"] if "type" in resource else None
         properties: Dict[
             str,
             Any] = resource["properties"] if "properties" in resource else {}
@@ -71,24 +119,34 @@ def main() -> int:
             )
             # print(f"{key}:{value}")
             # type_ == None means string
-            ref_clean: Optional[str] = ref_[ref_.rfind("/") +
-                                            1:] if ref_ else None
-            # print(f"property_name:{property_name}, type={type_}, ref={ref_}, ref_clean={ref_clean}")
-            properties_info.append(
-                PropertyInfo(
-                    Name=property_name,
-                    Type=type_,
-                    UnderlyingDataType=ref_clean,
-                    IsUniqueUnderlyingDataType=not any(
-                        [
-                            pi.UnderlyingDataType == ref_clean
-                            for pi in properties_info
-                        ]
-                    ),
-                    Description=description,
-                    IsResourceType=ref_clean in resources_dict
-                )
+            reference_type: Optional[str] = ref_[ref_.rfind("/") +
+                                                 1:] if ref_ else None
+
+            if not type_ and not reference_type:
+                type_ = "string"  # typically an enum
+            # print(f"property_name:{property_name}, type={type_}, ref={ref_}, reference_type={reference_type}")
+            property_info = PropertyInfo(
+                Name=property_name,
+                Type=type_,
+                UnderlyingDataType=reference_type,
+                IsUniqueUnderlyingDataType=not any(
+                    [
+                        pi.UnderlyingDataType == reference_type
+                        for pi in properties_info
+                    ]
+                ),
+                Description=description,
+                IsResourceType=reference_type.lower() in resources_dict
+                if reference_type else False,
+                IsSimpleType=reference_type.lower() in simple_types
+                if reference_type else
+                (type_.lower() in simple_types if type_ else False),
+                IsComplexType=reference_type.lower() in complex_types
+                if reference_type else False
             )
+            properties_info.append(property_info)
+            assert property_info.IsResourceType or property_info.IsSimpleType or property_info.IsComplexType, \
+                f"{resource_name}.{property_name}[{type_}] reference_type:{reference_type}"
             # print(properties_info[-1])
             # print("")
 
@@ -100,7 +158,8 @@ def main() -> int:
                 template_contents, trim_blocks=True, lstrip_blocks=True
             )
             result: str = template.render(
-                resource=resource_name, properties=properties_info
+                resource=ResourceInfo(Name=resource_name, Type=resource_type),
+                properties=properties_info
             )
 
             if resource_name in resources_dict:
@@ -111,6 +170,15 @@ def main() -> int:
                     f"Writing resource: {resource_name.lower()} to {file_path}..."
                 )
                 # print(result)
+                with open(file_path, "w") as file2:
+                    file2.write(result)
+            elif "properties" not in resource and "oneOf" not in resource:
+                file_path = simple_types_folder.joinpath(
+                    f"{resource_name.lower()}.py"
+                )
+                print(
+                    f"Writing simple_types_folder: {resource_name.lower()} to {file_path}..."
+                )
                 with open(file_path, "w") as file2:
                     file2.write(result)
             else:

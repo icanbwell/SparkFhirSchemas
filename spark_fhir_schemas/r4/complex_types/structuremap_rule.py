@@ -1,13 +1,19 @@
-from pyspark.sql.types import ArrayType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class StructureMap_Rule:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
-        from spark_fhir_schemas.r4.complex_types.id import id
+        from spark_fhir_schemas.r4.simple_types.id import id
         from spark_fhir_schemas.r4.complex_types.structuremap_source import StructureMap_Source
         from spark_fhir_schemas.r4.complex_types.structuremap_target import StructureMap_Target
         from spark_fhir_schemas.r4.complex_types.structuremap_dependent import StructureMap_Dependent
@@ -15,6 +21,7 @@ class StructureMap_Rule:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -52,5 +59,4 @@ class StructureMap_Rule:
                 StructField("documentation", StringType(), True),
             ]
         )
-
         return schema

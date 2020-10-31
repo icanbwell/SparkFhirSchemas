@@ -1,24 +1,31 @@
-from pyspark.sql.types import ArrayType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class Timing_Repeat:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
         from spark_fhir_schemas.r4.complex_types.duration import Duration
         from spark_fhir_schemas.r4.complex_types.range import Range
         from spark_fhir_schemas.r4.complex_types.period import Period
-        from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
-        from spark_fhir_schemas.r4.complex_types.decimal import decimal
-        from spark_fhir_schemas.r4.complex_types.code import code
-        from spark_fhir_schemas.r4.complex_types.time import time
-        from spark_fhir_schemas.r4.complex_types.unsignedint import unsignedInt
+        from spark_fhir_schemas.r4.simple_types.positiveint import positiveInt
+        from spark_fhir_schemas.r4.simple_types.decimal import decimal
+        from spark_fhir_schemas.r4.simple_types.code import code
+        from spark_fhir_schemas.r4.simple_types.time import time
+        from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedInt
         if recursion_depth > 3:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -82,5 +89,4 @@ class Timing_Repeat:
                 ),
             ]
         )
-
         return schema

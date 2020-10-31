@@ -1,15 +1,22 @@
-from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import BooleanType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class CapabilityStatement_Resource:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
-        from spark_fhir_schemas.r4.complex_types.code import code
-        from spark_fhir_schemas.r4.complex_types.canonical import canonical
-        from spark_fhir_schemas.r4.complex_types.markdown import markdown
+        from spark_fhir_schemas.r4.simple_types.code import code
+        from spark_fhir_schemas.r4.simple_types.canonical import canonical
+        from spark_fhir_schemas.r4.simple_types.markdown import markdown
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_interaction import CapabilityStatement_Interaction
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_searchparam import CapabilityStatement_SearchParam
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_operation import CapabilityStatement_Operation
@@ -17,6 +24,7 @@ class CapabilityStatement_Resource:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -72,5 +80,4 @@ class CapabilityStatement_Resource:
                 ),
             ]
         )
-
         return schema

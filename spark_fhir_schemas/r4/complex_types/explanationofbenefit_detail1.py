@@ -1,23 +1,30 @@
-from pyspark.sql.types import ArrayType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class ExplanationOfBenefit_Detail1:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
         from spark_fhir_schemas.r4.complex_types.quantity import Quantity
         from spark_fhir_schemas.r4.complex_types.money import Money
-        from spark_fhir_schemas.r4.complex_types.decimal import decimal
-        from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
+        from spark_fhir_schemas.r4.simple_types.decimal import decimal
+        from spark_fhir_schemas.r4.simple_types.positiveint import positiveInt
         from spark_fhir_schemas.r4.complex_types.explanationofbenefit_adjudication import ExplanationOfBenefit_Adjudication
         from spark_fhir_schemas.r4.complex_types.explanationofbenefit_subdetail1 import ExplanationOfBenefit_SubDetail1
         if recursion_depth > 3:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -69,5 +76,4 @@ class ExplanationOfBenefit_Detail1:
                 ),
             ]
         )
-
         return schema

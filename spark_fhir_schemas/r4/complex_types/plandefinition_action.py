@@ -1,16 +1,22 @@
-from pyspark.sql.types import ArrayType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class PlanDefinition_Action:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
-        from spark_fhir_schemas.r4.complex_types.code import code
+        from spark_fhir_schemas.r4.simple_types.code import code
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
         from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifact
-        from spark_fhir_schemas.r4.complex_types.id import id
+        from spark_fhir_schemas.r4.simple_types.id import id
         from spark_fhir_schemas.r4.complex_types.reference import Reference
         from spark_fhir_schemas.r4.complex_types.triggerdefinition import TriggerDefinition
         from spark_fhir_schemas.r4.complex_types.plandefinition_condition import PlanDefinition_Condition
@@ -22,12 +28,13 @@ class PlanDefinition_Action:
         from spark_fhir_schemas.r4.complex_types.range import Range
         from spark_fhir_schemas.r4.complex_types.timing import Timing
         from spark_fhir_schemas.r4.complex_types.plandefinition_participant import PlanDefinition_Participant
-        from spark_fhir_schemas.r4.complex_types.canonical import canonical
+        from spark_fhir_schemas.r4.simple_types.canonical import canonical
         from spark_fhir_schemas.r4.complex_types.plandefinition_dynamicvalue import PlanDefinition_DynamicValue
         if recursion_depth > 3:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -157,5 +164,4 @@ class PlanDefinition_Action:
                 ),
             ]
         )
-
         return schema

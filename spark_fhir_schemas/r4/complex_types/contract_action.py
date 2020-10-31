@@ -1,10 +1,17 @@
-from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import BooleanType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class Contract_Action:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
@@ -13,11 +20,12 @@ class Contract_Action:
         from spark_fhir_schemas.r4.complex_types.period import Period
         from spark_fhir_schemas.r4.complex_types.timing import Timing
         from spark_fhir_schemas.r4.complex_types.annotation import Annotation
-        from spark_fhir_schemas.r4.complex_types.unsignedint import unsignedInt
+        from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedInt
         if recursion_depth > 3:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -101,5 +109,4 @@ class Contract_Action:
                 ),
             ]
         )
-
         return schema

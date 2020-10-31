@@ -1,21 +1,28 @@
-from pyspark.sql.types import ArrayType, DateType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import DateType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class PaymentReconciliation:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
-        from spark_fhir_schemas.r4.complex_types.id import id
+        from spark_fhir_schemas.r4.simple_types.id import id
         from spark_fhir_schemas.r4.complex_types.meta import Meta
-        from spark_fhir_schemas.r4.complex_types.uri import uri
-        from spark_fhir_schemas.r4.complex_types.code import code
+        from spark_fhir_schemas.r4.simple_types.uri import uri
+        from spark_fhir_schemas.r4.simple_types.code import code
         from spark_fhir_schemas.r4.complex_types.narrative import Narrative
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
         from spark_fhir_schemas.r4.complex_types.extension import Extension
         from spark_fhir_schemas.r4.complex_types.identifier import Identifier
         from spark_fhir_schemas.r4.complex_types.period import Period
-        from spark_fhir_schemas.r4.complex_types.datetime import dateTime
+        from spark_fhir_schemas.r4.simple_types.datetime import dateTime
         from spark_fhir_schemas.r4.complex_types.reference import Reference
         from spark_fhir_schemas.r4.complex_types.money import Money
         from spark_fhir_schemas.r4.complex_types.paymentreconciliation_detail import PaymentReconciliation_Detail
@@ -25,6 +32,7 @@ class PaymentReconciliation:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("resourceType", StringType(), True),
                 StructField("id", id.get_schema(recursion_depth + 1), True),
                 StructField(
@@ -107,5 +115,4 @@ class PaymentReconciliation:
                 ),
             ]
         )
-
         return schema

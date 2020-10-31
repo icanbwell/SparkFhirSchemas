@@ -1,21 +1,29 @@
-from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import BooleanType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class TestScript_Operation:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
         from spark_fhir_schemas.r4.complex_types.coding import Coding
-        from spark_fhir_schemas.r4.complex_types.code import code
-        from spark_fhir_schemas.r4.complex_types.integer import integer
+        from spark_fhir_schemas.r4.simple_types.code import code
+        from spark_fhir_schemas.r4.simple_types.integer import integer
         from spark_fhir_schemas.r4.complex_types.testscript_requestheader import TestScript_RequestHeader
-        from spark_fhir_schemas.r4.complex_types.id import id
+        from spark_fhir_schemas.r4.simple_types.id import id
         if recursion_depth > 3:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -71,5 +79,4 @@ class TestScript_Operation:
                 StructField("url", StringType(), True),
             ]
         )
-
         return schema

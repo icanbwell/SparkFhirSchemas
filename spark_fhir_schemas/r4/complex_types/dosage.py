@@ -1,13 +1,20 @@
-from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
+from typing import Union
+
+from pyspark.sql.types import ArrayType
+from pyspark.sql.types import BooleanType
+from pyspark.sql.types import DataType
+from pyspark.sql.types import StringType
+from pyspark.sql.types import StructField
+from pyspark.sql.types import StructType
 
 
 # noinspection PyPep8Naming
 class Dosage:
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> StructType:
+    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
         # from https://hl7.org/FHIR/patient.html
         from spark_fhir_schemas.r4.complex_types.extension import Extension
-        from spark_fhir_schemas.r4.complex_types.integer import integer
+        from spark_fhir_schemas.r4.simple_types.integer import integer
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
         from spark_fhir_schemas.r4.complex_types.timing import Timing
         from spark_fhir_schemas.r4.complex_types.dosage_doseandrate import Dosage_DoseAndRate
@@ -17,6 +24,7 @@ class Dosage:
             return StructType([])
         schema = StructType(
             [
+                StructField("resourceType", StringType(), True),
                 StructField("id", StringType(), True),
                 StructField(
                     "extension",
@@ -76,5 +84,4 @@ class Dosage:
                 ),
             ]
         )
-
         return schema

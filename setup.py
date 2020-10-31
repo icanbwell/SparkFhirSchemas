@@ -1,8 +1,11 @@
 # noinspection Mypy
-from typing import List, Any
+from os import getcwd
+from os import path
+from typing import Any
+from typing import List
 
-from setuptools import setup, find_packages
-from os import path, getcwd
+from setuptools import find_packages
+from setuptools import setup
 
 # from https://packaging.python.org/tutorials/packaging-projects/
 
