@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ElementDefinition_ExampleSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
         extension.
@@ -231,8 +237,14 @@ class ElementDefinition_ExampleSchema:
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ElementDefinition_Example"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ElementDefinition_Example"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -245,8 +257,13 @@ class ElementDefinition_ExampleSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -263,8 +280,13 @@ class ElementDefinition_ExampleSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Describes the purpose of this example amoung the set of examples.
                 StructField("label", StringType(), True),
@@ -329,188 +351,311 @@ class ElementDefinition_ExampleSchema:
                 # this element.
                 StructField(
                     "valueAddress",
-                    AddressSchema.get_schema(recursion_depth + 1), True
+                    AddressSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
-                    "valueAge", AgeSchema.get_schema(recursion_depth + 1), True
+                    "valueAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueAnnotation",
-                    AnnotationSchema.get_schema(recursion_depth + 1), True
+                    AnnotationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueCoding",
-                    CodingSchema.get_schema(recursion_depth + 1), True
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueContactPoint",
-                    ContactPointSchema.get_schema(recursion_depth + 1), True
+                    ContactPointSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
-                    "valueCount", CountSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueCount",
+                    CountSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueDistance",
-                    DistanceSchema.get_schema(recursion_depth + 1), True
+                    DistanceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueHumanName",
-                    HumanNameSchema.get_schema(recursion_depth + 1), True
+                    HumanNameSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueIdentifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
-                    "valueMoney", MoneySchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueMoney",
+                    MoneySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valuePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
-                    "valueRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
-                    "valueRatio", RatioSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRatio",
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueSampledData",
-                    SampledDataSchema.get_schema(recursion_depth + 1), True
+                    SampledDataSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueSignature",
-                    SignatureSchema.get_schema(recursion_depth + 1), True
+                    SignatureSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueContactDetail",
-                    ContactDetailSchema.get_schema(recursion_depth + 1), True
+                    ContactDetailSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueContributor",
-                    ContributorSchema.get_schema(recursion_depth + 1), True
+                    ContributorSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueDataRequirement",
-                    DataRequirementSchema.get_schema(recursion_depth + 1), True
+                    DataRequirementSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueExpression",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueParameterDefinition",
-                    ParameterDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    ParameterDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueRelatedArtifact",
-                    RelatedArtifactSchema.get_schema(recursion_depth + 1), True
+                    RelatedArtifactSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueTriggerDefinition",
-                    TriggerDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    TriggerDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueUsageContext",
-                    UsageContextSchema.get_schema(recursion_depth + 1), True
+                    UsageContextSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
                     "valueDosage",
-                    DosageSchema.get_schema(recursion_depth + 1), True
+                    DosageSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
-                    "valueMeta", MetaSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueMeta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

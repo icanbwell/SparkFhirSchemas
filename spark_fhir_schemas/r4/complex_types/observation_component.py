@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class Observation_ComponentSchema:
     Measurements and simple assertions made about a patient, device or other
     subject.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Measurements and simple assertions made about a patient, device or other
         subject.
@@ -99,8 +105,14 @@ class Observation_ComponentSchema:
         from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.observation_referencerange import Observation_ReferenceRangeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Observation_Component"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "Observation_Component"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -113,8 +125,13 @@ class Observation_ComponentSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -131,25 +148,42 @@ class Observation_ComponentSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Describes what was observed. Sometimes this is called the observation "code".
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
                 StructField(
                     "valueQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
                 StructField(
                     "valueCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -163,20 +197,32 @@ class Observation_ComponentSchema:
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
                 StructField(
-                    "valueRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
                 StructField(
-                    "valueRatio", RatioSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRatio",
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
                 StructField(
                     "valueSampledData",
-                    SampledDataSchema.get_schema(recursion_depth + 1), True
+                    SampledDataSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -188,20 +234,32 @@ class Observation_ComponentSchema:
                 # information has a simple value.
                 StructField(
                     "valuePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Provides a reason why the expected value in the element
                 # Observation.component.value[x] is missing.
                 StructField(
                     "dataAbsentReason",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A categorical assessment of an observation value.  For example, high, low,
                 # normal.
                 StructField(
                     "interpretation",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Guidance on how to interpret the value by comparison to a normal or
@@ -209,8 +267,11 @@ class Observation_ComponentSchema:
                 StructField(
                     "referenceRange",
                     ArrayType(
-                        Observation_ReferenceRangeSchema.
-                        get_schema(recursion_depth + 1)
+                        Observation_ReferenceRangeSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

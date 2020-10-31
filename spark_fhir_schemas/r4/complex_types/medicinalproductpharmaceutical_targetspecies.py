@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
     """
     A pharmaceutical product described in terms of its composition and dose form.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A pharmaceutical product described in terms of its composition and dose form.
 
@@ -51,8 +57,14 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.medicinalproductpharmaceutical_withdrawalperiod import MedicinalProductPharmaceutical_WithdrawalPeriodSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicinalProductPharmaceutical_TargetSpecies"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MedicinalProductPharmaceutical_TargetSpecies"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -65,8 +77,13 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -83,13 +100,22 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Coded expression for the species.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A species specific time during which consumption of animal product is not
                 # appropriate.
@@ -97,7 +123,11 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
                     "withdrawalPeriod",
                     ArrayType(
                         MedicinalProductPharmaceutical_WithdrawalPeriodSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class AuditEventSchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
         uses include detection of intrusion attempts and monitoring for inappropriate
@@ -110,8 +116,12 @@ class AuditEventSchema:
         from spark_fhir_schemas.r4.complex_types.auditevent_agent import AuditEvent_AgentSchema
         from spark_fhir_schemas.r4.complex_types.auditevent_source import AuditEvent_SourceSchema
         from spark_fhir_schemas.r4.complex_types.auditevent_entity import AuditEvent_EntitySchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "AuditEvent"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["AuditEvent"]
         schema = StructType(
             [
                 # This is a AuditEvent resource
@@ -119,26 +129,44 @@ class AuditEventSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -147,8 +175,12 @@ class AuditEventSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -156,7 +188,11 @@ class AuditEventSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -166,8 +202,13 @@ class AuditEventSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -184,33 +225,56 @@ class AuditEventSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifier for a family of the event.  For example, a menu item, program,
                 # rule, policy, function code, application name or URL. It identifies the
                 # performed function.
                 StructField(
-                    "type", CodingSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifier for the category of event.
                 StructField(
                     "subtype",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicator for type of action performed during the event that generated the
                 # audit.
                 StructField("action", StringType(), True),
                 # The period during which the activity occurred.
                 StructField(
-                    "period", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "period",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The time when the event was recorded.
                 StructField(
-                    "recorded", instantSchema.get_schema(recursion_depth + 1),
-                    True
+                    "recorded",
+                    instantSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates whether the event succeeded or failed.
                 StructField("outcome", StringType(), True),
@@ -220,28 +284,42 @@ class AuditEventSchema:
                 StructField(
                     "purposeOfEvent",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An actor taking an active role in the event or activity that is logged.
                 StructField(
                     "agent",
                     ArrayType(
-                        AuditEvent_AgentSchema.get_schema(recursion_depth + 1)
+                        AuditEvent_AgentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The system that is reporting the event.
                 StructField(
                     "source",
-                    AuditEvent_SourceSchema.get_schema(recursion_depth + 1),
-                    True
+                    AuditEvent_SourceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specific instances of data or objects that have been accessed.
                 StructField(
                     "entity",
                     ArrayType(
-                        AuditEvent_EntitySchema.
-                        get_schema(recursion_depth + 1)
+                        AuditEvent_EntitySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class CoverageSchema:
     Financial instrument which may be used to reimburse or pay for health care
     products and services. Includes both insurance and self-payment.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Financial instrument which may be used to reimburse or pay for health care
         products and services. Includes both insurance and self-payment.
@@ -132,8 +138,12 @@ class CoverageSchema:
         from spark_fhir_schemas.r4.complex_types.coverage_class import Coverage_ClassSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.coverage_costtobeneficiary import Coverage_CostToBeneficiarySchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Coverage"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Coverage"]
         schema = StructType(
             [
                 # This is a Coverage resource
@@ -141,26 +151,44 @@ class CoverageSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -169,8 +197,12 @@ class CoverageSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -178,7 +210,11 @@ class CoverageSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -188,8 +224,13 @@ class CoverageSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -206,37 +247,63 @@ class CoverageSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A unique identifier assigned to this coverage.
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The status of the resource instance.
                 StructField(
-                    "status", codeSchema.get_schema(recursion_depth + 1), True
+                    "status",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The type of coverage: social program, medical plan, accident coverage (workers
                 # compensation, auto), group health or payment by an individual or organization.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The party who 'owns' the insurance policy.
                 StructField(
                     "policyHolder",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The party who has signed-up for or 'owns' the contractual relationship to the
                 # policy or to whom the benefit of the policy for services rendered to them or
                 # their family is due.
                 StructField(
                     "subscriber",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The insurer assigned ID for the Subscriber.
                 StructField("subscriberId", StringType(), True),
@@ -244,34 +311,55 @@ class CoverageSchema:
                 # and/or services are provided.
                 StructField(
                     "beneficiary",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A unique identifier for a dependent under the coverage.
                 StructField("dependent", StringType(), True),
                 # The relationship of beneficiary (patient) to the subscriber.
                 StructField(
                     "relationship",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Time period during which the coverage is in force. A missing start date
                 # indicates the start date isn't known, a missing end date means the coverage is
                 # continuing to be in force.
                 StructField(
-                    "period", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "period",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The program or plan underwriter or payor including both insurance and non-
                 # insurance agreements, such as patient-pay agreements.
                 StructField(
                     "payor",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A suite of underwriter specific classifiers.
                 StructField(
                     "class",
                     ArrayType(
-                        Coverage_ClassSchema.get_schema(recursion_depth + 1)
+                        Coverage_ClassSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The order of applicability of this coverage relative to other coverages which
@@ -279,8 +367,12 @@ class CoverageSchema:
                 # not imply primary, secondary etc. as the specific positioning of coverages
                 # depends upon the episode of care.
                 StructField(
-                    "order", positiveIntSchema.get_schema(recursion_depth + 1),
-                    True
+                    "order",
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The insurer-specific identifier for the insurer-defined network of providers
                 # to which the beneficiary may seek treatment which will be covered at the 'in-
@@ -291,8 +383,11 @@ class CoverageSchema:
                 StructField(
                     "costToBeneficiary",
                     ArrayType(
-                        Coverage_CostToBeneficiarySchema.
-                        get_schema(recursion_depth + 1)
+                        Coverage_CostToBeneficiarySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # When 'subrogation=true' this insurance instance has been included not for
@@ -301,8 +396,13 @@ class CoverageSchema:
                 # The policy(s) which constitute this insurance coverage.
                 StructField(
                     "contract",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

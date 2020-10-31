@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class SubstanceSpecification_CodeSchema:
     The detailed description of a substance, typically at a level beyond what is
     used for prescribing.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
         used for prescribing.
@@ -60,8 +66,14 @@ class SubstanceSpecification_CodeSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstanceSpecification_Code"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SubstanceSpecification_Code"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,8 +86,13 @@ class SubstanceSpecification_CodeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -92,32 +109,54 @@ class SubstanceSpecification_CodeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The specific code.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Status of the code assignment.
                 StructField(
                     "status",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date at which the code status is changed as part of the terminology
                 # maintenance.
                 StructField(
                     "statusDate",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Any comment can be provided in this field, if necessary.
                 StructField("comment", StringType(), True),
                 # Supporting literature.
                 StructField(
                     "source",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

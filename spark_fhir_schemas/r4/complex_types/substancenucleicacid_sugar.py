@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class SubstanceNucleicAcid_SugarSchema:
     elements. The nucleotide sequence will be always entered in the 5’-3’
     direction.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Nucleic acids are defined by three distinct elements: the base, sugar and
         linkage. Individual substance/moiety IDs will be created for each of these
@@ -60,8 +66,14 @@ class SubstanceNucleicAcid_SugarSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstanceNucleicAcid_Sugar"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SubstanceNucleicAcid_Sugar"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,8 +86,13 @@ class SubstanceNucleicAcid_SugarSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -92,14 +109,23 @@ class SubstanceNucleicAcid_SugarSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The Substance ID of the sugar or sugar-like component that make up the
                 # nucleotide.
                 StructField(
                     "identifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The name of the sugar or sugar-like component that make up the nucleotide.
                 StructField("name", StringType(), True),

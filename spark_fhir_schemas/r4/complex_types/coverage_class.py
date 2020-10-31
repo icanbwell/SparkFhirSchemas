@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class Coverage_ClassSchema:
     Financial instrument which may be used to reimburse or pay for health care
     products and services. Includes both insurance and self-payment.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Financial instrument which may be used to reimburse or pay for health care
         products and services. Includes both insurance and self-payment.
@@ -55,8 +61,12 @@ class Coverage_ClassSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Coverage_Class"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Coverage_Class"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -69,8 +79,13 @@ class Coverage_ClassSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -87,15 +102,24 @@ class Coverage_ClassSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The type of classification for which an insurer-specific class label or number
                 # and optional name is provided, for example may be used to identify a class of
                 # coverage or employer group, Policy, Plan.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The alphanumeric string value associated with the insurer issued label.
                 StructField("value", StringType(), True),

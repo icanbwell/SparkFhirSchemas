@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ImmunizationRecommendation_RecommendationSchema:
     A patient's point-in-time set of recommendations (i.e. forecasting) according
     to a published schedule with optional supporting justification.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A patient's point-in-time set of recommendations (i.e. forecasting) according
         to a published schedule with optional supporting justification.
@@ -87,8 +93,14 @@ class ImmunizationRecommendation_RecommendationSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.immunizationrecommendation_datecriterion import ImmunizationRecommendation_DateCriterionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ImmunizationRecommendation_Recommendation"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ImmunizationRecommendation_Recommendation"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -101,8 +113,13 @@ class ImmunizationRecommendation_RecommendationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -119,39 +136,64 @@ class ImmunizationRecommendation_RecommendationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Vaccine(s) or vaccine group that pertain to the recommendation.
                 StructField(
                     "vaccineCode",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The targeted disease for the recommendation.
                 StructField(
                     "targetDisease",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Vaccine(s) which should not be used to fulfill the recommendation.
                 StructField(
                     "contraindicatedVaccineCode",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates the patient status with respect to the path to immunity for the
                 # target disease.
                 StructField(
                     "forecastStatus",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The reason for the assigned forecast status.
                 StructField(
                     "forecastReason",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Vaccine date recommendations.  For example, earliest date to administer,
@@ -160,7 +202,11 @@ class ImmunizationRecommendation_RecommendationSchema:
                     "dateCriterion",
                     ArrayType(
                         ImmunizationRecommendation_DateCriterionSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Contains the description about the protocol under which the vaccine was
@@ -183,16 +229,26 @@ class ImmunizationRecommendation_RecommendationSchema:
                 # recommendation.
                 StructField(
                     "supportingImmunization",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Patient Information that supports the status and recommendation.  This
                 # includes patient observations, adverse reactions and allergy/intolerance
                 # information.
                 StructField(
                     "supportingPatientInformation",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

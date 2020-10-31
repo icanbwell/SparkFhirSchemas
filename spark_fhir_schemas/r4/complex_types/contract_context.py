@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class Contract_ContextSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
         a policy or agreement.
@@ -57,8 +63,12 @@ class Contract_ContextSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Contract_Context"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Contract_Context"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -71,8 +81,13 @@ class Contract_ContextSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -89,22 +104,35 @@ class Contract_ContextSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Asset context reference may include the creator, custodian, or owning Person
                 # or Organization (e.g., bank, repository),  location held, e.g., building,
                 # jurisdiction.
                 StructField(
                     "reference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Coded representation of the context generally or of the Referenced entity,
                 # such as the asset holder type or location.
                 StructField(
                     "code",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Context description.

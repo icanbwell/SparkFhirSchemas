@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class NutritionOrder_OralDietSchema:
     A request to supply a diet, formula feeding (enteral) or oral nutritional
     supplement to a patient/resident.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A request to supply a diet, formula feeding (enteral) or oral nutritional
         supplement to a patient/resident.
@@ -69,8 +75,14 @@ class NutritionOrder_OralDietSchema:
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
         from spark_fhir_schemas.r4.complex_types.nutritionorder_nutrient import NutritionOrder_NutrientSchema
         from spark_fhir_schemas.r4.complex_types.nutritionorder_texture import NutritionOrder_TextureSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "NutritionOrder_OralDiet"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "NutritionOrder_OralDiet"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -83,8 +95,13 @@ class NutritionOrder_OralDietSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -101,15 +118,24 @@ class NutritionOrder_OralDietSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The kind of diet or dietary restriction such as fiber restricted diet or
                 # diabetic diet.
                 StructField(
                     "type",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The time period and frequency at which the diet should be given.  The diet
@@ -117,16 +143,24 @@ class NutritionOrder_OralDietSchema:
                 # is present.
                 StructField(
                     "schedule",
-                    ArrayType(TimingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        TimingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Class that defines the quantity and type of nutrient modifications (for
                 # example carbohydrate, fiber or sodium) required for the oral diet.
                 StructField(
                     "nutrient",
                     ArrayType(
-                        NutritionOrder_NutrientSchema.
-                        get_schema(recursion_depth + 1)
+                        NutritionOrder_NutrientSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Class that describes any texture modifications required for the patient to
@@ -134,8 +168,11 @@ class NutritionOrder_OralDietSchema:
                 StructField(
                     "texture",
                     ArrayType(
-                        NutritionOrder_TextureSchema.
-                        get_schema(recursion_depth + 1)
+                        NutritionOrder_TextureSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The required consistency (e.g. honey-thick, nectar-thick, thin, thickened.) of
@@ -143,7 +180,11 @@ class NutritionOrder_OralDietSchema:
                 StructField(
                     "fluidConsistencyType",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Free text or additional instructions or information pertaining to the oral

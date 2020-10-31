@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MedicinalProductAuthorization_ProcedureSchema:
     """
     The regulatory authorization of a medicinal product.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The regulatory authorization of a medicinal product.
 
@@ -57,8 +63,14 @@ class MedicinalProductAuthorization_ProcedureSchema:
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicinalProductAuthorization_Procedure"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MedicinalProductAuthorization_Procedure"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -71,8 +83,13 @@ class MedicinalProductAuthorization_ProcedureSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -89,23 +106,40 @@ class MedicinalProductAuthorization_ProcedureSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifier for this procedure.
                 StructField(
                     "identifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Type of procedure.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Date of procedure.
                 StructField(
-                    "datePeriod", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "datePeriod",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Date of procedure.
                 StructField("dateDateTime", StringType(), True),
@@ -114,7 +148,11 @@ class MedicinalProductAuthorization_ProcedureSchema:
                     "application",
                     ArrayType(
                         MedicinalProductAuthorization_ProcedureSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

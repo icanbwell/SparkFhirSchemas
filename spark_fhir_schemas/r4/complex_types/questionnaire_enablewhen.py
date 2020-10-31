@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class Questionnaire_EnableWhenSchema:
     end-users. Questionnaires provide detailed control over order, presentation,
     phraseology and grouping to allow coherent, consistent data collection.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A structured set of questions intended to guide the collection of answers from
         end-users. Questionnaires provide detailed control over order, presentation,
@@ -88,8 +94,14 @@ class Questionnaire_EnableWhenSchema:
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Questionnaire_EnableWhen"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "Questionnaire_EnableWhen"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -102,8 +114,13 @@ class Questionnaire_EnableWhenSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -120,8 +137,13 @@ class Questionnaire_EnableWhenSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The linkId for the question whose answer (or lack of answer) governs whether
                 # this item is enabled.
@@ -153,19 +175,31 @@ class Questionnaire_EnableWhenSchema:
                 # order for the item to be enabled.
                 StructField(
                     "answerCoding",
-                    CodingSchema.get_schema(recursion_depth + 1), True
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value that the referenced question is tested using the specified operator in
                 # order for the item to be enabled.
                 StructField(
                     "answerQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A value that the referenced question is tested using the specified operator in
                 # order for the item to be enabled.
                 StructField(
                     "answerReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ImplementationGuide_GroupingSchema:
     gather all the parts of an implementation guide into a logical whole and to
     publish a computable definition of all the parts.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A set of rules of how a particular interoperability or standards problem is
         solved - typically through the use of FHIR resources. This resource is used to
@@ -55,8 +61,14 @@ class ImplementationGuide_GroupingSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ImplementationGuide_Grouping"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ImplementationGuide_Grouping"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -69,8 +81,13 @@ class ImplementationGuide_GroupingSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -87,8 +104,13 @@ class ImplementationGuide_GroupingSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The human-readable title to display for the package of resources when
                 # rendering the implementation guide.

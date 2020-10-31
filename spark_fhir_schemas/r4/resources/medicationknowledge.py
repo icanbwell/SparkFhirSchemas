@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MedicationKnowledgeSchema:
     """
     Information about a medication that is used to support knowledge.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Information about a medication that is used to support knowledge.
 
@@ -151,8 +157,12 @@ class MedicationKnowledgeSchema:
         from spark_fhir_schemas.r4.complex_types.medicationknowledge_drugcharacteristic import MedicationKnowledge_DrugCharacteristicSchema
         from spark_fhir_schemas.r4.complex_types.medicationknowledge_regulatory import MedicationKnowledge_RegulatorySchema
         from spark_fhir_schemas.r4.complex_types.medicationknowledge_kinetics import MedicationKnowledge_KineticsSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicationKnowledge"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["MedicationKnowledge"]
         schema = StructType(
             [
                 # This is a MedicationKnowledge resource
@@ -160,26 +170,44 @@ class MedicationKnowledgeSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -188,8 +216,12 @@ class MedicationKnowledgeSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -197,7 +229,11 @@ class MedicationKnowledgeSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -207,8 +243,13 @@ class MedicationKnowledgeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -225,8 +266,13 @@ class MedicationKnowledgeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A code that specifies this medication, or a textual description if no code is
                 # available. Usage note: This could be a standard medication code such as a code
@@ -234,32 +280,53 @@ class MedicationKnowledgeSchema:
                 # formulary code, optionally with translations to other code systems.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code to indicate if the medication is in active use.  The status refers to
                 # the validity about the information of the medication and not to its medicinal
                 # properties.
                 StructField(
-                    "status", codeSchema.get_schema(recursion_depth + 1), True
+                    "status",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Describes the details of the manufacturer of the medication product.  This is
                 # not intended to represent the distributor of a medication product.
                 StructField(
                     "manufacturer",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Describes the form of the item.  Powder; tablets; capsule.
                 StructField(
                     "doseForm",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specific amount of the drug in the packaged product.  For example, when
                 # specifying a product that has the same strength (For example, Insulin glargine
                 # 100 unit per mL solution for injection), this attribute provides additional
                 # clarification of the package amount (For example, 3 mL, 10mL, etc.).
                 StructField(
-                    "amount", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "amount",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Additional names for a medication, for example, the name(s) given to a
                 # medication in different countries.  For example, acetaminophen and paracetamol
@@ -270,7 +337,11 @@ class MedicationKnowledgeSchema:
                     "relatedMedicationKnowledge",
                     ArrayType(
                         MedicationKnowledge_RelatedMedicationKnowledgeSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Associated or related medications.  For example, if the medication is a
@@ -279,59 +350,88 @@ class MedicationKnowledgeSchema:
                 # would link to a branded product (e.g. Crestor).
                 StructField(
                     "associatedMedication",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Category of the medication or product (e.g. branded product, therapeutic
                 # moeity, generic product, innovator product, etc.).
                 StructField(
                     "productType",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Associated documentation about the medication.
                 StructField(
                     "monograph",
                     ArrayType(
-                        MedicationKnowledge_MonographSchema.
-                        get_schema(recursion_depth + 1)
+                        MedicationKnowledge_MonographSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Identifies a particular constituent of interest in the product.
                 StructField(
                     "ingredient",
                     ArrayType(
-                        MedicationKnowledge_IngredientSchema.
-                        get_schema(recursion_depth + 1)
+                        MedicationKnowledge_IngredientSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The instructions for preparing the medication.
                 StructField(
                     "preparationInstruction",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The intended or approved route of administration.
                 StructField(
                     "intendedRoute",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The price of the medication.
                 StructField(
                     "cost",
                     ArrayType(
-                        MedicationKnowledge_CostSchema.
-                        get_schema(recursion_depth + 1)
+                        MedicationKnowledge_CostSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The program under which the medication is reviewed.
                 StructField(
                     "monitoringProgram",
                     ArrayType(
-                        MedicationKnowledge_MonitoringProgramSchema.
-                        get_schema(recursion_depth + 1)
+                        MedicationKnowledge_MonitoringProgramSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Guidelines for the administration of the medication.
@@ -339,7 +439,11 @@ class MedicationKnowledgeSchema:
                     "administrationGuidelines",
                     ArrayType(
                         MedicationKnowledge_AdministrationGuidelinesSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Categorization of the medication within a formulary or classification system.
@@ -347,14 +451,21 @@ class MedicationKnowledgeSchema:
                     "medicineClassification",
                     ArrayType(
                         MedicationKnowledge_MedicineClassificationSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Information that only applies to packages (not products).
                 StructField(
                     "packaging",
-                    MedicationKnowledge_PackagingSchema.
-                    get_schema(recursion_depth + 1), True
+                    MedicationKnowledge_PackagingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specifies descriptive properties of the medicine, such as color, shape,
                 # imprints, etc.
@@ -362,22 +473,34 @@ class MedicationKnowledgeSchema:
                     "drugCharacteristic",
                     ArrayType(
                         MedicationKnowledge_DrugCharacteristicSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Potential clinical issue with or between medication(s) (for example, drug-drug
                 # interaction, drug-disease contraindication, drug-allergy interaction, etc.).
                 StructField(
                     "contraindication",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Regulatory information about a medication.
                 StructField(
                     "regulatory",
                     ArrayType(
-                        MedicationKnowledge_RegulatorySchema.
-                        get_schema(recursion_depth + 1)
+                        MedicationKnowledge_RegulatorySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The time course of drug absorption, distribution, metabolism and excretion of
@@ -385,8 +508,11 @@ class MedicationKnowledgeSchema:
                 StructField(
                     "kinetics",
                     ArrayType(
-                        MedicationKnowledge_KineticsSchema.
-                        get_schema(recursion_depth + 1)
+                        MedicationKnowledge_KineticsSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

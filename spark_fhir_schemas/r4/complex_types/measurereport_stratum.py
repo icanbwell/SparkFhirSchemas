@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class MeasureReport_StratumSchema:
     measure; and optionally a reference to the resources involved in that
     calculation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The MeasureReport resource contains the results of the calculation of a
         measure; and optionally a reference to the resources involved in that
@@ -64,8 +70,14 @@ class MeasureReport_StratumSchema:
         from spark_fhir_schemas.r4.complex_types.measurereport_component import MeasureReport_ComponentSchema
         from spark_fhir_schemas.r4.complex_types.measurereport_population1 import MeasureReport_Population1Schema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MeasureReport_Stratum"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MeasureReport_Stratum"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -78,8 +90,13 @@ class MeasureReport_StratumSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -96,22 +113,34 @@ class MeasureReport_StratumSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The value for this stratum, expressed as a CodeableConcept. When defining
                 # stratifiers on complex values, the value must be rendered such that the value
                 # for each stratum within the stratifier is unique.
                 StructField(
                     "value",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A stratifier component value.
                 StructField(
                     "component",
                     ArrayType(
-                        MeasureReport_ComponentSchema.
-                        get_schema(recursion_depth + 1)
+                        MeasureReport_ComponentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The populations that make up the stratum, one for each type of population
@@ -119,15 +148,22 @@ class MeasureReport_StratumSchema:
                 StructField(
                     "population",
                     ArrayType(
-                        MeasureReport_Population1Schema.
-                        get_schema(recursion_depth + 1)
+                        MeasureReport_Population1Schema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The measure score for this stratum, calculated as appropriate for the measure
                 # type and scoring method, and based on only the members of this stratum.
                 StructField(
                     "measureScore",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

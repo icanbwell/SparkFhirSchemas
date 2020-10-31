@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ValueSet_DesignationSchema:
     between [[[CodeSystem]]] definitions and their use in [coded
     elements](terminologies.html).
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
         code systems, intended for use in a particular context. Value sets link
@@ -58,8 +64,14 @@ class ValueSet_DesignationSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ValueSet_Designation"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ValueSet_Designation"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -72,8 +84,13 @@ class ValueSet_DesignationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -90,17 +107,31 @@ class ValueSet_DesignationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The language this designation is defined for.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code that represents types of uses of designations.
                 StructField(
-                    "use", CodingSchema.get_schema(recursion_depth + 1), True
+                    "use",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The text value for this designation.
                 StructField("value", StringType(), True),

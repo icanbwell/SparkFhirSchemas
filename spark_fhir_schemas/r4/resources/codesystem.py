@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class CodeSystemSchema:
     code system or code system supplement and its key properties, and optionally
     define a part or all of its content.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The CodeSystem resource is used to declare the existence of and describe a
         code system or code system supplement and its key properties, and optionally
@@ -184,8 +190,12 @@ class CodeSystemSchema:
         from spark_fhir_schemas.r4.complex_types.codesystem_filter import CodeSystem_FilterSchema
         from spark_fhir_schemas.r4.complex_types.codesystem_property import CodeSystem_PropertySchema
         from spark_fhir_schemas.r4.complex_types.codesystem_concept import CodeSystem_ConceptSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "CodeSystem"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["CodeSystem"]
         schema = StructType(
             [
                 # This is a CodeSystem resource
@@ -193,26 +203,44 @@ class CodeSystemSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -221,8 +249,12 @@ class CodeSystemSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -230,7 +262,11 @@ class CodeSystemSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -240,8 +276,13 @@ class CodeSystemSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -258,8 +299,13 @@ class CodeSystemSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An absolute URI that is used to identify this code system when it is
                 # referenced in a specification, model, design or an instance; also called its
@@ -269,7 +315,12 @@ class CodeSystemSchema:
                 # SHALL remain the same when the code system is stored on different servers.
                 # This is used in [Coding](datatypes.html#Coding).system.
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A formal identifier that is used to identify this code system when it is
                 # represented in other formats, or referenced in a specification, model, design
@@ -277,7 +328,11 @@ class CodeSystemSchema:
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The identifier that is used to identify this version of the code system when
@@ -306,8 +361,12 @@ class CodeSystemSchema:
                 # code changes. In addition, it should change when the substantive content of
                 # the code system changes.
                 StructField(
-                    "date", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "date",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The name of the organization or individual that published the code system.
                 StructField("publisher", StringType(), True),
@@ -316,14 +375,22 @@ class CodeSystemSchema:
                 StructField(
                     "contact",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A free text natural language description of the code system from a consumer's
                 # perspective.
                 StructField(
                     "description",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -333,28 +400,44 @@ class CodeSystemSchema:
                 StructField(
                     "useContext",
                     ArrayType(
-                        UsageContextSchema.get_schema(recursion_depth + 1)
+                        UsageContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A legal or geographic region in which the code system is intended to be used.
                 StructField(
                     "jurisdiction",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Explanation of why this code system is needed and why it has been designed as
                 # it has.
                 StructField(
-                    "purpose", markdownSchema.get_schema(recursion_depth + 1),
-                    True
+                    "purpose",
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A copyright statement relating to the code system and/or its contents.
                 # Copyright statements are generally legal restrictions on the use and
                 # publishing of the code system.
                 StructField(
                     "copyright",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If code comparison is case sensitive when codes within this system are
                 # compared to each other.
@@ -362,7 +445,11 @@ class CodeSystemSchema:
                 # Canonical reference to the value set that contains the entire code system.
                 StructField(
                     "valueSet",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The meaning of the hierarchy of concepts as represented in this resource.
                 StructField("hierarchyMeaning", StringType(), True),
@@ -379,22 +466,33 @@ class CodeSystemSchema:
                 # adding designations and properties to.
                 StructField(
                     "supplements",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The total number of concepts defined by the code system. Where the code system
                 # has a compositional grammar, the basis of this count is defined by the system
                 # steward.
                 StructField(
-                    "count", unsignedIntSchema.get_schema(recursion_depth + 1),
-                    True
+                    "count",
+                    unsignedIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A filter that can be used in a value set compose statement when selecting
                 # concepts using a filter.
                 StructField(
                     "filter",
                     ArrayType(
-                        CodeSystem_FilterSchema.
-                        get_schema(recursion_depth + 1)
+                        CodeSystem_FilterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A property defines an additional slot through which additional information can
@@ -402,8 +500,11 @@ class CodeSystemSchema:
                 StructField(
                     "property",
                     ArrayType(
-                        CodeSystem_PropertySchema.
-                        get_schema(recursion_depth + 1)
+                        CodeSystem_PropertySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Concepts that are in the code system. The concept definitions are inherently
@@ -412,8 +513,11 @@ class CodeSystemSchema:
                 StructField(
                     "concept",
                     ArrayType(
-                        CodeSystem_ConceptSchema.
-                        get_schema(recursion_depth + 1)
+                        CodeSystem_ConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

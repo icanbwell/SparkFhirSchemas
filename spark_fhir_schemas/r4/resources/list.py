@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class ListSchema:
     """
     A list is a curated collection of resources.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A list is a curated collection of resources.
 
@@ -112,8 +118,12 @@ class ListSchema:
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.r4.complex_types.list_entry import List_EntrySchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "List"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["List"]
         schema = StructType(
             [
                 # This is a List resource
@@ -121,26 +131,44 @@ class ListSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -149,8 +177,12 @@ class ListSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -158,7 +190,11 @@ class ListSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -168,8 +204,13 @@ class ListSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -186,15 +227,24 @@ class ListSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifier for the List assigned for business purposes outside the context of
                 # FHIR.
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates the current state of this list.
@@ -209,53 +259,89 @@ class ListSchema:
                 # This code defines the purpose of the list - why it was created.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The common subject (or patient) of the resources that are in the list if there
                 # is one.
                 StructField(
-                    "subject", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "subject",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The encounter that is the context in which this list was created.
                 StructField(
                     "encounter",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date that the list was prepared.
                 StructField(
-                    "date", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "date",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The entity responsible for deciding what the contents of the list were. Where
                 # the list was created by a human, this is the same as the author of the list.
                 StructField(
-                    "source", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "source",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # What order applies to the items in the list.
                 StructField(
                     "orderedBy",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Comments that apply to the overall list.
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Entries in this list.
                 StructField(
                     "entry",
                     ArrayType(
-                        List_EntrySchema.get_schema(recursion_depth + 1)
+                        List_EntrySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # If the list is empty, why the list is empty.
                 StructField(
                     "emptyReason",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

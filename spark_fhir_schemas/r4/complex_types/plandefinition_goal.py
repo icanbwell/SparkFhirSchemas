@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class PlanDefinition_GoalSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
@@ -73,8 +79,12 @@ class PlanDefinition_GoalSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
         from spark_fhir_schemas.r4.complex_types.plandefinition_target import PlanDefinition_TargetSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "PlanDefinition_Goal"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["PlanDefinition_Goal"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -87,8 +97,13 @@ class PlanDefinition_GoalSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -105,38 +120,63 @@ class PlanDefinition_GoalSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates a category the goal falls within.
                 StructField(
                     "category",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Human-readable and/or coded description of a specific desired objective of
                 # care, such as "control blood pressure" or "negotiate an obstacle course" or
                 # "dance with child at wedding".
                 StructField(
                     "description",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the expected level of importance associated with
                 # reaching/sustaining the defined goal.
                 StructField(
                     "priority",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The event after which the goal should begin being pursued.
                 StructField(
                     "start",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies problems, conditions, issues, or concerns the goal is intended to
                 # address.
                 StructField(
                     "addresses",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Didactic or other informational resources associated with the goal that
@@ -145,15 +185,22 @@ class PlanDefinition_GoalSchema:
                 StructField(
                     "documentation",
                     ArrayType(
-                        RelatedArtifactSchema.get_schema(recursion_depth + 1)
+                        RelatedArtifactSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates what should be done and within what timeframe.
                 StructField(
                     "target",
                     ArrayType(
-                        PlanDefinition_TargetSchema.
-                        get_schema(recursion_depth + 1)
+                        PlanDefinition_TargetSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class DataRequirement_CodeFilterSchema:
     Describes a required data item for evaluation in terms of the type of data,
     and optional code or date-based filters of the data.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Describes a required data item for evaluation in terms of the type of data,
         and optional code or date-based filters of the data.
@@ -72,8 +78,14 @@ class DataRequirement_CodeFilterSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "DataRequirement_CodeFilter"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "DataRequirement_CodeFilter"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -86,8 +98,13 @@ class DataRequirement_CodeFilterSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -104,8 +121,13 @@ class DataRequirement_CodeFilterSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The code-valued attribute of the filter. The specified path SHALL be a
                 # FHIRPath resolveable on the specified type of the DataRequirement, and SHALL
@@ -126,7 +148,11 @@ class DataRequirement_CodeFilterSchema:
                 # of the specified valueset.
                 StructField(
                     "valueSet",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The codes for the code filter. If values are given, the filter will return
                 # only those data items for which the code-valued attribute specified by the
@@ -135,8 +161,13 @@ class DataRequirement_CodeFilterSchema:
                 # set or one of the specified codes.
                 StructField(
                     "code",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class SubstanceNucleicAcid_SubunitSchema:
     elements. The nucleotide sequence will be always entered in the 5’-3’
     direction.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Nucleic acids are defined by three distinct elements: the base, sugar and
         linkage. Individual substance/moiety IDs will be created for each of these
@@ -81,8 +87,14 @@ class SubstanceNucleicAcid_SubunitSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.substancenucleicacid_linkage import SubstanceNucleicAcid_LinkageSchema
         from spark_fhir_schemas.r4.complex_types.substancenucleicacid_sugar import SubstanceNucleicAcid_SugarSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "SubstanceNucleicAcid_Subunit"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "SubstanceNucleicAcid_Subunit"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +107,13 @@ class SubstanceNucleicAcid_SubunitSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,15 +130,24 @@ class SubstanceNucleicAcid_SubunitSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Index of linear sequences of nucleic acids in order of decreasing length.
                 # Sequences of the same length will be ordered by molecular weight. Subunits
                 # that have identical sequences will be repeated and have sequential subscripts.
                 StructField(
-                    "subunit", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "subunit",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Actual nucleotide sequence notation from 5' to 3' end using standard single
                 # letter codes. In addition to the base sequence, sugar and type of phosphate or
@@ -129,13 +155,21 @@ class SubstanceNucleicAcid_SubunitSchema:
                 StructField("sequence", StringType(), True),
                 # The length of the sequence shall be captured.
                 StructField(
-                    "length", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "length",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # (TBC).
                 StructField(
                     "sequenceAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The nucleotide present at the 5’ terminal shall be specified based on a
                 # controlled vocabulary. Since the sequence is represented from the 5' to the 3'
@@ -143,7 +177,11 @@ class SubstanceNucleicAcid_SubunitSchema:
                 # sequence. A separate representation would be redundant.
                 StructField(
                     "fivePrime",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The nucleotide present at the 3’ terminal shall be specified based on a
                 # controlled vocabulary. Since the sequence is represented from the 5' to the 3'
@@ -151,22 +189,32 @@ class SubstanceNucleicAcid_SubunitSchema:
                 # sequence. A separate representation would be redundant.
                 StructField(
                     "threePrime",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The linkages between sugar residues will also be captured.
                 StructField(
                     "linkage",
                     ArrayType(
-                        SubstanceNucleicAcid_LinkageSchema.
-                        get_schema(recursion_depth + 1)
+                        SubstanceNucleicAcid_LinkageSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # 5.3.6.8.1 Sugar ID (Mandatory).
                 StructField(
                     "sugar",
                     ArrayType(
-                        SubstanceNucleicAcid_SugarSchema.
-                        get_schema(recursion_depth + 1)
+                        SubstanceNucleicAcid_SugarSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

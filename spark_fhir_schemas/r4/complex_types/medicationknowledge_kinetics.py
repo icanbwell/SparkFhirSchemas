@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MedicationKnowledge_KineticsSchema:
     """
     Information about a medication that is used to support knowledge.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Information about a medication that is used to support knowledge.
 
@@ -53,8 +59,14 @@ class MedicationKnowledge_KineticsSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicationKnowledge_Kinetics"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MedicationKnowledge_Kinetics"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -67,8 +79,13 @@ class MedicationKnowledge_KineticsSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -85,26 +102,45 @@ class MedicationKnowledge_KineticsSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The drug concentration measured at certain discrete points in time.
                 StructField(
                     "areaUnderCurve",
-                    ArrayType(QuantitySchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        QuantitySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The median lethal dose of a drug.
                 StructField(
                     "lethalDose50",
-                    ArrayType(QuantitySchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        QuantitySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The time required for any specified property (e.g., the concentration of a
                 # substance in the body) to decrease by half.
                 StructField(
                     "halfLifePeriod",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

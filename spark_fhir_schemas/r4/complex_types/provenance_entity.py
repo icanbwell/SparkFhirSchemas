@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -21,8 +22,13 @@ class Provenance_EntitySchema:
     stage in lifecycle (e.g. Document Completion - has the artifact been legally
     authenticated), all of which may impact security, privacy, and trust policies.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Provenance of a resource is a record that describes entities and processes
         involved in producing and delivering or otherwise influencing that resource.
@@ -72,8 +78,12 @@ class Provenance_EntitySchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.provenance_agent import Provenance_AgentSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Provenance_Entity"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Provenance_Entity"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -86,8 +96,13 @@ class Provenance_EntitySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -104,16 +119,25 @@ class Provenance_EntitySchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # How the entity was used during the activity.
                 StructField("role", StringType(), True),
                 # Identity of the  Entity used. May be a logical or physical uri and maybe
                 # absolute or relative.
                 StructField(
-                    "what", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "what",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The entity is attributed to an agent to express the agent's responsibility for
                 # that entity, possibly along with other agents. This description can be
@@ -122,7 +146,11 @@ class Provenance_EntitySchema:
                 StructField(
                     "agent",
                     ArrayType(
-                        Provenance_AgentSchema.get_schema(recursion_depth + 1)
+                        Provenance_AgentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

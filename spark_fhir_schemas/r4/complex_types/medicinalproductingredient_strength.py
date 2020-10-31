@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MedicinalProductIngredient_StrengthSchema:
     """
     An ingredient of a manufactured item or pharmaceutical product.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         An ingredient of a manufactured item or pharmaceutical product.
 
@@ -65,8 +71,14 @@ class MedicinalProductIngredient_StrengthSchema:
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.medicinalproductingredient_referencestrength import MedicinalProductIngredient_ReferenceStrengthSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicinalProductIngredient_Strength"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MedicinalProductIngredient_Strength"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -79,8 +91,13 @@ class MedicinalProductIngredient_StrengthSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -97,32 +114,53 @@ class MedicinalProductIngredient_StrengthSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The quantity of substance in the unit of presentation, or in the volume (or
                 # mass) of the single pharmaceutical product or manufactured item.
                 StructField(
                     "presentation",
-                    RatioSchema.get_schema(recursion_depth + 1), True
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A lower limit for the quantity of substance in the unit of presentation. For
                 # use when there is a range of strengths, this is the lower limit, with the
                 # presentation attribute becoming the upper limit.
                 StructField(
                     "presentationLowLimit",
-                    RatioSchema.get_schema(recursion_depth + 1), True
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The strength per unitary volume (or mass).
                 StructField(
                     "concentration",
-                    RatioSchema.get_schema(recursion_depth + 1), True
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A lower limit for the strength per unitary volume (or mass), for when there is
                 # a range. The concentration attribute then becomes the upper limit.
                 StructField(
                     "concentrationLowLimit",
-                    RatioSchema.get_schema(recursion_depth + 1), True
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # For when strength is measured at a particular point or distance.
                 StructField("measurementPoint", StringType(), True),
@@ -130,7 +168,11 @@ class MedicinalProductIngredient_StrengthSchema:
                 StructField(
                     "country",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Strength expressed in terms of a reference substance.
@@ -138,7 +180,11 @@ class MedicinalProductIngredient_StrengthSchema:
                     "referenceStrength",
                     ArrayType(
                         MedicinalProductIngredient_ReferenceStrengthSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

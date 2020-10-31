@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class Task_RestrictionSchema:
     """
     A task to be performed.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A task to be performed.
 
@@ -54,8 +60,12 @@ class Task_RestrictionSchema:
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Task_Restriction"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Task_Restriction"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -68,8 +78,13 @@ class Task_RestrictionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -86,25 +101,43 @@ class Task_RestrictionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates the number of times the requested action should occur.
                 StructField(
                     "repetitions",
-                    positiveIntSchema.get_schema(recursion_depth + 1), True
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Over what time-period is fulfillment sought.
                 StructField(
-                    "period", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "period",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # For requests that are targeted to more than on potential recipient/target, for
                 # whom is fulfillment sought?
                 StructField(
                     "recipient",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

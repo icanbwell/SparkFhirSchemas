@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class StructureDefinitionSchema:
     underlying resources, data types defined in FHIR, and also for describing
     extensions and constraints on resources and data types.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A definition of a FHIR structure. This resource is used to describe the
         underlying resources, data types defined in FHIR, and also for describing
@@ -195,8 +201,12 @@ class StructureDefinitionSchema:
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.structuredefinition_snapshot import StructureDefinition_SnapshotSchema
         from spark_fhir_schemas.r4.complex_types.structuredefinition_differential import StructureDefinition_DifferentialSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "StructureDefinition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["StructureDefinition"]
         schema = StructType(
             [
                 # This is a StructureDefinition resource
@@ -204,26 +214,44 @@ class StructureDefinitionSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -232,8 +260,12 @@ class StructureDefinitionSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -241,7 +273,11 @@ class StructureDefinitionSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -251,8 +287,13 @@ class StructureDefinitionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -269,8 +310,13 @@ class StructureDefinitionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An absolute URI that is used to identify this structure definition when it is
                 # referenced in a specification, model, design or an instance; also called its
@@ -280,7 +326,12 @@ class StructureDefinitionSchema:
                 # canonical reference. It SHALL remain the same when the structure definition is
                 # stored on different servers.
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A formal identifier that is used to identify this structure definition when it
                 # is represented in other formats, or referenced in a specification, model,
@@ -288,7 +339,11 @@ class StructureDefinitionSchema:
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The identifier that is used to identify this version of the structure
@@ -316,8 +371,12 @@ class StructureDefinitionSchema:
                 # the status code changes. In addition, it should change when the substantive
                 # content of the structure definition changes.
                 StructField(
-                    "date", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "date",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The name of the organization or individual that published the structure
                 # definition.
@@ -327,14 +386,22 @@ class StructureDefinitionSchema:
                 StructField(
                     "contact",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A free text natural language description of the structure definition from a
                 # consumer's perspective.
                 StructField(
                     "description",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -344,7 +411,11 @@ class StructureDefinitionSchema:
                 StructField(
                     "useContext",
                     ArrayType(
-                        UsageContextSchema.get_schema(recursion_depth + 1)
+                        UsageContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A legal or geographic region in which the structure definition is intended to
@@ -352,29 +423,46 @@ class StructureDefinitionSchema:
                 StructField(
                     "jurisdiction",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Explanation of why this structure definition is needed and why it has been
                 # designed as it has.
                 StructField(
-                    "purpose", markdownSchema.get_schema(recursion_depth + 1),
-                    True
+                    "purpose",
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A copyright statement relating to the structure definition and/or its
                 # contents. Copyright statements are generally legal restrictions on the use and
                 # publishing of the structure definition.
                 StructField(
                     "copyright",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A set of key words or terms from external terminologies that may be used to
                 # assist with indexing and searching of templates nby describing the use of this
                 # structure definition, or the content it describes.
                 StructField(
                     "keyword",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The version of the FHIR specification on which this StructureDefinition is
                 # based - this is the formal version of the specification, without the revision
@@ -384,8 +472,11 @@ class StructureDefinitionSchema:
                 StructField(
                     "mapping",
                     ArrayType(
-                        StructureDefinition_MappingSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureDefinition_MappingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Defines the kind of structure that this definition is describing.
@@ -399,8 +490,11 @@ class StructureDefinitionSchema:
                 StructField(
                     "context",
                     ArrayType(
-                        StructureDefinition_ContextSchema.
-                        get_schema(recursion_depth + 1)
+                        StructureDefinition_ContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A set of rules as FHIRPath Invariants about when the extension can be used
@@ -415,13 +509,22 @@ class StructureDefinitionSchema:
                 # reference to http://hl7.org/fhir/StructureDefinition/string. Absolute URLs are
                 # only allowed in logical models.
                 StructField(
-                    "type", uriSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An absolute URI that is the base structure from which this type is derived,
                 # either by specialization or constraint.
                 StructField(
                     "baseDefinition",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # How the type relates to the baseDefinition.
                 StructField("derivation", StringType(), True),
@@ -429,15 +532,21 @@ class StructureDefinitionSchema:
                 # interpreted without considering the base StructureDefinition.
                 StructField(
                     "snapshot",
-                    StructureDefinition_SnapshotSchema.
-                    get_schema(recursion_depth + 1), True
+                    StructureDefinition_SnapshotSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A differential view is expressed relative to the base StructureDefinition - a
                 # statement of differences that it applies.
                 StructField(
                     "differential",
-                    StructureDefinition_DifferentialSchema.
-                    get_schema(recursion_depth + 1), True
+                    StructureDefinition_DifferentialSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

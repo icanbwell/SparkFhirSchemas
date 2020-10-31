@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ValueSet_IncludeSchema:
     between [[[CodeSystem]]] definitions and their use in [coded
     elements](terminologies.html).
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
         code systems, intended for use in a particular context. Value sets link
@@ -71,8 +77,12 @@ class ValueSet_IncludeSchema:
         from spark_fhir_schemas.r4.complex_types.valueset_concept import ValueSet_ConceptSchema
         from spark_fhir_schemas.r4.complex_types.valueset_filter import ValueSet_FilterSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ValueSet_Include"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ValueSet_Include"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -85,8 +95,13 @@ class ValueSet_IncludeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -103,13 +118,23 @@ class ValueSet_IncludeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An absolute URI which is the code system from which the selected codes come
                 # from.
                 StructField(
-                    "system", uriSchema.get_schema(recursion_depth + 1), True
+                    "system",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The version of the code system that the codes are selected from, or the
                 # special version '*' for all versions.
@@ -118,7 +143,11 @@ class ValueSet_IncludeSchema:
                 StructField(
                     "concept",
                     ArrayType(
-                        ValueSet_ConceptSchema.get_schema(recursion_depth + 1)
+                        ValueSet_ConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Select concepts by specify a matching criterion based on the properties
@@ -127,7 +156,11 @@ class ValueSet_IncludeSchema:
                 StructField(
                     "filter",
                     ArrayType(
-                        ValueSet_FilterSchema.get_schema(recursion_depth + 1)
+                        ValueSet_FilterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Selects the concepts found in this value set (based on its value set
@@ -136,8 +169,13 @@ class ValueSet_IncludeSchema:
                 # all of the referenced value sets.
                 StructField(
                     "valueSet",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

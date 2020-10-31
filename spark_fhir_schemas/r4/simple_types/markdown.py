@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import DataType
@@ -12,8 +13,13 @@ class markdownSchema:
     A string that may contain Github Flavored Markdown syntax for optional
     processing by a mark down presentation engine
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A string that may contain Github Flavored Markdown syntax for optional
         processing by a mark down presentation engine

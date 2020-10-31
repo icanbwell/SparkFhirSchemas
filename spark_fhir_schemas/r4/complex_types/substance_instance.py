@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class Substance_InstanceSchema:
     """
     A homogeneous material with a definite composition.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A homogeneous material with a definite composition.
 
@@ -55,8 +61,12 @@ class Substance_InstanceSchema:
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Substance_Instance"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Substance_Instance"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -69,8 +79,13 @@ class Substance_InstanceSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -87,25 +102,42 @@ class Substance_InstanceSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifier associated with the package/container (usually a label affixed
                 # directly).
                 StructField(
                     "identifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # When the substance is no longer valid to use. For some substances, a single
                 # arbitrary date is used for expiry.
                 StructField(
-                    "expiry", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "expiry",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The amount of the substance.
                 StructField(
-                    "quantity", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "quantity",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

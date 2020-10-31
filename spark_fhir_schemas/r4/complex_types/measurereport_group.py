@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class MeasureReport_GroupSchema:
     measure; and optionally a reference to the resources involved in that
     calculation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The MeasureReport resource contains the results of the calculation of a
         measure; and optionally a reference to the resources involved in that
@@ -64,8 +70,12 @@ class MeasureReport_GroupSchema:
         from spark_fhir_schemas.r4.complex_types.measurereport_population import MeasureReport_PopulationSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.measurereport_stratifier import MeasureReport_StratifierSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MeasureReport_Group"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["MeasureReport_Group"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -78,8 +88,13 @@ class MeasureReport_GroupSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -96,21 +111,33 @@ class MeasureReport_GroupSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The meaning of the population group as defined in the measure definition.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The populations that make up the population group, one for each type of
                 # population appropriate for the measure.
                 StructField(
                     "population",
                     ArrayType(
-                        MeasureReport_PopulationSchema.
-                        get_schema(recursion_depth + 1)
+                        MeasureReport_PopulationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The measure score for this population group, calculated as appropriate for the
@@ -118,15 +145,22 @@ class MeasureReport_GroupSchema:
                 # defined in the group.
                 StructField(
                     "measureScore",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # When a measure includes multiple stratifiers, there will be a stratifier group
                 # for each stratifier defined by the measure.
                 StructField(
                     "stratifier",
                     ArrayType(
-                        MeasureReport_StratifierSchema.
-                        get_schema(recursion_depth + 1)
+                        MeasureReport_StratifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

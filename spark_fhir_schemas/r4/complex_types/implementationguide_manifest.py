@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ImplementationGuide_ManifestSchema:
     gather all the parts of an implementation guide into a logical whole and to
     publish a computable definition of all the parts.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A set of rules of how a particular interoperability or standards problem is
         solved - typically through the use of FHIR resources. This resource is used to
@@ -69,8 +75,14 @@ class ImplementationGuide_ManifestSchema:
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.complex_types.implementationguide_resource1 import ImplementationGuide_Resource1Schema
         from spark_fhir_schemas.r4.complex_types.implementationguide_page1 import ImplementationGuide_Page1Schema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ImplementationGuide_Manifest"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ImplementationGuide_Manifest"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -83,8 +95,13 @@ class ImplementationGuide_ManifestSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -101,14 +118,23 @@ class ImplementationGuide_ManifestSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A pointer to official web page, PDF or other rendering of the implementation
                 # guide.
                 StructField(
-                    "rendering", urlSchema.get_schema(recursion_depth + 1),
-                    True
+                    "rendering",
+                    urlSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A resource that is part of the implementation guide. Conformance resources
                 # (value set, structure definition, capability statements etc.) are obvious
@@ -117,16 +143,22 @@ class ImplementationGuide_ManifestSchema:
                 StructField(
                     "resource",
                     ArrayType(
-                        ImplementationGuide_Resource1Schema.
-                        get_schema(recursion_depth + 1)
+                        ImplementationGuide_Resource1Schema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Information about a page within the IG.
                 StructField(
                     "page",
                     ArrayType(
-                        ImplementationGuide_Page1Schema.
-                        get_schema(recursion_depth + 1)
+                        ImplementationGuide_Page1Schema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates a relative path to an image that exists within the IG.

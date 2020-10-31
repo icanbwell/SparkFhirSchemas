@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class CoverageEligibilityResponse_InsuranceSchema:
     This resource provides eligibility and plan details from the processing of an
     CoverageEligibilityRequest resource.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource provides eligibility and plan details from the processing of an
         CoverageEligibilityRequest resource.
@@ -62,8 +68,14 @@ class CoverageEligibilityResponse_InsuranceSchema:
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_item import CoverageEligibilityResponse_ItemSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "CoverageEligibilityResponse_Insurance"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "CoverageEligibilityResponse_Insurance"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -76,8 +88,13 @@ class CoverageEligibilityResponse_InsuranceSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -94,15 +111,24 @@ class CoverageEligibilityResponse_InsuranceSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Reference to the insurance card level information contained in the Coverage
                 # resource. The coverage issuing insurer will use these details to locate the
                 # patient's actual coverage within the insurer's information system.
                 StructField(
                     "coverage",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Flag indicating if the coverage provided is inforce currently if no service
                 # date(s) specified or for the whole duration of the service dates.
@@ -110,15 +136,22 @@ class CoverageEligibilityResponse_InsuranceSchema:
                 # The term of the benefits documented in this response.
                 StructField(
                     "benefitPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Benefits and optionally current balances, and authorization details by
                 # category or service.
                 StructField(
                     "item",
                     ArrayType(
-                        CoverageEligibilityResponse_ItemSchema.
-                        get_schema(recursion_depth + 1)
+                        CoverageEligibilityResponse_ItemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

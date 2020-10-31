@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class PlanDefinition_RelatedActionSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
@@ -63,8 +69,14 @@ class PlanDefinition_RelatedActionSchema:
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "PlanDefinition_RelatedAction"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "PlanDefinition_RelatedAction"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -77,8 +89,13 @@ class PlanDefinition_RelatedActionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -95,12 +112,22 @@ class PlanDefinition_RelatedActionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The element id of the related action.
                 StructField(
-                    "actionId", idSchema.get_schema(recursion_depth + 1), True
+                    "actionId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The relationship of this action to the related action.
                 StructField("relationship", StringType(), True),
@@ -108,13 +135,21 @@ class PlanDefinition_RelatedActionSchema:
                 # 30-60 minutes before.
                 StructField(
                     "offsetDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A duration or range of durations to apply to the relationship. For example,
                 # 30-60 minutes before.
                 StructField(
-                    "offsetRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "offsetRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

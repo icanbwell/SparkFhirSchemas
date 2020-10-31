@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ConditionSchema:
     A clinical condition, problem, diagnosis, or other event, situation, issue, or
     clinical concept that has risen to a level of concern.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A clinical condition, problem, diagnosis, or other event, situation, issue, or
         clinical concept that has risen to a level of concern.
@@ -164,8 +170,12 @@ class ConditionSchema:
         from spark_fhir_schemas.r4.complex_types.condition_stage import Condition_StageSchema
         from spark_fhir_schemas.r4.complex_types.condition_evidence import Condition_EvidenceSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Condition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Condition"]
         schema = StructType(
             [
                 # This is a Condition resource
@@ -173,26 +183,44 @@ class ConditionSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -201,8 +229,12 @@ class ConditionSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -210,7 +242,11 @@ class ConditionSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -220,8 +256,13 @@ class ConditionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -238,8 +279,13 @@ class ConditionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Business identifiers assigned to this condition by the performer or other
                 # systems which remain constant as the resource is updated and propagates from
@@ -247,54 +293,90 @@ class ConditionSchema:
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The clinical status of the condition.
                 StructField(
                     "clinicalStatus",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The verification status to support the clinical status of the condition.
                 StructField(
                     "verificationStatus",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A category assigned to the condition.
                 StructField(
                     "category",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A subjective assessment of the severity of the condition as evaluated by the
                 # clinician.
                 StructField(
                     "severity",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identification of the condition, problem or diagnosis.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The anatomical location where this condition manifests itself.
                 StructField(
                     "bodySite",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates the patient or group who the condition record is associated with.
                 StructField(
-                    "subject", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "subject",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The Encounter during which this Condition was created or to which the creation
                 # of this record is tightly associated.
                 StructField(
                     "encounter",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
@@ -302,19 +384,32 @@ class ConditionSchema:
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
                 StructField(
-                    "onsetAge", AgeSchema.get_schema(recursion_depth + 1), True
+                    "onsetAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
                 StructField(
                     "onsetPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
                 StructField(
-                    "onsetRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "onsetRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
@@ -329,8 +424,12 @@ class ConditionSchema:
                 # associated with "remission" or "resolution" - Conditions are never really
                 # resolved, but they can abate.
                 StructField(
-                    "abatementAge", AgeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "abatementAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
@@ -338,7 +437,11 @@ class ConditionSchema:
                 # resolved, but they can abate.
                 StructField(
                     "abatementPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
@@ -346,7 +449,11 @@ class ConditionSchema:
                 # resolved, but they can abate.
                 StructField(
                     "abatementRange",
-                    RangeSchema.get_schema(recursion_depth + 1), True
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
@@ -357,24 +464,40 @@ class ConditionSchema:
                 # in the system, which is often a system-generated date.
                 StructField(
                     "recordedDate",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Individual who recorded the record and takes responsibility for its content.
                 StructField(
                     "recorder",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Individual who is making the condition statement.
                 StructField(
                     "asserter",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Clinical stage or grade of a condition. May include formal severity
                 # assessments.
                 StructField(
                     "stage",
                     ArrayType(
-                        Condition_StageSchema.get_schema(recursion_depth + 1)
+                        Condition_StageSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Supporting evidence / manifestations that are the basis of the Condition's
@@ -382,8 +505,11 @@ class ConditionSchema:
                 StructField(
                     "evidence",
                     ArrayType(
-                        Condition_EvidenceSchema.
-                        get_schema(recursion_depth + 1)
+                        Condition_EvidenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Additional information about the Condition. This is a general notes/comments
@@ -391,7 +517,11 @@ class ConditionSchema:
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

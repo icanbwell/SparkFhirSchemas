@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class ActivityDefinitionSchema:
     independent of a particular patient, practitioner, or other performance
     context.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of some activity to be performed,
         independent of a particular patient, practitioner, or other performance
@@ -279,8 +285,12 @@ class ActivityDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.activitydefinition_dynamicvalue import ActivityDefinition_DynamicValueSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ActivityDefinition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ActivityDefinition"]
         schema = StructType(
             [
                 # This is a ActivityDefinition resource
@@ -288,26 +298,44 @@ class ActivityDefinitionSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -316,8 +344,12 @@ class ActivityDefinitionSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -325,7 +357,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -335,8 +371,13 @@ class ActivityDefinitionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -353,8 +394,13 @@ class ActivityDefinitionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An absolute URI that is used to identify this activity definition when it is
                 # referenced in a specification, model, design or an instance; also called its
@@ -364,7 +410,12 @@ class ActivityDefinitionSchema:
                 # canonical reference. It SHALL remain the same when the activity definition is
                 # stored on different servers.
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A formal identifier that is used to identify this activity definition when it
                 # is represented in other formats, or referenced in a specification, model,
@@ -372,7 +423,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The identifier that is used to identify this version of the activity
@@ -407,21 +462,33 @@ class ActivityDefinitionSchema:
                 # being defined.
                 StructField(
                     "subjectCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code or group definition that describes the intended subject of the activity
                 # being defined.
                 StructField(
                     "subjectReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date  (and optionally time) when the activity definition was published.
                 # The date must change when the business version changes and it must change if
                 # the status code changes. In addition, it should change when the substantive
                 # content of the activity definition changes.
                 StructField(
-                    "date", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "date",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The name of the organization or individual that published the activity
                 # definition.
@@ -431,14 +498,22 @@ class ActivityDefinitionSchema:
                 StructField(
                     "contact",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A free text natural language description of the activity definition from a
                 # consumer's perspective.
                 StructField(
                     "description",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -448,7 +523,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "useContext",
                     ArrayType(
-                        UsageContextSchema.get_schema(recursion_depth + 1)
+                        UsageContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A legal or geographic region in which the activity definition is intended to
@@ -456,14 +535,22 @@ class ActivityDefinitionSchema:
                 StructField(
                     "jurisdiction",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Explanation of why this activity definition is needed and why it has been
                 # designed as it has.
                 StructField(
-                    "purpose", markdownSchema.get_schema(recursion_depth + 1),
-                    True
+                    "purpose",
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A detailed description of how the activity definition is used from a clinical
                 # perspective.
@@ -473,7 +560,11 @@ class ActivityDefinitionSchema:
                 # publishing of the activity definition.
                 StructField(
                     "copyright",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date on which the resource content was approved by the publisher. Approval
                 # happens once when the content is officially approved for usage.
@@ -485,7 +576,11 @@ class ActivityDefinitionSchema:
                 # be in active use.
                 StructField(
                     "effectivePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Descriptive topics related to the content of the activity. Topics provide a
                 # high-level categorization of the activity that can be useful for filtering and
@@ -493,7 +588,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "topic",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An individiual or organization primarily involved in the creation and
@@ -501,7 +600,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "author",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An individual or organization primarily responsible for internal coherence of
@@ -509,7 +612,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "editor",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An individual or organization primarily responsible for review of some aspect
@@ -517,7 +624,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "reviewer",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An individual or organization responsible for officially endorsing the content
@@ -525,7 +636,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "endorser",
                     ArrayType(
-                        ContactDetailSchema.get_schema(recursion_depth + 1)
+                        ContactDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Related artifacts such as additional documentation, justification, or
@@ -533,44 +648,75 @@ class ActivityDefinitionSchema:
                 StructField(
                     "relatedArtifact",
                     ArrayType(
-                        RelatedArtifactSchema.get_schema(recursion_depth + 1)
+                        RelatedArtifactSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A reference to a Library resource containing any formal logic used by the
                 # activity definition.
                 StructField(
                     "library",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A description of the kind of resource the activity definition is representing.
                 # For example, a MedicationRequest, a ServiceRequest, or a CommunicationRequest.
                 # Typically, but not always, this is a Request resource.
                 StructField(
-                    "kind", codeSchema.get_schema(recursion_depth + 1), True
+                    "kind",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A profile to which the target of the activity definition is expected to
                 # conform.
                 StructField(
-                    "profile", canonicalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "profile",
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Detailed description of the type of activity; e.g. What lab test, what
                 # procedure, what kind of encounter.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the level of authority/intentionality associated with the activity
                 # and where the request should fit into the workflow chain.
                 StructField(
-                    "intent", codeSchema.get_schema(recursion_depth + 1), True
+                    "intent",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates how quickly the activity  should be addressed with respect to other
                 # requests.
                 StructField(
-                    "priority", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "priority",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Set this to true if the definition is to indicate that a particular activity
                 # should NOT be performed. If true, this element should be interpreted to
@@ -580,103 +726,170 @@ class ActivityDefinitionSchema:
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
                     "timingTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField("timingDateTime", StringType(), True),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
-                    "timingAge", AgeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "timingAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
                     "timingPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
-                    "timingRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "timingRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
                     "timingDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the facility where the activity will occur; e.g. home, hospital,
                 # specific clinic, etc.
                 StructField(
                     "location",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates who should participate in performing the action described.
                 StructField(
                     "participant",
                     ArrayType(
-                        ActivityDefinition_ParticipantSchema.
-                        get_schema(recursion_depth + 1)
+                        ActivityDefinition_ParticipantSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Identifies the food, drug or other product being consumed or supplied in the
                 # activity.
                 StructField(
                     "productReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the food, drug or other product being consumed or supplied in the
                 # activity.
                 StructField(
                     "productCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the quantity expected to be consumed at once (per dose, per meal,
                 # etc.).
                 StructField(
-                    "quantity", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "quantity",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Provides detailed dosage instructions in the same way that they are described
                 # for MedicationRequest resources.
                 StructField(
                     "dosage",
-                    ArrayType(DosageSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        DosageSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates the sites on the subject's body where the procedure should be
                 # performed (I.e. the target sites).
                 StructField(
                     "bodySite",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Defines specimen requirements for the action to be performed, such as required
                 # specimens for a lab test.
                 StructField(
                     "specimenRequirement",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Defines observation requirements for the action to be performed, such as body
                 # weight or surface area.
                 StructField(
                     "observationRequirement",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Defines the observations that are expected to be produced by the action.
                 StructField(
                     "observationResultRequirement",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A reference to a StructureMap resource that defines a transform that can be
                 # executed to produce the intent resource using the ActivityDefinition instance
                 # as the input.
                 StructField(
                     "transform",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Dynamic values that will be evaluated to produce values for elements of the
                 # resulting resource. For example, if the dosage of a medication must be
@@ -686,8 +899,11 @@ class ActivityDefinitionSchema:
                 StructField(
                     "dynamicValue",
                     ArrayType(
-                        ActivityDefinition_DynamicValueSchema.
-                        get_schema(recursion_depth + 1)
+                        ActivityDefinition_DynamicValueSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

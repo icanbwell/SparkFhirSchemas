@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ExpressionSchema:
     context of use of the expression must specify the context in which the
     expression is evaluated, and how the result of the expression is used.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A expression that is evaluated in a specified context and returns a value. The
         context of use of the expression must specify the context in which the
@@ -48,8 +54,12 @@ class ExpressionSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Expression"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Expression"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -62,8 +72,13 @@ class ExpressionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A brief, natural language description of the condition that effectively
                 # communicates the intended semantics.
@@ -71,7 +86,12 @@ class ExpressionSchema:
                 # A short name assigned to the expression to allow for multiple reuse of the
                 # expression in the context where it is defined.
                 StructField(
-                    "name", idSchema.get_schema(recursion_depth + 1), True
+                    "name",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The media type of the language for the expression.
                 StructField("language", StringType(), True),
@@ -79,8 +99,12 @@ class ExpressionSchema:
                 StructField("expression", StringType(), True),
                 # A URI that defines where the expression is found.
                 StructField(
-                    "reference", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "reference",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

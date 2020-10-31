@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class DataRequirementSchema:
     Describes a required data item for evaluation in terms of the type of data,
     and optional code or date-based filters of the data.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Describes a required data item for evaluation in terms of the type of data,
         and optional code or date-based filters of the data.
@@ -76,8 +82,12 @@ class DataRequirementSchema:
         from spark_fhir_schemas.r4.complex_types.datarequirement_datefilter import DataRequirement_DateFilterSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.datarequirement_sort import DataRequirement_SortSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "DataRequirement"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["DataRequirement"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -90,32 +100,55 @@ class DataRequirementSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The type of the required data, specified as the type name of a resource. For
                 # profiles, this value is set to the type of the base resource of the profile.
                 StructField(
-                    "type", codeSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The profile of the required data, specified as the uri of the profile
                 # definition.
                 StructField(
                     "profile",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The intended subjects of the data requirement. If this element is not
                 # provided, a Patient subject is assumed.
                 StructField(
                     "subjectCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The intended subjects of the data requirement. If this element is not
                 # provided, a Patient subject is assumed.
                 StructField(
                     "subjectReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates that specific elements of the type are referenced by the knowledge
                 # module and must be supported by the consumer in order to obtain an effective
@@ -134,8 +167,11 @@ class DataRequirementSchema:
                 StructField(
                     "codeFilter",
                     ArrayType(
-                        DataRequirement_CodeFilterSchema.
-                        get_schema(recursion_depth + 1)
+                        DataRequirement_CodeFilterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Date filters specify additional constraints on the data in terms of the
@@ -144,22 +180,32 @@ class DataRequirementSchema:
                 StructField(
                     "dateFilter",
                     ArrayType(
-                        DataRequirement_DateFilterSchema.
-                        get_schema(recursion_depth + 1)
+                        DataRequirement_DateFilterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Specifies a maximum number of results that are required (uses the _count
                 # search parameter).
                 StructField(
-                    "limit", positiveIntSchema.get_schema(recursion_depth + 1),
-                    True
+                    "limit",
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Specifies the order of the results to be returned.
                 StructField(
                     "sort",
                     ArrayType(
-                        DataRequirement_SortSchema.
-                        get_schema(recursion_depth + 1)
+                        DataRequirement_SortSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

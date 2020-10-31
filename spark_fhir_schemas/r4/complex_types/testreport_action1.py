@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class TestReport_Action1Schema:
     """
     A summary of information based on the results of executing a TestScript.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A summary of information based on the results of executing a TestScript.
 
@@ -50,8 +56,12 @@ class TestReport_Action1Schema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.testreport_operation import TestReport_OperationSchema
         from spark_fhir_schemas.r4.complex_types.testreport_assert import TestReport_AssertSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TestReport_Action1"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["TestReport_Action1"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -64,8 +74,13 @@ class TestReport_Action1Schema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -82,20 +97,31 @@ class TestReport_Action1Schema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An operation would involve a REST request to a server.
                 StructField(
                     "operation",
-                    TestReport_OperationSchema.get_schema(recursion_depth + 1),
-                    True
+                    TestReport_OperationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The results of the assertion performed on the previous operations.
                 StructField(
                     "assert",
-                    TestReport_AssertSchema.get_schema(recursion_depth + 1),
-                    True
+                    TestReport_AssertSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

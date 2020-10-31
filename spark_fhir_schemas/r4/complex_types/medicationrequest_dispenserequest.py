@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class MedicationRequest_DispenseRequestSchema:
     to generalize the use across inpatient and outpatient settings, including care
     plans, etc., and to harmonize with workflow patterns.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         An order or request for both supply of the medication and the instructions for
         administration of the medication to a patient. The resource is called
@@ -81,8 +87,14 @@ class MedicationRequest_DispenseRequestSchema:
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicationRequest_DispenseRequest"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MedicationRequest_DispenseRequest"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +107,13 @@ class MedicationRequest_DispenseRequestSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,26 +130,42 @@ class MedicationRequest_DispenseRequestSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates the quantity or duration for the first dispense of the medication.
                 StructField(
                     "initialFill",
-                    MedicationRequest_InitialFillSchema.
-                    get_schema(recursion_depth + 1), True
+                    MedicationRequest_InitialFillSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The minimum period of time that must occur between dispenses of the
                 # medication.
                 StructField(
                     "dispenseInterval",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # This indicates the validity period of a prescription (stale dating the
                 # Prescription).
                 StructField(
                     "validityPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An integer indicating the number of times, in addition to the original
                 # dispense, (aka refills or repeats) that the patient can receive the prescribed
@@ -143,23 +176,39 @@ class MedicationRequest_DispenseRequestSchema:
                 # refills are permitted after the initial dispense.
                 StructField(
                     "numberOfRepeatsAllowed",
-                    unsignedIntSchema.get_schema(recursion_depth + 1), True
+                    unsignedIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The amount that is to be dispensed for one fill.
                 StructField(
-                    "quantity", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "quantity",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the period time over which the supplied product is expected to be
                 # used, or the length of time the dispense is expected to last.
                 StructField(
                     "expectedSupplyDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the intended dispensing Organization specified by the prescriber.
                 StructField(
                     "performer",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

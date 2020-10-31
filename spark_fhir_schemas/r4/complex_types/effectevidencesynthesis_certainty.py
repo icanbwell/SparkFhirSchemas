@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class EffectEvidenceSynthesis_CertaintySchema:
     between exposures states in a population where the effect estimate is derived
     from a combination of research studies.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The EffectEvidenceSynthesis resource describes the difference in an outcome
         between exposures states in a population where the effect estimate is derived
@@ -57,8 +63,14 @@ class EffectEvidenceSynthesis_CertaintySchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.r4.complex_types.effectevidencesynthesis_certaintysubcomponent import EffectEvidenceSynthesis_CertaintySubcomponentSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "EffectEvidenceSynthesis_Certainty"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "EffectEvidenceSynthesis_Certainty"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -71,8 +83,13 @@ class EffectEvidenceSynthesis_CertaintySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -89,21 +106,34 @@ class EffectEvidenceSynthesis_CertaintySchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A rating of the certainty of the effect estimate.
                 StructField(
                     "rating",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A human-readable string to clarify or explain concepts about the resource.
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A description of a component of the overall certainty.
@@ -111,7 +141,11 @@ class EffectEvidenceSynthesis_CertaintySchema:
                     "certaintySubcomponent",
                     ArrayType(
                         EffectEvidenceSynthesis_CertaintySubcomponentSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

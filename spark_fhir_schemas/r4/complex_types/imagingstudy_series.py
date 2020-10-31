@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,8 +18,13 @@ class ImagingStudy_SeriesSchema:
     common context.  A series is of only one modality (e.g. X-ray, CT, MR,
     ultrasound), but a study may have multiple series of different modalities.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Representation of the content produced in a DICOM imaging study. A study
         comprises a set of series, each of which includes a set of Service-Object Pair
@@ -96,8 +102,12 @@ class ImagingStudy_SeriesSchema:
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.imagingstudy_performer import ImagingStudy_PerformerSchema
         from spark_fhir_schemas.r4.complex_types.imagingstudy_instance import ImagingStudy_InstanceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ImagingStudy_Series"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ImagingStudy_Series"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -110,8 +120,13 @@ class ImagingStudy_SeriesSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -128,22 +143,40 @@ class ImagingStudy_SeriesSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The DICOM Series Instance UID for the series.
                 StructField(
-                    "uid", idSchema.get_schema(recursion_depth + 1), True
+                    "uid",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The numeric identifier of this series in the study.
                 StructField(
                     "number",
-                    unsignedIntSchema.get_schema(recursion_depth + 1), True
+                    unsignedIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The modality of this series sequence.
                 StructField(
-                    "modality", CodingSchema.get_schema(recursion_depth + 1),
-                    True
+                    "modality",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A description of the series.
                 StructField("description", StringType(), True),
@@ -153,7 +186,11 @@ class ImagingStudy_SeriesSchema:
                 # any instance elements are present.
                 StructField(
                     "numberOfInstances",
-                    unsignedIntSchema.get_schema(recursion_depth + 1), True
+                    unsignedIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The network service providing access (e.g., query, view, or retrieval) for
                 # this series. See implementation notes for information about using DICOM
@@ -161,8 +198,13 @@ class ImagingStudy_SeriesSchema:
                 # level endpoint with the same Endpoint.connectionType.
                 StructField(
                     "endpoint",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The anatomic structures examined. See DICOM Part 16 Annex L (http://dicom.nema
                 # .org/medical/dicom/current/output/chtml/part16/chapter_L.html) for DICOM to
@@ -170,42 +212,65 @@ class ImagingStudy_SeriesSchema:
                 # imaged; if so, it shall be consistent with any content of
                 # ImagingStudy.series.laterality.
                 StructField(
-                    "bodySite", CodingSchema.get_schema(recursion_depth + 1),
-                    True
+                    "bodySite",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The laterality of the (possibly paired) anatomic structures examined. E.g.,
                 # the left knee, both lungs, or unpaired abdomen. If present, shall be
                 # consistent with any laterality information indicated in
                 # ImagingStudy.series.bodySite.
                 StructField(
-                    "laterality", CodingSchema.get_schema(recursion_depth + 1),
-                    True
+                    "laterality",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The specimen imaged, e.g., for whole slide imaging of a biopsy.
                 StructField(
                     "specimen",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The date and time the series was started.
                 StructField(
-                    "started", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "started",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates who or what performed the series and how they were involved.
                 StructField(
                     "performer",
                     ArrayType(
-                        ImagingStudy_PerformerSchema.
-                        get_schema(recursion_depth + 1)
+                        ImagingStudy_PerformerSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A single SOP instance within the series, e.g. an image, or presentation state.
                 StructField(
                     "instance",
                     ArrayType(
-                        ImagingStudy_InstanceSchema.
-                        get_schema(recursion_depth + 1)
+                        ImagingStudy_InstanceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

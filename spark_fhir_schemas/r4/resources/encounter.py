@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class EncounterSchema:
     An interaction between a patient and healthcare provider(s) for the purpose of
     providing healthcare service(s) or assessing the health status of a patient.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         An interaction between a patient and healthcare provider(s) for the purpose of
         providing healthcare service(s) or assessing the health status of a patient.
@@ -161,8 +167,12 @@ class EncounterSchema:
         from spark_fhir_schemas.r4.complex_types.encounter_diagnosis import Encounter_DiagnosisSchema
         from spark_fhir_schemas.r4.complex_types.encounter_hospitalization import Encounter_HospitalizationSchema
         from spark_fhir_schemas.r4.complex_types.encounter_location import Encounter_LocationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Encounter"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Encounter"]
         schema = StructType(
             [
                 # This is a Encounter resource
@@ -170,26 +180,44 @@ class EncounterSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -198,8 +226,12 @@ class EncounterSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -207,7 +239,11 @@ class EncounterSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -217,8 +253,13 @@ class EncounterSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -235,14 +276,23 @@ class EncounterSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifier(s) by which this encounter is known.
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # planned | arrived | triaged | in-progress | onleave | finished | cancelled +.
@@ -253,15 +303,23 @@ class EncounterSchema:
                 StructField(
                     "statusHistory",
                     ArrayType(
-                        Encounter_StatusHistorySchema.
-                        get_schema(recursion_depth + 1)
+                        Encounter_StatusHistorySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Concepts representing classification of patient encounter such as ambulatory
                 # (outpatient), inpatient, emergency, home health or others due to local
                 # variations.
                 StructField(
-                    "class", CodingSchema.get_schema(recursion_depth + 1), True
+                    "class",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The class history permits the tracking of the encounters transitions without
                 # needing to go  through the resource history.  This would be used for a case
@@ -273,8 +331,11 @@ class EncounterSchema:
                 StructField(
                     "classHistory",
                     ArrayType(
-                        Encounter_ClassHistorySchema.
-                        get_schema(recursion_depth + 1)
+                        Encounter_ClassHistorySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Specific type of encounter (e.g. e-mail consultation, surgical day-care,
@@ -282,23 +343,39 @@ class EncounterSchema:
                 StructField(
                     "type",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Broad categorization of the service that is to be provided (e.g. cardiology).
                 StructField(
                     "serviceType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the urgency of the encounter.
                 StructField(
                     "priority",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The patient or group present at the encounter.
                 StructField(
-                    "subject", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "subject",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where a specific encounter should be classified as a part of a specific
                 # episode(s) of care this field should be used. This association can facilitate
@@ -309,82 +386,131 @@ class EncounterSchema:
                 # care to append another encounter to it (the episode of care could span years).
                 StructField(
                     "episodeOfCare",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The request this encounter satisfies (e.g. incoming referral or procedure
                 # request).
                 StructField(
                     "basedOn",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The list of people responsible for providing the service.
                 StructField(
                     "participant",
                     ArrayType(
-                        Encounter_ParticipantSchema.
-                        get_schema(recursion_depth + 1)
+                        Encounter_ParticipantSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The appointment that scheduled this encounter.
                 StructField(
                     "appointment",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The start and end time of the encounter.
                 StructField(
-                    "period", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "period",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Quantity of time the encounter lasted. This excludes the time during leaves of
                 # absence.
                 StructField(
-                    "length", DurationSchema.get_schema(recursion_depth + 1),
-                    True
+                    "length",
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Reason the encounter takes place, expressed as a code. For admissions, this
                 # can be used for a coded admission diagnosis.
                 StructField(
                     "reasonCode",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Reason the encounter takes place, expressed as a code. For admissions, this
                 # can be used for a coded admission diagnosis.
                 StructField(
                     "reasonReference",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The list of diagnosis relevant to this encounter.
                 StructField(
                     "diagnosis",
                     ArrayType(
-                        Encounter_DiagnosisSchema.
-                        get_schema(recursion_depth + 1)
+                        Encounter_DiagnosisSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The set of accounts that may be used for billing for this Encounter.
                 StructField(
                     "account",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Details about the admission to a healthcare service.
                 StructField(
                     "hospitalization",
-                    Encounter_HospitalizationSchema.
-                    get_schema(recursion_depth + 1), True
+                    Encounter_HospitalizationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # List of locations where  the patient has been during this encounter.
                 StructField(
                     "location",
                     ArrayType(
-                        Encounter_LocationSchema.
-                        get_schema(recursion_depth + 1)
+                        Encounter_LocationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The organization that is primarily responsible for this Encounter's services.
@@ -395,13 +521,21 @@ class EncounterSchema:
                 # Encounters for a colonoscopy.
                 StructField(
                     "serviceProvider",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Another Encounter of which this encounter is a part of (administratively or in
                 # time).
                 StructField(
-                    "partOf", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "partOf",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

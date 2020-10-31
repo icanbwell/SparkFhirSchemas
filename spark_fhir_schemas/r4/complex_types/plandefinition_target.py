@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class PlanDefinition_TargetSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
@@ -81,8 +87,14 @@ class PlanDefinition_TargetSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "PlanDefinition_Target"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "PlanDefinition_Target"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +107,13 @@ class PlanDefinition_TargetSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,14 +130,23 @@ class PlanDefinition_TargetSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The parameter whose value is to be tracked, e.g. body weight, blood pressure,
                 # or hemoglobin A1c level.
                 StructField(
                     "measure",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the measure to be achieved to signify fulfillment of the
                 # goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
@@ -130,7 +156,11 @@ class PlanDefinition_TargetSchema:
                 # or above the low value.
                 StructField(
                     "detailQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the measure to be achieved to signify fulfillment of the
                 # goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
@@ -139,8 +169,12 @@ class PlanDefinition_TargetSchema:
                 # high value is missing, it indicates that the goal is achieved at any value at
                 # or above the low value.
                 StructField(
-                    "detailRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "detailRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target value of the measure to be achieved to signify fulfillment of the
                 # goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
@@ -150,12 +184,21 @@ class PlanDefinition_TargetSchema:
                 # or above the low value.
                 StructField(
                     "detailCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the timeframe after the start of the goal in which the goal should
                 # be met.
                 StructField(
-                    "due", DurationSchema.get_schema(recursion_depth + 1), True
+                    "due",
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

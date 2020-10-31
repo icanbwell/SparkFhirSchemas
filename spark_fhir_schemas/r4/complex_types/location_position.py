@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class Location_PositionSchema:
     provided and resources and participants may be stored, found, contained, or
     accommodated.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Details and position information for a physical place where services are
         provided and resources and participants may be stored, found, contained, or
@@ -58,8 +64,12 @@ class Location_PositionSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Location_Position"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Location_Position"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -72,8 +82,13 @@ class Location_PositionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -90,26 +105,43 @@ class Location_PositionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Longitude. The value domain and the interpretation are the same as for the
                 # text of the longitude element in KML (see notes below).
                 StructField(
-                    "longitude", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "longitude",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Latitude. The value domain and the interpretation are the same as for the text
                 # of the latitude element in KML (see notes below).
                 StructField(
-                    "latitude", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "latitude",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Altitude. The value domain and the interpretation are the same as for the text
                 # of the altitude element in KML (see notes below).
                 StructField(
-                    "altitude", decimalSchema.get_schema(recursion_depth + 1),
-                    True
+                    "altitude",
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

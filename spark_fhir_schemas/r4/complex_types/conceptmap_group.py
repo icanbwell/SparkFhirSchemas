@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ConceptMap_GroupSchema:
     concepts - either concepts in code systems, or data element/data element
     concepts, or classes in class models.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A statement of relationships from one set of concepts to one or more other
         concepts - either concepts in code systems, or data element/data element
@@ -70,8 +76,12 @@ class ConceptMap_GroupSchema:
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.conceptmap_element import ConceptMap_ElementSchema
         from spark_fhir_schemas.r4.complex_types.conceptmap_unmapped import ConceptMap_UnmappedSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ConceptMap_Group"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ConceptMap_Group"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -84,8 +94,13 @@ class ConceptMap_GroupSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -102,13 +117,23 @@ class ConceptMap_GroupSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An absolute URI that identifies the source system where the concepts to be
                 # mapped are defined.
                 StructField(
-                    "source", uriSchema.get_schema(recursion_depth + 1), True
+                    "source",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The specific version of the code system, as determined by the code system
                 # authority.
@@ -116,7 +141,12 @@ class ConceptMap_GroupSchema:
                 # An absolute URI that identifies the target system that the concepts will be
                 # mapped to.
                 StructField(
-                    "target", uriSchema.get_schema(recursion_depth + 1), True
+                    "target",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The specific version of the code system, as determined by the code system
                 # authority.
@@ -126,8 +156,11 @@ class ConceptMap_GroupSchema:
                 StructField(
                     "element",
                     ArrayType(
-                        ConceptMap_ElementSchema.
-                        get_schema(recursion_depth + 1)
+                        ConceptMap_ElementSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # What to do when there is no mapping for the source concept. "Unmapped" does
@@ -135,8 +168,11 @@ class ConceptMap_GroupSchema:
                 # code is specified to have equivalence = unmatched.
                 StructField(
                     "unmapped",
-                    ConceptMap_UnmappedSchema.get_schema(recursion_depth + 1),
-                    True
+                    ConceptMap_UnmappedSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

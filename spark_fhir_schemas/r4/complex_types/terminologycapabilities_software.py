@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class TerminologyCapabilities_SoftwareSchema:
     of a FHIR Terminology Server that may be used as a statement of actual server
     functionality or a statement of required or desired server implementation.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A TerminologyCapabilities resource documents a set of capabilities (behaviors)
         of a FHIR Terminology Server that may be used as a statement of actual server
@@ -52,8 +58,14 @@ class TerminologyCapabilities_SoftwareSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TerminologyCapabilities_Software"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "TerminologyCapabilities_Software"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -66,8 +78,13 @@ class TerminologyCapabilities_SoftwareSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -84,8 +101,13 @@ class TerminologyCapabilities_SoftwareSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Name the software is known by.
                 StructField("name", StringType(), True),

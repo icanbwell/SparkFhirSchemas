@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class TestScript_OperationSchema:
     A structured set of tests against a FHIR server or client implementation to
     determine compliance against the FHIR specification.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server or client implementation to
         determine compliance against the FHIR specification.
@@ -94,8 +100,14 @@ class TestScript_OperationSchema:
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.testscript_requestheader import TestScript_RequestHeaderSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TestScript_Operation"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "TestScript_Operation"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -108,8 +120,13 @@ class TestScript_OperationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -126,17 +143,31 @@ class TestScript_OperationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Server interaction or operation type.
                 StructField(
-                    "type", CodingSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The type of the resource.  See http://build.fhir.org/resourcelist.html.
                 StructField(
-                    "resource", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "resource",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The label would be used for tracking/logging purposes by test engines.
                 StructField("label", StringType(), True),
@@ -145,18 +176,31 @@ class TestScript_OperationSchema:
                 StructField("description", StringType(), True),
                 # The mime-type to use for RESTful operation in the 'Accept' header.
                 StructField(
-                    "accept", codeSchema.get_schema(recursion_depth + 1), True
+                    "accept",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The mime-type to use for RESTful operation in the 'Content-Type' header.
                 StructField(
-                    "contentType", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "contentType",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The server where the request message is destined for.  Must be one of the
                 # server numbers listed in TestScript.destination section.
                 StructField(
                     "destination",
-                    integerSchema.get_schema(recursion_depth + 1), True
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether or not to implicitly send the request url in encoded format. The
                 # default is true to match the standard RESTful client behavior. Set to false
@@ -168,8 +212,12 @@ class TestScript_OperationSchema:
                 # The server where the request message originates from.  Must be one of the
                 # server numbers listed in TestScript.origin section.
                 StructField(
-                    "origin", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "origin",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Path plus parameters after [type].  Used to set parts of the request URL
                 # explicitly.
@@ -178,27 +226,49 @@ class TestScript_OperationSchema:
                 StructField(
                     "requestHeader",
                     ArrayType(
-                        TestScript_RequestHeaderSchema.
-                        get_schema(recursion_depth + 1)
+                        TestScript_RequestHeaderSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The fixture id (maybe new) to map to the request.
                 StructField(
-                    "requestId", idSchema.get_schema(recursion_depth + 1), True
+                    "requestId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The fixture id (maybe new) to map to the response.
                 StructField(
-                    "responseId", idSchema.get_schema(recursion_depth + 1),
-                    True
+                    "responseId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The id of the fixture used as the body of a PUT or POST request.
                 StructField(
-                    "sourceId", idSchema.get_schema(recursion_depth + 1), True
+                    "sourceId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Id of fixture used for extracting the [id],  [type], and [vid] for GET
                 # requests.
                 StructField(
-                    "targetId", idSchema.get_schema(recursion_depth + 1), True
+                    "targetId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Complete request URL.
                 StructField("url", StringType(), True),

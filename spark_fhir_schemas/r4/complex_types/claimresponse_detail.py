@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ClaimResponse_DetailSchema:
     This resource provides the adjudication details from the processing of a Claim
     resource.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource provides the adjudication details from the processing of a Claim
         resource.
@@ -58,8 +64,14 @@ class ClaimResponse_DetailSchema:
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.claimresponse_adjudication import ClaimResponse_AdjudicationSchema
         from spark_fhir_schemas.r4.complex_types.claimresponse_subdetail import ClaimResponse_SubDetailSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ClaimResponse_Detail"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ClaimResponse_Detail"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -72,8 +84,13 @@ class ClaimResponse_DetailSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -90,36 +107,55 @@ class ClaimResponse_DetailSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A number to uniquely reference the claim detail entry.
                 StructField(
                     "detailSequence",
-                    positiveIntSchema.get_schema(recursion_depth + 1), True
+                    positiveIntSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The numbers associated with notes below which apply to the adjudication of
                 # this item.
                 StructField(
                     "noteNumber",
                     ArrayType(
-                        positiveIntSchema.get_schema(recursion_depth + 1)
+                        positiveIntSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The adjudication results.
                 StructField(
                     "adjudication",
                     ArrayType(
-                        ClaimResponse_AdjudicationSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_AdjudicationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A sub-detail adjudication of a simple product or service.
                 StructField(
                     "subDetail",
                     ArrayType(
-                        ClaimResponse_SubDetailSchema.
-                        get_schema(recursion_depth + 1)
+                        ClaimResponse_SubDetailSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ConceptMap_TargetSchema:
     concepts - either concepts in code systems, or data element/data element
     concepts, or classes in class models.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A statement of relationships from one set of concepts to one or more other
         concepts - either concepts in code systems, or data element/data element
@@ -72,8 +78,12 @@ class ConceptMap_TargetSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.conceptmap_dependson import ConceptMap_DependsOnSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ConceptMap_Target"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ConceptMap_Target"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -86,8 +96,13 @@ class ConceptMap_TargetSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -104,12 +119,22 @@ class ConceptMap_TargetSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identity (code or path) or the element/item that the map refers to.
                 StructField(
-                    "code", codeSchema.get_schema(recursion_depth + 1), True
+                    "code",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The display for the code. The display is only provided to help editors when
                 # editing the concept map.
@@ -127,8 +152,11 @@ class ConceptMap_TargetSchema:
                 StructField(
                     "dependsOn",
                     ArrayType(
-                        ConceptMap_DependsOnSchema.
-                        get_schema(recursion_depth + 1)
+                        ConceptMap_DependsOnSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A set of additional outcomes from this mapping to other elements. To properly
@@ -139,8 +167,11 @@ class ConceptMap_TargetSchema:
                 StructField(
                     "product",
                     ArrayType(
-                        ConceptMap_DependsOnSchema.
-                        get_schema(recursion_depth + 1)
+                        ConceptMap_DependsOnSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

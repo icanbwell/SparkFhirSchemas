@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -18,8 +19,13 @@ class MedicationRequestSchema:
     to generalize the use across inpatient and outpatient settings, including care
     plans, etc., and to harmonize with workflow patterns.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         An order or request for both supply of the medication and the instructions for
         administration of the medication to a patient. The resource is called
@@ -207,8 +213,12 @@ class MedicationRequestSchema:
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.medicationrequest_dispenserequest import MedicationRequest_DispenseRequestSchema
         from spark_fhir_schemas.r4.complex_types.medicationrequest_substitution import MedicationRequest_SubstitutionSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicationRequest"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["MedicationRequest"]
         schema = StructType(
             [
                 # This is a MedicationRequest resource
@@ -216,26 +226,44 @@ class MedicationRequestSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -244,8 +272,12 @@ class MedicationRequestSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -253,7 +285,11 @@ class MedicationRequestSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -263,8 +299,13 @@ class MedicationRequestSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -281,8 +322,13 @@ class MedicationRequestSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Identifiers associated with this medication request that are defined by
                 # business processes and/or used to refer to it when a direct URL reference to
@@ -292,36 +338,62 @@ class MedicationRequestSchema:
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A code specifying the current state of the order.  Generally, this will be
                 # active or completed state.
                 StructField(
-                    "status", codeSchema.get_schema(recursion_depth + 1), True
+                    "status",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Captures the reason for the current state of the MedicationRequest.
                 StructField(
                     "statusReason",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether the request is a proposal, plan, or an original order.
                 StructField(
-                    "intent", codeSchema.get_schema(recursion_depth + 1), True
+                    "intent",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the type of medication request (for example, where the medication is
                 # expected to be consumed or administered (i.e. inpatient or outpatient)).
                 StructField(
                     "category",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates how quickly the Medication Request should be addressed with respect
                 # to other requests.
                 StructField(
-                    "priority", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "priority",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # If true indicates that the provider is asking for the medication request not
                 # to occur.
@@ -335,7 +407,11 @@ class MedicationRequestSchema:
                 # source of the report.
                 StructField(
                     "reportedReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the medication being requested. This is a link to a resource that
                 # represents the medication which may be the details of the medication or simply
@@ -343,7 +419,11 @@ class MedicationRequestSchema:
                 # of medications.
                 StructField(
                     "medicationCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies the medication being requested. This is a link to a resource that
                 # represents the medication which may be the details of the medication or simply
@@ -351,123 +431,207 @@ class MedicationRequestSchema:
                 # of medications.
                 StructField(
                     "medicationReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A link to a resource representing the person or set of individuals to whom the
                 # medication will be given.
                 StructField(
-                    "subject", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "subject",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The Encounter during which this [x] was created or to which the creation of
                 # this record is tightly associated.
                 StructField(
                     "encounter",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Include additional information (for example, patient height and weight) that
                 # supports the ordering of the medication.
                 StructField(
                     "supportingInformation",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The date (and perhaps time) when the prescription was initially written or
                 # authored on.
                 StructField(
                     "authoredOn",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The individual, organization, or device that initiated the request and has
                 # responsibility for its activation.
                 StructField(
                     "requester",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The specified desired performer of the medication treatment (e.g. the
                 # performer of the medication administration).
                 StructField(
                     "performer",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the type of performer of the administration of the medication.
                 StructField(
                     "performerType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The person who entered the order on behalf of another individual for example
                 # in the case of a verbal or a telephone order.
                 StructField(
                     "recorder",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The reason or the indication for ordering or not ordering the medication.
                 StructField(
                     "reasonCode",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Condition or observation that supports why the medication was ordered.
                 StructField(
                     "reasonReference",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The URL pointing to a protocol, guideline, orderset, or other definition that
                 # is adhered to in whole or in part by this MedicationRequest.
                 StructField(
                     "instantiatesCanonical",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The URL pointing to an externally maintained protocol, guideline, orderset or
                 # other definition that is adhered to in whole or in part by this
                 # MedicationRequest.
                 StructField(
                     "instantiatesUri",
-                    ArrayType(uriSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        uriSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A plan or request that is fulfilled in whole or in part by this medication
                 # request.
                 StructField(
                     "basedOn",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A shared identifier common to all requests that were authorized more or less
                 # simultaneously by a single author, representing the identifier of the
                 # requisition or prescription.
                 StructField(
                     "groupIdentifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The description of the overall patte3rn of the administration of the
                 # medication to the patient.
                 StructField(
                     "courseOfTherapyType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Insurance plans, coverage extensions, pre-authorizations and/or pre-
                 # determinations that may be required for delivering the requested service.
                 StructField(
                     "insurance",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Extra information about the prescription that could not be conveyed by the
                 # other attributes.
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Indicates how the medication is to be used by the patient.
                 StructField(
                     "dosageInstruction",
-                    ArrayType(DosageSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        DosageSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Indicates the specific details for the dispense or medication supply part of a
                 # medication request (also known as a Medication Prescription or Medication
@@ -476,8 +640,11 @@ class MedicationRequestSchema:
                 # completing the dispense details in the pharmacy department.
                 StructField(
                     "dispenseRequest",
-                    MedicationRequest_DispenseRequestSchema.
-                    get_schema(recursion_depth + 1), True
+                    MedicationRequest_DispenseRequestSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates whether or not substitution can or should be part of the dispense.
                 # In some cases, substitution must happen, in other cases substitution must not
@@ -485,22 +652,34 @@ class MedicationRequestSchema:
                 # substitution may be done.
                 StructField(
                     "substitution",
-                    MedicationRequest_SubstitutionSchema.
-                    get_schema(recursion_depth + 1), True
+                    MedicationRequest_SubstitutionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A link to a resource representing an earlier order related order or
                 # prescription.
                 StructField(
                     "priorPrescription",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates an actual or potential clinical issue with or between one or more
                 # active or proposed clinical actions for a patient; e.g. Drug-drug interaction,
                 # duplicate therapy, dosage alert etc.
                 StructField(
                     "detectedIssue",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Links to Provenance records for past versions of this resource or fulfilling
                 # request or event resources that identify key state transitions or updates that
@@ -508,8 +687,13 @@ class MedicationRequestSchema:
                 # resource.
                 StructField(
                     "eventHistory",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
             ]
         )

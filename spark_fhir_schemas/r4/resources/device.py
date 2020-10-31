@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class DeviceSchema:
     without being substantially changed through that activity. The device may be a
     medical or non-medical device.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A type of a manufactured item that is used in the provision of healthcare
         without being substantially changed through that activity. The device may be a
@@ -157,8 +163,12 @@ class DeviceSchema:
         from spark_fhir_schemas.r4.complex_types.device_property import Device_PropertySchema
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Device"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Device"]
         schema = StructType(
             [
                 # This is a Device resource
@@ -166,26 +176,44 @@ class DeviceSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -194,8 +222,12 @@ class DeviceSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -203,7 +235,11 @@ class DeviceSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -213,8 +249,13 @@ class DeviceSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -231,21 +272,34 @@ class DeviceSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Unique instance identifiers assigned to a device by manufacturers other
                 # organizations or owners.
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The reference to the definition for the device.
                 StructField(
                     "definition",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Unique device identifier (UDI) assigned to device label or package.  Note that
                 # the Device may include multiple udiCarriers as it either may include just the
@@ -254,8 +308,11 @@ class DeviceSchema:
                 StructField(
                     "udiCarrier",
                     ArrayType(
-                        Device_UdiCarrierSchema.
-                        get_schema(recursion_depth + 1)
+                        Device_UdiCarrierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Status of the Device availability.
@@ -264,7 +321,11 @@ class DeviceSchema:
                 StructField(
                     "statusReason",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The distinct identification string as required by regulation for a human cell,
@@ -275,13 +336,21 @@ class DeviceSchema:
                 # The date and time when the device was manufactured.
                 StructField(
                     "manufactureDate",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date and time beyond which this device is no longer valid or should not be
                 # used (if applicable).
                 StructField(
                     "expirationDate",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Lot number assigned by the manufacturer.
                 StructField("lotNumber", StringType(), True),
@@ -295,8 +364,11 @@ class DeviceSchema:
                 StructField(
                     "deviceName",
                     ArrayType(
-                        Device_DeviceNameSchema.
-                        get_schema(recursion_depth + 1)
+                        Device_DeviceNameSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The model number for the device.
@@ -306,22 +378,33 @@ class DeviceSchema:
                 # The kind or type of device.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The capabilities supported on a  device, the standards to which the device
                 # conforms for a particular purpose, and used for the communication.
                 StructField(
                     "specialization",
                     ArrayType(
-                        Device_SpecializationSchema.
-                        get_schema(recursion_depth + 1)
+                        Device_SpecializationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The actual design of the device or software version running on the device.
                 StructField(
                     "version",
                     ArrayType(
-                        Device_VersionSchema.get_schema(recursion_depth + 1)
+                        Device_VersionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The actual configuration settings of a device as it actually operates, e.g.,
@@ -329,43 +412,72 @@ class DeviceSchema:
                 StructField(
                     "property",
                     ArrayType(
-                        Device_PropertySchema.get_schema(recursion_depth + 1)
+                        Device_PropertySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Patient information, If the device is affixed to a person.
                 StructField(
-                    "patient", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "patient",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An organization that is responsible for the provision and ongoing maintenance
                 # of the device.
                 StructField(
-                    "owner", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "owner",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Contact details for an organization or a particular human that is responsible
                 # for the device.
                 StructField(
                     "contact",
                     ArrayType(
-                        ContactPointSchema.get_schema(recursion_depth + 1)
+                        ContactPointSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The place where the device can be found.
                 StructField(
                     "location",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A network address on which the device may be contacted directly.
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Descriptive information, usage information or implantation information that is
                 # not captured in an existing element.
                 StructField(
                     "note",
                     ArrayType(
-                        AnnotationSchema.get_schema(recursion_depth + 1)
+                        AnnotationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Provides additional safety characteristics about a medical device.  For
@@ -373,13 +485,21 @@ class DeviceSchema:
                 StructField(
                     "safety",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The parent device.
                 StructField(
-                    "parent", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "parent",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

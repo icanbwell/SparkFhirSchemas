@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class BiologicallyDerivedProduct_ManipulationSchema:
     transplanted or infused
     into another (possibly the same) biological entity.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A material substance originating from a biological entity intended to be
         transplanted or infused
@@ -55,8 +61,14 @@ class BiologicallyDerivedProduct_ManipulationSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "BiologicallyDerivedProduct_Manipulation"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "BiologicallyDerivedProduct_Manipulation"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -69,8 +81,13 @@ class BiologicallyDerivedProduct_ManipulationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -87,8 +104,13 @@ class BiologicallyDerivedProduct_ManipulationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Description of manipulation.
                 StructField("description", StringType(), True),
@@ -96,8 +118,12 @@ class BiologicallyDerivedProduct_ManipulationSchema:
                 StructField("timeDateTime", StringType(), True),
                 # Time of manipulation.
                 StructField(
-                    "timePeriod", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "timePeriod",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

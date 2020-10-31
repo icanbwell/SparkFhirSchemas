@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ContractSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
         a policy or agreement.
@@ -216,8 +222,12 @@ class ContractSchema:
         from spark_fhir_schemas.r4.complex_types.contract_legal import Contract_LegalSchema
         from spark_fhir_schemas.r4.complex_types.contract_rule import Contract_RuleSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Contract"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Contract"]
         schema = StructType(
             [
                 # This is a Contract resource
@@ -225,26 +235,44 @@ class ContractSchema:
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
                 StructField(
-                    "id", idSchema.get_schema(recursion_depth + 1), True
+                    "id",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
                 StructField(
-                    "meta", MetaSchema.get_schema(recursion_depth + 1), True
+                    "meta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
                 # this is a reference to an implementation guide that defines the special rules
                 # along with other profiles etc.
                 StructField(
-                    "implicitRules", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "implicitRules",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
-                    "language", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "language",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -253,8 +281,12 @@ class ContractSchema:
                 # Resource definitions may define what content should be represented in the
                 # narrative to ensure clinical safety.
                 StructField(
-                    "text", NarrativeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "text",
+                    NarrativeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -262,7 +294,11 @@ class ContractSchema:
                 StructField(
                     "contained",
                     ArrayType(
-                        ResourceListSchema.get_schema(recursion_depth + 1)
+                        ResourceListSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
@@ -272,8 +308,13 @@ class ContractSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
@@ -290,28 +331,47 @@ class ContractSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Unique identifier for this Contract or a derivative that references a Source
                 # Contract.
                 StructField(
                     "identifier",
                     ArrayType(
-                        IdentifierSchema.get_schema(recursion_depth + 1)
+                        IdentifierSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Canonical identifier for this contract, represented as a URI (globally
                 # unique).
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An edition identifier used for business purposes to label business significant
                 # variants.
                 StructField("version", StringType(), True),
                 # The status of the resource instance.
                 StructField(
-                    "status", codeSchema.get_schema(recursion_depth + 1), True
+                    "status",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Legal states of the formation of a legal instrument, which is a formally
                 # executed written document that can be formally attributed to its author,
@@ -320,47 +380,80 @@ class ContractSchema:
                 # process, or agreement.
                 StructField(
                     "legalState",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The URL pointing to a FHIR-defined Contract Definition that is adhered to in
                 # whole or part by this Contract.
                 StructField(
                     "instantiatesCanonical",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The URL pointing to an externally maintained definition that is adhered to in
                 # whole or in part by this Contract.
                 StructField(
                     "instantiatesUri",
-                    uriSchema.get_schema(recursion_depth + 1), True
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The minimal content derived from the basal information source at a specific
                 # stage in its lifecycle.
                 StructField(
                     "contentDerivative",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # When this  Contract was issued.
                 StructField(
-                    "issued", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "issued",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Relevant time or time-period when this Contract is applicable.
                 StructField(
-                    "applies", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "applies",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Event resulting in discontinuation or termination of this Contract instance by
                 # one or more parties to the contract.
                 StructField(
                     "expirationType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The target entity impacted by or of interest to parties to the agreement.
                 StructField(
                     "subject",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A formally or informally recognized grouping of people, principals,
                 # organizations, or jurisdictions formed for the purpose of achieving some form
@@ -368,8 +461,13 @@ class ContractSchema:
                 # of contracts and policies.
                 StructField(
                     "authority",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Recognized governance framework or system operating with a circumscribed scope
                 # in accordance with specified principles, policies, processes or procedures for
@@ -377,14 +475,24 @@ class ContractSchema:
                 # resources.
                 StructField(
                     "domain",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Sites in which the contract is complied with,  exercised, or in force.
                 StructField(
                     "site",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A natural language name identifying this Contract definition, derivative, or
                 # instance in any legal state. Provides additional information about its
@@ -406,26 +514,42 @@ class ContractSchema:
                 # The individual or organization that authored the Contract definition,
                 # derivative, or instance in any legal state.
                 StructField(
-                    "author", ReferenceSchema.get_schema(recursion_depth + 1),
-                    True
+                    "author",
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A selector of legal concerns for this Contract definition, derivative, or
                 # instance in any legal state.
                 StructField(
                     "scope",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Narrows the range of legal concerns to focus on the achievement of specific
                 # contractual objectives.
                 StructField(
                     "topicCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Narrows the range of legal concerns to focus on the achievement of specific
                 # contractual objectives.
                 StructField(
                     "topicReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A high-level category for the legal instrument, whether constructed as a
                 # Contract definition, derivative, or instance in any legal state.  Provides
@@ -434,7 +558,11 @@ class ContractSchema:
                 # contract.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Sub-category for the Contract that distinguishes the kinds of systems that
                 # would be interested in the Contract within the context of the Contract's
@@ -442,7 +570,11 @@ class ContractSchema:
                 StructField(
                     "subType",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Precusory content developed with a focus and intent of supporting the
@@ -450,23 +582,35 @@ class ContractSchema:
                 # into a Contract.
                 StructField(
                     "contentDefinition",
-                    Contract_ContentDefinitionSchema.
-                    get_schema(recursion_depth + 1), True
+                    Contract_ContentDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # One or more Contract Provisions, which may be related and conveyed as a group,
                 # and may contain nested groups.
                 StructField(
                     "term",
                     ArrayType(
-                        Contract_TermSchema.get_schema(recursion_depth + 1)
+                        Contract_TermSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Information that may be needed by/relevant to the performer in their execution
                 # of this term action.
                 StructField(
                     "supportingInfo",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Links to Provenance records for past versions of this Contract definition,
                 # derivative, or instance, which identify key state transitions or updates that
@@ -475,8 +619,13 @@ class ContractSchema:
                 # update. http://build.fhir.org/provenance-definitions.html#Provenance.entity.
                 StructField(
                     "relevantHistory",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Parties with legal standing in the Contract, including the principal parties,
                 # the grantor(s) and grantee(s), which are any person or organization bound by
@@ -485,7 +634,11 @@ class ContractSchema:
                 StructField(
                     "signer",
                     ArrayType(
-                        Contract_SignerSchema.get_schema(recursion_depth + 1)
+                        Contract_SignerSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The "patient friendly language" versionof the Contract in whole or in parts.
@@ -497,22 +650,33 @@ class ContractSchema:
                 StructField(
                     "friendly",
                     ArrayType(
-                        Contract_FriendlySchema.
-                        get_schema(recursion_depth + 1)
+                        Contract_FriendlySchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # List of Legal expressions or representations of this Contract.
                 StructField(
                     "legal",
                     ArrayType(
-                        Contract_LegalSchema.get_schema(recursion_depth + 1)
+                        Contract_LegalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # List of Computable Policy Rule Language Representations of this Contract.
                 StructField(
                     "rule",
                     ArrayType(
-                        Contract_RuleSchema.get_schema(recursion_depth + 1)
+                        Contract_RuleSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Legally binding Contract: This is the signed and legally recognized
@@ -521,7 +685,11 @@ class ContractSchema:
                 # Contract.
                 StructField(
                     "legallyBindingAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Legally binding Contract: This is the signed and legally recognized
                 # representation of the Contract, which is considered the "source of truth" and
@@ -529,7 +697,11 @@ class ContractSchema:
                 # Contract.
                 StructField(
                     "legallyBindingReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

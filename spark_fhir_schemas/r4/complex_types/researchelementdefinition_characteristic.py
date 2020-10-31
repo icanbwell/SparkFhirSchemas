@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ResearchElementDefinition_CharacteristicSchema:
     The ResearchElementDefinition resource describes a "PICO" element that
     knowledge (evidence, assertion, recommendation) is about.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The ResearchElementDefinition resource describes a "PICO" element that
         knowledge (evidence, assertion, recommendation) is about.
@@ -109,8 +115,14 @@ class ResearchElementDefinition_CharacteristicSchema:
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ResearchElementDefinition_Characteristic"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ResearchElementDefinition_Characteristic"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -123,8 +135,13 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -141,8 +158,13 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Define members of the research element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -150,7 +172,11 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # the last year).
                 StructField(
                     "definitionCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Define members of the research element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -163,7 +189,11 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # the last year).
                 StructField(
                     "definitionExpression",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Define members of the research element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -171,14 +201,22 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # the last year).
                 StructField(
                     "definitionDataRequirement",
-                    DataRequirementSchema.get_schema(recursion_depth + 1), True
+                    DataRequirementSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Use UsageContext to define the members of the population, such as Age Ranges,
                 # Genders, Settings.
                 StructField(
                     "usageContext",
                     ArrayType(
-                        UsageContextSchema.get_schema(recursion_depth + 1)
+                        UsageContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # When true, members with this characteristic are excluded from the element.
@@ -186,7 +224,11 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # Specifies the UCUM unit for the outcome.
                 StructField(
                     "unitOfMeasure",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A narrative description of the time period the study covers.
                 StructField("studyEffectiveDescription", StringType(), True),
@@ -195,22 +237,38 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # Indicates what effective period the study covers.
                 StructField(
                     "studyEffectivePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
                     "studyEffectiveDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
                     "studyEffectiveTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates duration from the study initiation.
                 StructField(
                     "studyEffectiveTimeFromStart",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates how elements are aggregated within the study effective period.
                 StructField("studyEffectiveGroupMeasure", StringType(), True),
@@ -225,22 +283,38 @@ class ResearchElementDefinition_CharacteristicSchema:
                 # Indicates what effective period the study covers.
                 StructField(
                     "participantEffectivePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
                     "participantEffectiveDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
                     "participantEffectiveTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates duration from the participant's study entry.
                 StructField(
                     "participantEffectiveTimeFromStart",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates how elements are aggregated within the study effective period.
                 StructField(

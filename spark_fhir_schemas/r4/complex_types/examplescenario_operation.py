@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ExampleScenario_OperationSchema:
     """
     Example of workflow instance.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Example of workflow instance.
 
@@ -67,8 +73,14 @@ class ExampleScenario_OperationSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.examplescenario_containedinstance import ExampleScenario_ContainedInstanceSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ExampleScenario_Operation"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ExampleScenario_Operation"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -81,8 +93,13 @@ class ExampleScenario_OperationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -99,8 +116,13 @@ class ExampleScenario_OperationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The sequential number of the interaction, e.g. 1.2.5.
                 StructField("number", StringType(), True),
@@ -115,7 +137,11 @@ class ExampleScenario_OperationSchema:
                 # A comment to be inserted in the diagram.
                 StructField(
                     "description",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether the initiator is deactivated right after the transaction.
                 StructField("initiatorActive", BooleanType(), True),
@@ -124,14 +150,20 @@ class ExampleScenario_OperationSchema:
                 # Each resource instance used by the initiator.
                 StructField(
                     "request",
-                    ExampleScenario_ContainedInstanceSchema.
-                    get_schema(recursion_depth + 1), True
+                    ExampleScenario_ContainedInstanceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Each resource instance used by the responder.
                 StructField(
                     "response",
-                    ExampleScenario_ContainedInstanceSchema.
-                    get_schema(recursion_depth + 1), True
+                    ExampleScenario_ContainedInstanceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

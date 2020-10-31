@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import DataType
@@ -13,8 +14,13 @@ class codeSchema:
     whitespace and where there is no whitespace other than single spaces in the
     contents
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A string which has at least one character and no leading or trailing
         whitespace and where there is no whitespace other than single spaces in the

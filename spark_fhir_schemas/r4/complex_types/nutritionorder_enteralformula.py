@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class NutritionOrder_EnteralFormulaSchema:
     A request to supply a diet, formula feeding (enteral) or oral nutritional
     supplement to a patient/resident.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A request to supply a diet, formula feeding (enteral) or oral nutritional
         supplement to a patient/resident.
@@ -81,8 +87,14 @@ class NutritionOrder_EnteralFormulaSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.nutritionorder_administration import NutritionOrder_AdministrationSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "NutritionOrder_EnteralFormula"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "NutritionOrder_EnteralFormula"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +107,13 @@ class NutritionOrder_EnteralFormulaSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,14 +130,23 @@ class NutritionOrder_EnteralFormulaSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The type of enteral or infant formula such as an adult standard formula with
                 # fiber or a soy-based infant formula.
                 StructField(
                     "baseFormulaType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The product or brand name of the enteral or infant formula product such as
                 # "ACME Adult Standard Formula".
@@ -129,7 +155,11 @@ class NutritionOrder_EnteralFormulaSchema:
                 # fiber to be provided in addition to or mixed with the base formula.
                 StructField(
                     "additiveType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The product or brand name of the type of modular component to be added to the
                 # formula.
@@ -140,14 +170,22 @@ class NutritionOrder_EnteralFormulaSchema:
                 # enteral formula that provides 1.5 calorie/mL.
                 StructField(
                     "caloricDensity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The route or physiological path of administration into the patient's
                 # gastrointestinal  tract for purposes of providing the formula feeding, e.g.
                 # nasogastric tube.
                 StructField(
                     "routeofAdministration",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Formula administration instructions as structured data.  This repeating
                 # structure allows for changing the administration rate or volume over time for
@@ -156,15 +194,22 @@ class NutritionOrder_EnteralFormulaSchema:
                 StructField(
                     "administration",
                     ArrayType(
-                        NutritionOrder_AdministrationSchema.
-                        get_schema(recursion_depth + 1)
+                        NutritionOrder_AdministrationSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The maximum total quantity of formula that may be administered to a subject
                 # over the period of time, e.g. 1440 mL over 24 hours.
                 StructField(
                     "maxVolumeToDeliver",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Free text formula administration, feeding instructions or additional
                 # instructions or information.

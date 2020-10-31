@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class QuestionnaireResponse_ItemSchema:
     grouped into coherent subsets, corresponding to the structure of the grouping
     of the questionnaire being responded to.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A structured set of questions and their answers. The questions are ordered and
         grouped into coherent subsets, corresponding to the structure of the grouping
@@ -63,8 +69,14 @@ class QuestionnaireResponse_ItemSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.questionnaireresponse_answer import QuestionnaireResponse_AnswerSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "QuestionnaireResponse_Item"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "QuestionnaireResponse_Item"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -77,8 +89,13 @@ class QuestionnaireResponse_ItemSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -95,8 +112,13 @@ class QuestionnaireResponse_ItemSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The item from the Questionnaire that corresponds to this item in the
                 # QuestionnaireResponse resource.
@@ -104,8 +126,12 @@ class QuestionnaireResponse_ItemSchema:
                 # A reference to an [[[ElementDefinition]]] that provides the details for the
                 # item.
                 StructField(
-                    "definition", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "definition",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Text that is displayed above the contents of the group or as the text of the
                 # question being answered.
@@ -114,16 +140,22 @@ class QuestionnaireResponse_ItemSchema:
                 StructField(
                     "answer",
                     ArrayType(
-                        QuestionnaireResponse_AnswerSchema.
-                        get_schema(recursion_depth + 1)
+                        QuestionnaireResponse_AnswerSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Questions or sub-groups nested beneath a question or group.
                 StructField(
                     "item",
                     ArrayType(
-                        QuestionnaireResponse_ItemSchema.
-                        get_schema(recursion_depth + 1)
+                        QuestionnaireResponse_ItemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

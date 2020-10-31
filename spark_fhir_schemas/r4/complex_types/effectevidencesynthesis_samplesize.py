@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class EffectEvidenceSynthesis_SampleSizeSchema:
     between exposures states in a population where the effect estimate is derived
     from a combination of research studies.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The EffectEvidenceSynthesis resource describes the difference in an outcome
         between exposures states in a population where the effect estimate is derived
@@ -55,8 +61,14 @@ class EffectEvidenceSynthesis_SampleSizeSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "EffectEvidenceSynthesis_SampleSize"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "EffectEvidenceSynthesis_SampleSize"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -69,8 +81,13 @@ class EffectEvidenceSynthesis_SampleSizeSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -87,20 +104,33 @@ class EffectEvidenceSynthesis_SampleSizeSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Human-readable summary of sample size.
                 StructField("description", StringType(), True),
                 # Number of studies included in this evidence synthesis.
                 StructField(
                     "numberOfStudies",
-                    integerSchema.get_schema(recursion_depth + 1), True
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Number of participants included in this evidence synthesis.
                 StructField(
                     "numberOfParticipants",
-                    integerSchema.get_schema(recursion_depth + 1), True
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

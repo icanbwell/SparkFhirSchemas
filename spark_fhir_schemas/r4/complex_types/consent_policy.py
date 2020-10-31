@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class Consent_PolicySchema:
     identified recipient(s) or recipient role(s) to perform one or more actions
     within a given policy context, for specific purposes and periods of time.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A record of a healthcare consumer’s  choices, which permits or denies
         identified recipient(s) or recipient role(s) to perform one or more actions
@@ -56,8 +62,12 @@ class Consent_PolicySchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Consent_Policy"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Consent_Policy"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -70,8 +80,13 @@ class Consent_PolicySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -88,20 +103,34 @@ class Consent_PolicySchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Entity or Organization having regulatory jurisdiction or accountability for
                 # enforcing policies pertaining to Consent Directives.
                 StructField(
-                    "authority", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "authority",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The references to the policies that are included in this consent scope.
                 # Policies may be organizational, but are often defined jurisdictionally, or in
                 # law.
                 StructField(
-                    "uri", uriSchema.get_schema(recursion_depth + 1), True
+                    "uri",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

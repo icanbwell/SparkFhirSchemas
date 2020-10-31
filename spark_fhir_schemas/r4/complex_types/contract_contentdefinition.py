@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class Contract_ContentDefinitionSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
         a policy or agreement.
@@ -72,8 +78,14 @@ class Contract_ContentDefinitionSchema:
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Contract_ContentDefinition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "Contract_ContentDefinition"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -86,8 +98,13 @@ class Contract_ContentDefinitionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -104,25 +121,42 @@ class Contract_ContentDefinitionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Precusory content structure and use, i.e., a boilerplate, template,
                 # application for a contract such as an insurance policy or benefits under a
                 # program, e.g., workers compensation.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Detailed Precusory content type.
                 StructField(
                     "subType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The  individual or organization that published the Contract precursor content.
                 StructField(
                     "publisher",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The date (and optionally time) when the contract was published. The date must
                 # change when the business version changes and it must change if the status code
@@ -130,21 +164,33 @@ class Contract_ContentDefinitionSchema:
                 # contract changes.
                 StructField(
                     "publicationDate",
-                    dateTimeSchema.get_schema(recursion_depth + 1), True
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # amended | appended | cancelled | disputed | entered-in-error | executable |
                 # executed | negotiable | offered | policy | rejected | renewed | revoked |
                 # resolved | terminated.
                 StructField(
                     "publicationStatus",
-                    codeSchema.get_schema(recursion_depth + 1), True
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A copyright statement relating to Contract precursor content. Copyright
                 # statements are generally legal restrictions on the use and publishing of the
                 # Contract precursor content.
                 StructField(
                     "copyright",
-                    markdownSchema.get_schema(recursion_depth + 1), True
+                    markdownSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

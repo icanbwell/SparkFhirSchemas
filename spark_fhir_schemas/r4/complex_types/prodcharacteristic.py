@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class ProdCharacteristicSchema:
     The marketing status describes the date when a medicinal product is actually
     put on the market or the date as of which it is no longer available.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         The marketing status describes the date when a medicinal product is actually
         put on the market or the date as of which it is no longer available.
@@ -93,8 +99,12 @@ class ProdCharacteristicSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ProdCharacteristic"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["ProdCharacteristic"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -107,8 +117,13 @@ class ProdCharacteristicSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -125,40 +140,61 @@ class ProdCharacteristicSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Where applicable, the height can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
                 # with ISO 11240 and the resulting terminology The symbol and the symbol
                 # identifier shall be used.
                 StructField(
-                    "height", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "height",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where applicable, the width can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
                 # with ISO 11240 and the resulting terminology The symbol and the symbol
                 # identifier shall be used.
                 StructField(
-                    "width", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "width",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where applicable, the depth can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
                 # with ISO 11240 and the resulting terminology The symbol and the symbol
                 # identifier shall be used.
                 StructField(
-                    "depth", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "depth",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where applicable, the weight can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
                 # with ISO 11240 and the resulting terminology The symbol and the symbol
                 # identifier shall be used.
                 StructField(
-                    "weight", QuantitySchema.get_schema(recursion_depth + 1),
-                    True
+                    "weight",
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where applicable, the nominal volume can be specified using a numerical value
                 # and its unit of measurement The unit of measurement shall be specified in
@@ -166,7 +202,11 @@ class ProdCharacteristicSchema:
                 # symbol identifier shall be used.
                 StructField(
                     "nominalVolume",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where applicable, the external diameter can be specified using a numerical
                 # value and its unit of measurement The unit of measurement shall be specified
@@ -174,7 +214,11 @@ class ProdCharacteristicSchema:
                 # symbol identifier shall be used.
                 StructField(
                     "externalDiameter",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Where applicable, the shape can be specified An appropriate controlled
                 # vocabulary shall be used The term and the term identifier shall be used.
@@ -189,14 +233,22 @@ class ProdCharacteristicSchema:
                 StructField(
                     "image",
                     ArrayType(
-                        AttachmentSchema.get_schema(recursion_depth + 1)
+                        AttachmentSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Where applicable, the scoring can be specified An appropriate controlled
                 # vocabulary shall be used The term and the term identifier shall be used.
                 StructField(
                     "scoring",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

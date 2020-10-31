@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class Contract_TermSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
         a policy or agreement.
@@ -86,8 +92,12 @@ class Contract_TermSchema:
         from spark_fhir_schemas.r4.complex_types.contract_offer import Contract_OfferSchema
         from spark_fhir_schemas.r4.complex_types.contract_asset import Contract_AssetSchema
         from spark_fhir_schemas.r4.complex_types.contract_action import Contract_ActionSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Contract_Term"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Contract_Term"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -100,8 +110,13 @@ class Contract_TermSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -118,33 +133,58 @@ class Contract_TermSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Unique identifier for this particular Contract Provision.
                 StructField(
                     "identifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # When this Contract Provision was issued.
                 StructField(
-                    "issued", dateTimeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "issued",
+                    dateTimeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Relevant time or time-period when this Contract Provision is applicable.
                 StructField(
-                    "applies", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "applies",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The entity that the term applies to.
                 StructField(
                     "topicCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The entity that the term applies to.
                 StructField(
                     "topicReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A legal clause or condition contained within a contract that requires one or
                 # both parties to perform a particular requirement by some specified time or
@@ -152,12 +192,20 @@ class Contract_TermSchema:
                 # specified time.
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A specialized legal clause or condition based on overarching contract type.
                 StructField(
                     "subType",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Statement of a provision in a policy or a contract.
                 StructField("text", StringType(), True),
@@ -166,20 +214,31 @@ class Contract_TermSchema:
                 StructField(
                     "securityLabel",
                     ArrayType(
-                        Contract_SecurityLabelSchema.
-                        get_schema(recursion_depth + 1)
+                        Contract_SecurityLabelSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The matter of concern in the context of this provision of the agrement.
                 StructField(
                     "offer",
-                    Contract_OfferSchema.get_schema(recursion_depth + 1), True
+                    Contract_OfferSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Contract Term Asset List.
                 StructField(
                     "asset",
                     ArrayType(
-                        Contract_AssetSchema.get_schema(recursion_depth + 1)
+                        Contract_AssetSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An actor taking a role in an activity for which it can be assigned some degree
@@ -187,14 +246,22 @@ class Contract_TermSchema:
                 StructField(
                     "action",
                     ArrayType(
-                        Contract_ActionSchema.get_schema(recursion_depth + 1)
+                        Contract_ActionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Nested group of Contract Provisions.
                 StructField(
                     "group",
                     ArrayType(
-                        Contract_TermSchema.get_schema(recursion_depth + 1)
+                        Contract_TermSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

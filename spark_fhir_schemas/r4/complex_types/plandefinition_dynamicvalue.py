@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class PlanDefinition_DynamicValueSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
@@ -62,8 +68,14 @@ class PlanDefinition_DynamicValueSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "PlanDefinition_DynamicValue"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "PlanDefinition_DynamicValue"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -76,8 +88,13 @@ class PlanDefinition_DynamicValueSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -94,8 +111,13 @@ class PlanDefinition_DynamicValueSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The path to the element to be customized. This is the path on the resource
                 # that will hold the result of the calculation defined by the expression. The
@@ -109,7 +131,11 @@ class PlanDefinition_DynamicValueSchema:
                 # An expression specifying the value of the customized element.
                 StructField(
                     "expression",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

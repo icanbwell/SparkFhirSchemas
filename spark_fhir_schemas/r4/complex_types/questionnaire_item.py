@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class Questionnaire_ItemSchema:
     end-users. Questionnaires provide detailed control over order, presentation,
     phraseology and grouping to allow coherent, consistent data collection.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A structured set of questions intended to guide the collection of answers from
         end-users. Questionnaires provide detailed control over order, presentation,
@@ -119,8 +125,12 @@ class Questionnaire_ItemSchema:
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.questionnaire_answeroption import Questionnaire_AnswerOptionSchema
         from spark_fhir_schemas.r4.complex_types.questionnaire_initial import Questionnaire_InitialSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Questionnaire_Item"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Questionnaire_Item"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -133,8 +143,13 @@ class Questionnaire_ItemSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -151,8 +166,13 @@ class Questionnaire_ItemSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # An identifier that is unique within the Questionnaire allowing linkage to the
                 # equivalent item in a QuestionnaireResponse resource.
@@ -173,15 +193,24 @@ class Questionnaire_ItemSchema:
                 # * answerValueSet (ElementDefinition.binding)
                 # * options (ElementDefinition.binding).
                 StructField(
-                    "definition", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "definition",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A terminology code that corresponds to this group or question (e.g. a code
                 # from LOINC, which defines many questions and answers).
                 StructField(
                     "code",
-                    ArrayType(CodingSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        CodingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A short label for a particular group, question or set of display text within
                 # the questionnaire used for reference by the individual completing the
@@ -199,8 +228,11 @@ class Questionnaire_ItemSchema:
                 StructField(
                     "enableWhen",
                     ArrayType(
-                        Questionnaire_EnableWhenSchema.
-                        get_schema(recursion_depth + 1)
+                        Questionnaire_EnableWhenSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Controls how multiple enableWhen values are interpreted -  whether all or any
@@ -220,21 +252,32 @@ class Questionnaire_ItemSchema:
                 # The maximum number of characters that are permitted in the answer to be
                 # considered a "valid" QuestionnaireResponse.
                 StructField(
-                    "maxLength", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "maxLength",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A reference to a value set containing a list of codes representing permitted
                 # answers for a "choice" or "open-choice" question.
                 StructField(
                     "answerValueSet",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # One of the permitted answers for a "choice" or "open-choice" question.
                 StructField(
                     "answerOption",
                     ArrayType(
-                        Questionnaire_AnswerOptionSchema.
-                        get_schema(recursion_depth + 1)
+                        Questionnaire_AnswerOptionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # One or more values that should be pre-populated in the answer when initially
@@ -242,16 +285,22 @@ class Questionnaire_ItemSchema:
                 StructField(
                     "initial",
                     ArrayType(
-                        Questionnaire_InitialSchema.
-                        get_schema(recursion_depth + 1)
+                        Questionnaire_InitialSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Text, questions and other groups to be nested beneath a question or group.
                 StructField(
                     "item",
                     ArrayType(
-                        Questionnaire_ItemSchema.
-                        get_schema(recursion_depth + 1)
+                        Questionnaire_ItemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

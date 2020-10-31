@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class Bundle_EntrySchema:
     """
     A container for a collection of resources.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
 
@@ -74,8 +80,12 @@ class Bundle_EntrySchema:
         from spark_fhir_schemas.r4.complex_types.bundle_search import Bundle_SearchSchema
         from spark_fhir_schemas.r4.complex_types.bundle_request import Bundle_RequestSchema
         from spark_fhir_schemas.r4.complex_types.bundle_response import Bundle_ResponseSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Bundle_Entry"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Bundle_Entry"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -88,8 +98,13 @@ class Bundle_EntrySchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -106,14 +121,23 @@ class Bundle_EntrySchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A series of links that provide context to this entry.
                 StructField(
                     "link",
                     ArrayType(
-                        Bundle_LinkSchema.get_schema(recursion_depth + 1)
+                        Bundle_LinkSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The Absolute URL for the resource.  The fullUrl SHALL NOT disagree with the id
@@ -125,32 +149,53 @@ class Bundle_EntrySchema:
                 # a temporary id for reference in the bundle)
                 # * Results from operations might involve resources that are not identified.
                 StructField(
-                    "fullUrl", uriSchema.get_schema(recursion_depth + 1), True
+                    "fullUrl",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The Resource for the entry. The purpose/meaning of the resource is determined
                 # by the Bundle.type.
                 StructField(
                     "resource",
-                    ResourceListSchema.get_schema(recursion_depth + 1), True
+                    ResourceListSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Information about the search process that lead to the creation of this entry.
                 StructField(
                     "search",
-                    Bundle_SearchSchema.get_schema(recursion_depth + 1), True
+                    Bundle_SearchSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Additional information about how this entry should be processed as part of a
                 # transaction or batch.  For history, it shows how the entry was processed to
                 # create the version contained in the entry.
                 StructField(
                     "request",
-                    Bundle_RequestSchema.get_schema(recursion_depth + 1), True
+                    Bundle_RequestSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the results of processing the corresponding 'request' entry in the
                 # batch or transaction being responded to or what the results of an operation
                 # where when returning history.
                 StructField(
                     "response",
-                    Bundle_ResponseSchema.get_schema(recursion_depth + 1), True
+                    Bundle_ResponseSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

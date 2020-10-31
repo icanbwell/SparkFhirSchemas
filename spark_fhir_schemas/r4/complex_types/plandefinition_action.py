@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class PlanDefinition_ActionSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
@@ -157,8 +163,14 @@ class PlanDefinition_ActionSchema:
         from spark_fhir_schemas.r4.complex_types.plandefinition_participant import PlanDefinition_ParticipantSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.plandefinition_dynamicvalue import PlanDefinition_DynamicValueSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "PlanDefinition_Action"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "PlanDefinition_Action"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -171,8 +183,13 @@ class PlanDefinition_ActionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -189,8 +206,13 @@ class PlanDefinition_ActionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A user-visible prefix for the action.
                 StructField("prefix", StringType(), True),
@@ -206,22 +228,34 @@ class PlanDefinition_ActionSchema:
                 # Indicates how quickly the action should be addressed with respect to other
                 # actions.
                 StructField(
-                    "priority", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "priority",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code that provides meaning for the action or action group. For example, a
                 # section may have a LOINC code for the section of a documentation template.
                 StructField(
                     "code",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A description of why this action is necessary or appropriate.
                 StructField(
                     "reason",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Didactic or other informational resources associated with the action that can
@@ -230,33 +264,54 @@ class PlanDefinition_ActionSchema:
                 StructField(
                     "documentation",
                     ArrayType(
-                        RelatedArtifactSchema.get_schema(recursion_depth + 1)
+                        RelatedArtifactSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Identifies goals that this action supports. The reference must be to a goal
                 # element defined within this plan definition.
                 StructField(
                     "goalId",
-                    ArrayType(idSchema.get_schema(recursion_depth + 1)), True
+                    ArrayType(
+                        idSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A code or group definition that describes the intended subject of the action
                 # and its children, if any.
                 StructField(
                     "subjectCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A code or group definition that describes the intended subject of the action
                 # and its children, if any.
                 StructField(
                     "subjectReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A description of when the action should be triggered.
                 StructField(
                     "trigger",
                     ArrayType(
-                        TriggerDefinitionSchema.
-                        get_schema(recursion_depth + 1)
+                        TriggerDefinitionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An expression that describes applicability criteria or start/stop conditions
@@ -264,22 +319,33 @@ class PlanDefinition_ActionSchema:
                 StructField(
                     "condition",
                     ArrayType(
-                        PlanDefinition_ConditionSchema.
-                        get_schema(recursion_depth + 1)
+                        PlanDefinition_ConditionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Defines input data requirements for the action.
                 StructField(
                     "input",
                     ArrayType(
-                        DataRequirementSchema.get_schema(recursion_depth + 1)
+                        DataRequirementSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Defines the outputs of the action, if any.
                 StructField(
                     "output",
                     ArrayType(
-                        DataRequirementSchema.get_schema(recursion_depth + 1)
+                        DataRequirementSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A relationship to another action such as "before" or "30-60 minutes after
@@ -287,49 +353,79 @@ class PlanDefinition_ActionSchema:
                 StructField(
                     "relatedAction",
                     ArrayType(
-                        PlanDefinition_RelatedActionSchema.
-                        get_schema(recursion_depth + 1)
+                        PlanDefinition_RelatedActionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # An optional value describing when the action should be performed.
                 StructField("timingDateTime", StringType(), True),
                 # An optional value describing when the action should be performed.
                 StructField(
-                    "timingAge", AgeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "timingAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
                     "timingPeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
                     "timingDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
-                    "timingRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "timingRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
                     "timingTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates who should participate in performing the action described.
                 StructField(
                     "participant",
                     ArrayType(
-                        PlanDefinition_ParticipantSchema.
-                        get_schema(recursion_depth + 1)
+                        PlanDefinition_ParticipantSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The type of action to perform (create, update, remove).
                 StructField(
                     "type",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Defines the grouping behavior for the action and its children.
                 StructField("groupingBehavior", StringType(), True),
@@ -352,7 +448,11 @@ class PlanDefinition_ActionSchema:
                 # as the input.
                 StructField(
                     "transform",
-                    canonicalSchema.get_schema(recursion_depth + 1), True
+                    canonicalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Customizations that should be applied to the statically defined resource. For
                 # example, if the dosage of a medication must be computed based on the patient's
@@ -361,8 +461,11 @@ class PlanDefinition_ActionSchema:
                 StructField(
                     "dynamicValue",
                     ArrayType(
-                        PlanDefinition_DynamicValueSchema.
-                        get_schema(recursion_depth + 1)
+                        PlanDefinition_DynamicValueSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Sub actions that are contained within the action. The behavior of this action
@@ -372,8 +475,11 @@ class PlanDefinition_ActionSchema:
                 StructField(
                     "action",
                     ArrayType(
-                        PlanDefinition_ActionSchema.
-                        get_schema(recursion_depth + 1)
+                        PlanDefinition_ActionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

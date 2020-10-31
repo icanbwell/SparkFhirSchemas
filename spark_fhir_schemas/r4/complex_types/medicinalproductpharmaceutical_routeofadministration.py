@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
     """
     A pharmaceutical product described in terms of its composition and dose form.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A pharmaceutical product described in terms of its composition and dose form.
 
@@ -72,8 +78,14 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.medicinalproductpharmaceutical_targetspecies import MedicinalProductPharmaceutical_TargetSpeciesSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MedicinalProductPharmaceutical_RouteOfAdministration"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MedicinalProductPharmaceutical_RouteOfAdministration"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -86,8 +98,13 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -104,54 +121,87 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Coded expression for the route.
                 StructField(
                     "code",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The first dose (dose quantity) administered in humans can be specified, for a
                 # product under investigation, using a numerical value and its unit of
                 # measurement.
                 StructField(
                     "firstDose",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The maximum single dose that can be administered as per the protocol of a
                 # clinical trial can be specified using a numerical value and its unit of
                 # measurement.
                 StructField(
                     "maxSingleDose",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The maximum dose per day (maximum dose quantity to be administered in any one
                 # 24-h period) that can be administered as per the protocol referenced in the
                 # clinical trial authorisation.
                 StructField(
                     "maxDosePerDay",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The maximum dose per treatment period that can be administered as per the
                 # protocol referenced in the clinical trial authorisation.
                 StructField(
                     "maxDosePerTreatmentPeriod",
-                    RatioSchema.get_schema(recursion_depth + 1), True
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The maximum treatment period during which an Investigational Medicinal Product
                 # can be administered as per the protocol referenced in the clinical trial
                 # authorisation.
                 StructField(
                     "maxTreatmentPeriod",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A species for which this route applies.
                 StructField(
                     "targetSpecies",
                     ArrayType(
                         MedicinalProductPharmaceutical_TargetSpeciesSchema.
-                        get_schema(recursion_depth + 1)
+                        get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

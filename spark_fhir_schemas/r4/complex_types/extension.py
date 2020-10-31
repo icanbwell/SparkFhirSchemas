@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class ExtensionSchema:
     """
     Optional Extension Element - found in all resources.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Optional Extension Element - found in all resources.
 
@@ -215,8 +221,12 @@ class ExtensionSchema:
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Extension"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Extension"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -229,12 +239,22 @@ class ExtensionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Source of the definition for the extension code - a logical name or a URL.
                 StructField(
-                    "url", uriSchema.get_schema(recursion_depth + 1), True
+                    "url",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
@@ -297,188 +317,311 @@ class ExtensionSchema:
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueAddress",
-                    AddressSchema.get_schema(recursion_depth + 1), True
+                    AddressSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueAge", AgeSchema.get_schema(recursion_depth + 1), True
+                    "valueAge",
+                    AgeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueAnnotation",
-                    AnnotationSchema.get_schema(recursion_depth + 1), True
+                    AnnotationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueAttachment",
-                    AttachmentSchema.get_schema(recursion_depth + 1), True
+                    AttachmentSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueCodeableConcept",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueCoding",
-                    CodingSchema.get_schema(recursion_depth + 1), True
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueContactPoint",
-                    ContactPointSchema.get_schema(recursion_depth + 1), True
+                    ContactPointSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueCount", CountSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueCount",
+                    CountSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueDistance",
-                    DistanceSchema.get_schema(recursion_depth + 1), True
+                    DistanceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueDuration",
-                    DurationSchema.get_schema(recursion_depth + 1), True
+                    DurationSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueHumanName",
-                    HumanNameSchema.get_schema(recursion_depth + 1), True
+                    HumanNameSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueIdentifier",
-                    IdentifierSchema.get_schema(recursion_depth + 1), True
+                    IdentifierSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueMoney", MoneySchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueMoney",
+                    MoneySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valuePeriod",
-                    PeriodSchema.get_schema(recursion_depth + 1), True
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueQuantity",
-                    QuantitySchema.get_schema(recursion_depth + 1), True
+                    QuantitySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueRatio", RatioSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueRatio",
+                    RatioSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueSampledData",
-                    SampledDataSchema.get_schema(recursion_depth + 1), True
+                    SampledDataSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueSignature",
-                    SignatureSchema.get_schema(recursion_depth + 1), True
+                    SignatureSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueContactDetail",
-                    ContactDetailSchema.get_schema(recursion_depth + 1), True
+                    ContactDetailSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueContributor",
-                    ContributorSchema.get_schema(recursion_depth + 1), True
+                    ContributorSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueDataRequirement",
-                    DataRequirementSchema.get_schema(recursion_depth + 1), True
+                    DataRequirementSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueExpression",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueParameterDefinition",
-                    ParameterDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    ParameterDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueRelatedArtifact",
-                    RelatedArtifactSchema.get_schema(recursion_depth + 1), True
+                    RelatedArtifactSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueTriggerDefinition",
-                    TriggerDefinitionSchema.get_schema(recursion_depth + 1),
-                    True
+                    TriggerDefinitionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueUsageContext",
-                    UsageContextSchema.get_schema(recursion_depth + 1), True
+                    UsageContextSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
                     "valueDosage",
-                    DosageSchema.get_schema(recursion_depth + 1), True
+                    DosageSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueMeta", MetaSchema.get_schema(recursion_depth + 1),
-                    True
+                    "valueMeta",
+                    MetaSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

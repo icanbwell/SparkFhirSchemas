@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class TestScript_AssertSchema:
     A structured set of tests against a FHIR server or client implementation to
     determine compliance against the FHIR specification.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server or client implementation to
         determine compliance against the FHIR specification.
@@ -108,8 +114,12 @@ class TestScript_AssertSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TestScript_Assert"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["TestScript_Assert"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -122,8 +132,13 @@ class TestScript_AssertSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -140,8 +155,13 @@ class TestScript_AssertSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The label would be used for tracking/logging purposes by test engines.
                 StructField("label", StringType(), True),
@@ -164,8 +184,12 @@ class TestScript_AssertSchema:
                 # The mime-type contents to compare against the request or response message
                 # 'Content-Type' header.
                 StructField(
-                    "contentType", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "contentType",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The FHIRPath expression to be evaluated against the request or response
                 # message contents - HTTP headers and payload.
@@ -191,8 +215,12 @@ class TestScript_AssertSchema:
                 StructField("requestURL", StringType(), True),
                 # The type of the resource.  See http://build.fhir.org/resourcelist.html.
                 StructField(
-                    "resource", codeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "resource",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # okay | created | noContent | notModified | bad | forbidden | notFound |
                 # methodNotAllowed | conflict | gone | preconditionFailed | unprocessable.
@@ -201,12 +229,21 @@ class TestScript_AssertSchema:
                 StructField("responseCode", StringType(), True),
                 # Fixture to evaluate the XPath/JSONPath expression or the headerField  against.
                 StructField(
-                    "sourceId", idSchema.get_schema(recursion_depth + 1), True
+                    "sourceId",
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The ID of the Profile to validate against.
                 StructField(
                     "validateProfileId",
-                    idSchema.get_schema(recursion_depth + 1), True
+                    idSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The value to compare to.
                 StructField("value", StringType(), True),

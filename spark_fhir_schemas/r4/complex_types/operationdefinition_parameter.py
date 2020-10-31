@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class OperationDefinition_ParameterSchema:
     A formal computable definition of an operation (on the RESTful interface) or a
     named query (using the search interaction).
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A formal computable definition of an operation (on the RESTful interface) or a
         named query (using the search interaction).
@@ -85,8 +91,14 @@ class OperationDefinition_ParameterSchema:
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.operationdefinition_binding import OperationDefinition_BindingSchema
         from spark_fhir_schemas.r4.complex_types.operationdefinition_referencedfrom import OperationDefinition_ReferencedFromSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "OperationDefinition_Parameter"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "OperationDefinition_Parameter"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -99,8 +111,13 @@ class OperationDefinition_ParameterSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -117,19 +134,34 @@ class OperationDefinition_ParameterSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The name of used to identify the parameter.
                 StructField(
-                    "name", codeSchema.get_schema(recursion_depth + 1), True
+                    "name",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Whether this is an input or an output parameter.
                 StructField("use", StringType(), True),
                 # The minimum number of times this parameter SHALL appear in the request or
                 # response.
                 StructField(
-                    "min", integerSchema.get_schema(recursion_depth + 1), True
+                    "min",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The maximum number of times this element is permitted to appear in the request
                 # or response.
@@ -138,7 +170,12 @@ class OperationDefinition_ParameterSchema:
                 StructField("documentation", StringType(), True),
                 # The type for this parameter.
                 StructField(
-                    "type", codeSchema.get_schema(recursion_depth + 1), True
+                    "type",
+                    codeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Used when the type is "Reference" or "canonical", and identifies a profile
                 # structure or implementation Guide that applies to the target of the reference
@@ -150,8 +187,13 @@ class OperationDefinition_ParameterSchema:
                 # in the implementation guide.
                 StructField(
                     "targetProfile",
-                    ArrayType(canonicalSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        canonicalSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # How the parameter is understood as a search parameter. This is only used if
                 # the parameter type is 'string'.
@@ -160,24 +202,33 @@ class OperationDefinition_ParameterSchema:
                 # CodeableConcept).
                 StructField(
                     "binding",
-                    OperationDefinition_BindingSchema.
-                    get_schema(recursion_depth + 1), True
+                    OperationDefinition_BindingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Identifies other resource parameters within the operation invocation that are
                 # expected to resolve to this resource.
                 StructField(
                     "referencedFrom",
                     ArrayType(
-                        OperationDefinition_ReferencedFromSchema.
-                        get_schema(recursion_depth + 1)
+                        OperationDefinition_ReferencedFromSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # The parts of a nested Parameter.
                 StructField(
                     "part",
                     ArrayType(
-                        OperationDefinition_ParameterSchema.
-                        get_schema(recursion_depth + 1)
+                        OperationDefinition_ParameterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

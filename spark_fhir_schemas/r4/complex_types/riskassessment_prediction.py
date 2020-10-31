@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class RiskAssessment_PredictionSchema:
     An assessment of the likely outcome(s) for a patient or other subject as well
     as the likelihood of each outcome.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         An assessment of the likely outcome(s) for a patient or other subject as well
         as the likelihood of each outcome.
@@ -74,8 +80,14 @@ class RiskAssessment_PredictionSchema:
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "RiskAssessment_Prediction"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "RiskAssessment_Prediction"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -88,8 +100,13 @@ class RiskAssessment_PredictionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -106,27 +123,44 @@ class RiskAssessment_PredictionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # One of the potential outcomes for the patient (e.g. remission, death,  a
                 # particular condition).
                 StructField(
                     "outcome",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates how likely the outcome is (in the specified timeframe).
                 StructField("probabilityDecimal", IntegerType(), True),
                 # Indicates how likely the outcome is (in the specified timeframe).
                 StructField(
                     "probabilityRange",
-                    RangeSchema.get_schema(recursion_depth + 1), True
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates how likely the outcome is (in the specified timeframe), expressed as
                 # a qualitative value (e.g. low, medium, or high).
                 StructField(
                     "qualitativeRisk",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the risk for this particular subject (with their specific
                 # characteristics) divided by the risk of the population in general.  (Numbers
@@ -134,19 +168,31 @@ class RiskAssessment_PredictionSchema:
                 # risk.).
                 StructField(
                     "relativeRisk",
-                    decimalSchema.get_schema(recursion_depth + 1), True
+                    decimalSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the period of time or age range of the subject to which the
                 # specified probability applies.
                 StructField(
-                    "whenPeriod", PeriodSchema.get_schema(recursion_depth + 1),
-                    True
+                    "whenPeriod",
+                    PeriodSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Indicates the period of time or age range of the subject to which the
                 # specified probability applies.
                 StructField(
-                    "whenRange", RangeSchema.get_schema(recursion_depth + 1),
-                    True
+                    "whenRange",
+                    RangeSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Additional information explaining the basis for the prediction.
                 StructField("rationale", StringType(), True),

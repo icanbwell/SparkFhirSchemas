@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -13,8 +14,13 @@ class MolecularSequence_ReferenceSeqSchema:
     """
     Raw data describing a biological sequence.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
 
@@ -81,8 +87,14 @@ class MolecularSequence_ReferenceSeqSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "MolecularSequence_ReferenceSeq"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "MolecularSequence_ReferenceSeq"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +107,13 @@ class MolecularSequence_ReferenceSeqSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,8 +130,13 @@ class MolecularSequence_ReferenceSeqSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Structural unit composed of a nucleic acid molecule which controls its own
                 # replication through the interaction of specific proteins at one or more
@@ -122,7 +144,11 @@ class MolecularSequence_ReferenceSeqSchema:
                 # urrent_svn/term/SO:0000340)).
                 StructField(
                     "chromosome",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The Genome Build used for reference, following GRCh build versions e.g. 'GRCh
                 # 37'.  Version number must be included if a versioned release of a primary
@@ -138,12 +164,20 @@ class MolecularSequence_ReferenceSeqSchema:
                 # and “NP_” for amino acid sequences.
                 StructField(
                     "referenceSeqId",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A pointer to another MolecularSequence entity as reference sequence.
                 StructField(
                     "referenceSeqPointer",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # A string like "ACGT".
                 StructField("referenceSeqString", StringType(), True),
@@ -155,15 +189,23 @@ class MolecularSequence_ReferenceSeqSchema:
                 # system is either 0-based or 1-based, then start position is inclusive.
                 StructField(
                     "windowStart",
-                    integerSchema.get_schema(recursion_depth + 1), True
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # End position of the window on the reference sequence. If the coordinate system
                 # is 0-based then end is exclusive and does not include the last position. If
                 # the coordinate system is 1-base, then end is inclusive and includes the last
                 # position.
                 StructField(
-                    "windowEnd", integerSchema.get_schema(recursion_depth + 1),
-                    True
+                    "windowEnd",
+                    integerSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

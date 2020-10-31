@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class Contract_AssetSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
         a policy or agreement.
@@ -89,8 +95,12 @@ class Contract_AssetSchema:
         from spark_fhir_schemas.r4.complex_types.contract_answer import Contract_AnswerSchema
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
         from spark_fhir_schemas.r4.complex_types.contract_valueditem import Contract_ValuedItemSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Contract_Asset"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Contract_Asset"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -103,8 +113,13 @@ class Contract_AssetSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -121,32 +136,54 @@ class Contract_AssetSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Differentiates the kind of the asset .
                 StructField(
                     "scope",
-                    CodeableConceptSchema.get_schema(recursion_depth + 1), True
+                    CodeableConceptSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Target entity type about which the term may be concerned.
                 StructField(
                     "type",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Associated entities.
                 StructField(
                     "typeReference",
-                    ArrayType(ReferenceSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ReferenceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be a subtype or part of an offered asset.
                 StructField(
                     "subtype",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Specifies the applicability of the term to an asset resource instance, and
@@ -154,13 +191,21 @@ class Contract_AssetSchema:
                 # offeree.
                 StructField(
                     "relationship",
-                    CodingSchema.get_schema(recursion_depth + 1), True
+                    CodingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Circumstance of the asset.
                 StructField(
                     "context",
                     ArrayType(
-                        Contract_ContextSchema.get_schema(recursion_depth + 1)
+                        Contract_ContextSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Description of the quality and completeness of the asset that imay be a factor
@@ -170,20 +215,34 @@ class Contract_AssetSchema:
                 StructField(
                     "periodType",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(recursion_depth + 1)
+                        CodeableConceptSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Asset relevant contractual time period.
                 StructField(
                     "period",
-                    ArrayType(PeriodSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        PeriodSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Time period of asset use.
                 StructField(
                     "usePeriod",
-                    ArrayType(PeriodSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        PeriodSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # Clause or question text (Prose Object) concerning the asset in a linked form,
                 # such as a QuestionnaireResponse used in the formation of the contract.
@@ -195,22 +254,33 @@ class Contract_AssetSchema:
                 StructField(
                     "answer",
                     ArrayType(
-                        Contract_AnswerSchema.get_schema(recursion_depth + 1)
+                        Contract_AnswerSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Security labels that protects the asset.
                 StructField(
                     "securityLabelNumber",
                     ArrayType(
-                        unsignedIntSchema.get_schema(recursion_depth + 1)
+                        unsignedIntSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # Contract Valued Item List.
                 StructField(
                     "valuedItem",
                     ArrayType(
-                        Contract_ValuedItemSchema.
-                        get_schema(recursion_depth + 1)
+                        Contract_ValuedItemSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]

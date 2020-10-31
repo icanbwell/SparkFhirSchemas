@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -15,8 +16,13 @@ class Device_UdiCarrierSchema:
     without being substantially changed through that activity. The device may be a
     medical or non-medical device.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A type of a manufactured item that is used in the provision of healthcare
         without being substantially changed through that activity. The device may be a
@@ -81,8 +87,12 @@ class Device_UdiCarrierSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.base64binary import base64BinarySchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "Device_UdiCarrier"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["Device_UdiCarrier"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,8 +105,13 @@ class Device_UdiCarrierSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -113,8 +128,13 @@ class Device_UdiCarrierSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The device identifier (DI) is a mandatory, fixed portion of a UDI that
                 # identifies the labeler and the specific version or model of a device.
@@ -130,7 +150,12 @@ class Device_UdiCarrierSchema:
                 # 4) ICCBA for other devices:
                 # http://hl7.org/fhir/NamingSystem/iccbba-other-di.
                 StructField(
-                    "issuer", uriSchema.get_schema(recursion_depth + 1), True
+                    "issuer",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The identity of the authoritative source for UDI generation within a
                 # jurisdiction.  All UDIs are globally unique within a single namespace with the
@@ -138,8 +163,12 @@ class Device_UdiCarrierSchema:
                 # managed in the U.S. by the FDA, the value is
                 # http://hl7.org/fhir/NamingSystem/fda-udi.
                 StructField(
-                    "jurisdiction", uriSchema.get_schema(recursion_depth + 1),
-                    True
+                    "jurisdiction",
+                    uriSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The full UDI carrier of the Automatic Identification and Data Capture (AIDC)
                 # technology representation of the barcode string as printed on the packaging of
@@ -148,7 +177,11 @@ class Device_UdiCarrierSchema:
                 # *SHALL* be base64 encoded.
                 StructField(
                     "carrierAIDC",
-                    base64BinarySchema.get_schema(recursion_depth + 1), True
+                    base64BinarySchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The full UDI carrier as the human readable form (HRF) representation of the
                 # barcode string as printed on the packaging of the device.

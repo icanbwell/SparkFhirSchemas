@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -14,8 +15,13 @@ class TriggerDefinitionSchema:
     A description of a triggering event. Triggering events can be named events,
     data events, or periodic, as determined by the type element.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A description of a triggering event. Triggering events can be named events,
         data events, or periodic, as determined by the type element.
@@ -56,8 +62,12 @@ class TriggerDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.datarequirement import DataRequirementSchema
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "TriggerDefinition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + ["TriggerDefinition"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -70,8 +80,13 @@ class TriggerDefinitionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # The type of triggering event.
                 StructField("type", StringType(), True),
@@ -82,12 +97,20 @@ class TriggerDefinitionSchema:
                 # The timing of the event (if this is a periodic trigger).
                 StructField(
                     "timingTiming",
-                    TimingSchema.get_schema(recursion_depth + 1), True
+                    TimingSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The timing of the event (if this is a periodic trigger).
                 StructField(
                     "timingReference",
-                    ReferenceSchema.get_schema(recursion_depth + 1), True
+                    ReferenceSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # The timing of the event (if this is a periodic trigger).
                 StructField("timingDate", StringType(), True),
@@ -98,14 +121,22 @@ class TriggerDefinitionSchema:
                 StructField(
                     "data",
                     ArrayType(
-                        DataRequirementSchema.get_schema(recursion_depth + 1)
+                        DataRequirementSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A boolean-valued expression that is evaluated in the context of the container
                 # of the trigger definition and returns whether or not the trigger fires.
                 StructField(
                     "condition",
-                    ExpressionSchema.get_schema(recursion_depth + 1), True
+                    ExpressionSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
             ]
         )

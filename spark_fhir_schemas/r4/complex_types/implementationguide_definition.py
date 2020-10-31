@@ -1,3 +1,4 @@
+from typing import List
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -16,8 +17,13 @@ class ImplementationGuide_DefinitionSchema:
     gather all the parts of an implementation guide into a logical whole and to
     publish a computable definition of all the parts.
     """
+    # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
+    def get_schema(
+        max_recursion_depth: int = 4,
+        recursion_depth: int = 0,
+        recursion_list: List[str] = []
+    ) -> Union[StructType, DataType]:
         """
         A set of rules of how a particular interoperability or standards problem is
         solved - typically through the use of FHIR resources. This resource is used to
@@ -69,8 +75,14 @@ class ImplementationGuide_DefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.implementationguide_page import ImplementationGuide_PageSchema
         from spark_fhir_schemas.r4.complex_types.implementationguide_parameter import ImplementationGuide_ParameterSchema
         from spark_fhir_schemas.r4.complex_types.implementationguide_template import ImplementationGuide_TemplateSchema
-        if recursion_depth > 3:
-            return StructType([])
+        if recursion_list.count(
+            "ImplementationGuide_Definition"
+        ) >= 2 or recursion_depth >= max_recursion_depth:
+            return StructType([StructField("id", StringType(), True)])
+        # add my name to recursion list for later
+        my_recursion_list: List[str] = recursion_list + [
+            "ImplementationGuide_Definition"
+        ]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -83,8 +95,13 @@ class ImplementationGuide_DefinitionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
@@ -101,15 +118,23 @@ class ImplementationGuide_DefinitionSchema:
                 # itself).
                 StructField(
                     "modifierExtension",
-                    ArrayType(ExtensionSchema.get_schema(recursion_depth + 1)),
-                    True
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
+                    ), True
                 ),
                 # A logical group of resources. Logical groups can be used when building pages.
                 StructField(
                     "grouping",
                     ArrayType(
-                        ImplementationGuide_GroupingSchema.
-                        get_schema(recursion_depth + 1)
+                        ImplementationGuide_GroupingSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A resource that is part of the implementation guide. Conformance resources
@@ -119,31 +144,43 @@ class ImplementationGuide_DefinitionSchema:
                 StructField(
                     "resource",
                     ArrayType(
-                        ImplementationGuide_ResourceSchema.
-                        get_schema(recursion_depth + 1)
+                        ImplementationGuide_ResourceSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A page / section in the implementation guide. The root page is the
                 # implementation guide home page.
                 StructField(
                     "page",
-                    ImplementationGuide_PageSchema.
-                    get_schema(recursion_depth + 1), True
+                    ImplementationGuide_PageSchema.get_schema(
+                        max_recursion_depth=max_recursion_depth,
+                        recursion_depth=recursion_depth + 1,
+                        recursion_list=my_recursion_list
+                    ), True
                 ),
                 # Defines how IG is built by tools.
                 StructField(
                     "parameter",
                     ArrayType(
-                        ImplementationGuide_ParameterSchema.
-                        get_schema(recursion_depth + 1)
+                        ImplementationGuide_ParameterSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
                 # A template for building resources.
                 StructField(
                     "template",
                     ArrayType(
-                        ImplementationGuide_TemplateSchema.
-                        get_schema(recursion_depth + 1)
+                        ImplementationGuide_TemplateSchema.get_schema(
+                            max_recursion_depth=max_recursion_depth,
+                            recursion_depth=recursion_depth + 1,
+                            recursion_list=my_recursion_list
+                        )
                     ), True
                 ),
             ]
