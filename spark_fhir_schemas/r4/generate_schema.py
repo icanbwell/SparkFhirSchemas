@@ -55,8 +55,18 @@ def main() -> bool:
     with open(data_dir.joinpath("fhir.schema.json"), "r+") as file:
         contents = file.read()
 
+    # clean out old stuff
+    resources_folder = data_dir.joinpath("resources")
+    if os.path.exists(resources_folder):
+        shutil.rmtree(resources_folder)
+    os.mkdir(resources_folder)
+    complex_types_folder = data_dir.joinpath("complex_types")
+    if os.path.exists(complex_types_folder):
+        shutil.rmtree(complex_types_folder)
+    os.mkdir(complex_types_folder)
+
     fhir_schema = json.loads(contents)
-    resources_dict: Dict[str,str] = fhir_schema["discriminator"]
+    resources_dict: Dict[str, str] = fhir_schema["discriminator"]["mapping"]
     definitions = fhir_schema["definitions"]
     # print(definitions)
     # print(type(definitions))
@@ -95,19 +105,23 @@ def main() -> bool:
             # print(properties_info[-1])
             # print("")
 
-        with open(data_dir.joinpath("template.jinja2"), "r+") as file:
+        # use template to generate new code files
+        with open(data_dir.joinpath("template.jinja2"), "r") as file:
             template_contents: str = file.read()
             from jinja2 import Template
-            template = Template(template_contents)
+            template = Template(template_contents, trim_blocks=True,lstrip_blocks=True)
             result: str = template.render(resource=resource_name, properties=properties_info)
 
             if resource_name in resources_dict:
-                print(f"Writing {resource_name.lower()}.py...")
-                with open(data_dir.joinpath("resources").joinpath(f"{resource_name.lower()}.py"), "w+") as file2:
+                file_path = resources_folder.joinpath(f"{resource_name.lower()}.py")
+                print(f"Writing resource: {resource_name.lower()} to {file_path}...")
+                # print(result)
+                with open(file_path, "w") as file2:
                     file2.write(result)
             else:
-                print(f"Writing {resource_name.lower()}.py...")
-                with open(data_dir.joinpath("complex_types").joinpath(f"{resource_name.lower()}.py"), "w+") as file2:
+                file_path = complex_types_folder.joinpath(f"{resource_name.lower()}.py")
+                print(f"Writing complex_type: {resource_name.lower()} to {file_path}...")
+                with open(file_path, "w") as file2:
                     file2.write(result)
 
             # print(result)
