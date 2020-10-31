@@ -1,28 +1,42 @@
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-
 
 # noinspection PyPep8Naming
 class SubstanceSourceMaterial_OrganismGeneral:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "kingdom", CodeableConcept.get_schema(recursion_depth + 1),
                     True
                 ),
-                StructField("kingdom", CodeableConcept.get_schema(), True),
-                StructField("phylum", CodeableConcept.get_schema(), True),
-                StructField("class", CodeableConcept.get_schema(), True),
-                StructField("order", CodeableConcept.get_schema(), True),
+                StructField(
+                    "phylum", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "class", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "order", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
             ]
         )
 

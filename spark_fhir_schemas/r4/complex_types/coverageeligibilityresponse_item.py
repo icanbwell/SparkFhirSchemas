@@ -1,53 +1,77 @@
 from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_benefit import CoverageEligibilityResponse_Benefit
-from spark_fhir_schemas.r4.complex_types.uri import uri
-
 
 # noinspection PyPep8Naming
 class CoverageEligibilityResponse_Item:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.reference import Reference
+        from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_benefit import CoverageEligibilityResponse_Benefit
+        from spark_fhir_schemas.r4.complex_types.uri import uri
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "category",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "productOrService",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "modifier",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
                     True
                 ),
-                StructField("category", CodeableConcept.get_schema(), True),
                 StructField(
-                    "productOrService", CodeableConcept.get_schema(), True
+                    "provider", Reference.get_schema(recursion_depth + 1), True
                 ),
-                StructField(
-                    "modifier", ArrayType(CodeableConcept.get_schema()), True
-                ),
-                StructField("provider", Reference.get_schema(), True),
                 StructField("excluded", BooleanType(), True),
                 StructField("name", StringType(), True),
                 StructField("description", StringType(), True),
-                StructField("network", CodeableConcept.get_schema(), True),
-                StructField("unit", CodeableConcept.get_schema(), True),
-                StructField("term", CodeableConcept.get_schema(), True),
+                StructField(
+                    "network", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "unit", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "term", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
                 StructField(
                     "benefit",
                     ArrayType(
-                        CoverageEligibilityResponse_Benefit.get_schema()
+                        CoverageEligibilityResponse_Benefit.
+                        get_schema(recursion_depth + 1)
                     ), True
                 ),
                 StructField("authorizationRequired", BooleanType(), True),
                 StructField(
                     "authorizationSupporting",
-                    ArrayType(CodeableConcept.get_schema()), True
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
+                    True
                 ),
-                StructField("authorizationUrl", uri.get_schema(), True),
+                StructField(
+                    "authorizationUrl", uri.get_schema(recursion_depth + 1),
+                    True
+                ),
             ]
         )
 

@@ -1,42 +1,55 @@
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.timing import Timing
-from spark_fhir_schemas.r4.complex_types.nutritionorder_nutrient import NutritionOrder_Nutrient
-from spark_fhir_schemas.r4.complex_types.nutritionorder_texture import NutritionOrder_Texture
-
 
 # noinspection PyPep8Naming
 class NutritionOrder_OralDiet:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.timing import Timing
+        from spark_fhir_schemas.r4.complex_types.nutritionorder_nutrient import NutritionOrder_Nutrient
+        from spark_fhir_schemas.r4.complex_types.nutritionorder_texture import NutritionOrder_Texture
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "type",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
                     True
                 ),
                 StructField(
-                    "type", ArrayType(CodeableConcept.get_schema()), True
+                    "schedule",
+                    ArrayType(Timing.get_schema(recursion_depth + 1)), True
                 ),
-                StructField("schedule", ArrayType(Timing.get_schema()), True),
                 StructField(
                     "nutrient",
-                    ArrayType(NutritionOrder_Nutrient.get_schema()), True
+                    ArrayType(
+                        NutritionOrder_Nutrient.
+                        get_schema(recursion_depth + 1)
+                    ), True
                 ),
                 StructField(
-                    "texture", ArrayType(NutritionOrder_Texture.get_schema()),
-                    True
+                    "texture",
+                    ArrayType(
+                        NutritionOrder_Texture.get_schema(recursion_depth + 1)
+                    ), True
                 ),
                 StructField(
                     "fluidConsistencyType",
-                    ArrayType(CodeableConcept.get_schema()), True
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
+                    True
                 ),
                 StructField("instruction", StringType(), True),
             ]

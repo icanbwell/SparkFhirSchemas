@@ -1,30 +1,31 @@
 from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
 
 
+# noinspection PyPep8Naming
+class {{resource}}:
+    @staticmethod
+    def get_schema(recursion_depth: int = 0) -> StructType:
+        # from https://hl7.org/FHIR/patient.html
 {% for property in properties %}
     {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
         {%  if property.UnderlyingDataType != resource and property.IsUniqueUnderlyingDataType %}
             {% if property.IsResourceType %}
-from spark_fhir_schemas.r4.resources.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
+        from spark_fhir_schemas.r4.resources.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
             {% else %}
-from spark_fhir_schemas.r4.complex_types.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
+        from spark_fhir_schemas.r4.complex_types.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
             {% endif %}
         {% endif %}
     {% endif %}
 {% endfor %}
-
-
-# noinspection PyPep8Naming
-class {{resource}}:
-    @staticmethod
-    def get_schema() -> StructType:
-        # from https://hl7.org/FHIR/patient.html
+        if recursion_depth > 3:
+{#            print("reached recursion_depth for {{resource}}")#}
+            return StructType([])
         schema = StructType(
             [
 {% for property in properties%}
     {% if property.Type == "array" %}
         {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
-                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}.get_schema()), True),
+                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}.get_schema(recursion_depth+1)), True),
         {%  elif property.UnderlyingDataType == "string" %}
                 StructField("{{property.Name}}",ArrayType(StringType()), True),
         {% elif property.Type == "boolean" or property.UnderlyingDataType == "boolean" %}
@@ -45,7 +46,7 @@ class {{resource}}:
     {% elif property.Type == "number" or property.UnderlyingDataType == "number" %}
                 StructField("{{property.Name}}", IntegerType(), True),
     {% else %}
-                StructField("{{property.Name}}", {{property.UnderlyingDataType}}.get_schema(), True),
+                StructField("{{property.Name}}", {{property.UnderlyingDataType}}.get_schema(recursion_depth+1), True),
     {% endif%}
 {% endfor%}
             ]

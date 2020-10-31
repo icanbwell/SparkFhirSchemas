@@ -1,75 +1,135 @@
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.id import id
-from spark_fhir_schemas.r4.complex_types.meta import Meta
-from spark_fhir_schemas.r4.complex_types.uri import uri
-from spark_fhir_schemas.r4.complex_types.code import code
-from spark_fhir_schemas.r4.complex_types.narrative import Narrative
-from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.identifier import Identifier
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.period import Period
-from spark_fhir_schemas.r4.complex_types.instant import instant
-from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.attachment import Attachment
-from spark_fhir_schemas.r4.complex_types.annotation import Annotation
-
 
 # noinspection PyPep8Naming
 class Media:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.id import id
+        from spark_fhir_schemas.r4.complex_types.meta import Meta
+        from spark_fhir_schemas.r4.complex_types.uri import uri
+        from spark_fhir_schemas.r4.complex_types.code import code
+        from spark_fhir_schemas.r4.complex_types.narrative import Narrative
+        from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.identifier import Identifier
+        from spark_fhir_schemas.r4.complex_types.reference import Reference
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.period import Period
+        from spark_fhir_schemas.r4.complex_types.instant import instant
+        from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
+        from spark_fhir_schemas.r4.complex_types.decimal import decimal
+        from spark_fhir_schemas.r4.complex_types.attachment import Attachment
+        from spark_fhir_schemas.r4.complex_types.annotation import Annotation
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("resourceType", StringType(), True),
-                StructField("id", id.get_schema(), True),
-                StructField("meta", Meta.get_schema(), True),
-                StructField("implicitRules", uri.get_schema(), True),
-                StructField("language", code.get_schema(), True),
-                StructField("text", Narrative.get_schema(), True),
+                StructField("id", id.get_schema(recursion_depth + 1), True),
                 StructField(
-                    "contained", ArrayType(ResourceList.get_schema()), True
+                    "meta", Meta.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "implicitRules", uri.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "language", code.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "text", Narrative.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "contained",
+                    ArrayType(ResourceList.get_schema(recursion_depth + 1)),
                     True
                 ),
                 StructField(
-                    "identifier", ArrayType(Identifier.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "basedOn", ArrayType(Reference.get_schema()), True
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
-                StructField("partOf", ArrayType(Reference.get_schema()), True),
-                StructField("status", code.get_schema(), True),
-                StructField("type", CodeableConcept.get_schema(), True),
-                StructField("modality", CodeableConcept.get_schema(), True),
-                StructField("view", CodeableConcept.get_schema(), True),
-                StructField("subject", Reference.get_schema(), True),
-                StructField("encounter", Reference.get_schema(), True),
+                StructField(
+                    "identifier",
+                    ArrayType(Identifier.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "basedOn",
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "partOf",
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "status", code.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "type", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "modality",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "view", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "subject", Reference.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "encounter", Reference.get_schema(recursion_depth + 1),
+                    True
+                ),
                 StructField("createdDateTime", StringType(), True),
-                StructField("createdPeriod", Period.get_schema(), True),
-                StructField("issued", instant.get_schema(), True),
-                StructField("operator", Reference.get_schema(), True),
                 StructField(
-                    "reasonCode", ArrayType(CodeableConcept.get_schema()), True
+                    "createdPeriod", Period.get_schema(recursion_depth + 1),
+                    True
                 ),
-                StructField("bodySite", CodeableConcept.get_schema(), True),
+                StructField(
+                    "issued", instant.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "operator", Reference.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "reasonCode",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
+                    True
+                ),
+                StructField(
+                    "bodySite",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
                 StructField("deviceName", StringType(), True),
-                StructField("device", Reference.get_schema(), True),
-                StructField("height", positiveInt.get_schema(), True),
-                StructField("width", positiveInt.get_schema(), True),
-                StructField("frames", positiveInt.get_schema(), True),
-                StructField("duration", decimal.get_schema(), True),
-                StructField("content", Attachment.get_schema(), True),
-                StructField("note", ArrayType(Annotation.get_schema()), True),
+                StructField(
+                    "device", Reference.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "height", positiveInt.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "width", positiveInt.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "frames", positiveInt.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "duration", decimal.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "content", Attachment.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "note",
+                    ArrayType(Annotation.get_schema(recursion_depth + 1)), True
+                ),
             ]
         )
 

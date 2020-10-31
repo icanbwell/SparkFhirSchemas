@@ -1,30 +1,39 @@
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.money import Money
-
 
 # noinspection PyPep8Naming
 class Invoice_PriceComponent:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.decimal import decimal
+        from spark_fhir_schemas.r4.complex_types.money import Money
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
-                    True
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField("type", StringType(), True),
-                StructField("code", CodeableConcept.get_schema(), True),
-                StructField("factor", decimal.get_schema(), True),
-                StructField("amount", Money.get_schema(), True),
+                StructField(
+                    "code", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "factor", decimal.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "amount", Money.get_schema(recursion_depth + 1), True
+                ),
             ]
         )
 

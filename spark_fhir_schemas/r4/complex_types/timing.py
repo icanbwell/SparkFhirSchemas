@@ -1,29 +1,40 @@
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.datetime import dateTime
-from spark_fhir_schemas.r4.complex_types.timing_repeat import Timing_Repeat
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-
 
 # noinspection PyPep8Naming
 class Timing:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.datetime import dateTime
+        from spark_fhir_schemas.r4.complex_types.timing_repeat import Timing_Repeat
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "event",
+                    ArrayType(dateTime.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "repeat", Timing_Repeat.get_schema(recursion_depth + 1),
                     True
                 ),
-                StructField("event", ArrayType(dateTime.get_schema()), True),
-                StructField("repeat", Timing_Repeat.get_schema(), True),
-                StructField("code", CodeableConcept.get_schema(), True),
+                StructField(
+                    "code", CodeableConcept.get_schema(recursion_depth + 1),
+                    True
+                ),
             ]
         )
 

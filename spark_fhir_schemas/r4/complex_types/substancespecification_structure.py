@@ -1,50 +1,61 @@
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.substancespecification_isotope import SubstanceSpecification_Isotope
-from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import SubstanceSpecification_MolecularWeight
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.substancespecification_representation import SubstanceSpecification_Representation
-
 
 # noinspection PyPep8Naming
 class SubstanceSpecification_Structure:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.substancespecification_isotope import SubstanceSpecification_Isotope
+        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import SubstanceSpecification_MolecularWeight
+        from spark_fhir_schemas.r4.complex_types.reference import Reference
+        from spark_fhir_schemas.r4.complex_types.substancespecification_representation import SubstanceSpecification_Representation
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
-                    True
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "stereochemistry", CodeableConcept.get_schema(), True
+                    "stereochemistry",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "opticalActivity", CodeableConcept.get_schema(), True
+                    "opticalActivity",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
                 ),
                 StructField("molecularFormula", StringType(), True),
                 StructField("molecularFormulaByMoiety", StringType(), True),
                 StructField(
                     "isotope",
-                    ArrayType(SubstanceSpecification_Isotope.get_schema()),
-                    True
+                    ArrayType(
+                        SubstanceSpecification_Isotope.
+                        get_schema(recursion_depth + 1)
+                    ), True
                 ),
                 StructField(
                     "molecularWeight",
-                    SubstanceSpecification_MolecularWeight.get_schema(), True
+                    SubstanceSpecification_MolecularWeight.
+                    get_schema(recursion_depth + 1), True
                 ),
-                StructField("source", ArrayType(Reference.get_schema()), True),
+                StructField(
+                    "source",
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
+                ),
                 StructField(
                     "representation",
                     ArrayType(
-                        SubstanceSpecification_Representation.get_schema()
+                        SubstanceSpecification_Representation.
+                        get_schema(recursion_depth + 1)
                     ), True
                 ),
             ]

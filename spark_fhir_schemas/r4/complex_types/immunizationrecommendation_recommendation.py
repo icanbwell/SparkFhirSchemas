@@ -1,48 +1,56 @@
 from pyspark.sql.types import ArrayType, IntegerType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.immunizationrecommendation_datecriterion import ImmunizationRecommendation_DateCriterion
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-
 
 # noinspection PyPep8Naming
 class ImmunizationRecommendation_Recommendation:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.immunizationrecommendation_datecriterion import ImmunizationRecommendation_DateCriterion
+        from spark_fhir_schemas.r4.complex_types.reference import Reference
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "vaccineCode",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
                     True
                 ),
                 StructField(
-                    "vaccineCode", ArrayType(CodeableConcept.get_schema()),
-                    True
-                ),
-                StructField(
-                    "targetDisease", CodeableConcept.get_schema(), True
+                    "targetDisease",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
                     "contraindicatedVaccineCode",
-                    ArrayType(CodeableConcept.get_schema()), True
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
+                    True
                 ),
                 StructField(
-                    "forecastStatus", CodeableConcept.get_schema(), True
+                    "forecastStatus",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "forecastReason", ArrayType(CodeableConcept.get_schema()),
+                    "forecastReason",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
                     True
                 ),
                 StructField(
                     "dateCriterion",
                     ArrayType(
-                        ImmunizationRecommendation_DateCriterion.get_schema()
+                        ImmunizationRecommendation_DateCriterion.
+                        get_schema(recursion_depth + 1)
                     ), True
                 ),
                 StructField("description", StringType(), True),
@@ -53,11 +61,11 @@ class ImmunizationRecommendation_Recommendation:
                 StructField("seriesDosesString", StringType(), True),
                 StructField(
                     "supportingImmunization",
-                    ArrayType(Reference.get_schema()), True
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
                     "supportingPatientInformation",
-                    ArrayType(Reference.get_schema()), True
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
                 ),
             ]
         )

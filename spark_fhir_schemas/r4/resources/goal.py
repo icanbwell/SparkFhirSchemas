@@ -1,75 +1,111 @@
 from pyspark.sql.types import ArrayType, DateType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.id import id
-from spark_fhir_schemas.r4.complex_types.meta import Meta
-from spark_fhir_schemas.r4.complex_types.uri import uri
-from spark_fhir_schemas.r4.complex_types.code import code
-from spark_fhir_schemas.r4.complex_types.narrative import Narrative
-from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.identifier import Identifier
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.goal_target import Goal_Target
-from spark_fhir_schemas.r4.complex_types.annotation import Annotation
-
 
 # noinspection PyPep8Naming
 class Goal:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.id import id
+        from spark_fhir_schemas.r4.complex_types.meta import Meta
+        from spark_fhir_schemas.r4.complex_types.uri import uri
+        from spark_fhir_schemas.r4.complex_types.code import code
+        from spark_fhir_schemas.r4.complex_types.narrative import Narrative
+        from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.identifier import Identifier
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
+        from spark_fhir_schemas.r4.complex_types.reference import Reference
+        from spark_fhir_schemas.r4.complex_types.goal_target import Goal_Target
+        from spark_fhir_schemas.r4.complex_types.annotation import Annotation
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("resourceType", StringType(), True),
-                StructField("id", id.get_schema(), True),
-                StructField("meta", Meta.get_schema(), True),
-                StructField("implicitRules", uri.get_schema(), True),
-                StructField("language", code.get_schema(), True),
-                StructField("text", Narrative.get_schema(), True),
+                StructField("id", id.get_schema(recursion_depth + 1), True),
                 StructField(
-                    "contained", ArrayType(ResourceList.get_schema()), True
+                    "meta", Meta.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "implicitRules", uri.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    "language", code.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "text", Narrative.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "contained",
+                    ArrayType(ResourceList.get_schema(recursion_depth + 1)),
                     True
                 ),
                 StructField(
-                    "identifier", ArrayType(Identifier.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "identifier",
+                    ArrayType(Identifier.get_schema(recursion_depth + 1)), True
                 ),
                 StructField("lifecycleStatus", StringType(), True),
                 StructField(
-                    "achievementStatus", CodeableConcept.get_schema(), True
+                    "achievementStatus",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
                 ),
                 StructField(
-                    "category", ArrayType(CodeableConcept.get_schema()), True
-                ),
-                StructField("priority", CodeableConcept.get_schema(), True),
-                StructField("description", CodeableConcept.get_schema(), True),
-                StructField("subject", Reference.get_schema(), True),
-                StructField("startDate", StringType(), True),
-                StructField(
-                    "startCodeableConcept", CodeableConcept.get_schema(), True
-                ),
-                StructField(
-                    "target", ArrayType(Goal_Target.get_schema()), True
-                ),
-                StructField("statusDate", DateType(), True),
-                StructField("statusReason", StringType(), True),
-                StructField("expressedBy", Reference.get_schema(), True),
-                StructField(
-                    "addresses", ArrayType(Reference.get_schema()), True
-                ),
-                StructField("note", ArrayType(Annotation.get_schema()), True),
-                StructField(
-                    "outcomeCode", ArrayType(CodeableConcept.get_schema()),
+                    "category",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
                     True
                 ),
                 StructField(
-                    "outcomeReference", ArrayType(Reference.get_schema()), True
+                    "priority",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "description",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "subject", Reference.get_schema(recursion_depth + 1), True
+                ),
+                StructField("startDate", StringType(), True),
+                StructField(
+                    "startCodeableConcept",
+                    CodeableConcept.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "target",
+                    ArrayType(Goal_Target.get_schema(recursion_depth + 1)),
+                    True
+                ),
+                StructField("statusDate", DateType(), True),
+                StructField("statusReason", StringType(), True),
+                StructField(
+                    "expressedBy", Reference.get_schema(recursion_depth + 1),
+                    True
+                ),
+                StructField(
+                    "addresses",
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "note",
+                    ArrayType(Annotation.get_schema(recursion_depth + 1)), True
+                ),
+                StructField(
+                    "outcomeCode",
+                    ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
+                    True
+                ),
+                StructField(
+                    "outcomeReference",
+                    ArrayType(Reference.get_schema(recursion_depth + 1)), True
                 ),
             ]
         )

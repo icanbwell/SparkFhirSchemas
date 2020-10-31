@@ -1,24 +1,26 @@
 from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
 
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.code import code
-from spark_fhir_schemas.r4.complex_types.id import id
-
 
 # noinspection PyPep8Naming
 class TestScript_Assert:
     @staticmethod
-    def get_schema() -> StructType:
+    def get_schema(recursion_depth: int = 0) -> StructType:
         # from https://hl7.org/FHIR/patient.html
+        from spark_fhir_schemas.r4.complex_types.extension import Extension
+        from spark_fhir_schemas.r4.complex_types.code import code
+        from spark_fhir_schemas.r4.complex_types.id import id
+        if recursion_depth > 3:
+            return StructType([])
         schema = StructType(
             [
                 StructField("id", StringType(), True),
                 StructField(
-                    "extension", ArrayType(Extension.get_schema()), True
+                    "extension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField(
-                    "modifierExtension", ArrayType(Extension.get_schema()),
-                    True
+                    "modifierExtension",
+                    ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
                 StructField("label", StringType(), True),
                 StructField("description", StringType(), True),
@@ -26,7 +28,9 @@ class TestScript_Assert:
                 StructField("compareToSourceId", StringType(), True),
                 StructField("compareToSourceExpression", StringType(), True),
                 StructField("compareToSourcePath", StringType(), True),
-                StructField("contentType", code.get_schema(), True),
+                StructField(
+                    "contentType", code.get_schema(recursion_depth + 1), True
+                ),
                 StructField("expression", StringType(), True),
                 StructField("headerField", StringType(), True),
                 StructField("minimumId", StringType(), True),
@@ -35,11 +39,18 @@ class TestScript_Assert:
                 StructField("path", StringType(), True),
                 StructField("requestMethod", StringType(), True),
                 StructField("requestURL", StringType(), True),
-                StructField("resource", code.get_schema(), True),
+                StructField(
+                    "resource", code.get_schema(recursion_depth + 1), True
+                ),
                 StructField("response", StringType(), True),
                 StructField("responseCode", StringType(), True),
-                StructField("sourceId", id.get_schema(), True),
-                StructField("validateProfileId", id.get_schema(), True),
+                StructField(
+                    "sourceId", id.get_schema(recursion_depth + 1), True
+                ),
+                StructField(
+                    "validateProfileId", id.get_schema(recursion_depth + 1),
+                    True
+                ),
                 StructField("value", StringType(), True),
                 StructField("warningOnly", BooleanType(), True),
             ]
