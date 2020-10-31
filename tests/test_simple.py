@@ -1,10 +1,10 @@
-from spark_fhir_schemas.r4.complex_types.address import Address
-from spark_fhir_schemas.r4.resources.patient import Patient
+from spark_fhir_schemas.r4.complex_types.address import AddressSchema
+from spark_fhir_schemas.r4.resources.patient import PatientSchema
 
 
 def test_simple() -> None:
-    Patient.get_schema()
+    PatientSchema.get_schema()
 
-    Address.get_schema()
+    AddressSchema.get_schema()
 
     assert 1 == 1
