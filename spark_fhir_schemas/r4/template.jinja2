@@ -4,10 +4,11 @@ from spark_fhir_schemas.r4.complex_types.human_name import FhirHumanName
 from spark_fhir_schemas.r4.complex_types.reference import FhirReference
 
 {%- for property in properties -%}
-    {%- if property.UnderlyingDataType -%}
+    {% if property.UnderlyingDataType %}
 from spark_fhir_schemas.r4.resources.{{property.UnderlyingDataType.capitalize()}} import {{property.UnderlyingDataType.capitalize()}}
-    {%- endif %}
+    {%- endif -%}
 {% endfor %}
+
 
 class {{resource}}:
     @staticmethod

@@ -14,14 +14,9 @@ from spark_fhir_schemas.r4.resources.Identifier import Identifier
 from spark_fhir_schemas.r4.resources.Boolean import Boolean
 from spark_fhir_schemas.r4.resources.Humanname import Humanname
 from spark_fhir_schemas.r4.resources.Contactpoint import Contactpoint
-
 from spark_fhir_schemas.r4.resources.Date import Date
-
-
 from spark_fhir_schemas.r4.resources.Address import Address
 from spark_fhir_schemas.r4.resources.Codeableconcept import Codeableconcept
-
-
 from spark_fhir_schemas.r4.resources.Attachment import Attachment
 from spark_fhir_schemas.r4.resources.Patient_contact import Patient_contact
 from spark_fhir_schemas.r4.resources.Patient_communication import Patient_communication
