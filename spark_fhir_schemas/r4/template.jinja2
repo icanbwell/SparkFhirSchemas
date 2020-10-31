@@ -8,7 +8,17 @@ from pyspark.sql.types import StructType, StructField, StringType, ArrayType, Da
 class {{resource.Name}}:
     @staticmethod
     def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
-        # from https://hl7.org/FHIR/patient.html
+        """
+{%  if resource.Description %}
+        {{ resource.Description | wordwrap(78) | replace('\n', '\n        ') }}
+
+
+    {% for property in properties%}
+        {{ property.Name }}: {{ property.Description | wordwrap(78) | replace("\n", "\n            ") | replace("\r", "\n            ")}}
+
+    {%  endfor %}
+{%  endif %}
+        """
 {% for property in properties %}
     {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
         {%  if property.UnderlyingDataType != resource.Name and property.IsUniqueUnderlyingDataType %}
@@ -47,6 +57,7 @@ class {{resource.Name}}:
             [
                 StructField("resourceType", StringType(), True),
     {% for property in properties%}
+                # {{ property.Description | wordwrap(78) | replace("\n", "\n                # ") | replace("\r", "\n                # ")}}
         {% if property.Type == "array" %}
             {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}.get_schema(recursion_depth+1)), True),

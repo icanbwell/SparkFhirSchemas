@@ -29,6 +29,7 @@ class PropertyInfo:
 class ResourceInfo:
     Name: str
     Type: Optional[str]
+    Description: Optional[str]
 
 
 def main() -> int:
@@ -98,6 +99,8 @@ def main() -> int:
         print(f"Processing {resource_name}")
         resource_type: Optional[
             str] = resource["type"] if "type" in resource else None
+        resource_description: Optional[str] = resource[
+            "description"] if "description" in resource else None
         properties: Dict[
             str,
             Any] = resource["properties"] if "properties" in resource else {}
@@ -158,7 +161,11 @@ def main() -> int:
                 template_contents, trim_blocks=True, lstrip_blocks=True
             )
             result: str = template.render(
-                resource=ResourceInfo(Name=resource_name, Type=resource_type),
+                resource=ResourceInfo(
+                    Name=resource_name,
+                    Type=resource_type,
+                    Description=resource_description
+                ),
                 properties=properties_info
             )
 

@@ -11,7 +11,41 @@ from pyspark.sql.types import StructType
 class DeviceDefinition_Property:
     @staticmethod
     def get_schema(recursion_depth: int = 0) -> Union[StructType, DataType]:
-        # from https://hl7.org/FHIR/patient.html
+        """
+        The characteristics, operational status and capabilities of a medical-related
+        component of a medical device.
+
+
+        id: Unique id for the element within a resource (for internal references). This
+            may be any string value that does not contain spaces.
+
+        extension: May be used to represent additional information that is not part of the basic
+            definition of the element. To make the use of extensions safe and manageable,
+            there is a strict set of governance  applied to the definition and use of
+            extensions. Though any implementer can define an extension, there is a set of
+            requirements that SHALL be met as part of the definition of the extension.
+
+        modifierExtension: May be used to represent additional information that is not part of the basic
+            definition of the element and that modifies the understanding of the element
+            in which it is contained and/or the understanding of the containing element's
+            descendants. Usually modifier elements provide negation or qualification. To
+            make the use of extensions safe and manageable, there is a strict set of
+            governance applied to the definition and use of extensions. Though any
+            implementer can define an extension, there is a set of requirements that SHALL
+            be met as part of the definition of the extension. Applications processing a
+            resource are required to check for modifier extensions.
+
+            Modifier extensions SHALL NOT change the meaning of any elements on Resource
+            or DomainResource (including cannot change the meaning of modifierExtension
+            itself).
+
+        type: Code that specifies the property DeviceDefinitionPropetyCode (Extensible).
+
+        valueQuantity: Property value as a quantity.
+
+        valueCode: Property value as a code, e.g., NTP4 (synced to NTP).
+
+        """
         from spark_fhir_schemas.r4.complex_types.extension import Extension
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
         from spark_fhir_schemas.r4.complex_types.quantity import Quantity
@@ -20,23 +54,46 @@ class DeviceDefinition_Property:
         schema = StructType(
             [
                 StructField("resourceType", StringType(), True),
+                # Unique id for the element within a resource (for internal references). This
+                # may be any string value that does not contain spaces.
                 StructField("id", StringType(), True),
+                # May be used to represent additional information that is not part of the basic
+                # definition of the element. To make the use of extensions safe and manageable,
+                # there is a strict set of governance  applied to the definition and use of
+                # extensions. Though any implementer can define an extension, there is a set of
+                # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
                     ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
+                # May be used to represent additional information that is not part of the basic
+                # definition of the element and that modifies the understanding of the element
+                # in which it is contained and/or the understanding of the containing element's
+                # descendants. Usually modifier elements provide negation or qualification. To
+                # make the use of extensions safe and manageable, there is a strict set of
+                # governance applied to the definition and use of extensions. Though any
+                # implementer can define an extension, there is a set of requirements that SHALL
+                # be met as part of the definition of the extension. Applications processing a
+                # resource are required to check for modifier extensions.
+                #
+                # Modifier extensions SHALL NOT change the meaning of any elements on Resource
+                # or DomainResource (including cannot change the meaning of modifierExtension
+                # itself).
                 StructField(
                     "modifierExtension",
                     ArrayType(Extension.get_schema(recursion_depth + 1)), True
                 ),
+                # Code that specifies the property DeviceDefinitionPropetyCode (Extensible).
                 StructField(
                     "type", CodeableConcept.get_schema(recursion_depth + 1),
                     True
                 ),
+                # Property value as a quantity.
                 StructField(
                     "valueQuantity",
                     ArrayType(Quantity.get_schema(recursion_depth + 1)), True
                 ),
+                # Property value as a code, e.g., NTP4 (synced to NTP).
                 StructField(
                     "valueCode",
                     ArrayType(CodeableConcept.get_schema(recursion_depth + 1)),
