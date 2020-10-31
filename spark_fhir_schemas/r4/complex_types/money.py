@@ -1,11 +1,11 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.decimal import decimal
 from spark_fhir_schemas.r4.complex_types.code import code
 
 
+# noinspection PyPep8Naming
 class Money:
     @staticmethod
     def get_schema() -> StructType:
@@ -13,7 +13,9 @@ class Money:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
                 StructField("value", decimal.get_schema(), True),
                 StructField("currency", code.get_schema(), True),
             ]

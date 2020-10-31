@@ -1,16 +1,14 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.base64binary import base64Binary
 from spark_fhir_schemas.r4.complex_types.url import url
 from spark_fhir_schemas.r4.complex_types.unsignedint import unsignedInt
-from spark_fhir_schemas.r4.complex_types.base64binary import base64Binary
 from spark_fhir_schemas.r4.complex_types.datetime import dateTime
 
 
+# noinspection PyPep8Naming
 class Attachment:
     @staticmethod
     def get_schema() -> StructType:
@@ -18,7 +16,9 @@ class Attachment:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
                 StructField("contentType", code.get_schema(), True),
                 StructField("language", code.get_schema(), True),
                 StructField("data", base64Binary.get_schema(), True),

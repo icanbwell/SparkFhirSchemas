@@ -1,12 +1,10 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.code import code
 
 
+# noinspection PyPep8Naming
 class TerminologyCapabilities_Filter:
     @staticmethod
     def get_schema() -> StructType:
@@ -14,10 +12,15 @@ class TerminologyCapabilities_Filter:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("code", code.get_schema(), True),
-                StructField("op",ArrayType(code.get_schema()), True),
+                StructField("op", ArrayType(code.get_schema()), True),
             ]
         )
 

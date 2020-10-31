@@ -1,7 +1,5 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.substanceamount import SubstanceAmount
@@ -9,6 +7,7 @@ from spark_fhir_schemas.r4.complex_types.substancepolymer_degreeofpolymerisation
 from spark_fhir_schemas.r4.complex_types.substancepolymer_structuralrepresentation import SubstancePolymer_StructuralRepresentation
 
 
+# noinspection PyPep8Naming
 class SubstancePolymer_RepeatUnit:
     @staticmethod
     def get_schema() -> StructType:
@@ -16,13 +15,31 @@ class SubstancePolymer_RepeatUnit:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
-                StructField("orientationOfPolymerisation", CodeableConcept.get_schema(), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
+                StructField(
+                    "orientationOfPolymerisation",
+                    CodeableConcept.get_schema(), True
+                ),
                 StructField("repeatUnit", StringType(), True),
                 StructField("amount", SubstanceAmount.get_schema(), True),
-                StructField("degreeOfPolymerisation",ArrayType(SubstancePolymer_DegreeOfPolymerisation.get_schema()), True),
-                StructField("structuralRepresentation",ArrayType(SubstancePolymer_StructuralRepresentation.get_schema()), True),
+                StructField(
+                    "degreeOfPolymerisation",
+                    ArrayType(
+                        SubstancePolymer_DegreeOfPolymerisation.get_schema()
+                    ), True
+                ),
+                StructField(
+                    "structuralRepresentation",
+                    ArrayType(
+                        SubstancePolymer_StructuralRepresentation.get_schema()
+                    ), True
+                ),
             ]
         )
 

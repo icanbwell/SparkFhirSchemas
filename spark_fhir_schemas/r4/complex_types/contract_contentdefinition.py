@@ -1,9 +1,6 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.reference import Reference
 from spark_fhir_schemas.r4.complex_types.datetime import dateTime
@@ -11,6 +8,7 @@ from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.markdown import markdown
 
 
+# noinspection PyPep8Naming
 class Contract_ContentDefinition:
     @staticmethod
     def get_schema() -> StructType:
@@ -18,8 +16,13 @@ class Contract_ContentDefinition:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("type", CodeableConcept.get_schema(), True),
                 StructField("subType", CodeableConcept.get_schema(), True),
                 StructField("publisher", Reference.get_schema(), True),

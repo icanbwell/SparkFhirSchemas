@@ -1,7 +1,5 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.markdown import markdown
@@ -9,6 +7,7 @@ from spark_fhir_schemas.r4.complex_types.examplescenario_version import ExampleS
 from spark_fhir_schemas.r4.complex_types.examplescenario_containedinstance import ExampleScenario_ContainedInstance
 
 
+# noinspection PyPep8Naming
 class ExampleScenario_Instance:
     @staticmethod
     def get_schema() -> StructType:
@@ -16,14 +15,26 @@ class ExampleScenario_Instance:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("resourceId", StringType(), True),
                 StructField("resourceType", code.get_schema(), True),
                 StructField("name", StringType(), True),
                 StructField("description", markdown.get_schema(), True),
-                StructField("version",ArrayType(ExampleScenario_Version.get_schema()), True),
-                StructField("containedInstance",ArrayType(ExampleScenario_ContainedInstance.get_schema()), True),
+                StructField(
+                    "version", ArrayType(ExampleScenario_Version.get_schema()),
+                    True
+                ),
+                StructField(
+                    "containedInstance",
+                    ArrayType(ExampleScenario_ContainedInstance.get_schema()),
+                    True
+                ),
             ]
         )
 

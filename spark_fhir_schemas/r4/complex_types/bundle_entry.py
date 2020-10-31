@@ -1,7 +1,5 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.bundle_link import Bundle_Link
 from spark_fhir_schemas.r4.complex_types.uri import uri
@@ -11,6 +9,7 @@ from spark_fhir_schemas.r4.complex_types.bundle_request import Bundle_Request
 from spark_fhir_schemas.r4.complex_types.bundle_response import Bundle_Response
 
 
+# noinspection PyPep8Naming
 class Bundle_Entry:
     @staticmethod
     def get_schema() -> StructType:
@@ -18,9 +17,14 @@ class Bundle_Entry:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
-                StructField("link",ArrayType(Bundle_Link.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
+                StructField("link", ArrayType(Bundle_Link.get_schema()), True),
                 StructField("fullUrl", uri.get_schema(), True),
                 StructField("resource", ResourceList.get_schema(), True),
                 StructField("search", Bundle_Search.get_schema(), True),

@@ -1,11 +1,10 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.code import code
 
 
+# noinspection PyPep8Naming
 class GraphDefinition_Compartment:
     @staticmethod
     def get_schema() -> StructType:
@@ -13,8 +12,13 @@ class GraphDefinition_Compartment:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("use", StringType(), True),
                 StructField("code", code.get_schema(), True),
                 StructField("rule", StringType(), True),

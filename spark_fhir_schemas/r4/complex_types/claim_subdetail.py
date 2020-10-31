@@ -1,21 +1,15 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.quantity import Quantity
 from spark_fhir_schemas.r4.complex_types.money import Money
 from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.money import Money
 from spark_fhir_schemas.r4.complex_types.reference import Reference
 
 
+# noinspection PyPep8Naming
 class Claim_SubDetail:
     @staticmethod
     def get_schema() -> StructType:
@@ -23,19 +17,31 @@ class Claim_SubDetail:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("sequence", positiveInt.get_schema(), True),
                 StructField("revenue", CodeableConcept.get_schema(), True),
                 StructField("category", CodeableConcept.get_schema(), True),
-                StructField("productOrService", CodeableConcept.get_schema(), True),
-                StructField("modifier",ArrayType(CodeableConcept.get_schema()), True),
-                StructField("programCode",ArrayType(CodeableConcept.get_schema()), True),
+                StructField(
+                    "productOrService", CodeableConcept.get_schema(), True
+                ),
+                StructField(
+                    "modifier", ArrayType(CodeableConcept.get_schema()), True
+                ),
+                StructField(
+                    "programCode", ArrayType(CodeableConcept.get_schema()),
+                    True
+                ),
                 StructField("quantity", Quantity.get_schema(), True),
                 StructField("unitPrice", Money.get_schema(), True),
                 StructField("factor", decimal.get_schema(), True),
                 StructField("net", Money.get_schema(), True),
-                StructField("udi",ArrayType(Reference.get_schema()), True),
+                StructField("udi", ArrayType(Reference.get_schema()), True),
             ]
         )
 

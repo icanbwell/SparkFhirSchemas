@@ -1,15 +1,12 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.quantity import Quantity
 from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
 from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
 
 
+# noinspection PyPep8Naming
 class SampledData:
     @staticmethod
     def get_schema() -> StructType:
@@ -17,7 +14,9 @@ class SampledData:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
                 StructField("origin", Quantity.get_schema(), True),
                 StructField("period", decimal.get_schema(), True),
                 StructField("factor", decimal.get_schema(), True),

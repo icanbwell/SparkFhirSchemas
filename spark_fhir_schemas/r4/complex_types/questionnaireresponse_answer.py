@@ -1,7 +1,5 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, BooleanType, IntegerType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.attachment import Attachment
 from spark_fhir_schemas.r4.complex_types.coding import Coding
@@ -10,6 +8,7 @@ from spark_fhir_schemas.r4.complex_types.reference import Reference
 from spark_fhir_schemas.r4.complex_types.questionnaireresponse_item import QuestionnaireResponse_Item
 
 
+# noinspection PyPep8Naming
 class QuestionnaireResponse_Answer:
     @staticmethod
     def get_schema() -> StructType:
@@ -17,8 +16,13 @@ class QuestionnaireResponse_Answer:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("valueBoolean", BooleanType(), True),
                 StructField("valueDecimal", IntegerType(), True),
                 StructField("valueInteger", IntegerType(), True),
@@ -31,7 +35,10 @@ class QuestionnaireResponse_Answer:
                 StructField("valueCoding", Coding.get_schema(), True),
                 StructField("valueQuantity", Quantity.get_schema(), True),
                 StructField("valueReference", Reference.get_schema(), True),
-                StructField("item",ArrayType(QuestionnaireResponse_Item.get_schema()), True),
+                StructField(
+                    "item", ArrayType(QuestionnaireResponse_Item.get_schema()),
+                    True
+                ),
             ]
         )
 

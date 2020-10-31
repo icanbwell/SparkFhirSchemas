@@ -1,14 +1,12 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.quantity import Quantity
 from spark_fhir_schemas.r4.complex_types.range import Range
 
 
+# noinspection PyPep8Naming
 class DeviceRequest_Parameter:
     @staticmethod
     def get_schema() -> StructType:
@@ -16,10 +14,17 @@ class DeviceRequest_Parameter:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("code", CodeableConcept.get_schema(), True),
-                StructField("valueCodeableConcept", CodeableConcept.get_schema(), True),
+                StructField(
+                    "valueCodeableConcept", CodeableConcept.get_schema(), True
+                ),
                 StructField("valueQuantity", Quantity.get_schema(), True),
                 StructField("valueRange", Range.get_schema(), True),
                 StructField("valueBoolean", BooleanType(), True),

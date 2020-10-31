@@ -1,15 +1,14 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.meta import Meta
 from spark_fhir_schemas.r4.complex_types.uri import uri
 from spark_fhir_schemas.r4.complex_types.code import code
-from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.reference import Reference
 from spark_fhir_schemas.r4.complex_types.base64binary import base64Binary
 
 
+# noinspection PyPep8Naming
 class Binary:
     @staticmethod
     def get_schema() -> StructType:

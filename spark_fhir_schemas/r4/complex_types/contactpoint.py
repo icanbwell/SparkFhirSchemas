@@ -1,11 +1,11 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.positiveint import positiveInt
 from spark_fhir_schemas.r4.complex_types.period import Period
 
 
+# noinspection PyPep8Naming
 class ContactPoint:
     @staticmethod
     def get_schema() -> StructType:
@@ -13,7 +13,9 @@ class ContactPoint:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
                 StructField("system", StringType(), True),
                 StructField("value", StringType(), True),
                 StructField("use", StringType(), True),

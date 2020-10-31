@@ -3,15 +3,18 @@ from pyspark.sql.types import StructType, StructField, StringType, ArrayType, Da
 
 {% for property in properties %}
     {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
-        {% if property.IsResourceType %}
+        {%  if property.UnderlyingDataType != resource and property.IsUniqueUnderlyingDataType %}
+            {% if property.IsResourceType %}
 from spark_fhir_schemas.r4.resources.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
-        {% else %}
+            {% else %}
 from spark_fhir_schemas.r4.complex_types.{{property.UnderlyingDataType.lower()}} import {{property.UnderlyingDataType}}
+            {% endif %}
         {% endif %}
     {% endif %}
 {% endfor %}
 
 
+# noinspection PyPep8Naming
 class {{resource}}:
     @staticmethod
     def get_schema() -> StructType:
@@ -20,7 +23,17 @@ class {{resource}}:
             [
 {% for property in properties%}
     {% if property.Type == "array" %}
+        {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}.get_schema()), True),
+        {%  elif property.UnderlyingDataType == "string" %}
+                StructField("{{property.Name}}",ArrayType(StringType()), True),
+        {% elif property.Type == "boolean" or property.UnderlyingDataType == "boolean" %}
+                StructField("{{property.Name}}",ArrayType(BooleanType()), True),
+        {% elif property.Type == "date" or property.UnderlyingDataType == "date" %}
+                StructField("{{property.Name}}",ArrayType(DateType()), True),
+        {% elif property.Type == "number" or property.UnderlyingDataType == "number" %}
+                StructField("{{property.Name}}",ArrayType(IntegerType()), True),
+        {% endif %}
     {% elif not property.Type and not property.UnderlyingDataType %}
                 StructField("{{property.Name}}", StringType(), True),
     {% elif property.Type == "string" or property.UnderlyingDataType == "string" %}
@@ -39,4 +52,3 @@ class {{resource}}:
         )
 
         return schema
-

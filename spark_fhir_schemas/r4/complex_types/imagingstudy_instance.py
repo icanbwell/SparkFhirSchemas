@@ -1,13 +1,12 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.coding import Coding
 from spark_fhir_schemas.r4.complex_types.unsignedint import unsignedInt
 
 
+# noinspection PyPep8Naming
 class ImagingStudy_Instance:
     @staticmethod
     def get_schema() -> StructType:
@@ -15,8 +14,13 @@ class ImagingStudy_Instance:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("uid", id.get_schema(), True),
                 StructField("sopClass", Coding.get_schema(), True),
                 StructField("number", unsignedInt.get_schema(), True),

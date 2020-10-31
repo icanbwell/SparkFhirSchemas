@@ -1,11 +1,10 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 
 
+# noinspection PyPep8Naming
 class OperationOutcome_Issue:
     @staticmethod
     def get_schema() -> StructType:
@@ -13,14 +12,19 @@ class OperationOutcome_Issue:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("severity", StringType(), True),
                 StructField("code", StringType(), True),
                 StructField("details", CodeableConcept.get_schema(), True),
                 StructField("diagnostics", StringType(), True),
-                StructField("location",ArrayType(string.get_schema()), True),
-                StructField("expression",ArrayType(string.get_schema()), True),
+                StructField("location", ArrayType(StringType()), True),
+                StructField("expression", ArrayType(StringType()), True),
             ]
         )
 

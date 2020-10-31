@@ -1,7 +1,5 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, BooleanType, IntegerType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.integer import integer
@@ -36,9 +34,9 @@ from spark_fhir_schemas.r4.complex_types.triggerdefinition import TriggerDefinit
 from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContext
 from spark_fhir_schemas.r4.complex_types.dosage import Dosage
 from spark_fhir_schemas.r4.complex_types.meta import Meta
-from spark_fhir_schemas.r4.complex_types.id import id
 
 
+# noinspection PyPep8Naming
 class StructureMap_Source:
     @staticmethod
     def get_schema() -> StructType:
@@ -46,8 +44,13 @@ class StructureMap_Source:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("context", id.get_schema(), True),
                 StructField("min", integer.get_schema(), True),
                 StructField("max", StringType(), True),
@@ -73,33 +76,79 @@ class StructureMap_Source:
                 StructField("defaultValueUuid", StringType(), True),
                 StructField("defaultValueAddress", Address.get_schema(), True),
                 StructField("defaultValueAge", Age.get_schema(), True),
-                StructField("defaultValueAnnotation", Annotation.get_schema(), True),
-                StructField("defaultValueAttachment", Attachment.get_schema(), True),
-                StructField("defaultValueCodeableConcept", CodeableConcept.get_schema(), True),
+                StructField(
+                    "defaultValueAnnotation", Annotation.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueAttachment", Attachment.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueCodeableConcept",
+                    CodeableConcept.get_schema(), True
+                ),
                 StructField("defaultValueCoding", Coding.get_schema(), True),
-                StructField("defaultValueContactPoint", ContactPoint.get_schema(), True),
+                StructField(
+                    "defaultValueContactPoint", ContactPoint.get_schema(), True
+                ),
                 StructField("defaultValueCount", Count.get_schema(), True),
-                StructField("defaultValueDistance", Distance.get_schema(), True),
-                StructField("defaultValueDuration", Duration.get_schema(), True),
-                StructField("defaultValueHumanName", HumanName.get_schema(), True),
-                StructField("defaultValueIdentifier", Identifier.get_schema(), True),
+                StructField(
+                    "defaultValueDistance", Distance.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueDuration", Duration.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueHumanName", HumanName.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueIdentifier", Identifier.get_schema(), True
+                ),
                 StructField("defaultValueMoney", Money.get_schema(), True),
                 StructField("defaultValuePeriod", Period.get_schema(), True),
-                StructField("defaultValueQuantity", Quantity.get_schema(), True),
+                StructField(
+                    "defaultValueQuantity", Quantity.get_schema(), True
+                ),
                 StructField("defaultValueRange", Range.get_schema(), True),
                 StructField("defaultValueRatio", Ratio.get_schema(), True),
-                StructField("defaultValueReference", Reference.get_schema(), True),
-                StructField("defaultValueSampledData", SampledData.get_schema(), True),
-                StructField("defaultValueSignature", Signature.get_schema(), True),
+                StructField(
+                    "defaultValueReference", Reference.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueSampledData", SampledData.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueSignature", Signature.get_schema(), True
+                ),
                 StructField("defaultValueTiming", Timing.get_schema(), True),
-                StructField("defaultValueContactDetail", ContactDetail.get_schema(), True),
-                StructField("defaultValueContributor", Contributor.get_schema(), True),
-                StructField("defaultValueDataRequirement", DataRequirement.get_schema(), True),
-                StructField("defaultValueExpression", Expression.get_schema(), True),
-                StructField("defaultValueParameterDefinition", ParameterDefinition.get_schema(), True),
-                StructField("defaultValueRelatedArtifact", RelatedArtifact.get_schema(), True),
-                StructField("defaultValueTriggerDefinition", TriggerDefinition.get_schema(), True),
-                StructField("defaultValueUsageContext", UsageContext.get_schema(), True),
+                StructField(
+                    "defaultValueContactDetail", ContactDetail.get_schema(),
+                    True
+                ),
+                StructField(
+                    "defaultValueContributor", Contributor.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueDataRequirement",
+                    DataRequirement.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueExpression", Expression.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueParameterDefinition",
+                    ParameterDefinition.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueRelatedArtifact",
+                    RelatedArtifact.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueTriggerDefinition",
+                    TriggerDefinition.get_schema(), True
+                ),
+                StructField(
+                    "defaultValueUsageContext", UsageContext.get_schema(), True
+                ),
                 StructField("defaultValueDosage", Dosage.get_schema(), True),
                 StructField("defaultValueMeta", Meta.get_schema(), True),
                 StructField("element", StringType(), True),

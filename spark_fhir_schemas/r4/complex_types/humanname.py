@@ -1,10 +1,10 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.period import Period
 
 
+# noinspection PyPep8Naming
 class HumanName:
     @staticmethod
     def get_schema() -> StructType:
@@ -12,13 +12,15 @@ class HumanName:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
                 StructField("use", StringType(), True),
                 StructField("text", StringType(), True),
                 StructField("family", StringType(), True),
-                StructField("given",ArrayType(string.get_schema()), True),
-                StructField("prefix",ArrayType(string.get_schema()), True),
-                StructField("suffix",ArrayType(string.get_schema()), True),
+                StructField("given", ArrayType(StringType()), True),
+                StructField("prefix", ArrayType(StringType()), True),
+                StructField("suffix", ArrayType(StringType()), True),
                 StructField("period", Period.get_schema(), True),
             ]
         )

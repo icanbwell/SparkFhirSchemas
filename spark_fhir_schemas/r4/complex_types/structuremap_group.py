@@ -1,14 +1,12 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.structuremap_input import StructureMap_Input
 from spark_fhir_schemas.r4.complex_types.structuremap_rule import StructureMap_Rule
 
 
+# noinspection PyPep8Naming
 class StructureMap_Group:
     @staticmethod
     def get_schema() -> StructType:
@@ -16,14 +14,23 @@ class StructureMap_Group:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("name", id.get_schema(), True),
                 StructField("extends", id.get_schema(), True),
                 StructField("typeMode", StringType(), True),
                 StructField("documentation", StringType(), True),
-                StructField("input",ArrayType(StructureMap_Input.get_schema()), True),
-                StructField("rule",ArrayType(StructureMap_Rule.get_schema()), True),
+                StructField(
+                    "input", ArrayType(StructureMap_Input.get_schema()), True
+                ),
+                StructField(
+                    "rule", ArrayType(StructureMap_Rule.get_schema()), True
+                ),
             ]
         )
 

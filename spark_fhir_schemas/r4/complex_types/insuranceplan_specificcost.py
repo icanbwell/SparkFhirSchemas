@@ -1,12 +1,11 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.insuranceplan_benefit1 import InsurancePlan_Benefit1
 
 
+# noinspection PyPep8Naming
 class InsurancePlan_SpecificCost:
     @staticmethod
     def get_schema() -> StructType:
@@ -14,10 +13,18 @@ class InsurancePlan_SpecificCost:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("category", CodeableConcept.get_schema(), True),
-                StructField("benefit",ArrayType(InsurancePlan_Benefit1.get_schema()), True),
+                StructField(
+                    "benefit", ArrayType(InsurancePlan_Benefit1.get_schema()),
+                    True
+                ),
             ]
         )
 

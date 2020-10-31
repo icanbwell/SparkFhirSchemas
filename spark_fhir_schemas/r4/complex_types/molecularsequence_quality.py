@@ -1,24 +1,14 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.integer import integer
 from spark_fhir_schemas.r4.complex_types.integer import integer
 from spark_fhir_schemas.r4.complex_types.quantity import Quantity
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
-from spark_fhir_schemas.r4.complex_types.decimal import decimal
 from spark_fhir_schemas.r4.complex_types.decimal import decimal
 from spark_fhir_schemas.r4.complex_types.molecularsequence_roc import MolecularSequence_Roc
 
 
+# noinspection PyPep8Naming
 class MolecularSequence_Quality:
     @staticmethod
     def get_schema() -> StructType:
@@ -26,10 +16,17 @@ class MolecularSequence_Quality:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("type", StringType(), True),
-                StructField("standardSequence", CodeableConcept.get_schema(), True),
+                StructField(
+                    "standardSequence", CodeableConcept.get_schema(), True
+                ),
                 StructField("start", integer.get_schema(), True),
                 StructField("end", integer.get_schema(), True),
                 StructField("score", Quantity.get_schema(), True),

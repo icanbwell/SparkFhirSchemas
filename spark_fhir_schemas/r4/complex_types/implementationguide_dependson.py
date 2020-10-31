@@ -1,12 +1,11 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.canonical import canonical
 from spark_fhir_schemas.r4.complex_types.id import id
 
 
+# noinspection PyPep8Naming
 class ImplementationGuide_DependsOn:
     @staticmethod
     def get_schema() -> StructType:
@@ -14,8 +13,13 @@ class ImplementationGuide_DependsOn:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("uri", canonical.get_schema(), True),
                 StructField("packageId", id.get_schema(), True),
                 StructField("version", StringType(), True),

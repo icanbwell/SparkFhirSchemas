@@ -1,7 +1,5 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
+from pyspark.sql.types import ArrayType, BooleanType, IntegerType, StringType, StructField, StructType
 
-
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.address import Address
 from spark_fhir_schemas.r4.complex_types.age import Age
@@ -35,9 +33,9 @@ from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContext
 from spark_fhir_schemas.r4.complex_types.dosage import Dosage
 from spark_fhir_schemas.r4.complex_types.meta import Meta
 from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
-from spark_fhir_schemas.r4.complex_types.parameters_parameter import Parameters_Parameter
 
 
+# noinspection PyPep8Naming
 class Parameters_Parameter:
     @staticmethod
     def get_schema() -> StructType:
@@ -45,8 +43,13 @@ class Parameters_Parameter:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
                 StructField("name", StringType(), True),
                 StructField("valueBase64Binary", StringType(), True),
                 StructField("valueBoolean", BooleanType(), True),
@@ -71,9 +74,13 @@ class Parameters_Parameter:
                 StructField("valueAge", Age.get_schema(), True),
                 StructField("valueAnnotation", Annotation.get_schema(), True),
                 StructField("valueAttachment", Attachment.get_schema(), True),
-                StructField("valueCodeableConcept", CodeableConcept.get_schema(), True),
+                StructField(
+                    "valueCodeableConcept", CodeableConcept.get_schema(), True
+                ),
                 StructField("valueCoding", Coding.get_schema(), True),
-                StructField("valueContactPoint", ContactPoint.get_schema(), True),
+                StructField(
+                    "valueContactPoint", ContactPoint.get_schema(), True
+                ),
                 StructField("valueCount", Count.get_schema(), True),
                 StructField("valueDistance", Distance.get_schema(), True),
                 StructField("valueDuration", Duration.get_schema(), True),
@@ -85,21 +92,41 @@ class Parameters_Parameter:
                 StructField("valueRange", Range.get_schema(), True),
                 StructField("valueRatio", Ratio.get_schema(), True),
                 StructField("valueReference", Reference.get_schema(), True),
-                StructField("valueSampledData", SampledData.get_schema(), True),
+                StructField(
+                    "valueSampledData", SampledData.get_schema(), True
+                ),
                 StructField("valueSignature", Signature.get_schema(), True),
                 StructField("valueTiming", Timing.get_schema(), True),
-                StructField("valueContactDetail", ContactDetail.get_schema(), True),
-                StructField("valueContributor", Contributor.get_schema(), True),
-                StructField("valueDataRequirement", DataRequirement.get_schema(), True),
+                StructField(
+                    "valueContactDetail", ContactDetail.get_schema(), True
+                ),
+                StructField(
+                    "valueContributor", Contributor.get_schema(), True
+                ),
+                StructField(
+                    "valueDataRequirement", DataRequirement.get_schema(), True
+                ),
                 StructField("valueExpression", Expression.get_schema(), True),
-                StructField("valueParameterDefinition", ParameterDefinition.get_schema(), True),
-                StructField("valueRelatedArtifact", RelatedArtifact.get_schema(), True),
-                StructField("valueTriggerDefinition", TriggerDefinition.get_schema(), True),
-                StructField("valueUsageContext", UsageContext.get_schema(), True),
+                StructField(
+                    "valueParameterDefinition",
+                    ParameterDefinition.get_schema(), True
+                ),
+                StructField(
+                    "valueRelatedArtifact", RelatedArtifact.get_schema(), True
+                ),
+                StructField(
+                    "valueTriggerDefinition", TriggerDefinition.get_schema(),
+                    True
+                ),
+                StructField(
+                    "valueUsageContext", UsageContext.get_schema(), True
+                ),
                 StructField("valueDosage", Dosage.get_schema(), True),
                 StructField("valueMeta", Meta.get_schema(), True),
                 StructField("resource", ResourceList.get_schema(), True),
-                StructField("part",ArrayType(Parameters_Parameter.get_schema()), True),
+                StructField(
+                    "part", ArrayType(Parameters_Parameter.get_schema()), True
+                ),
             ]
         )
 

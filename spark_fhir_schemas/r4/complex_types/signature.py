@@ -1,16 +1,14 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.coding import Coding
 from spark_fhir_schemas.r4.complex_types.instant import instant
 from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.base64binary import base64Binary
 
 
+# noinspection PyPep8Naming
 class Signature:
     @staticmethod
     def get_schema() -> StructType:
@@ -18,8 +16,10 @@ class Signature:
         schema = StructType(
             [
                 StructField("id", StringType(), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("type",ArrayType(Coding.get_schema()), True),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField("type", ArrayType(Coding.get_schema()), True),
                 StructField("when", instant.get_schema(), True),
                 StructField("who", Reference.get_schema(), True),
                 StructField("onBehalfOf", Reference.get_schema(), True),

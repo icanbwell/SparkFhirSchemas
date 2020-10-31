@@ -1,5 +1,4 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.meta import Meta
@@ -8,21 +7,17 @@ from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.narrative import Narrative
 from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
 from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.extension import Extension
-from spark_fhir_schemas.r4.complex_types.identifier import Identifier
 from spark_fhir_schemas.r4.complex_types.identifier import Identifier
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.reference import Reference
 from spark_fhir_schemas.r4.complex_types.datetime import dateTime
-from spark_fhir_schemas.r4.complex_types.reference import Reference
-from spark_fhir_schemas.r4.complex_types.reference import Reference
 from spark_fhir_schemas.r4.complex_types.specimen_collection import Specimen_Collection
 from spark_fhir_schemas.r4.complex_types.specimen_processing import Specimen_Processing
 from spark_fhir_schemas.r4.complex_types.specimen_container import Specimen_Container
-from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
 from spark_fhir_schemas.r4.complex_types.annotation import Annotation
 
 
+# noinspection PyPep8Naming
 class Specimen:
     @staticmethod
     def get_schema() -> StructType:
@@ -35,22 +30,45 @@ class Specimen:
                 StructField("implicitRules", uri.get_schema(), True),
                 StructField("language", code.get_schema(), True),
                 StructField("text", Narrative.get_schema(), True),
-                StructField("contained",ArrayType(ResourceList.get_schema()), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
-                StructField("identifier",ArrayType(Identifier.get_schema()), True),
-                StructField("accessionIdentifier", Identifier.get_schema(), True),
+                StructField(
+                    "contained", ArrayType(ResourceList.get_schema()), True
+                ),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
+                StructField(
+                    "identifier", ArrayType(Identifier.get_schema()), True
+                ),
+                StructField(
+                    "accessionIdentifier", Identifier.get_schema(), True
+                ),
                 StructField("status", StringType(), True),
                 StructField("type", CodeableConcept.get_schema(), True),
                 StructField("subject", Reference.get_schema(), True),
                 StructField("receivedTime", dateTime.get_schema(), True),
-                StructField("parent",ArrayType(Reference.get_schema()), True),
-                StructField("request",ArrayType(Reference.get_schema()), True),
-                StructField("collection", Specimen_Collection.get_schema(), True),
-                StructField("processing",ArrayType(Specimen_Processing.get_schema()), True),
-                StructField("container",ArrayType(Specimen_Container.get_schema()), True),
-                StructField("condition",ArrayType(CodeableConcept.get_schema()), True),
-                StructField("note",ArrayType(Annotation.get_schema()), True),
+                StructField("parent", ArrayType(Reference.get_schema()), True),
+                StructField(
+                    "request", ArrayType(Reference.get_schema()), True
+                ),
+                StructField(
+                    "collection", Specimen_Collection.get_schema(), True
+                ),
+                StructField(
+                    "processing", ArrayType(Specimen_Processing.get_schema()),
+                    True
+                ),
+                StructField(
+                    "container", ArrayType(Specimen_Container.get_schema()),
+                    True
+                ),
+                StructField(
+                    "condition", ArrayType(CodeableConcept.get_schema()), True
+                ),
+                StructField("note", ArrayType(Annotation.get_schema()), True),
             ]
         )
 

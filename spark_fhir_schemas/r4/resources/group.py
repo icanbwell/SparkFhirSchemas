@@ -1,5 +1,4 @@
-from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType
-
+from pyspark.sql.types import ArrayType, BooleanType, StringType, StructField, StructType
 
 from spark_fhir_schemas.r4.complex_types.id import id
 from spark_fhir_schemas.r4.complex_types.meta import Meta
@@ -7,7 +6,6 @@ from spark_fhir_schemas.r4.complex_types.uri import uri
 from spark_fhir_schemas.r4.complex_types.code import code
 from spark_fhir_schemas.r4.complex_types.narrative import Narrative
 from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceList
-from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.extension import Extension
 from spark_fhir_schemas.r4.complex_types.identifier import Identifier
 from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConcept
@@ -17,6 +15,7 @@ from spark_fhir_schemas.r4.complex_types.group_characteristic import Group_Chara
 from spark_fhir_schemas.r4.complex_types.group_member import Group_Member
 
 
+# noinspection PyPep8Naming
 class Group:
     @staticmethod
     def get_schema() -> StructType:
@@ -29,10 +28,19 @@ class Group:
                 StructField("implicitRules", uri.get_schema(), True),
                 StructField("language", code.get_schema(), True),
                 StructField("text", Narrative.get_schema(), True),
-                StructField("contained",ArrayType(ResourceList.get_schema()), True),
-                StructField("extension",ArrayType(Extension.get_schema()), True),
-                StructField("modifierExtension",ArrayType(Extension.get_schema()), True),
-                StructField("identifier",ArrayType(Identifier.get_schema()), True),
+                StructField(
+                    "contained", ArrayType(ResourceList.get_schema()), True
+                ),
+                StructField(
+                    "extension", ArrayType(Extension.get_schema()), True
+                ),
+                StructField(
+                    "modifierExtension", ArrayType(Extension.get_schema()),
+                    True
+                ),
+                StructField(
+                    "identifier", ArrayType(Identifier.get_schema()), True
+                ),
                 StructField("active", BooleanType(), True),
                 StructField("type", StringType(), True),
                 StructField("actual", BooleanType(), True),
@@ -40,8 +48,13 @@ class Group:
                 StructField("name", StringType(), True),
                 StructField("quantity", unsignedInt.get_schema(), True),
                 StructField("managingEntity", Reference.get_schema(), True),
-                StructField("characteristic",ArrayType(Group_Characteristic.get_schema()), True),
-                StructField("member",ArrayType(Group_Member.get_schema()), True),
+                StructField(
+                    "characteristic",
+                    ArrayType(Group_Characteristic.get_schema()), True
+                ),
+                StructField(
+                    "member", ArrayType(Group_Member.get_schema()), True
+                ),
             ]
         )
 
