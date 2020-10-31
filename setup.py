@@ -80,6 +80,6 @@ setup(
     dependency_links=[],
     include_package_data=True,
     zip_safe=False,
-    package_data={package_name: ["py.typed"]},
+    package_data={"spark_fhir_schemas": ["py.typed"]},
     data_files=[]
 )
