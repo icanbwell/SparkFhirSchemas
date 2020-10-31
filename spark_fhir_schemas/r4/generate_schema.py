@@ -60,7 +60,8 @@ def main() -> bool:
     # for key, value in definitions.items():
     #     print(f"{key}:{value}")
     # print(definitions["Patient"])
-    resource = definitions["Patient"]
+    resource_name: str = "Patient"
+    resource = definitions[resource_name]
     properties = resource["properties"]
     properties_info: List[PropertyInfo] = []
     print("---- Properties ----")
@@ -92,9 +93,9 @@ def main() -> bool:
         template_contents: str = file.read()
         from jinja2 import Template
         template = Template(template_contents)
-        result: str = template.render(resource="Patient", properties=properties_info)
+        result: str = template.render(resource=resource_name, properties=properties_info)
 
-        with open(data_dir.joinpath("resources").joinpath(f"{resource}.py")) as file2:
+        with open(data_dir.joinpath("resources").joinpath(f"{resource_name}.py"), "w+") as file2:
             file2.write(result)
         print(result)
     return True
