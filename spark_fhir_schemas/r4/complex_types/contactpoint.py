@@ -1,7 +1,6 @@
 from typing import List
 from typing import Union
 
-from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -50,7 +49,6 @@ class ContactPointSchema:
         period: Time period when the contact point was/is in use.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         if recursion_list.count(
@@ -69,16 +67,9 @@ class ContactPointSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # Telecommunications form for contact point - what communications system is
                 # required to make use of the contact.
                 StructField("system", StringType(), True),

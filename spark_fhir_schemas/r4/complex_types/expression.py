@@ -1,7 +1,6 @@
 from typing import List
 from typing import Union
 
-from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -51,7 +50,6 @@ class ExpressionSchema:
         reference: A URI that defines where the expression is found.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         if recursion_list.count(
@@ -70,16 +68,9 @@ class ExpressionSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # A brief, natural language description of the condition that effectively
                 # communicates the intended semantics.
                 StructField("description", StringType(), True),

@@ -1,7 +1,6 @@
 from typing import List
 from typing import Union
 
-from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -56,7 +55,6 @@ class RelatedArtifactSchema:
             knowledge resource.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
@@ -77,16 +75,9 @@ class RelatedArtifactSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # The type of relationship to the related artifact.
                 StructField("type", StringType(), True),
                 # A short label that can be used to reference the citation from elsewhere in the

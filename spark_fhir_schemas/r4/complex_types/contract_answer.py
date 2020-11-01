@@ -1,7 +1,6 @@
 from typing import List
 from typing import Union
 
-from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import IntegerType
@@ -113,7 +112,6 @@ class Contract_AnswerSchema:
             for further research.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
@@ -134,16 +132,9 @@ class Contract_AnswerSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
                 # in which it is contained and/or the understanding of the containing element's
@@ -157,16 +148,9 @@ class Contract_AnswerSchema:
                 # Modifier extensions SHALL NOT change the meaning of any elements on Resource
                 # or DomainResource (including cannot change the meaning of modifierExtension
                 # itself).
-                StructField(
-                    "modifierExtension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding modifierExtension Extension
+
                 # Response to an offer clause or question text,  which enables selection of
                 # values to be agreed to, e.g., the period of participation, the date of
                 # occupancy of a rental, warrently duration, or whether biospecimen may be used

@@ -60,7 +60,6 @@ class MetaSchema:
             consider the tags when interpreting the meaning of a resource.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.simple_types.instant import instantSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
@@ -82,16 +81,9 @@ class MetaSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # The version specific identifier, as it appears in the version portion of the
                 # URL. This value changes when the resource is created, updated, or deleted.
                 StructField(
