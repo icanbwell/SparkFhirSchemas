@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -20,9 +21,10 @@ class MessageDefinitionSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         Defines the characteristics of a message that can be shared between systems,
@@ -179,12 +181,13 @@ class MessageDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.messagedefinition_focus import MessageDefinition_FocusSchema
         from spark_fhir_schemas.r4.complex_types.messagedefinition_allowedresponse import MessageDefinition_AllowedResponseSchema
-        if recursion_list.count(
-            "MessageDefinition"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("MessageDefinition") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + ["MessageDefinition"]
+        my_nesting_list: List[str] = nesting_list + ["MessageDefinition"]
         schema = StructType(
             [
                 # This is a MessageDefinition resource
@@ -194,9 +197,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "id",
                     idSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -205,9 +209,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "meta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -217,18 +222,20 @@ class MessageDefinitionSchema:
                 StructField(
                     "implicitRules",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
                     "language",
                     codeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -240,9 +247,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "text",
                     NarrativeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -252,9 +260,10 @@ class MessageDefinitionSchema:
                     "contained",
                     ArrayType(
                         ResourceListSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -287,9 +296,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "url",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A formal identifier that is used to identify this message definition when it
@@ -299,9 +309,10 @@ class MessageDefinitionSchema:
                     "identifier",
                     ArrayType(
                         IdentifierSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -323,9 +334,10 @@ class MessageDefinitionSchema:
                     "replaces",
                     ArrayType(
                         canonicalSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -343,9 +355,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "date",
                     dateTimeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The name of the organization or individual that published the message
@@ -357,9 +370,10 @@ class MessageDefinitionSchema:
                     "contact",
                     ArrayType(
                         ContactDetailSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -368,9 +382,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "description",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
@@ -382,9 +397,10 @@ class MessageDefinitionSchema:
                     "useContext",
                     ArrayType(
                         UsageContextSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -394,9 +410,10 @@ class MessageDefinitionSchema:
                     "jurisdiction",
                     ArrayType(
                         CodeableConceptSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -405,9 +422,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "purpose",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A copyright statement relating to the message definition and/or its contents.
@@ -416,18 +434,20 @@ class MessageDefinitionSchema:
                 StructField(
                     "copyright",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The MessageDefinition that is the basis for the contents of this resource.
                 StructField(
                     "base",
                     canonicalSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Identifies a protocol or workflow that this MessageDefinition represents a
@@ -436,9 +456,10 @@ class MessageDefinitionSchema:
                     "parent",
                     ArrayType(
                         canonicalSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -446,9 +467,10 @@ class MessageDefinitionSchema:
                 StructField(
                     "eventCoding",
                     CodingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Event code or link to the EventDefinition.
@@ -462,9 +484,10 @@ class MessageDefinitionSchema:
                     "focus",
                     ArrayType(
                         MessageDefinition_FocusSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -477,9 +500,10 @@ class MessageDefinitionSchema:
                     "allowedResponse",
                     ArrayType(
                         MessageDefinition_AllowedResponseSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -491,9 +515,10 @@ class MessageDefinitionSchema:
                     "graph",
                     ArrayType(
                         canonicalSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

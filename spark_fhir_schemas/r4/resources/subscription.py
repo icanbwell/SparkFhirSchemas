@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -21,9 +22,10 @@ class SubscriptionSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         The subscription resource is used to define a push-based subscription from a
@@ -109,12 +111,13 @@ class SubscriptionSchema:
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.simple_types.instant import instantSchema
         from spark_fhir_schemas.r4.complex_types.subscription_channel import Subscription_ChannelSchema
-        if recursion_list.count(
-            "Subscription"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("Subscription") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + ["Subscription"]
+        my_nesting_list: List[str] = nesting_list + ["Subscription"]
         schema = StructType(
             [
                 # This is a Subscription resource
@@ -124,9 +127,10 @@ class SubscriptionSchema:
                 StructField(
                     "id",
                     idSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -135,9 +139,10 @@ class SubscriptionSchema:
                 StructField(
                     "meta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -147,18 +152,20 @@ class SubscriptionSchema:
                 StructField(
                     "implicitRules",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
                     "language",
                     codeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -170,9 +177,10 @@ class SubscriptionSchema:
                 StructField(
                     "text",
                     NarrativeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -182,9 +190,10 @@ class SubscriptionSchema:
                     "contained",
                     ArrayType(
                         ResourceListSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -221,9 +230,10 @@ class SubscriptionSchema:
                     "contact",
                     ArrayType(
                         ContactPointSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -231,9 +241,10 @@ class SubscriptionSchema:
                 StructField(
                     "end",
                     instantSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A description of why this subscription is defined.
@@ -249,9 +260,10 @@ class SubscriptionSchema:
                 StructField(
                     "channel",
                     Subscription_ChannelSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
             ]

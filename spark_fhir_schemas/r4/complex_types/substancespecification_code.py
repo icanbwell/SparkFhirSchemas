@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -18,9 +19,10 @@ class SubstanceSpecification_CodeSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
@@ -65,12 +67,14 @@ class SubstanceSpecification_CodeSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        if recursion_list.count(
-            "SubstanceSpecification_Code"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("SubstanceSpecification_Code") >=
+            max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
+        my_nesting_list: List[str] = nesting_list + [
             "SubstanceSpecification_Code"
         ]
         schema = StructType(
@@ -106,18 +110,20 @@ class SubstanceSpecification_CodeSchema:
                 StructField(
                     "code",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Status of the code assignment.
                 StructField(
                     "status",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The date at which the code status is changed as part of the terminology
@@ -125,9 +131,10 @@ class SubstanceSpecification_CodeSchema:
                 StructField(
                     "statusDate",
                     dateTimeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Any comment can be provided in this field, if necessary.
@@ -137,9 +144,10 @@ class SubstanceSpecification_CodeSchema:
                     "source",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

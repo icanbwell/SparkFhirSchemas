@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -21,9 +22,10 @@ class MedicationAdministrationSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         Describes the event of a patient consuming or otherwise being administered a
@@ -163,12 +165,14 @@ class MedicationAdministrationSchema:
         from spark_fhir_schemas.r4.complex_types.medicationadministration_performer import MedicationAdministration_PerformerSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.r4.complex_types.medicationadministration_dosage import MedicationAdministration_DosageSchema
-        if recursion_list.count(
-            "MedicationAdministration"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("MedicationAdministration") >=
+            max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
+        my_nesting_list: List[str] = nesting_list + [
             "MedicationAdministration"
         ]
         schema = StructType(
@@ -180,9 +184,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "id",
                     idSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -191,9 +196,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "meta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -203,18 +209,20 @@ class MedicationAdministrationSchema:
                 StructField(
                     "implicitRules",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
                     "language",
                     codeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -226,9 +234,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "text",
                     NarrativeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -238,9 +247,10 @@ class MedicationAdministrationSchema:
                     "contained",
                     ArrayType(
                         ResourceListSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -277,9 +287,10 @@ class MedicationAdministrationSchema:
                     "identifier",
                     ArrayType(
                         IdentifierSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -289,9 +300,10 @@ class MedicationAdministrationSchema:
                     "instantiates",
                     ArrayType(
                         uriSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -300,9 +312,10 @@ class MedicationAdministrationSchema:
                     "partOf",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -313,9 +326,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "status",
                     codeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A code indicating why the administration was not performed.
@@ -323,9 +337,10 @@ class MedicationAdministrationSchema:
                     "statusReason",
                     ArrayType(
                         CodeableConceptSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -333,9 +348,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "category",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Identifies the medication that was administered. This is either a link to a
@@ -345,9 +361,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "medicationCodeableConcept",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Identifies the medication that was administered. This is either a link to a
@@ -357,18 +374,20 @@ class MedicationAdministrationSchema:
                 StructField(
                     "medicationReference",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The person or animal or group receiving the medication.
                 StructField(
                     "subject",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The visit, admission, or other contact between patient and health care
@@ -376,9 +395,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "context",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Additional information (for example, patient height and weight) that supports
@@ -387,9 +407,10 @@ class MedicationAdministrationSchema:
                     "supportingInformation",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -405,9 +426,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "effectivePeriod",
                     PeriodSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Indicates who or what performed the medication administration and how they
@@ -416,9 +438,10 @@ class MedicationAdministrationSchema:
                     "performer",
                     ArrayType(
                         MedicationAdministration_PerformerSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -427,9 +450,10 @@ class MedicationAdministrationSchema:
                     "reasonCode",
                     ArrayType(
                         CodeableConceptSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -438,9 +462,10 @@ class MedicationAdministrationSchema:
                     "reasonReference",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -448,9 +473,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "request",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The device used in administering the medication to the patient.  For example,
@@ -459,9 +485,10 @@ class MedicationAdministrationSchema:
                     "device",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -471,9 +498,10 @@ class MedicationAdministrationSchema:
                     "note",
                     ArrayType(
                         AnnotationSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -482,9 +510,10 @@ class MedicationAdministrationSchema:
                 StructField(
                     "dosage",
                     MedicationAdministration_DosageSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A summary of the events of interest that have occurred, such as when the
@@ -493,9 +522,10 @@ class MedicationAdministrationSchema:
                     "eventHistory",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

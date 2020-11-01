@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,9 +18,10 @@ class MedicinalProductPackagedSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         A medicinal product in a container or package.
@@ -105,12 +107,14 @@ class MedicinalProductPackagedSchema:
         from spark_fhir_schemas.r4.complex_types.marketingstatus import MarketingStatusSchema
         from spark_fhir_schemas.r4.complex_types.medicinalproductpackaged_batchidentifier import MedicinalProductPackaged_BatchIdentifierSchema
         from spark_fhir_schemas.r4.complex_types.medicinalproductpackaged_packageitem import MedicinalProductPackaged_PackageItemSchema
-        if recursion_list.count(
-            "MedicinalProductPackaged"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("MedicinalProductPackaged") >=
+            max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
+        my_nesting_list: List[str] = nesting_list + [
             "MedicinalProductPackaged"
         ]
         schema = StructType(
@@ -122,9 +126,10 @@ class MedicinalProductPackagedSchema:
                 StructField(
                     "id",
                     idSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -133,9 +138,10 @@ class MedicinalProductPackagedSchema:
                 StructField(
                     "meta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -145,18 +151,20 @@ class MedicinalProductPackagedSchema:
                 StructField(
                     "implicitRules",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The base language in which the resource is written.
                 StructField(
                     "language",
                     codeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -168,9 +176,10 @@ class MedicinalProductPackagedSchema:
                 StructField(
                     "text",
                     NarrativeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -180,9 +189,10 @@ class MedicinalProductPackagedSchema:
                     "contained",
                     ArrayType(
                         ResourceListSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -215,9 +225,10 @@ class MedicinalProductPackagedSchema:
                     "identifier",
                     ArrayType(
                         IdentifierSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -226,9 +237,10 @@ class MedicinalProductPackagedSchema:
                     "subject",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -239,9 +251,10 @@ class MedicinalProductPackagedSchema:
                 StructField(
                     "legalStatusOfSupply",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Marketing information.
@@ -249,9 +262,10 @@ class MedicinalProductPackagedSchema:
                     "marketingStatus",
                     ArrayType(
                         MarketingStatusSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -259,9 +273,10 @@ class MedicinalProductPackagedSchema:
                 StructField(
                     "marketingAuthorization",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Manufacturer of this Package Item.
@@ -269,9 +284,10 @@ class MedicinalProductPackagedSchema:
                     "manufacturer",
                     ArrayType(
                         ReferenceSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -281,9 +297,10 @@ class MedicinalProductPackagedSchema:
                     ArrayType(
                         MedicinalProductPackaged_BatchIdentifierSchema.
                         get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -293,9 +310,10 @@ class MedicinalProductPackagedSchema:
                     "packageItem",
                     ArrayType(
                         MedicinalProductPackaged_PackageItemSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

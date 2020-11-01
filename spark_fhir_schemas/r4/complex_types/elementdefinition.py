@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -20,9 +21,10 @@ class ElementDefinitionSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -1634,12 +1636,13 @@ class ElementDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.elementdefinition_constraint import ElementDefinition_ConstraintSchema
         from spark_fhir_schemas.r4.complex_types.elementdefinition_binding import ElementDefinition_BindingSchema
         from spark_fhir_schemas.r4.complex_types.elementdefinition_mapping import ElementDefinition_MappingSchema
-        if recursion_list.count(
-            "ElementDefinition"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("ElementDefinition") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + ["ElementDefinition"]
+        my_nesting_list: List[str] = nesting_list + ["ElementDefinition"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -1694,9 +1697,10 @@ class ElementDefinitionSchema:
                     "code",
                     ArrayType(
                         CodingSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -1710,9 +1714,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "slicing",
                     ElementDefinition_SlicingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A concise description of what this element means (e.g. for use in
@@ -1727,9 +1732,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "definition",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Explanatory notes and implementation guidance about the data element,
@@ -1739,9 +1745,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "comment",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # This element is for traceability of why the element was created and why the
@@ -1750,9 +1757,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "requirements",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Identifies additional names by which this element might also be known.
@@ -1761,9 +1769,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "min",
                     unsignedIntSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The maximum number of times this element is permitted to appear in the
@@ -1779,9 +1788,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "base",
                     ElementDefinition_BaseSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Identifies an element defined elsewhere in the definition whose content rules
@@ -1791,9 +1801,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "contentReference",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The data type or resource that the value of this element is permitted to be.
@@ -1801,9 +1812,10 @@ class ElementDefinitionSchema:
                     "type",
                     ArrayType(
                         ElementDefinition_TypeSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -1869,9 +1881,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueAddress",
                     AddressSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1879,9 +1892,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueAge",
                     AgeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1889,9 +1903,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueAnnotation",
                     AnnotationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1899,9 +1914,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueAttachment",
                     AttachmentSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1909,9 +1925,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueCodeableConcept",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1919,9 +1936,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueCoding",
                     CodingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1929,9 +1947,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueContactPoint",
                     ContactPointSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1939,9 +1958,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueCount",
                     CountSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1949,9 +1969,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueDistance",
                     DistanceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1959,9 +1980,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueDuration",
                     DurationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1969,9 +1991,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueHumanName",
                     HumanNameSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1979,9 +2002,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueIdentifier",
                     IdentifierSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1989,9 +2013,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueMoney",
                     MoneySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -1999,9 +2024,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValuePeriod",
                     PeriodSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2009,9 +2035,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueQuantity",
                     QuantitySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2019,9 +2046,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueRange",
                     RangeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2029,9 +2057,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueRatio",
                     RatioSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2039,9 +2068,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueReference",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2049,9 +2079,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueSampledData",
                     SampledDataSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2059,9 +2090,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueSignature",
                     SignatureSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2069,9 +2101,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueTiming",
                     TimingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2079,9 +2112,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueContactDetail",
                     ContactDetailSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2089,9 +2123,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueContributor",
                     ContributorSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2099,9 +2134,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueDataRequirement",
                     DataRequirementSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2109,9 +2145,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueExpression",
                     ExpressionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2119,9 +2156,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueParameterDefinition",
                     ParameterDefinitionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2129,9 +2167,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueRelatedArtifact",
                     RelatedArtifactSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2139,9 +2178,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueTriggerDefinition",
                     TriggerDefinitionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2149,9 +2189,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueUsageContext",
                     UsageContextSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2159,9 +2200,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueDosage",
                     DosageSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The value that should be used if there is no value stated in the instance
@@ -2169,9 +2211,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueMeta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The Implicit meaning that is to be understood when this element is missing
@@ -2179,9 +2222,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "meaningWhenMissing",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # If present, indicates that the order of the repeating element has meaning and
@@ -2290,9 +2334,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedAddress",
                     AddressSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2302,9 +2347,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedAge",
                     AgeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2314,9 +2360,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedAnnotation",
                     AnnotationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2326,9 +2373,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedAttachment",
                     AttachmentSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2338,9 +2386,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedCodeableConcept",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2350,9 +2399,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedCoding",
                     CodingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2362,9 +2412,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedContactPoint",
                     ContactPointSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2374,9 +2425,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedCount",
                     CountSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2386,9 +2438,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedDistance",
                     DistanceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2398,9 +2451,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedDuration",
                     DurationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2410,9 +2464,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedHumanName",
                     HumanNameSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2422,9 +2477,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedIdentifier",
                     IdentifierSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2434,9 +2490,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedMoney",
                     MoneySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2446,9 +2503,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedPeriod",
                     PeriodSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2458,9 +2516,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedQuantity",
                     QuantitySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2470,9 +2529,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedRange",
                     RangeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2482,9 +2542,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedRatio",
                     RatioSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2494,9 +2555,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedReference",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2506,9 +2568,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedSampledData",
                     SampledDataSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2518,9 +2581,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedSignature",
                     SignatureSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2530,9 +2594,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedTiming",
                     TimingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2542,9 +2607,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedContactDetail",
                     ContactDetailSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2554,9 +2620,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedContributor",
                     ContributorSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2566,9 +2633,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedDataRequirement",
                     DataRequirementSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2578,9 +2646,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedExpression",
                     ExpressionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2590,9 +2659,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedParameterDefinition",
                     ParameterDefinitionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2602,9 +2672,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedRelatedArtifact",
                     RelatedArtifactSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2614,9 +2685,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedTriggerDefinition",
                     TriggerDefinitionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2626,9 +2698,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedUsageContext",
                     UsageContextSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2638,9 +2711,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedDosage",
                     DosageSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
@@ -2650,9 +2724,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedMeta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3037,9 +3112,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternAddress",
                     AddressSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3063,9 +3139,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternAge",
                     AgeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3089,9 +3166,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternAnnotation",
                     AnnotationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3115,9 +3193,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternAttachment",
                     AttachmentSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3141,9 +3220,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternCodeableConcept",
                     CodeableConceptSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3167,9 +3247,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternCoding",
                     CodingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3193,9 +3274,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternContactPoint",
                     ContactPointSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3219,9 +3301,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternCount",
                     CountSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3245,9 +3328,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternDistance",
                     DistanceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3271,9 +3355,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternDuration",
                     DurationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3297,9 +3382,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternHumanName",
                     HumanNameSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3323,9 +3409,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternIdentifier",
                     IdentifierSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3349,9 +3436,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternMoney",
                     MoneySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3375,9 +3463,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternPeriod",
                     PeriodSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3401,9 +3490,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternQuantity",
                     QuantitySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3427,9 +3517,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternRange",
                     RangeSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3453,9 +3544,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternRatio",
                     RatioSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3479,9 +3571,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternReference",
                     ReferenceSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3505,9 +3598,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternSampledData",
                     SampledDataSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3531,9 +3625,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternSignature",
                     SignatureSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3557,9 +3652,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternTiming",
                     TimingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3583,9 +3679,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternContactDetail",
                     ContactDetailSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3609,9 +3706,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternContributor",
                     ContributorSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3635,9 +3733,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternDataRequirement",
                     DataRequirementSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3661,9 +3760,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternExpression",
                     ExpressionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3687,9 +3787,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternParameterDefinition",
                     ParameterDefinitionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3713,9 +3814,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternRelatedArtifact",
                     RelatedArtifactSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3739,9 +3841,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternTriggerDefinition",
                     TriggerDefinitionSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3765,9 +3868,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternUsageContext",
                     UsageContextSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3791,9 +3895,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternDosage",
                     DosageSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3817,9 +3922,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternMeta",
                     MetaSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A sample value for this element demonstrating the type of information that
@@ -3828,9 +3934,10 @@ class ElementDefinitionSchema:
                     "example",
                     ArrayType(
                         ElementDefinition_ExampleSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -3872,9 +3979,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "minValueQuantity",
                     QuantitySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The maximum allowed value for the element. The value is inclusive. This is
@@ -3915,9 +4023,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "maxValueQuantity",
                     QuantitySchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Indicates the maximum length in characters that is permitted to be present in
@@ -3926,9 +4035,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "maxLength",
                     integerSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # A reference to an invariant that may make additional statements about the
@@ -3937,9 +4047,10 @@ class ElementDefinitionSchema:
                     "condition",
                     ArrayType(
                         idSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -3949,9 +4060,10 @@ class ElementDefinitionSchema:
                     "constraint",
                     ArrayType(
                         ElementDefinition_ConstraintSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -3978,9 +4090,10 @@ class ElementDefinitionSchema:
                 StructField(
                     "binding",
                     ElementDefinition_BindingSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Identifies a concept from an external specification that roughly corresponds
@@ -3989,9 +4102,10 @@ class ElementDefinitionSchema:
                     "mapping",
                     ArrayType(
                         ElementDefinition_MappingSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

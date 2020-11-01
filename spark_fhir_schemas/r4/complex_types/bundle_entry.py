@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,9 +18,10 @@ class Bundle_EntrySchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
@@ -79,12 +81,13 @@ class Bundle_EntrySchema:
         from spark_fhir_schemas.r4.complex_types.bundle_search import Bundle_SearchSchema
         from spark_fhir_schemas.r4.complex_types.bundle_request import Bundle_RequestSchema
         from spark_fhir_schemas.r4.complex_types.bundle_response import Bundle_ResponseSchema
-        if recursion_list.count(
-            "Bundle_Entry"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("Bundle_Entry") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + ["Bundle_Entry"]
+        my_nesting_list: List[str] = nesting_list + ["Bundle_Entry"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -119,9 +122,10 @@ class Bundle_EntrySchema:
                     "link",
                     ArrayType(
                         Bundle_LinkSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -136,9 +140,10 @@ class Bundle_EntrySchema:
                 StructField(
                     "fullUrl",
                     uriSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # The Resource for the entry. The purpose/meaning of the resource is determined
@@ -146,18 +151,20 @@ class Bundle_EntrySchema:
                 StructField(
                     "resource",
                     ResourceListSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Information about the search process that lead to the creation of this entry.
                 StructField(
                     "search",
                     Bundle_SearchSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Additional information about how this entry should be processed as part of a
@@ -166,9 +173,10 @@ class Bundle_EntrySchema:
                 StructField(
                     "request",
                     Bundle_RequestSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Indicates the results of processing the corresponding 'request' entry in the
@@ -177,9 +185,10 @@ class Bundle_EntrySchema:
                 StructField(
                     "response",
                     Bundle_ResponseSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
             ]

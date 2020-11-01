@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -20,9 +21,10 @@ class CapabilityStatement_MessagingSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -72,12 +74,14 @@ class CapabilityStatement_MessagingSchema:
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.capabilitystatement_supportedmessage import CapabilityStatement_SupportedMessageSchema
-        if recursion_list.count(
-            "CapabilityStatement_Messaging"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("CapabilityStatement_Messaging") >=
+            max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
+        my_nesting_list: List[str] = nesting_list + [
             "CapabilityStatement_Messaging"
         ]
         schema = StructType(
@@ -115,9 +119,10 @@ class CapabilityStatement_MessagingSchema:
                     "endpoint",
                     ArrayType(
                         CapabilityStatement_EndpointSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -126,9 +131,10 @@ class CapabilityStatement_MessagingSchema:
                 StructField(
                     "reliableCache",
                     unsignedIntSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Documentation about the system's messaging capabilities for this endpoint not
@@ -137,9 +143,10 @@ class CapabilityStatement_MessagingSchema:
                 StructField(
                     "documentation",
                     markdownSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # References to message definitions for messages this system can send or
@@ -148,9 +155,10 @@ class CapabilityStatement_MessagingSchema:
                     "supportedMessage",
                     ArrayType(
                         CapabilityStatement_SupportedMessageSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

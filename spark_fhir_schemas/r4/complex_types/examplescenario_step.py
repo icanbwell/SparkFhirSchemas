@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -18,9 +19,10 @@ class ExampleScenario_StepSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         Example of workflow instance.
@@ -62,14 +64,13 @@ class ExampleScenario_StepSchema:
         from spark_fhir_schemas.r4.complex_types.examplescenario_process import ExampleScenario_ProcessSchema
         from spark_fhir_schemas.r4.complex_types.examplescenario_operation import ExampleScenario_OperationSchema
         from spark_fhir_schemas.r4.complex_types.examplescenario_alternative import ExampleScenario_AlternativeSchema
-        if recursion_list.count(
-            "ExampleScenario_Step"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit and
+            nesting_list.count("ExampleScenario_Step") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
-            "ExampleScenario_Step"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ExampleScenario_Step"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -104,9 +105,10 @@ class ExampleScenario_StepSchema:
                     "process",
                     ArrayType(
                         ExampleScenario_ProcessSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),
@@ -116,9 +118,10 @@ class ExampleScenario_StepSchema:
                 StructField(
                     "operation",
                     ExampleScenario_OperationSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Indicates an alternative step that can be taken instead of the operations on
@@ -127,9 +130,10 @@ class ExampleScenario_StepSchema:
                     "alternative",
                     ArrayType(
                         ExampleScenario_AlternativeSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

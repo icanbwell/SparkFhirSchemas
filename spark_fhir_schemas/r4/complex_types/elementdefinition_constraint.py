@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import DataType
@@ -17,9 +18,10 @@ class ElementDefinition_ConstraintSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -73,12 +75,14 @@ class ElementDefinition_ConstraintSchema:
         """
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        if recursion_list.count(
-            "ElementDefinition_Constraint"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("ElementDefinition_Constraint") >=
+            max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
+        my_nesting_list: List[str] = nesting_list + [
             "ElementDefinition_Constraint"
         ]
         schema = StructType(
@@ -116,9 +120,10 @@ class ElementDefinition_ConstraintSchema:
                 StructField(
                     "key",
                     idSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Description of why this constraint is necessary or appropriate.
@@ -140,9 +145,10 @@ class ElementDefinition_ConstraintSchema:
                 StructField(
                     "source",
                     canonicalSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
             ]

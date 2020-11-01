@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import Union, List, Optional
 
 from pyspark.sql.types import StructType, StructField, StringType, ArrayType, DateType, BooleanType, IntegerType, \
     DataType
@@ -14,7 +14,7 @@ class {{resource.Name}}Schema:
     """
     # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(max_recursion_depth: int = 4, recursion_depth: int = 0, recursion_list: List[str] = []) -> Union[StructType, DataType]:
+    def get_schema(max_nesting_depth: Optional[int] = 6, nesting_depth: int = 0, nesting_list: List[str] = [], max_recursion_limit: Optional[int] = 2) -> Union[StructType, DataType]:
         """
 {%  if resource.Description %}
         {{ resource.Description | wordwrap(78) | replace('\n', '\n        ') }}
@@ -57,8 +57,8 @@ class {{resource.Name}}Schema:
         Error: No mapping for {{ resource.Type }}
     {% endif %}
 {%  else %}
-        if recursion_list.count("{{resource.Name}}") >= 2 or recursion_depth >= max_recursion_depth:
-{#            print("reached recursion_depth for {{resource.Name}}")#}
+        if (max_recursion_limit and nesting_list.count("{{resource.Name}}") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
+{#            print("reached nesting_depth for {{resource.Name}}")#}
             return StructType([StructField("id", StringType(), True)])
     {%  if not properties or properties | length == 0 %}
         # Return at least one field in the struct or Spark throws an error
@@ -66,7 +66,7 @@ class {{resource.Name}}Schema:
         return StructType([StructField("id", StringType(), True)])
     {%  else %}
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list+["{{resource.Name}}"]
+        my_nesting_list: List[str] = nesting_list+["{{resource.Name}}"]
         schema = StructType(
             [
         {% for property in properties%}
@@ -77,7 +77,7 @@ class {{resource.Name}}Schema:
 
             {% elif property.Type == "array" %}
                 {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
-                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_recursion_depth=max_recursion_depth,recursion_depth=recursion_depth+1,recursion_list=my_recursion_list)), True),
+                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit)), True),
                 {%  elif property.UnderlyingDataType == "string" %}
                 StructField("{{property.Name}}",ArrayType(StringType()), True),
                 {% elif property.Type == "boolean" or property.UnderlyingDataType == "boolean" %}
@@ -98,7 +98,7 @@ class {{resource.Name}}Schema:
             {% elif property.Type == "number" or property.UnderlyingDataType == "number" %}
                 StructField("{{property.Name}}", IntegerType(), True),
             {% else %}
-                StructField("{{property.Name}}", {{property.UnderlyingDataType}}Schema.get_schema(max_recursion_depth=max_recursion_depth,recursion_depth=recursion_depth+1,recursion_list=my_recursion_list), True),
+                StructField("{{property.Name}}", {{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit), True),
             {% endif%}
         {% endfor%}
             ]

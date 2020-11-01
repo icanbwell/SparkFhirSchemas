@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import ArrayType
@@ -17,9 +18,10 @@ class TestReport_SetupSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         A summary of information based on the results of executing a TestScript.
@@ -52,12 +54,13 @@ class TestReport_SetupSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.testreport_action import TestReport_ActionSchema
-        if recursion_list.count(
-            "TestReport_Setup"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("TestReport_Setup") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + ["TestReport_Setup"]
+        my_nesting_list: List[str] = nesting_list + ["TestReport_Setup"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -92,9 +95,10 @@ class TestReport_SetupSchema:
                     "action",
                     ArrayType(
                         TestReport_ActionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
                         )
                     ), True
                 ),

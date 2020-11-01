@@ -80,17 +80,23 @@ run-pre-commit:
 	pre-commit run --all-files
 
 .PHONY:init
-init: installspark up devsetup proxies tests
+init: installspark up devsetup tests
 
 .PHONY:schema
 schema:
 	. ${VENV_NAME}/bin/activate && \
-	python3 spark_fhir_schemas/r4/generate_schema.py
+	python3 spark_fhir_schemas/r4/generate_schema.py && \
+	pre-commit run --all-files
+	pre-commit run --all-files
+# run twice to check that the formatting was fixed
 
-.PHONY:continuous_integration
-continuous_integration:
+.PHONY:setup_packages
+setup_packages:
 	pip install --upgrade pip && \
     pip install --upgrade -r requirements.txt && \
     pip install --upgrade -r requirements-test.txt && \
-    python setup.py install && \
-    pytest tests
+    python setup.py install
+
+.PHONY:continuous_integration
+continuous_integration:
+	pytest tests

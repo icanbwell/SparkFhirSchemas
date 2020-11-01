@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import DataType
@@ -16,9 +17,10 @@ class MolecularSequence_OuterSchema:
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
-        max_recursion_depth: int = 4,
-        recursion_depth: int = 0,
-        recursion_list: List[str] = []
+        max_nesting_depth: Optional[int] = 6,
+        nesting_depth: int = 0,
+        nesting_list: List[str] = [],
+        max_recursion_limit: Optional[int] = 2
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -56,14 +58,14 @@ class MolecularSequence_OuterSchema:
 
         """
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        if recursion_list.count(
-            "MolecularSequence_Outer"
-        ) >= 2 or recursion_depth >= max_recursion_depth:
+        if (
+            max_recursion_limit
+            and nesting_list.count("MolecularSequence_Outer") >=
+            max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_recursion_list: List[str] = recursion_list + [
-            "MolecularSequence_Outer"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MolecularSequence_Outer"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -98,9 +100,10 @@ class MolecularSequence_OuterSchema:
                 StructField(
                     "start",
                     integerSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
                 # Structural variant outer end. If the coordinate system is 0-based then end is
@@ -109,9 +112,10 @@ class MolecularSequence_OuterSchema:
                 StructField(
                     "end",
                     integerSchema.get_schema(
-                        max_recursion_depth=max_recursion_depth,
-                        recursion_depth=recursion_depth + 1,
-                        recursion_list=my_recursion_list
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit
                     ), True
                 ),
             ]
