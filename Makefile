@@ -85,7 +85,10 @@ init: installspark up devsetup proxies tests
 .PHONY:schema
 schema:
 	. ${VENV_NAME}/bin/activate && \
-	python3 spark_fhir_schemas/r4/generate_schema.py
+	python3 spark_fhir_schemas/r4/generate_schema.py && \
+	pre-commit run --all-files
+	pre-commit run --all-files
+# run twice to check that the formatting was fixed
 
 .PHONY:continuous_integration
 continuous_integration:
