@@ -33,5 +33,9 @@ jobs:
       # setup and install everything and run tests
       - name: install_spark
         run: make download_spark
+      - name: setup_packages
+        run: make setup_packages
+      - name: run-pre-commit
+        run: make run-pre-commit
       - name: continuous_integration
         run: make continuous_integration
