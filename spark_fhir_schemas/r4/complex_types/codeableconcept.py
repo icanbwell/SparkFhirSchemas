@@ -43,7 +43,6 @@ class CodeableConceptSchema:
             user.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         if recursion_list.count(
             "CodeableConcept"
@@ -61,16 +60,9 @@ class CodeableConceptSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # A reference to a code defined by a terminology system.
                 StructField(
                     "coding",

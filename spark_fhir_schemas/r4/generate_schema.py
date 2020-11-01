@@ -20,6 +20,7 @@ class PropertyInfo:
     IsResourceType: bool
     IsSimpleType: bool
     IsComplexType: bool
+    HideExtension: bool
 
     def __str__(self) -> str:
         return f"property_name:{self.Name}, type={self.Type}, underlying_type={self.UnderlyingDataType}"
@@ -68,6 +69,7 @@ def main() -> int:
     simple_types: List[str] = [
         "number", "array"
     ]  # number is not defined in fhir schema
+    extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
     complex_types: List[str] = []
     resource_types: List[str] = []
 
@@ -145,6 +147,9 @@ def main() -> int:
                 if reference_type else
                 (type_.lower() in simple_types if type_ else False),
                 IsComplexType=reference_type.lower() in complex_types
+                if reference_type else False,
+                HideExtension=reference_type.lower() == "extension"
+                and resource_name not in extensions_allowed_for_resources
                 if reference_type else False
             )
             properties_info.append(property_info)

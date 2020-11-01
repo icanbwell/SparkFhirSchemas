@@ -40,7 +40,6 @@ class ContactDetailSchema:
             organization.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         if recursion_list.count(
             "ContactDetail"
@@ -58,16 +57,9 @@ class ContactDetailSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # The name of an individual to contact.
                 StructField("name", StringType(), True),
                 # The contact details for the individual (if a name was provided) or the

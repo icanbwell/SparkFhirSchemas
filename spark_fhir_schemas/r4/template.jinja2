@@ -71,7 +71,11 @@ class {{resource.Name}}Schema:
             [
         {% for property in properties%}
                 # {{ property.Description | wordwrap(78) | replace("\n", "\n                # ") | replace("\r", "\n                # ")}}
-            {% if property.Type == "array" %}
+            {% if property.HideExtension %}
+
+                # >>> Hiding {{property.Name}} {{property.UnderlyingDataType}}
+
+            {% elif property.Type == "array" %}
                 {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_recursion_depth=max_recursion_depth,recursion_depth=recursion_depth+1,recursion_list=my_recursion_list)), True),
                 {%  elif property.UnderlyingDataType == "string" %}

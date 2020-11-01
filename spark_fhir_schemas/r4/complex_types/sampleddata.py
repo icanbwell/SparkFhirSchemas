@@ -1,7 +1,6 @@
 from typing import List
 from typing import Union
 
-from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -59,7 +58,6 @@ class SampledDataSchema:
             and "U" (above detection limit) can also be used in place of a decimal value.
 
         """
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
@@ -79,16 +77,9 @@ class SampledDataSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # The base quantity that a measured value of zero represents. In addition, this
                 # provides the units of the entire measurement series.
                 StructField(

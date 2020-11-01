@@ -106,7 +106,6 @@ class SubscriptionSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.narrative import NarrativeSchema
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
-        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.simple_types.instant import instantSchema
         from spark_fhir_schemas.r4.complex_types.subscription_channel import Subscription_ChannelSchema
@@ -194,16 +193,9 @@ class SubscriptionSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding extension Extension
+
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource and that modifies the understanding of the element
                 # that contains it and/or the understanding of the containing element's
@@ -217,16 +209,9 @@ class SubscriptionSchema:
                 # Modifier extensions SHALL NOT change the meaning of any elements on Resource
                 # or DomainResource (including cannot change the meaning of modifierExtension
                 # itself).
-                StructField(
-                    "modifierExtension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_recursion_depth=max_recursion_depth,
-                            recursion_depth=recursion_depth + 1,
-                            recursion_list=my_recursion_list
-                        )
-                    ), True
-                ),
+
+                # >>> Hiding modifierExtension Extension
+
                 # The status of the subscription, which marks the server state for managing the
                 # subscription.
                 StructField("status", StringType(), True),
