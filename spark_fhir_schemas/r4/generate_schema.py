@@ -69,7 +69,8 @@ def main() -> int:
     simple_types: List[str] = [
         "number", "array"
     ]  # number is not defined in fhir schema
-    extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
+    # extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
+    extensions_blocked_for_resources: List[str] = []
     complex_types: List[str] = []
     resource_types: List[str] = []
 
@@ -149,7 +150,7 @@ def main() -> int:
                 IsComplexType=reference_type.lower() in complex_types
                 if reference_type else False,
                 HideExtension=reference_type.lower() == "extension"
-                and resource_name not in extensions_allowed_for_resources
+                and resource_name in extensions_blocked_for_resources
                 if reference_type else False
             )
             properties_info.append(property_info)

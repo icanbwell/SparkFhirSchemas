@@ -239,9 +239,17 @@ class ExtensionSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                # StructField(
+                #     "extension",
+                #     ArrayType(
+                #         ExtensionSchema.get_schema(
+                #             max_nesting_depth=max_nesting_depth,
+                #             nesting_depth=nesting_depth + 1,
+                #             nesting_list=my_nesting_list,
+                #             max_recursion_limit=max_recursion_limit
+                #         )
+                #     ), True
+                # ),
                 # Source of the definition for the extension code - a logical name or a URL.
                 StructField(
                     "url",
