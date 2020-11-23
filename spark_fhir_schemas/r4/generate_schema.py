@@ -153,7 +153,21 @@ def main() -> int:
                 and resource_name in extensions_blocked_for_resources
                 if reference_type else False
             )
-            properties_info.append(property_info)
+            if resource_name.lower() == "extension":
+                # have to skip a few properties or Spark runs out of memory
+                allowed_properties = [
+                    "id", "url", "extension", "valueBoolean", "valueCode",
+                    "valueDate", "valueDateTime", "valueDecimal", "valueId",
+                    "valueInteger", "valuePositiveInt", "valueString",
+                    "valueTime", "valueUnsignedInt", "valueUri", "valueUrl",
+                    "valueCodeableConcept", "valueCoding", "valueCount",
+                    "valueIdentifier", "valueMoney", "valuePeriod",
+                    "valueQuantity", "valueRange", "valueReference"
+                ]
+                if property_name in allowed_properties:
+                    properties_info.append(property_info)
+            else:
+                properties_info.append(property_info)
             assert property_info.IsResourceType or property_info.IsSimpleType or property_info.IsComplexType, \
                 f"{resource_name}.{property_name}[{type_}] reference_type:{reference_type}"
             # print(properties_info[-1])
