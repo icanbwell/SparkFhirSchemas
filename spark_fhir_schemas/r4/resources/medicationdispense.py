@@ -25,7 +25,8 @@ class MedicationDispenseSchema:
         max_nesting_depth: Optional[int] = 6,
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
-        max_recursion_limit: Optional[int] = 2
+        max_recursion_limit: Optional[int] = 2,
+        include_extension: Optional[bool] = False
     ) -> Union[StructType, DataType]:
         """
         Indicates that a medication product is to be or has been dispensed for a named
@@ -181,7 +182,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -193,7 +195,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -206,7 +209,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The base language in which the resource is written.
@@ -216,7 +220,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -231,7 +236,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -244,7 +250,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -260,7 +267,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -276,7 +284,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -288,7 +297,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -299,7 +309,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Indicates the reason why a dispense was not performed.
@@ -309,7 +320,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Indicates the reason why a dispense was not performed.
@@ -319,7 +331,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Indicates the type of medication dispense (for example, where the medication
@@ -330,7 +343,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Identifies the medication being administered. This is either a link to a
@@ -343,7 +357,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Identifies the medication being administered. This is either a link to a
@@ -356,7 +371,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A link to a resource representing the person or the group to whom the
@@ -367,7 +383,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The encounter or episode of care that establishes the context for this event.
@@ -377,7 +394,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Additional information that supports the medication being dispensed.
@@ -388,7 +406,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -400,7 +419,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -411,7 +431,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Indicates the medication order that is being dispensed against.
@@ -422,7 +443,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -434,7 +456,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The amount of medication that has been dispensed. Includes unit of measure.
@@ -444,7 +467,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The amount of medication expressed as a timing amount.
@@ -454,7 +478,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The time when the dispensed product was packaged and reviewed.
@@ -464,7 +489,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The time the dispensed product was provided to the patient or their
@@ -475,7 +501,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Identification of the facility/location where the medication was shipped to,
@@ -486,7 +513,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Identifies the person who picked up the medication.  This will usually be a
@@ -499,7 +527,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -512,7 +541,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -524,7 +554,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -539,7 +570,8 @@ class MedicationDispenseSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Indicates an actual or potential clinical issue with or between one or more
@@ -552,7 +584,8 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -565,10 +598,17 @@ class MedicationDispenseSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
             ]
         )
+        if not include_extension:
+            schema.fields = [
+                c if c.name != "extension" else
+                StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
         return schema

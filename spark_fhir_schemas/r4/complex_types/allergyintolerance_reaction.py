@@ -22,7 +22,8 @@ class AllergyIntolerance_ReactionSchema:
         max_nesting_depth: Optional[int] = 6,
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
-        max_recursion_limit: Optional[int] = 2
+        max_recursion_limit: Optional[int] = 2,
+        include_extension: Optional[bool] = False
     ) -> Union[StructType, DataType]:
         """
         Risk of harmful or undesirable, physiological response which is unique to an
@@ -97,7 +98,8 @@ class AllergyIntolerance_ReactionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -118,7 +120,8 @@ class AllergyIntolerance_ReactionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Clinical symptoms and/or signs that are observed or associated with the
@@ -130,7 +133,8 @@ class AllergyIntolerance_ReactionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -144,7 +148,8 @@ class AllergyIntolerance_ReactionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Clinical assessment of the severity of the reaction event as a whole,
@@ -157,7 +162,8 @@ class AllergyIntolerance_ReactionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Additional text about the adverse reaction event not captured in other fields.
@@ -168,10 +174,17 @@ class AllergyIntolerance_ReactionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
             ]
         )
+        if not include_extension:
+            schema.fields = [
+                c if c.name != "extension" else
+                StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
         return schema

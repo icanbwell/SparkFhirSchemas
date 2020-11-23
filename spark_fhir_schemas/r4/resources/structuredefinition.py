@@ -24,7 +24,8 @@ class StructureDefinitionSchema:
         max_nesting_depth: Optional[int] = 6,
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
-        max_recursion_limit: Optional[int] = 2
+        max_recursion_limit: Optional[int] = 2,
+        include_extension: Optional[bool] = False
     ) -> Union[StructType, DataType]:
         """
         A definition of a FHIR structure. This resource is used to describe the
@@ -208,7 +209,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -220,7 +222,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -233,7 +236,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The base language in which the resource is written.
@@ -243,7 +247,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -258,7 +263,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -271,7 +277,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -287,7 +294,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -304,7 +312,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A formal identifier that is used to identify this structure definition when it
@@ -317,7 +326,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -351,7 +361,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The name of the organization or individual that published the structure
@@ -366,7 +377,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -378,7 +390,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
@@ -393,7 +406,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -406,7 +420,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -418,7 +433,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A copyright statement relating to the structure definition and/or its
@@ -430,7 +446,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A set of key words or terms from external terminologies that may be used to
@@ -443,7 +460,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -459,7 +477,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -478,7 +497,8 @@ class StructureDefinitionSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -499,7 +519,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # An absolute URI that is the base structure from which this type is derived,
@@ -510,7 +531,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # How the type relates to the baseDefinition.
@@ -523,7 +545,8 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A differential view is expressed relative to the base StructureDefinition - a
@@ -534,9 +557,16 @@ class StructureDefinitionSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
             ]
         )
+        if not include_extension:
+            schema.fields = [
+                c if c.name != "extension" else
+                StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
         return schema

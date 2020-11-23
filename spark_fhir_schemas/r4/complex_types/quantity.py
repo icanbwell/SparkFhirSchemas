@@ -23,7 +23,8 @@ class QuantitySchema:
         max_nesting_depth: Optional[int] = 6,
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
-        max_recursion_limit: Optional[int] = 2
+        max_recursion_limit: Optional[int] = 2,
+        include_extension: Optional[bool] = False
     ) -> Union[StructType, DataType]:
         """
         A measured amount (or an amount that can potentially be measured). Note that
@@ -82,7 +83,8 @@ class QuantitySchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -94,7 +96,8 @@ class QuantitySchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # How the value should be understood and represented - whether the actual value
@@ -110,7 +113,8 @@ class QuantitySchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A computer processable form of the unit in some unit representation system.
@@ -120,9 +124,16 @@ class QuantitySchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
             ]
         )
+        if not include_extension:
+            schema.fields = [
+                c if c.name != "extension" else
+                StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
         return schema

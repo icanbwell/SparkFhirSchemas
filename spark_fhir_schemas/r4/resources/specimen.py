@@ -21,7 +21,8 @@ class SpecimenSchema:
         max_nesting_depth: Optional[int] = 6,
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
-        max_recursion_limit: Optional[int] = 2
+        max_recursion_limit: Optional[int] = 2,
+        include_extension: Optional[bool] = False
     ) -> Union[StructType, DataType]:
         """
         A sample to be used for analysis.
@@ -128,7 +129,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The metadata about the resource. This is content that is maintained by the
@@ -140,7 +142,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A reference to a set of rules that were followed when the resource was
@@ -153,7 +156,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The base language in which the resource is written.
@@ -163,7 +167,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
@@ -178,7 +183,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # These resources do not have an independent existence apart from the resource
@@ -191,7 +197,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -207,7 +214,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -219,7 +227,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -232,7 +241,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # The availability of the specimen.
@@ -244,7 +254,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Where the specimen came from. This may be from patient(s), from a location
@@ -256,7 +267,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Time when specimen was received for processing or testing.
@@ -266,7 +278,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Reference to the parent (source) specimen which is used when the specimen was
@@ -278,7 +291,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -290,7 +304,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -301,7 +316,8 @@ class SpecimenSchema:
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension
                     ), True
                 ),
                 # Details concerning processing and processing steps for the specimen.
@@ -312,7 +328,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -325,7 +342,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -337,7 +355,8 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
@@ -350,10 +369,17 @@ class SpecimenSchema:
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension
                         )
                     ), True
                 ),
             ]
         )
+        if not include_extension:
+            schema.fields = [
+                c if c.name != "extension" else
+                StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
         return schema
