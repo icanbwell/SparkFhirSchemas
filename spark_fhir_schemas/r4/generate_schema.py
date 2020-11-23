@@ -71,6 +71,7 @@ def main() -> int:
     ]  # number is not defined in fhir schema
     # extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
     extensions_blocked_for_resources: List[str] = []
+    properties_blocked: List[str] = ["modifierExtension"]
     complex_types: List[str] = []
     resource_types: List[str] = []
 
@@ -166,7 +167,7 @@ def main() -> int:
                 ]
                 if property_name in allowed_properties:
                     properties_info.append(property_info)
-            else:
+            elif property_name not in properties_blocked:
                 properties_info.append(property_info)
             assert property_info.IsResourceType or property_info.IsSimpleType or property_info.IsComplexType, \
                 f"{resource_name}.{property_name}[{type_}] reference_type:{reference_type}"

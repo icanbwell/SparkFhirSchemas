@@ -64,20 +64,6 @@ class BiologicallyDerivedProductSchema:
             extensions. Though any implementer can define an extension, there is a set of
             requirements that SHALL be met as part of the definition of the extension.
 
-        modifierExtension: May be used to represent additional information that is not part of the basic
-            definition of the resource and that modifies the understanding of the element
-            that contains it and/or the understanding of the containing element's
-            descendants. Usually modifier elements provide negation or qualification. To
-            make the use of extensions safe and manageable, there is a strict set of
-            governance applied to the definition and use of extensions. Though any
-            implementer is allowed to define an extension, there is a set of requirements
-            that SHALL be met as part of the definition of the extension. Applications
-            processing a resource are required to check for modifier extensions.
-
-            Modifier extensions SHALL NOT change the meaning of any elements on Resource
-            or DomainResource (including cannot change the meaning of modifierExtension
-            itself).
-
         identifier: This records identifiers associated with this biologically derived product
             instance that are defined by business processes and/or used to refer to it
             when a direct URL reference to the resource itself is not appropriate (e.g. in
@@ -220,30 +206,6 @@ class BiologicallyDerivedProductSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit
-                        )
-                    ), True
-                ),
-                # May be used to represent additional information that is not part of the basic
-                # definition of the resource and that modifies the understanding of the element
-                # that contains it and/or the understanding of the containing element's
-                # descendants. Usually modifier elements provide negation or qualification. To
-                # make the use of extensions safe and manageable, there is a strict set of
-                # governance applied to the definition and use of extensions. Though any
-                # implementer is allowed to define an extension, there is a set of requirements
-                # that SHALL be met as part of the definition of the extension. Applications
-                # processing a resource are required to check for modifier extensions.
-                #
-                # Modifier extensions SHALL NOT change the meaning of any elements on Resource
-                # or DomainResource (including cannot change the meaning of modifierExtension
-                # itself).
-                StructField(
-                    "modifierExtension",
                     ArrayType(
                         ExtensionSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
