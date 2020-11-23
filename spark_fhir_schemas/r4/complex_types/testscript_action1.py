@@ -2,6 +2,7 @@ from typing import List
 from typing import Optional
 from typing import Union
 
+from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -57,6 +58,7 @@ class TestScript_Action1Schema:
             test behaves appropriately.
 
         """
+        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.testscript_operation import TestScript_OperationSchema
         from spark_fhir_schemas.r4.complex_types.testscript_assert import TestScript_AssertSchema
         if (
@@ -76,9 +78,17 @@ class TestScript_Action1Schema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
                 # in which it is contained and/or the understanding of the containing element's
@@ -92,9 +102,17 @@ class TestScript_Action1Schema:
                 # Modifier extensions SHALL NOT change the meaning of any elements on Resource
                 # or DomainResource (including cannot change the meaning of modifierExtension
                 # itself).
-
-                # >>> Hiding modifierExtension Extension
-
+                StructField(
+                    "modifierExtension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # An operation would involve a REST request to a server.
                 StructField(
                     "operation",

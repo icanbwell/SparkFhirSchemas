@@ -60,6 +60,7 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
             guidelines (for example, height, weight, gender, etc.).
 
         """
+        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.medicationknowledge_dosage import MedicationKnowledge_DosageSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
@@ -84,9 +85,17 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
                 # in which it is contained and/or the understanding of the containing element's
@@ -100,9 +109,17 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
                 # Modifier extensions SHALL NOT change the meaning of any elements on Resource
                 # or DomainResource (including cannot change the meaning of modifierExtension
                 # itself).
-
-                # >>> Hiding modifierExtension Extension
-
+                StructField(
+                    "modifierExtension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # Dosage for the medication for the specific guidelines.
                 StructField(
                     "dosage",

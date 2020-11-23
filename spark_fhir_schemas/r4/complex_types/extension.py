@@ -2,6 +2,7 @@ from typing import List
 from typing import Optional
 from typing import Union
 
+from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import IntegerType
@@ -39,13 +40,7 @@ class ExtensionSchema:
 
         url: Source of the definition for the extension code - a logical name or a URL.
 
-        valueBase64Binary: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
         valueBoolean: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueCanonical: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
         valueCode: Value of extension - must be one of a constrained set of the data types (see
@@ -63,16 +58,7 @@ class ExtensionSchema:
         valueId: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
-        valueInstant: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
         valueInteger: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueMarkdown: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueOid: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
         valuePositiveInt: Value of extension - must be one of a constrained set of the data types (see
@@ -93,40 +79,13 @@ class ExtensionSchema:
         valueUrl: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
-        valueUuid: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueAddress: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueAge: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueAnnotation: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueAttachment: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
         valueCodeableConcept: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
         valueCoding: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
-        valueContactPoint: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
         valueCount: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueDistance: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueDuration: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueHumanName: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
         valueIdentifier: Value of extension - must be one of a constrained set of the data types (see
@@ -144,84 +103,20 @@ class ExtensionSchema:
         valueRange: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
-        valueRatio: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
         valueReference: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueSampledData: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueSignature: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueTiming: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueContactDetail: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueContributor: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueDataRequirement: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueExpression: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueParameterDefinition: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueRelatedArtifact: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueTriggerDefinition: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueUsageContext: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueDosage: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
-        valueMeta: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
         """
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
-        from spark_fhir_schemas.r4.complex_types.address import AddressSchema
-        from spark_fhir_schemas.r4.complex_types.age import AgeSchema
-        from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.count import CountSchema
-        from spark_fhir_schemas.r4.complex_types.distance import DistanceSchema
-        from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        from spark_fhir_schemas.r4.complex_types.humanname import HumanNameSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.complex_types.money import MoneySchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
-        from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
-        from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
-        from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.r4.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement import DataRequirementSchema
-        from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.parameterdefinition import ParameterDefinitionSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.r4.complex_types.triggerdefinition import TriggerDefinitionSchema
-        from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         if (
             max_recursion_limit
             and nesting_list.count("Extension") >= max_recursion_limit
@@ -239,9 +134,17 @@ class ExtensionSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # Source of the definition for the extension code - a logical name or a URL.
                 StructField(
                     "url",
@@ -254,13 +157,7 @@ class ExtensionSchema:
                 ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
-                StructField("valueBase64Binary", StringType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
                 StructField("valueBoolean", BooleanType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField("valueCanonical", StringType(), True),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField("valueCode", StringType(), True),
@@ -278,16 +175,7 @@ class ExtensionSchema:
                 StructField("valueId", StringType(), True),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
-                StructField("valueInstant", StringType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
                 StructField("valueInteger", IntegerType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField("valueMarkdown", StringType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField("valueOid", StringType(), True),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField("valuePositiveInt", IntegerType(), True),
@@ -306,53 +194,6 @@ class ExtensionSchema:
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField("valueUrl", StringType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField("valueUuid", StringType(), True),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueAddress",
-                    AddressSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueAge",
-                    AgeSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueAnnotation",
-                    AnnotationSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueAttachment",
-                    AttachmentSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
@@ -378,52 +219,8 @@ class ExtensionSchema:
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueContactPoint",
-                    ContactPointSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
                     "valueCount",
                     CountSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueDistance",
-                    DistanceSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueDuration",
-                    DurationSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueHumanName",
-                    HumanNameSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -488,162 +285,8 @@ class ExtensionSchema:
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField(
-                    "valueRatio",
-                    RatioSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
                     "valueReference",
                     ReferenceSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueSampledData",
-                    SampledDataSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueSignature",
-                    SignatureSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueTiming",
-                    TimingSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueContactDetail",
-                    ContactDetailSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueContributor",
-                    ContributorSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueDataRequirement",
-                    DataRequirementSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueExpression",
-                    ExpressionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueParameterDefinition",
-                    ParameterDefinitionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueRelatedArtifact",
-                    RelatedArtifactSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueTriggerDefinition",
-                    TriggerDefinitionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueUsageContext",
-                    UsageContextSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueDosage",
-                    DosageSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit
-                    ), True
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueMeta",
-                    MetaSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,

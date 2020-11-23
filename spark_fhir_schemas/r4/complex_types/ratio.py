@@ -2,6 +2,7 @@ from typing import List
 from typing import Optional
 from typing import Union
 
+from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -42,6 +43,7 @@ class RatioSchema:
         denominator: The value of the denominator.
 
         """
+        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         if (
             max_recursion_limit
@@ -60,9 +62,17 @@ class RatioSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # The value of the numerator.
                 StructField(
                     "numerator",

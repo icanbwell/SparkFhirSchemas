@@ -2,6 +2,7 @@ from typing import List
 from typing import Optional
 from typing import Union
 
+from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -59,6 +60,7 @@ class DataRequirement_SortSchema:
         direction: The direction of the sort, ascending or descending.
 
         """
+        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         if (
             max_recursion_limit and
             nesting_list.count("DataRequirement_Sort") >= max_recursion_limit
@@ -76,9 +78,17 @@ class DataRequirement_SortSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element and that modifies the understanding of the element
                 # in which it is contained and/or the understanding of the containing element's
@@ -92,9 +102,17 @@ class DataRequirement_SortSchema:
                 # Modifier extensions SHALL NOT change the meaning of any elements on Resource
                 # or DomainResource (including cannot change the meaning of modifierExtension
                 # itself).
-
-                # >>> Hiding modifierExtension Extension
-
+                StructField(
+                    "modifierExtension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # The attribute of the sort. The specified path must be resolvable from the type
                 # of the required data. The path is allowed to contain qualifiers (.) to
                 # traverse sub-elements, as well as indexers ([x]) to traverse multiple-

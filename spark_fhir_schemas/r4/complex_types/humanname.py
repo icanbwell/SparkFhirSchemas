@@ -55,6 +55,7 @@ class HumanNameSchema:
         period: Indicates the period of time when this name was valid for the named person.
 
         """
+        from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         if (
             max_recursion_limit
@@ -73,9 +74,17 @@ class HumanNameSchema:
                 # there is a strict set of governance  applied to the definition and use of
                 # extensions. Though any implementer can define an extension, there is a set of
                 # requirements that SHALL be met as part of the definition of the extension.
-
-                # >>> Hiding extension Extension
-
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit
+                        )
+                    ), True
+                ),
                 # Identifies the purpose for this name.
                 StructField("use", StringType(), True),
                 # Specifies the entire name as it should be displayed e.g. on an application UI.
