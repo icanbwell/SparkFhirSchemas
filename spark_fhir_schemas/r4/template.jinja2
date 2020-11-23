@@ -14,7 +14,7 @@ class {{resource.Name}}Schema:
     """
     # noinspection PyDefaultArgument
     @staticmethod
-    def get_schema(max_nesting_depth: Optional[int] = 6, nesting_depth: int = 0, nesting_list: List[str] = [], max_recursion_limit: Optional[int] = 2) -> Union[StructType, DataType]:
+    def get_schema(max_nesting_depth: Optional[int] = 6, nesting_depth: int = 0, nesting_list: List[str] = [], max_recursion_limit: Optional[int] = 2, include_extension: Optional[bool] = False) -> Union[StructType, DataType]:
         """
 {%  if resource.Description %}
         {{ resource.Description | wordwrap(78) | replace('\n', '\n        ') }}
@@ -77,7 +77,7 @@ class {{resource.Name}}Schema:
 
             {% elif property.Type == "array" %}
                 {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
-                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit)), True),
+                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension)), True),
                 {%  elif property.UnderlyingDataType == "string" %}
                 StructField("{{property.Name}}",ArrayType(StringType()), True),
                 {% elif property.Type == "boolean" or property.UnderlyingDataType == "boolean" %}
@@ -98,11 +98,13 @@ class {{resource.Name}}Schema:
             {% elif property.Type == "number" or property.UnderlyingDataType == "number" %}
                 StructField("{{property.Name}}", IntegerType(), True),
             {% else %}
-                StructField("{{property.Name}}", {{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit), True),
+                StructField("{{property.Name}}", {{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension), True),
             {% endif%}
         {% endfor%}
             ]
         )
+        if not include_extension:
+            schema.fields = [c if c.name != "extension" else StructField("extension", StringType(), True) for c in schema.fields]
         return schema
     {%  endif %}
 {%  endif %}
