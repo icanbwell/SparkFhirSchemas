@@ -3,7 +3,7 @@ from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import DataType
-from pyspark.sql.types import IntegerType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import StructType
 
 
@@ -27,4 +27,4 @@ class decimalSchema:
 
 
         """
-        return IntegerType()
+        return FloatType()
