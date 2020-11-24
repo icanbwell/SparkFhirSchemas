@@ -3,7 +3,7 @@ from typing import Optional
 from typing import Union
 
 from pyspark.sql.types import DataType
-from pyspark.sql.types import DateType
+from pyspark.sql.types import StringType
 from pyspark.sql.types import StructType
 
 
@@ -35,4 +35,4 @@ class dateTimeSchema:
 
 
         """
-        return DateType()
+        return StringType()

@@ -59,7 +59,9 @@ def test_can_save_fhir_patient(spark_session: SparkSession) -> None:
             "Patient"
         }
     ]
-    patient_schema: Union[StructType, DataType] = PatientSchema.get_schema()
+    patient_schema: Union[StructType, DataType] = PatientSchema.get_schema(
+        include_extension=True
+    )
     df = spark_session.createDataFrame(data2, schema=patient_schema)
     # df = spark_session.createDataFrame(data2)
 
