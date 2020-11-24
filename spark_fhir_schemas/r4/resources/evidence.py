@@ -593,5 +593,9 @@ class EvidenceSchema:
             ]
         )
         if not include_extension:
-            schema.fields = [c for c in schema.fields if c.name != "extension"]
+            schema.fields = [
+                c if c.name != "extension" else
+                StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
         return schema
