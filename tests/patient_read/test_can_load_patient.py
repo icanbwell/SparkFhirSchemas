@@ -1,9 +1,11 @@
 from os import path
 from pathlib import Path
 from shutil import rmtree
+from typing import Union
 
 from pyspark.sql import DataFrame
 from pyspark.sql import SparkSession
+from pyspark.sql.types import DataType
 from pyspark.sql.types import StructType
 from spark_fhir_schemas.r4.resources.patient import PatientSchema
 from tests.spark_json_helpers import create_jsonl_files
@@ -32,9 +34,11 @@ def test_can_load_patient(spark_session: SparkSession) -> None:
         spark_session.sparkContext.emptyRDD(), schema
     )
 
-    result_df: DataFrame = df.sql_ctx.read.schema(
-        PatientSchema.get_schema()
-    ).json(str(minified_json_path))
+    patient_schema: Union[StructType, DataType] = PatientSchema.get_schema()
+    assert isinstance(patient_schema, StructType)
+    result_df: DataFrame = df.sql_ctx.read.schema(patient_schema).json(
+        str(minified_json_path)
+    )
 
     result_df.printSchema()
     result_df.show(truncate=False)

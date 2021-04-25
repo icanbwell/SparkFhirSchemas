@@ -1,4 +1,3 @@
-from datetime import datetime
 from glob import glob
 from os import path
 from pathlib import Path
@@ -21,46 +20,12 @@ def test_can_save_fhir_patient(spark_session: SparkSession) -> None:
 
     export_path: str = str(temp_folder.joinpath("patient_export.json"))
 
-    data2 = [
-        {
-            "active":
-            True,
-            "address": [
-                {
-                    "city": "DALLAS",
-                    "country": "US",
-                    "district": "DALLAS",
-                    "line": ["1935 Medical District Drive"],
-                    "postalCode": "75235",
-                    "state": "TX",
-                    "use": "home"
-                }
-            ],
-            "name": [
-                {
-                    "family": "Informatics",
-                    "given": ["ChildOne", "Test"],
-                    "text": "ChildOne Test Informatics",
-                    "use": "official"
-                }, {
-                    "family": "Informatics",
-                    "given": ["ChildOne", "Test"],
-                    "text": "ChildOne Test Informatics",
-                    "use": "usual"
-                }
-            ],
-            "birthDate":
-            datetime.strptime("2008-01-01", "%Y-%m-%d"),
-            "gender":
-            "male",
-            "id":
-            "e2abVBgS5VtWv5Bckq0lQag3",
-            "resourceType":
-            "Patient"
-        }
-    ]
     patient_schema: Union[StructType, DataType] = PatientSchema.get_schema()
-    df = spark_session.createDataFrame(data2, schema=patient_schema)
+    assert isinstance(patient_schema, StructType)
+    df = spark_session.read.option("multiLine",
+                                   True).schema(patient_schema).json(
+                                       str(data_dir.joinpath("test.json"))
+                                   )
     # df = spark_session.createDataFrame(data2)
 
     # Act
@@ -69,5 +34,7 @@ def test_can_save_fhir_patient(spark_session: SparkSession) -> None:
     # Assert
     df.printSchema()
     df.show(truncate=False)
+
+    assert df.select("resourceType").collect()[0][0] == "Patient"
 
     assert glob(str(temp_folder.joinpath("patient_export.json/*.json")))

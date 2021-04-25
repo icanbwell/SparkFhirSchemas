@@ -1,0 +1,40 @@
+{
+  "active": true,
+  "address": [
+    {
+      "city": "DALLAS",
+      "country": "US",
+      "district": "DALLAS",
+      "line": [
+        "1935 Medical District Drive"
+      ],
+      "postalCode": "75235",
+      "state": "TX",
+      "use": "home"
+    }
+  ],
+  "name": [
+    {
+      "family": "Informatics",
+      "given": [
+        "ChildOne",
+        "Test"
+      ],
+      "text": "ChildOne Test Informatics",
+      "use": "official"
+    },
+    {
+      "family": "Informatics",
+      "given": [
+        "ChildOne",
+        "Test"
+      ],
+      "text": "ChildOne Test Informatics",
+      "use": "usual"
+    }
+  ],
+  "birthDate": "2008-01-01",
+  "gender": "male",
+  "id": "e2abVBgS5VtWv5Bckq0lQag3",
+  "resourceType": "Patient"
+}
