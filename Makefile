@@ -88,6 +88,13 @@ schema:
 	python3 spark_fhir_schemas/r4/generate_schema.py && \
 	pre-commit run --all-files
 	pre-commit run --all-files
+
+.PHONY:schema-stu3
+schema-stu3:
+	. ${VENV_NAME}/bin/activate && \
+	python3 spark_fhir_schemas/stu3/generate_schema.py && \
+	pre-commit run --all-files
+	pre-commit run --all-files
 # run twice to check that the formatting was fixed
 
 .PHONY:setup_packages
