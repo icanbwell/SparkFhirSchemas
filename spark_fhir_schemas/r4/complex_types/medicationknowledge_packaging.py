@@ -15,6 +15,7 @@ class MedicationKnowledge_PackagingSchema:
     """
     Information about a medication that is used to support knowledge.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicationKnowledge_PackagingSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Information about a medication that is used to support knowledge.
@@ -44,18 +45,19 @@ class MedicationKnowledge_PackagingSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicationKnowledge_Packaging") >=
-            max_recursion_limit
+            and nesting_list.count("MedicationKnowledge_Packaging")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MedicationKnowledge_Packaging"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MedicationKnowledge_Packaging"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,9 +76,10 @@ class MedicationKnowledge_PackagingSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code that defines the specific type of packaging that the medication can be
                 # found in (e.g. blister sleeve, tube, bottle).
@@ -87,8 +90,9 @@ class MedicationKnowledge_PackagingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The number of product units the package would contain if fully loaded.
                 StructField(
@@ -98,15 +102,17 @@ class MedicationKnowledge_PackagingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

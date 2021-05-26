@@ -17,6 +17,7 @@ class TestScriptSchema:
     A structured set of tests against a FHIR server implementation to determine
     compliance against the FHIR specification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class TestScriptSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server implementation to determine
@@ -121,20 +122,47 @@ class TestScriptSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_origin import TestScript_OriginSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_destination import TestScript_DestinationSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_metadata import TestScript_MetadataSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_fixture import TestScript_FixtureSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_origin import (
+            TestScript_OriginSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_destination import (
+            TestScript_DestinationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_metadata import (
+            TestScript_MetadataSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_fixture import (
+            TestScript_FixtureSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_variable import TestScript_VariableSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_rule import TestScript_RuleSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_ruleset import TestScript_RulesetSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_setup import TestScript_SetupSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_test import TestScript_TestSchema
-        from spark_fhir_schemas.stu3.complex_types.testscript_teardown import TestScript_TeardownSchema
+        from spark_fhir_schemas.stu3.complex_types.testscript_variable import (
+            TestScript_VariableSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_rule import (
+            TestScript_RuleSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_ruleset import (
+            TestScript_RulesetSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_setup import (
+            TestScript_SetupSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_test import (
+            TestScript_TestSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_teardown import (
+            TestScript_TeardownSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("TestScript") >= max_recursion_limit
@@ -163,8 +191,9 @@ class TestScriptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the test script when
                 # it is referenced in a specification, model, design or instance. This is an
@@ -203,9 +232,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the test script from a consumer's
                 # perspective.
@@ -221,9 +251,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the test script is intended to be used.
                 StructField(
@@ -234,9 +265,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explaination of why this test script is needed and why it has been designed as
                 # it has.
@@ -255,9 +287,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An abstract server used in operations within this test script in the
                 # destination element.
@@ -269,9 +302,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The required capability must exist and are assumed to function correctly on
                 # the FHIR server being tested.
@@ -282,8 +316,9 @@ class TestScriptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Fixture in the test script - by reference (uri). All fixtures are required for
                 # the test script to execute.
@@ -295,9 +330,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reference to the profile to be used for validation.
                 StructField(
@@ -308,9 +344,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Variable is set based either on element value in response body or on header
                 # field value in the response headers.
@@ -322,9 +359,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Assert rule to be used in one or more asserts within the test script.
                 StructField(
@@ -335,9 +373,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contains one or more rules.  Offers a way to group rules so assertions could
                 # reference the group of rules and have them all applied.
@@ -349,9 +388,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A series of required setup operations before tests are executed.
                 StructField(
@@ -361,8 +401,9 @@ class TestScriptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A test in this script.
                 StructField(
@@ -373,9 +414,10 @@ class TestScriptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A series of operations required to clean up after the all the tests are
                 # executed (successfully or otherwise).
@@ -386,15 +428,17 @@ class TestScriptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

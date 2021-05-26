@@ -18,6 +18,7 @@ class CarePlan_DetailSchema:
     care for a particular patient, group or community for a period of time,
     possibly limited to care for a specific condition or set of conditions.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class CarePlan_DetailSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes the intention of how one or more practitioners intend to deliver
@@ -109,11 +110,14 @@ class CarePlan_DetailSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
             and nesting_list.count("CarePlan_Detail") >= max_recursion_limit
@@ -139,9 +143,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of the kind of resource the in-line definition of a care plan
                 # activity is representing.  The CarePlan.activity.detail is an in-line
@@ -155,8 +160,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The URL pointing to a FHIR-defined protocol, guideline, questionnaire or other
                 # definition that is adhered to in whole or in part by this CarePlan activity.
@@ -168,9 +174,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The URL pointing to an externally maintained protocol, guideline,
                 # questionnaire or other definition that is adhered to in whole or in part by
@@ -183,9 +190,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Detailed description of the type of planned activity; e.g. what lab test, what
                 # procedure, what kind of encounter.
@@ -196,8 +204,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Provides the rationale that drove the inclusion of this particular activity as
                 # part of the plan or the reason why the activity was prohibited.
@@ -209,9 +218,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates another resource, such as the health condition(s), whose existence
                 # justifies this request and drove the inclusion of this particular activity as
@@ -224,9 +234,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Internal reference that identifies the goals that this activity is intended to
                 # contribute towards meeting.
@@ -238,9 +249,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies what progress is being made for the specific activity.
                 StructField("status", StringType(), True),
@@ -253,8 +265,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If true, indicates that the described activity is one that must NOT be engaged
                 # in when following the plan.  If false, or missing, indicates that the
@@ -268,8 +281,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
@@ -279,8 +293,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField("scheduledString", StringType(), True),
@@ -293,8 +308,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies who's expected to be involved in the activity.
                 StructField(
@@ -305,9 +321,10 @@ class CarePlan_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the food, drug or other product to be consumed or supplied in the
                 # activity.
@@ -318,8 +335,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the food, drug or other product to be consumed or supplied in the
                 # activity.
@@ -330,8 +348,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the quantity expected to be consumed in a given day.
                 StructField(
@@ -341,8 +360,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the quantity expected to be supplied, administered or consumed by
                 # the subject.
@@ -353,8 +373,9 @@ class CarePlan_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This provides a textual description of constraints on the intended activity
                 # occurrence, including relation to other activities.  It may also include
@@ -365,8 +386,9 @@ class CarePlan_DetailSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

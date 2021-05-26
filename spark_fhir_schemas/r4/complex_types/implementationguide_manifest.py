@@ -18,6 +18,7 @@ class ImplementationGuide_ManifestSchema:
     gather all the parts of an implementation guide into a logical whole and to
     publish a computable definition of all the parts.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ImplementationGuide_ManifestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A set of rules of how a particular interoperability or standards problem is
@@ -62,18 +63,21 @@ class ImplementationGuide_ManifestSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
-        from spark_fhir_schemas.r4.complex_types.implementationguide_resource1 import ImplementationGuide_Resource1Schema
-        from spark_fhir_schemas.r4.complex_types.implementationguide_page1 import ImplementationGuide_Page1Schema
+        from spark_fhir_schemas.r4.complex_types.implementationguide_resource1 import (
+            ImplementationGuide_Resource1Schema,
+        )
+        from spark_fhir_schemas.r4.complex_types.implementationguide_page1 import (
+            ImplementationGuide_Page1Schema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("ImplementationGuide_Manifest") >=
-            max_recursion_limit
+            and nesting_list.count("ImplementationGuide_Manifest")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ImplementationGuide_Manifest"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ImplementationGuide_Manifest"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -92,9 +96,10 @@ class ImplementationGuide_ManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A pointer to official web page, PDF or other rendering of the implementation
                 # guide.
@@ -105,8 +110,9 @@ class ImplementationGuide_ManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A resource that is part of the implementation guide. Conformance resources
                 # (value set, structure definition, capability statements etc.) are obvious
@@ -120,9 +126,10 @@ class ImplementationGuide_ManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Information about a page within the IG.
                 StructField(
@@ -133,9 +140,10 @@ class ImplementationGuide_ManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates a relative path to an image that exists within the IG.
                 StructField("image", ArrayType(StringType()), True),
@@ -147,8 +155,9 @@ class ImplementationGuide_ManifestSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

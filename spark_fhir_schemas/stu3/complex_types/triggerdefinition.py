@@ -14,6 +14,7 @@ class TriggerDefinitionSchema:
     """
     A description of a triggering event.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -21,7 +22,7 @@ class TriggerDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A description of a triggering event.
@@ -44,7 +45,10 @@ class TriggerDefinitionSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.stu3.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("TriggerDefinition") >= max_recursion_limit
@@ -66,8 +70,9 @@ class TriggerDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The timing of the event (if this is a period trigger).
                 StructField(
@@ -77,8 +82,9 @@ class TriggerDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The timing of the event (if this is a period trigger).
                 StructField("eventTimingDate", StringType(), True),
@@ -92,15 +98,17 @@ class TriggerDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

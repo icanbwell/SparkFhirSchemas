@@ -21,6 +21,7 @@ class ClinicalImpression_InvestigationSchema:
     "ClinicalAssessment" to avoid confusion with the recording of assessment tools
     such as Apgar score.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -28,7 +29,7 @@ class ClinicalImpression_InvestigationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a clinical assessment performed to determine what problem(s) may
@@ -58,18 +59,19 @@ class ClinicalImpression_InvestigationSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ClinicalImpression_Investigation") >=
-            max_recursion_limit
+            and nesting_list.count("ClinicalImpression_Investigation")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ClinicalImpression_Investigation"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ClinicalImpression_Investigation"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -88,9 +90,10 @@ class ClinicalImpression_InvestigationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A name/code for the group ("set") of investigations. Typically, this will be
                 # something like "signs", "symptoms", "clinical", "diagnostic", but the list is
@@ -103,8 +106,9 @@ class ClinicalImpression_InvestigationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A record of a specific investigation that was undertaken.
                 StructField(
@@ -115,16 +119,18 @@ class ClinicalImpression_InvestigationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

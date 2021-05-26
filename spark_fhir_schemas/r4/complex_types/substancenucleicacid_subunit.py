@@ -18,6 +18,7 @@ class SubstanceNucleicAcid_SubunitSchema:
     elements. The nucleotide sequence will be always entered in the 5’-3’
     direction.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class SubstanceNucleicAcid_SubunitSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Nucleic acids are defined by three distinct elements: the base, sugar and
@@ -73,19 +74,24 @@ class SubstanceNucleicAcid_SubunitSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.substancenucleicacid_linkage import SubstanceNucleicAcid_LinkageSchema
-        from spark_fhir_schemas.r4.complex_types.substancenucleicacid_sugar import SubstanceNucleicAcid_SugarSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancenucleicacid_linkage import (
+            SubstanceNucleicAcid_LinkageSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancenucleicacid_sugar import (
+            SubstanceNucleicAcid_SugarSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceNucleicAcid_Subunit") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceNucleicAcid_Subunit")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceNucleicAcid_Subunit"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceNucleicAcid_Subunit"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -104,9 +110,10 @@ class SubstanceNucleicAcid_SubunitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Index of linear sequences of nucleic acids in order of decreasing length.
                 # Sequences of the same length will be ordered by molecular weight. Subunits
@@ -118,8 +125,9 @@ class SubstanceNucleicAcid_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Actual nucleotide sequence notation from 5' to 3' end using standard single
                 # letter codes. In addition to the base sequence, sugar and type of phosphate or
@@ -133,8 +141,9 @@ class SubstanceNucleicAcid_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # (TBC).
                 StructField(
@@ -144,8 +153,9 @@ class SubstanceNucleicAcid_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The nucleotide present at the 5’ terminal shall be specified based on a
                 # controlled vocabulary. Since the sequence is represented from the 5' to the 3'
@@ -158,8 +168,9 @@ class SubstanceNucleicAcid_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The nucleotide present at the 3’ terminal shall be specified based on a
                 # controlled vocabulary. Since the sequence is represented from the 5' to the 3'
@@ -172,8 +183,9 @@ class SubstanceNucleicAcid_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The linkages between sugar residues will also be captured.
                 StructField(
@@ -184,9 +196,10 @@ class SubstanceNucleicAcid_SubunitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # 5.3.6.8.1 Sugar ID (Mandatory).
                 StructField(
@@ -197,16 +210,18 @@ class SubstanceNucleicAcid_SubunitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

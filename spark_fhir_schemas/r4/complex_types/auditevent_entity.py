@@ -17,6 +17,7 @@ class AuditEvent_EntitySchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class AuditEvent_EntitySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
@@ -65,7 +66,10 @@ class AuditEvent_EntitySchema:
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.simple_types.base64binary import base64BinarySchema
-        from spark_fhir_schemas.r4.complex_types.auditevent_detail import AuditEvent_DetailSchema
+        from spark_fhir_schemas.r4.complex_types.auditevent_detail import (
+            AuditEvent_DetailSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("AuditEvent_Entity") >= max_recursion_limit
@@ -91,9 +95,10 @@ class AuditEvent_EntitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies a specific instance of the entity. The reference should be version
                 # specific.
@@ -104,8 +109,9 @@ class AuditEvent_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of the object that was involved in this audit event.
                 StructField(
@@ -115,8 +121,9 @@ class AuditEvent_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Code representing the role the entity played in the event being audited.
                 StructField(
@@ -126,8 +133,9 @@ class AuditEvent_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifier for the data life-cycle stage for the entity.
                 StructField(
@@ -137,8 +145,9 @@ class AuditEvent_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Security labels for the identified entity.
                 StructField(
@@ -149,9 +158,10 @@ class AuditEvent_EntitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A name of the entity in the audit event.
                 StructField("name", StringType(), True),
@@ -165,8 +175,9 @@ class AuditEvent_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Tagged value pairs for conveying additional information about the entity.
                 StructField(
@@ -177,16 +188,18 @@ class AuditEvent_EntitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

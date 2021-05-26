@@ -4,6 +4,7 @@ from typing import Union
 
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import DateType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
 from pyspark.sql.types import StructType
@@ -17,6 +18,7 @@ class ExplanationOfBenefit_ItemSchema:
     processing of a Claim; and optionally account balance information, for
     informing the subscriber of the benefits provided.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +26,7 @@ class ExplanationOfBenefit_ItemSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides: the claim details; adjudication details from the
@@ -111,25 +113,29 @@ class ExplanationOfBenefit_ItemSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.address import AddressSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.money import MoneySchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_adjudication import ExplanationOfBenefit_AdjudicationSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_detail import ExplanationOfBenefit_DetailSchema
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_adjudication import (
+            ExplanationOfBenefit_AdjudicationSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_detail import (
+            ExplanationOfBenefit_DetailSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("ExplanationOfBenefit_Item") >=
-            max_recursion_limit
+            and nesting_list.count("ExplanationOfBenefit_Item") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ExplanationOfBenefit_Item"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ExplanationOfBenefit_Item"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -148,9 +154,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A number to uniquely identify item entries.
                 StructField(
@@ -160,8 +167,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Care team members related to this service or product.
                 StructField(
@@ -172,9 +180,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Diagnoses applicable for this service or product.
                 StructField(
@@ -185,9 +194,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Procedures applicable for this service or product.
                 StructField(
@@ -198,9 +208,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Exceptions, special conditions and supporting information applicable for this
                 # service or product.
@@ -212,9 +223,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of revenue or cost center providing the product and/or service.
                 StructField(
@@ -224,8 +236,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Code to identify the general type of benefits under which products and
                 # services are provided.
@@ -236,8 +249,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the value is a group code then this item collects a set of related claim
                 # details, otherwise this contains the product, service, drug or other billing
@@ -249,8 +263,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Item typification or modifiers codes to convey additional context for the
                 # product or service.
@@ -262,9 +277,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the program under which this may be recovered.
                 StructField(
@@ -275,13 +291,14 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The date or dates when the service or product was supplied, performed or
                 # completed.
-                StructField("servicedDate", StringType(), True),
+                StructField("servicedDate", DateType(), True),
                 # The date or dates when the service or product was supplied, performed or
                 # completed.
                 StructField(
@@ -291,8 +308,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the product or service was provided.
                 StructField(
@@ -302,8 +320,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the product or service was provided.
                 StructField(
@@ -313,8 +332,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the product or service was provided.
                 StructField(
@@ -324,8 +344,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The number of repetitions of a service or product.
                 StructField(
@@ -335,8 +356,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the item is not a group then this is the fee for the product or service,
                 # otherwise this is the total of the fees for the details of the group.
@@ -347,8 +369,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A real number that represents a multiplier used in determining the overall
                 # value of services delivered and/or goods received. The concept of a Factor
@@ -361,8 +384,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The quantity times the unit price for an additional service or product or
                 # charge.
@@ -373,8 +397,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Unique Device Identifiers associated with this line item.
                 StructField(
@@ -385,9 +410,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Physical service site on the patient (limb, tooth, etc.).
                 StructField(
@@ -397,8 +423,9 @@ class ExplanationOfBenefit_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A region or surface of the bodySite, e.g. limb region or tooth surface(s).
                 StructField(
@@ -409,9 +436,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A billed item may include goods or services provided in multiple encounters.
                 StructField(
@@ -422,9 +450,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The numbers associated with notes below which apply to the adjudication of
                 # this item.
@@ -436,9 +465,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # If this item is a group then the values here are a summary of the adjudication
                 # of the detail items. If this item is a simple product or service then this is
@@ -451,9 +481,10 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Second-tier of goods and services.
                 StructField(
@@ -464,16 +495,18 @@ class ExplanationOfBenefit_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

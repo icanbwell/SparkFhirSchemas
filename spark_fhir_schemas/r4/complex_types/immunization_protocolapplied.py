@@ -17,6 +17,7 @@ class Immunization_ProtocolAppliedSchema:
     Describes the event of a patient being administered a vaccine or a record of
     an immunization as reported by a patient, a clinician or another party.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Immunization_ProtocolAppliedSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes the event of a patient being administered a vaccine or a record of
@@ -59,17 +60,18 @@ class Immunization_ProtocolAppliedSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("Immunization_ProtocolApplied") >=
-            max_recursion_limit
+            and nesting_list.count("Immunization_ProtocolApplied")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "Immunization_ProtocolApplied"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["Immunization_ProtocolApplied"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -88,9 +90,10 @@ class Immunization_ProtocolAppliedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # One possible path to achieve presumed immunity against a disease - within the
                 # context of an authority.
@@ -104,8 +107,9 @@ class Immunization_ProtocolAppliedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The vaccine preventable disease the dose is being administered against.
                 StructField(
@@ -116,9 +120,10 @@ class Immunization_ProtocolAppliedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Nominal position in a series.
                 StructField("doseNumberPositiveInt", IntegerType(), True),
@@ -132,8 +137,9 @@ class Immunization_ProtocolAppliedSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

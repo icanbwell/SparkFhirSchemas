@@ -17,6 +17,7 @@ class ElementDefinition_SlicingSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ElementDefinition_SlicingSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -59,17 +60,17 @@ class ElementDefinition_SlicingSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_discriminator import ElementDefinition_DiscriminatorSchema
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_discriminator import (
+            ElementDefinition_DiscriminatorSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("ElementDefinition_Slicing") >=
-            max_recursion_limit
+            and nesting_list.count("ElementDefinition_Slicing") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ElementDefinition_Slicing"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ElementDefinition_Slicing"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -88,9 +89,10 @@ class ElementDefinition_SlicingSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Designates which child elements are used to discriminate between the slices
                 # when processing an instance. If one or more discriminators are provided, the
@@ -105,9 +107,10 @@ class ElementDefinition_SlicingSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A human-readable text description of how the slicing works. If there is no
                 # discriminator, this is required to be present to provide whatever information
@@ -124,8 +127,9 @@ class ElementDefinition_SlicingSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

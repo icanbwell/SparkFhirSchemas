@@ -16,6 +16,7 @@ class StructureMap_InputSchema:
     A Map of relationships between 2 structures that can be used to transform
     data.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class StructureMap_InputSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Map of relationships between 2 structures that can be used to transform
@@ -50,6 +51,7 @@ class StructureMap_InputSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("StructureMap_Input") >= max_recursion_limit
@@ -75,9 +77,10 @@ class StructureMap_InputSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Name for this instance of data.
                 StructField(
@@ -87,8 +90,9 @@ class StructureMap_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Type for this instance of data.
                 StructField("type", StringType(), True),
@@ -100,8 +104,9 @@ class StructureMap_InputSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

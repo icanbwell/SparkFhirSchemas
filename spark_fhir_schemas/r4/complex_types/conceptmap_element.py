@@ -17,6 +17,7 @@ class ConceptMap_ElementSchema:
     concepts - either concepts in code systems, or data element/data element
     concepts, or classes in class models.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ConceptMap_ElementSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A statement of relationships from one set of concepts to one or more other
@@ -51,7 +52,10 @@ class ConceptMap_ElementSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
-        from spark_fhir_schemas.r4.complex_types.conceptmap_target import ConceptMap_TargetSchema
+        from spark_fhir_schemas.r4.complex_types.conceptmap_target import (
+            ConceptMap_TargetSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ConceptMap_Element") >= max_recursion_limit
@@ -77,9 +81,10 @@ class ConceptMap_ElementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identity (code or path) or the element/item being mapped.
                 StructField(
@@ -89,8 +94,9 @@ class ConceptMap_ElementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The display for the code. The display is only provided to help editors when
                 # editing the concept map.
@@ -104,16 +110,18 @@ class ConceptMap_ElementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

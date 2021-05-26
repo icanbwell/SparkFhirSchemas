@@ -18,6 +18,7 @@ class ProcedureSchema:
     intervention like an operation, or less invasive like counseling or
     hypnotherapy.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ProcedureSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An action that is or was performed on a patient. This can be a physical
@@ -117,11 +118,18 @@ class ProcedureSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.procedure_performer import Procedure_PerformerSchema
+        from spark_fhir_schemas.stu3.complex_types.procedure_performer import (
+            Procedure_PerformerSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.procedure_focaldevice import Procedure_FocalDeviceSchema
+        from spark_fhir_schemas.stu3.complex_types.procedure_focaldevice import (
+            Procedure_FocalDeviceSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Procedure") >= max_recursion_limit
@@ -145,9 +153,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A protocol, guideline, orderset or other definition that was adhered to in
                 # whole or in part by this procedure.
@@ -159,9 +168,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a resource that contains details of the request for this
                 # procedure.
@@ -173,9 +183,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A larger event of which this particular procedure is a component or step.
                 StructField(
@@ -186,9 +197,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code specifying the state of the procedure. Generally this will be in-
                 # progress or completed state.
@@ -203,8 +215,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code that classifies the procedure for searching, sorting and display
                 # purposes (e.g. "Surgical Procedure").
@@ -215,8 +228,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The specific procedure that is performed. Use text if the exact nature of the
                 # procedure cannot be coded (e.g. "Laparoscopic Appendectomy").
@@ -227,8 +241,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The person, animal or group on which the procedure was performed.
                 StructField(
@@ -238,8 +253,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The encounter during which the procedure was performed.
                 StructField(
@@ -249,8 +265,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date(time)/period over which the procedure was performed. Allows a period
                 # to support complex procedures that span more than one date, and also allows
@@ -266,8 +283,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Limited to 'real' people rather than equipment.
                 StructField(
@@ -278,9 +296,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The location where the procedure actually happened.  E.g. a newborn at home, a
                 # tracheostomy at a restaurant.
@@ -291,8 +310,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The coded reason why the procedure was performed. This may be coded entity of
                 # some type, or may simply be present as text.
@@ -304,9 +324,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The condition that is the reason why the procedure was performed.
                 StructField(
@@ -317,9 +338,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Detailed and structured anatomical location information. Multiple locations
                 # are allowed - e.g. multiple punch biopsies of a lesion.
@@ -331,9 +353,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The outcome of the procedure - did it resolve reasons for the procedure being
                 # performed?
@@ -344,8 +367,9 @@ class ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This could be a histology result, pathology report, surgical report, etc..
                 StructField(
@@ -356,9 +380,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Any complications that occurred during the procedure, or in the immediate
                 # post-performance period. These are generally tracked separately from the
@@ -372,9 +397,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Any complications that occurred during the procedure, or in the immediate
                 # post-performance period.
@@ -386,9 +412,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # If the procedure required specific follow up - e.g. removal of sutures. The
                 # followup may be represented as a simple note, or could potentially be more
@@ -401,9 +428,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Any other notes about the procedure.  E.g. the operative notes.
                 StructField(
@@ -414,9 +442,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A device that is implanted, removed or otherwise manipulated (calibration,
                 # battery replacement, fitting a prosthesis, attaching a wound-vac, etc.) as a
@@ -429,9 +458,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies medications, devices and any other substance used as part of the
                 # procedure.
@@ -443,9 +473,10 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies coded items that were used as part of the procedure.
                 StructField(
@@ -456,16 +487,18 @@ class ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

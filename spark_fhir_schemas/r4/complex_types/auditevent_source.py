@@ -17,6 +17,7 @@ class AuditEvent_SourceSchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class AuditEvent_SourceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
@@ -53,6 +54,7 @@ class AuditEvent_SourceSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("AuditEvent_Source") >= max_recursion_limit
@@ -78,9 +80,10 @@ class AuditEvent_SourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Logical source location within the healthcare enterprise network.  For
                 # example, a hospital or other provider location within a multi-entity provider
@@ -94,8 +97,9 @@ class AuditEvent_SourceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Code specifying the type of source where event originated.
                 StructField(
@@ -106,16 +110,18 @@ class AuditEvent_SourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

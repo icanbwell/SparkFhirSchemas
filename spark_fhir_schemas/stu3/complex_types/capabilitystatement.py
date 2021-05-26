@@ -18,6 +18,7 @@ class CapabilityStatementSchema:
     Server that may be used as a statement of actual server functionality or a
     statement of required or desired server implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class CapabilityStatementSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -139,18 +140,35 @@ class CapabilityStatementSchema:
         document: A document definition.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_software import CapabilityStatement_SoftwareSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_implementation import CapabilityStatement_ImplementationSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_software import (
+            CapabilityStatement_SoftwareSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_implementation import (
+            CapabilityStatement_ImplementationSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_rest import CapabilityStatement_RestSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_messaging import CapabilityStatement_MessagingSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_document import CapabilityStatement_DocumentSchema
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_rest import (
+            CapabilityStatement_RestSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_messaging import (
+            CapabilityStatement_MessagingSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_document import (
+            CapabilityStatement_DocumentSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("CapabilityStatement") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("CapabilityStatement") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -204,9 +222,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the capability statement from a
                 # consumer's perspective. Typically, this is used when the capability statement
@@ -224,9 +243,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the capability statement is intended to
                 # be used.
@@ -238,9 +258,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explaination of why this capability statement is needed and why it has been
                 # designed as it has.
@@ -267,8 +288,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies a specific implementation instance that is described by the
                 # capability statement - i.e. a particular installation, rather than the
@@ -280,8 +302,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The version of the FHIR specification on which this capability statement is
                 # based.
@@ -310,9 +333,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A definition of the restful capabilities of the solution, if any.
                 StructField(
@@ -323,9 +347,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of the messaging capabilities of the solution.
                 StructField(
@@ -336,9 +361,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A document definition.
                 StructField(
@@ -349,16 +375,18 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

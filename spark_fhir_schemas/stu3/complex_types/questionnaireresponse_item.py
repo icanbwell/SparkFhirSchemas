@@ -17,6 +17,7 @@ class QuestionnaireResponse_ItemSchema:
     grouped into coherent subsets, corresponding to the structure of the grouping
     of the questionnaire being responded to.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class QuestionnaireResponse_ItemSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of questions and their answers. The questions are ordered and
@@ -50,17 +51,17 @@ class QuestionnaireResponse_ItemSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.questionnaireresponse_answer import QuestionnaireResponse_AnswerSchema
+        from spark_fhir_schemas.stu3.complex_types.questionnaireresponse_answer import (
+            QuestionnaireResponse_AnswerSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("QuestionnaireResponse_Item") >=
-            max_recursion_limit
+            and nesting_list.count("QuestionnaireResponse_Item") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "QuestionnaireResponse_Item"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["QuestionnaireResponse_Item"]
         schema = StructType(
             [
                 # The item from the Questionnaire that corresponds to this item in the
@@ -81,8 +82,9 @@ class QuestionnaireResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The respondent's answer(s) to the question.
                 StructField(
@@ -93,9 +95,10 @@ class QuestionnaireResponse_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Questions or sub-groups nested beneath a question or group.
                 StructField(
@@ -106,16 +109,18 @@ class QuestionnaireResponse_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

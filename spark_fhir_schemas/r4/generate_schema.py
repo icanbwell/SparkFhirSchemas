@@ -34,7 +34,7 @@ class ResourceInfo:
 
 
 def main() -> int:
-    data_dir: Path = Path(__file__).parent.joinpath('./')
+    data_dir: Path = Path(__file__).parent.joinpath("./")
 
     with open(data_dir.joinpath("fhir.schema.json"), "r+") as file:
         contents = file.read()
@@ -67,7 +67,8 @@ def main() -> int:
     #     print(f"{key}:{value}")
     # print(definitions["Patient"])
     simple_types: List[str] = [
-        "number", "array"
+        "number",
+        "array",
     ]  # number is not defined in fhir schema
     # extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
     extensions_blocked_for_resources: List[str] = []
@@ -101,18 +102,17 @@ def main() -> int:
         if resource_name in []:
             continue
         print(f"Processing {resource_name}")
-        resource_type: Optional[
-            str] = resource["type"] if "type" in resource else None
-        resource_description: Optional[str] = resource[
-            "description"] if "description" in resource else None
-        properties: Dict[
-            str,
-            Any] = resource["properties"] if "properties" in resource else {}
+        resource_type: Optional[str] = resource["type"] if "type" in resource else None
+        resource_description: Optional[str] = (
+            resource["description"] if "description" in resource else None
+        )
+        properties: Dict[str, Any] = (
+            resource["properties"] if "properties" in resource else {}
+        )
         properties_info: List[PropertyInfo] = []
         # print("---- Properties ----")
         for key, value in {
-            k: v
-            for k, v in properties.items() if not k.startswith("_")
+            k: v for k, v in properties.items() if not k.startswith("_")
         }.items():
             property_name = key
             description: str = value["description"]
@@ -120,14 +120,17 @@ def main() -> int:
             #                 ] = value["items"] if "items" in value else None
             type_: Optional[str] = value["type"] if "type" in value else None
             ref_: Optional[str] = (
-                value["$ref"] if "$ref" in value and type_ != "array" else
-                value["items"]["$ref"]
-                if "items" in value and "$ref" in value["items"] else None
+                value["$ref"]
+                if "$ref" in value and type_ != "array"
+                else value["items"]["$ref"]
+                if "items" in value and "$ref" in value["items"]
+                else None
             )
             # print(f"{key}:{value}")
             # type_ == None means string
-            reference_type: Optional[str] = ref_[ref_.rfind("/") +
-                                                 1:] if ref_ else None
+            reference_type: Optional[str] = (
+                ref_[ref_.rfind("/") + 1 :] if ref_ else None
+            )
 
             if not type_ and not reference_type:
                 type_ = "string"  # typically an enum
@@ -137,40 +140,61 @@ def main() -> int:
                 Type=type_,
                 UnderlyingDataType=reference_type,
                 IsUniqueUnderlyingDataType=not any(
-                    [
-                        pi.UnderlyingDataType == reference_type
-                        for pi in properties_info
-                    ]
+                    [pi.UnderlyingDataType == reference_type for pi in properties_info]
                 ),
                 Description=description,
                 IsResourceType=reference_type.lower() in resources_dict
-                if reference_type else False,
+                if reference_type
+                else False,
                 IsSimpleType=reference_type.lower() in simple_types
-                if reference_type else
-                (type_.lower() in simple_types if type_ else False),
+                if reference_type
+                else (type_.lower() in simple_types if type_ else False),
                 IsComplexType=reference_type.lower() in complex_types
-                if reference_type else False,
+                if reference_type
+                else False,
                 HideExtension=reference_type.lower() == "extension"
                 and resource_name in extensions_blocked_for_resources
-                if reference_type else False
+                if reference_type
+                else False,
             )
             if resource_name.lower() == "extension":
                 # have to skip a few properties or Spark runs out of memory
                 allowed_properties = [
-                    "id", "url", "extension", "valueBoolean", "valueCode",
-                    "valueDate", "valueDateTime", "valueDecimal", "valueId",
-                    "valueInteger", "valuePositiveInt", "valueString",
-                    "valueTime", "valueUnsignedInt", "valueUri", "valueUrl",
-                    "valueCodeableConcept", "valueCoding", "valueCount",
-                    "valueIdentifier", "valueMoney", "valuePeriod",
-                    "valueQuantity", "valueRange", "valueReference"
+                    "id",
+                    "url",
+                    "extension",
+                    "valueBoolean",
+                    "valueCode",
+                    "valueDate",
+                    "valueDateTime",
+                    "valueDecimal",
+                    "valueId",
+                    "valueInteger",
+                    "valuePositiveInt",
+                    "valueString",
+                    "valueTime",
+                    "valueUnsignedInt",
+                    "valueUri",
+                    "valueUrl",
+                    "valueCodeableConcept",
+                    "valueCoding",
+                    "valueCount",
+                    "valueIdentifier",
+                    "valueMoney",
+                    "valuePeriod",
+                    "valueQuantity",
+                    "valueRange",
+                    "valueReference",
                 ]
                 if property_name in allowed_properties:
                     properties_info.append(property_info)
             elif property_name not in properties_blocked:
                 properties_info.append(property_info)
-            assert property_info.IsResourceType or property_info.IsSimpleType or property_info.IsComplexType, \
-                f"{resource_name}.{property_name}[{type_}] reference_type:{reference_type}"
+            assert (
+                property_info.IsResourceType
+                or property_info.IsSimpleType
+                or property_info.IsComplexType
+            ), f"{resource_name}.{property_name}[{type_}] reference_type:{reference_type}"
             # print(properties_info[-1])
             # print("")
 
@@ -178,41 +202,32 @@ def main() -> int:
         with open(data_dir.joinpath("template.jinja2"), "r") as file:
             template_contents: str = file.read()
             from jinja2 import Template
-            template = Template(
-                template_contents, trim_blocks=True, lstrip_blocks=True
-            )
+
+            template = Template(template_contents, trim_blocks=True, lstrip_blocks=True)
             result: str = template.render(
                 resource=ResourceInfo(
                     Name=resource_name,
                     Type=resource_type,
-                    Description=resource_description
+                    Description=resource_description,
                 ),
-                properties=properties_info
+                properties=properties_info,
             )
 
             if resource_name in resources_dict:
-                file_path = resources_folder.joinpath(
-                    f"{resource_name.lower()}.py"
-                )
-                print(
-                    f"Writing resource: {resource_name.lower()} to {file_path}..."
-                )
+                file_path = resources_folder.joinpath(f"{resource_name.lower()}.py")
+                print(f"Writing resource: {resource_name.lower()} to {file_path}...")
                 # print(result)
                 with open(file_path, "w") as file2:
                     file2.write(result)
             elif "properties" not in resource and "oneOf" not in resource:
-                file_path = simple_types_folder.joinpath(
-                    f"{resource_name.lower()}.py"
-                )
+                file_path = simple_types_folder.joinpath(f"{resource_name.lower()}.py")
                 print(
                     f"Writing simple_types_folder: {resource_name.lower()} to {file_path}..."
                 )
                 with open(file_path, "w") as file2:
                     file2.write(result)
             else:
-                file_path = complex_types_folder.joinpath(
-                    f"{resource_name.lower()}.py"
-                )
+                file_path = complex_types_folder.joinpath(f"{resource_name.lower()}.py")
                 print(
                     f"Writing complex_type: {resource_name.lower()} to {file_path}..."
                 )

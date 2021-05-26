@@ -15,6 +15,7 @@ class ElementDefinition_ConstraintSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class ElementDefinition_ConstraintSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -53,14 +54,12 @@ class ElementDefinition_ConstraintSchema:
         """
         if (
             max_recursion_limit
-            and nesting_list.count("ElementDefinition_Constraint") >=
-            max_recursion_limit
+            and nesting_list.count("ElementDefinition_Constraint")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ElementDefinition_Constraint"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ElementDefinition_Constraint"]
         schema = StructType(
             [
                 # Allows identification of which elements have their cardinalities impacted by
@@ -88,8 +87,9 @@ class ElementDefinition_ConstraintSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

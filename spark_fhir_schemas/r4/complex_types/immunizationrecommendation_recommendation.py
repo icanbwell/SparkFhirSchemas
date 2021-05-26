@@ -17,6 +17,7 @@ class ImmunizationRecommendation_RecommendationSchema:
     A patient's point-in-time set of recommendations (i.e. forecasting) according
     to a published schedule with optional supporting justification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ImmunizationRecommendation_RecommendationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A patient's point-in-time set of recommendations (i.e. forecasting) according
@@ -79,13 +80,18 @@ class ImmunizationRecommendation_RecommendationSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.immunizationrecommendation_datecriterion import ImmunizationRecommendation_DateCriterionSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.immunizationrecommendation_datecriterion import (
+            ImmunizationRecommendation_DateCriterionSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ImmunizationRecommendation_Recommendation") >=
             max_recursion_limit
+            and nesting_list.count("ImmunizationRecommendation_Recommendation")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -110,9 +116,10 @@ class ImmunizationRecommendation_RecommendationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Vaccine(s) or vaccine group that pertain to the recommendation.
                 StructField(
@@ -123,9 +130,10 @@ class ImmunizationRecommendation_RecommendationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The targeted disease for the recommendation.
                 StructField(
@@ -135,8 +143,9 @@ class ImmunizationRecommendation_RecommendationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Vaccine(s) which should not be used to fulfill the recommendation.
                 StructField(
@@ -147,9 +156,10 @@ class ImmunizationRecommendation_RecommendationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the patient status with respect to the path to immunity for the
                 # target disease.
@@ -160,8 +170,9 @@ class ImmunizationRecommendation_RecommendationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The reason for the assigned forecast status.
                 StructField(
@@ -172,24 +183,25 @@ class ImmunizationRecommendation_RecommendationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Vaccine date recommendations.  For example, earliest date to administer,
                 # latest date to administer, etc.
                 StructField(
                     "dateCriterion",
                     ArrayType(
-                        ImmunizationRecommendation_DateCriterionSchema.
-                        get_schema(
+                        ImmunizationRecommendation_DateCriterionSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contains the description about the protocol under which the vaccine was
                 # administered.
@@ -217,9 +229,10 @@ class ImmunizationRecommendation_RecommendationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Patient Information that supports the status and recommendation.  This
                 # includes patient observations, adverse reactions and allergy/intolerance
@@ -232,16 +245,18 @@ class ImmunizationRecommendation_RecommendationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -17,6 +17,7 @@ class AuditEvent_DetailSchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class AuditEvent_DetailSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
@@ -49,6 +50,7 @@ class AuditEvent_DetailSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("AuditEvent_Detail") >= max_recursion_limit
@@ -74,9 +76,10 @@ class AuditEvent_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of extra detail provided in the value.
                 StructField("type", StringType(), True),
@@ -88,8 +91,9 @@ class AuditEvent_DetailSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

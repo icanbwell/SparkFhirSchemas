@@ -16,6 +16,7 @@ class ProcessRequest_ItemSchema:
     This resource provides the target, request and response, and action details
     for an action to be performed by the target on or about existing resources.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ProcessRequest_ItemSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides the target, request and response, and action details
@@ -34,8 +35,8 @@ class ProcessRequest_ItemSchema:
 
         """
         if (
-            max_recursion_limit and
-            nesting_list.count("ProcessRequest_Item") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ProcessRequest_Item") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -48,8 +49,9 @@ class ProcessRequest_ItemSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

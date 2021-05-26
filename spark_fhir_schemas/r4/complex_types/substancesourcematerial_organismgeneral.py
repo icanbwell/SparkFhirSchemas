@@ -28,6 +28,7 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
     further explanation the Substance Class: Structurally Diverse and the herbal
     annex.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -35,7 +36,7 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Source material shall capture information on the taxonomic and anatomical
@@ -73,7 +74,10 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("SubstanceSourceMaterial_OrganismGeneral")
@@ -102,9 +106,10 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The kingdom of an organism shall be specified.
                 StructField(
@@ -114,8 +119,9 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The phylum of an organism shall be specified.
                 StructField(
@@ -125,8 +131,9 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The class of an organism shall be specified.
                 StructField(
@@ -136,8 +143,9 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The order of an organism shall be specified,.
                 StructField(
@@ -147,15 +155,17 @@ class SubstanceSourceMaterial_OrganismGeneralSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

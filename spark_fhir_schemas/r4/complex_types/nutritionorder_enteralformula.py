@@ -16,6 +16,7 @@ class NutritionOrder_EnteralFormulaSchema:
     A request to supply a diet, formula feeding (enteral) or oral nutritional
     supplement to a patient/resident.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class NutritionOrder_EnteralFormulaSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A request to supply a diet, formula feeding (enteral) or oral nutritional
@@ -73,19 +74,22 @@ class NutritionOrder_EnteralFormulaSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.r4.complex_types.nutritionorder_administration import NutritionOrder_AdministrationSchema
+        from spark_fhir_schemas.r4.complex_types.nutritionorder_administration import (
+            NutritionOrder_AdministrationSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("NutritionOrder_EnteralFormula") >=
-            max_recursion_limit
+            and nesting_list.count("NutritionOrder_EnteralFormula")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "NutritionOrder_EnteralFormula"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["NutritionOrder_EnteralFormula"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -104,9 +108,10 @@ class NutritionOrder_EnteralFormulaSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of enteral or infant formula such as an adult standard formula with
                 # fiber or a soy-based infant formula.
@@ -117,8 +122,9 @@ class NutritionOrder_EnteralFormulaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The product or brand name of the enteral or infant formula product such as
                 # "ACME Adult Standard Formula".
@@ -132,8 +138,9 @@ class NutritionOrder_EnteralFormulaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The product or brand name of the type of modular component to be added to the
                 # formula.
@@ -149,8 +156,9 @@ class NutritionOrder_EnteralFormulaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The route or physiological path of administration into the patient's
                 # gastrointestinal  tract for purposes of providing the formula feeding, e.g.
@@ -162,8 +170,9 @@ class NutritionOrder_EnteralFormulaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Formula administration instructions as structured data.  This repeating
                 # structure allows for changing the administration rate or volume over time for
@@ -177,9 +186,10 @@ class NutritionOrder_EnteralFormulaSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The maximum total quantity of formula that may be administered to a subject
                 # over the period of time, e.g. 1440 mL over 24 hours.
@@ -190,8 +200,9 @@ class NutritionOrder_EnteralFormulaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Free text formula administration, feeding instructions or additional
                 # instructions or information.
@@ -200,8 +211,9 @@ class NutritionOrder_EnteralFormulaSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

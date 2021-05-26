@@ -17,6 +17,7 @@ class ConceptMap_GroupSchema:
     concepts - either concepts in code systems, or data element/data element
     concepts, or classes in class models.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ConceptMap_GroupSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A statement of relationships from one set of concepts to one or more other
@@ -63,8 +64,13 @@ class ConceptMap_GroupSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
-        from spark_fhir_schemas.r4.complex_types.conceptmap_element import ConceptMap_ElementSchema
-        from spark_fhir_schemas.r4.complex_types.conceptmap_unmapped import ConceptMap_UnmappedSchema
+        from spark_fhir_schemas.r4.complex_types.conceptmap_element import (
+            ConceptMap_ElementSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.conceptmap_unmapped import (
+            ConceptMap_UnmappedSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ConceptMap_Group") >= max_recursion_limit
@@ -90,9 +96,10 @@ class ConceptMap_GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An absolute URI that identifies the source system where the concepts to be
                 # mapped are defined.
@@ -103,8 +110,9 @@ class ConceptMap_GroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The specific version of the code system, as determined by the code system
                 # authority.
@@ -118,8 +126,9 @@ class ConceptMap_GroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The specific version of the code system, as determined by the code system
                 # authority.
@@ -134,9 +143,10 @@ class ConceptMap_GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # What to do when there is no mapping for the source concept. "Unmapped" does
                 # not include codes that are unmatched, and the unmapped element is ignored in a
@@ -148,15 +158,17 @@ class ConceptMap_GroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

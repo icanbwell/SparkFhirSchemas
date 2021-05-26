@@ -16,6 +16,7 @@ class OperationDefinition_ReferencedFromSchema:
     A formal computable definition of an operation (on the RESTful interface) or a
     named query (using the search interaction).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class OperationDefinition_ReferencedFromSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formal computable definition of an operation (on the RESTful interface) or a
@@ -48,10 +49,11 @@ class OperationDefinition_ReferencedFromSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("OperationDefinition_ReferencedFrom") >=
-            max_recursion_limit
+            and nesting_list.count("OperationDefinition_ReferencedFrom")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -76,9 +78,10 @@ class OperationDefinition_ReferencedFromSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The name of the parameter or dot-separated path of parameter names pointing to
                 # the resource parameter that is expected to contain a reference to this
@@ -91,8 +94,9 @@ class OperationDefinition_ReferencedFromSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

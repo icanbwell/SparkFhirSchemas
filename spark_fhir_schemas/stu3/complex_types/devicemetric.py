@@ -16,6 +16,7 @@ class DeviceMetricSchema:
     Describes a measurement, calculation or setting capability of a medical
     device.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DeviceMetricSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes a measurement, calculation or setting capability of a medical
@@ -79,10 +80,15 @@ class DeviceMetricSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.stu3.complex_types.devicemetric_calibration import DeviceMetric_CalibrationSchema
+        from spark_fhir_schemas.stu3.complex_types.devicemetric_calibration import (
+            DeviceMetric_CalibrationSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("DeviceMetric") >= max_recursion_limit
@@ -105,8 +111,9 @@ class DeviceMetricSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the type of the metric. For example: Heart Rate, PEEP Setting, etc.
                 StructField(
@@ -116,8 +123,9 @@ class DeviceMetricSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the unit that an observed value determined for this metric will
                 # have. For example: Percent, Seconds, etc.
@@ -128,8 +136,9 @@ class DeviceMetricSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the link to the  Device that this DeviceMetric belongs to and that
                 # contains administrative device information such as manufacturer, serial
@@ -141,8 +150,9 @@ class DeviceMetricSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the link to the  DeviceComponent that this DeviceMetric belongs to
                 # and that provide information about the location of this DeviceMetric in the
@@ -157,8 +167,9 @@ class DeviceMetricSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates current operational state of the device. For example: On, Off,
                 # Standby, etc.
@@ -187,8 +198,9 @@ class DeviceMetricSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the calibrations that have been performed or that are required to be
                 # performed.
@@ -200,16 +212,18 @@ class DeviceMetricSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -19,6 +19,7 @@ class Subscription_ChannelSchema:
     resource matches the given criteria, it sends a message on the defined
     "channel" so that another system can take an appropriate action.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class Subscription_ChannelSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The subscription resource is used to define a push-based subscription from a
@@ -60,9 +61,10 @@ class Subscription_ChannelSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("Subscription_Channel") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("Subscription_Channel") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -85,9 +87,10 @@ class Subscription_ChannelSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of channel to send notifications on.
                 StructField("type", StringType(), True),
@@ -99,8 +102,9 @@ class Subscription_ChannelSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The mime type to send the payload in - either application/fhir+xml, or
                 # application/fhir+json. If the payload is not present, then there is no payload
@@ -113,8 +117,9 @@ class Subscription_ChannelSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional headers / information to send as part of the notification.
                 StructField("header", ArrayType(StringType()), True),
@@ -122,8 +127,9 @@ class Subscription_ChannelSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

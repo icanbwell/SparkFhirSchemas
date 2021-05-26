@@ -18,6 +18,7 @@ class AppointmentSchema:
     person(s) and/or device(s) for a specific date/time. This may result in one or
     more Encounter(s).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class AppointmentSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A booking of a healthcare event among patient(s), practitioner(s), related
@@ -105,10 +106,15 @@ class AppointmentSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.appointment_participant import Appointment_ParticipantSchema
+        from spark_fhir_schemas.stu3.complex_types.appointment_participant import (
+            Appointment_ParticipantSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Appointment") >= max_recursion_limit
@@ -132,9 +138,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The overall status of the Appointment. Each of the participants has their own
                 # participation status which indicates their involvement in the process, however
@@ -149,8 +156,9 @@ class AppointmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The specific service that is to be performed during this appointment.
                 StructField(
@@ -161,9 +169,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The specialty of a practitioner that would be required to perform the service
                 # requested in this appointment.
@@ -175,9 +184,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The style of appointment or patient that has been booked in the slot (not
                 # service type).
@@ -188,8 +198,9 @@ class AppointmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The reason that this appointment is being scheduled. This is more clinical
                 # than administrative.
@@ -201,9 +212,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reason the appointment has been scheduled to take place, as specified using
                 # information from another resource. When the patient arrives and the encounter
@@ -218,9 +230,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The priority of the appointment. Can be used to make informed decisions if
                 # needing to re-prioritize appointments. (The iCal Standard specifies 0 as
@@ -240,9 +253,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Date/Time that the appointment is to take place.
                 StructField("start", StringType(), True),
@@ -262,9 +276,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The date that this appointment was initially created. This could be different
                 # to the meta.lastModified value on the initial entry, as this could have been
@@ -283,9 +298,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # List of participants involved in the appointment.
                 StructField(
@@ -296,9 +312,10 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A set of date ranges (potentially including times) that the appointment is
                 # preferred to be scheduled within. When using these values, the minutes
@@ -312,16 +329,18 @@ class AppointmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

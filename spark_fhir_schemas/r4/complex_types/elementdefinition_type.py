@@ -16,6 +16,7 @@ class ElementDefinition_TypeSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ElementDefinition_TypeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -73,9 +74,10 @@ class ElementDefinition_TypeSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ElementDefinition_Type") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ElementDefinition_Type") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -98,9 +100,10 @@ class ElementDefinition_TypeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # URL of Data type or Resource that is a(or the) type used for this element.
                 # References are URLs that are relative to
@@ -114,8 +117,9 @@ class ElementDefinition_TypeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies a profile structure or implementation Guide that applies to the
                 # datatype this element refers to. If any profiles are specified, then the
@@ -132,9 +136,10 @@ class ElementDefinition_TypeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Used when the type is "Reference" or "canonical", and identifies a profile
                 # structure or implementation Guide that applies to the target of the reference
@@ -152,9 +157,10 @@ class ElementDefinition_TypeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # If the type is a reference to another resource, how the resource is or can be
                 # aggregated - is it a contained resource, or a reference, and if the context is
@@ -166,8 +172,9 @@ class ElementDefinition_TypeSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

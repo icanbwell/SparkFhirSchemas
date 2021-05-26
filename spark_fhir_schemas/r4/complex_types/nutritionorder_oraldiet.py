@@ -16,6 +16,7 @@ class NutritionOrder_OralDietSchema:
     A request to supply a diet, formula feeding (enteral) or oral nutritional
     supplement to a patient/resident.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class NutritionOrder_OralDietSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A request to supply a diet, formula feeding (enteral) or oral nutritional
@@ -60,14 +61,20 @@ class NutritionOrder_OralDietSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.r4.complex_types.nutritionorder_nutrient import NutritionOrder_NutrientSchema
-        from spark_fhir_schemas.r4.complex_types.nutritionorder_texture import NutritionOrder_TextureSchema
+        from spark_fhir_schemas.r4.complex_types.nutritionorder_nutrient import (
+            NutritionOrder_NutrientSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.nutritionorder_texture import (
+            NutritionOrder_TextureSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("NutritionOrder_OralDiet") >=
-            max_recursion_limit
+            and nesting_list.count("NutritionOrder_OralDiet") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -90,9 +97,10 @@ class NutritionOrder_OralDietSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The kind of diet or dietary restriction such as fiber restricted diet or
                 # diabetic diet.
@@ -104,9 +112,10 @@ class NutritionOrder_OralDietSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The time period and frequency at which the diet should be given.  The diet
                 # should be given for the combination of all schedules if more than one schedule
@@ -119,9 +128,10 @@ class NutritionOrder_OralDietSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Class that defines the quantity and type of nutrient modifications (for
                 # example carbohydrate, fiber or sodium) required for the oral diet.
@@ -133,9 +143,10 @@ class NutritionOrder_OralDietSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Class that describes any texture modifications required for the patient to
                 # safely consume various types of solid foods.
@@ -147,9 +158,10 @@ class NutritionOrder_OralDietSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The required consistency (e.g. honey-thick, nectar-thick, thin, thickened.) of
                 # liquids or fluids served to the patient.
@@ -161,9 +173,10 @@ class NutritionOrder_OralDietSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Free text or additional instructions or information pertaining to the oral
                 # diet.
@@ -172,8 +185,9 @@ class NutritionOrder_OralDietSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

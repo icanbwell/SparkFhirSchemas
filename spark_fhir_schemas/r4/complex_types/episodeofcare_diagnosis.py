@@ -17,6 +17,7 @@ class EpisodeOfCare_DiagnosisSchema:
     during which time encounters may occur. The managing organization assumes a
     level of responsibility for the patient during this time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class EpisodeOfCare_DiagnosisSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An association between a patient and an organization / healthcare provider(s)
@@ -52,12 +53,14 @@ class EpisodeOfCare_DiagnosisSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("EpisodeOfCare_Diagnosis") >=
-            max_recursion_limit
+            and nesting_list.count("EpisodeOfCare_Diagnosis") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -80,9 +83,10 @@ class EpisodeOfCare_DiagnosisSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A list of conditions/problems/diagnoses that this episode of care is intended
                 # to be providing care for.
@@ -93,8 +97,9 @@ class EpisodeOfCare_DiagnosisSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Role that this diagnosis has within the episode of care (e.g. admission,
                 # billing, discharge …).
@@ -105,8 +110,9 @@ class EpisodeOfCare_DiagnosisSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Ranking of the diagnosis (for each role type).
                 StructField(
@@ -116,15 +122,17 @@ class EpisodeOfCare_DiagnosisSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

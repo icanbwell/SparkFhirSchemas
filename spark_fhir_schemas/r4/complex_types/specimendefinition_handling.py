@@ -15,6 +15,7 @@ class SpecimenDefinition_HandlingSchema:
     """
     A kind of specimen with associated set of requirements.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class SpecimenDefinition_HandlingSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A kind of specimen with associated set of requirements.
@@ -51,19 +52,19 @@ class SpecimenDefinition_HandlingSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("SpecimenDefinition_Handling") >=
-            max_recursion_limit
+            and nesting_list.count("SpecimenDefinition_Handling") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SpecimenDefinition_Handling"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SpecimenDefinition_Handling"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -82,9 +83,10 @@ class SpecimenDefinition_HandlingSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # It qualifies the interval of temperature, which characterizes an occurrence of
                 # handling. Conditions that are not related to temperature may be handled in the
@@ -96,8 +98,9 @@ class SpecimenDefinition_HandlingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The temperature interval for this set of handling instructions.
                 StructField(
@@ -107,8 +110,9 @@ class SpecimenDefinition_HandlingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum time interval of preservation of the specimen with these
                 # conditions.
@@ -119,8 +123,9 @@ class SpecimenDefinition_HandlingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional textual instructions for the preservation or transport of the
                 # specimen. For instance, 'Protect from light exposure'.
@@ -129,8 +134,9 @@ class SpecimenDefinition_HandlingSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

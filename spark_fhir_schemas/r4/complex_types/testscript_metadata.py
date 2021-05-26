@@ -16,6 +16,7 @@ class TestScript_MetadataSchema:
     A structured set of tests against a FHIR server or client implementation to
     determine compliance against the FHIR specification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class TestScript_MetadataSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server or client implementation to
@@ -46,11 +47,16 @@ class TestScript_MetadataSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.testscript_link import TestScript_LinkSchema
-        from spark_fhir_schemas.r4.complex_types.testscript_capability import TestScript_CapabilitySchema
+        from spark_fhir_schemas.r4.complex_types.testscript_link import (
+            TestScript_LinkSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.testscript_capability import (
+            TestScript_CapabilitySchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("TestScript_Metadata") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("TestScript_Metadata") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -73,9 +79,10 @@ class TestScript_MetadataSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A link to the FHIR specification that this test is covering.
                 StructField(
@@ -86,9 +93,10 @@ class TestScript_MetadataSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Capabilities that must exist and are assumed to function correctly on the FHIR
                 # server being tested.
@@ -100,16 +108,18 @@ class TestScript_MetadataSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

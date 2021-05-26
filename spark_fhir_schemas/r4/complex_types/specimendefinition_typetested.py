@@ -16,6 +16,7 @@ class SpecimenDefinition_TypeTestedSchema:
     """
     A kind of specimen with associated set of requirements.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SpecimenDefinition_TypeTestedSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A kind of specimen with associated set of requirements.
@@ -59,20 +60,25 @@ class SpecimenDefinition_TypeTestedSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.specimendefinition_container import SpecimenDefinition_ContainerSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.specimendefinition_container import (
+            SpecimenDefinition_ContainerSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        from spark_fhir_schemas.r4.complex_types.specimendefinition_handling import SpecimenDefinition_HandlingSchema
+        from spark_fhir_schemas.r4.complex_types.specimendefinition_handling import (
+            SpecimenDefinition_HandlingSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("SpecimenDefinition_TypeTested") >=
-            max_recursion_limit
+            and nesting_list.count("SpecimenDefinition_TypeTested")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SpecimenDefinition_TypeTested"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SpecimenDefinition_TypeTested"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -91,9 +97,10 @@ class SpecimenDefinition_TypeTestedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Primary of secondary specimen.
                 StructField("isDerived", BooleanType(), True),
@@ -105,8 +112,9 @@ class SpecimenDefinition_TypeTestedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The preference for this type of conditioned specimen.
                 StructField("preference", StringType(), True),
@@ -118,8 +126,9 @@ class SpecimenDefinition_TypeTestedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Requirements for delivery and special handling of this kind of conditioned
                 # specimen.
@@ -133,8 +142,9 @@ class SpecimenDefinition_TypeTestedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Criterion for rejection of the specimen in its container by the laboratory.
                 StructField(
@@ -145,9 +155,10 @@ class SpecimenDefinition_TypeTestedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Set of instructions for preservation/transport of the specimen at a defined
                 # temperature interval, prior the testing process.
@@ -159,16 +170,18 @@ class SpecimenDefinition_TypeTestedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -17,6 +17,7 @@ class ProcedureRequestSchema:
     A record of a request for diagnostic investigations, treatments, or operations
     to be performed.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ProcedureRequestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a request for diagnostic investigations, treatments, or operations
@@ -124,11 +125,16 @@ class ProcedureRequestSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.stu3.complex_types.procedurerequest_requester import ProcedureRequest_RequesterSchema
+        from spark_fhir_schemas.stu3.complex_types.procedurerequest_requester import (
+            ProcedureRequest_RequesterSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ProcedureRequest") >= max_recursion_limit
@@ -150,9 +156,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Protocol or definition followed by this request.
                 StructField(
@@ -163,9 +170,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Plan/proposal/order fulfilled by this request.
                 StructField(
@@ -176,9 +184,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The request takes the place of the referenced completed or terminated
                 # request(s).
@@ -190,9 +199,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A shared identifier common to all procedure or diagnostic requests that were
                 # authorized more or less simultaneously by a single author, representing the
@@ -204,8 +214,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The status of the order.
                 StructField("status", StringType(), True),
@@ -227,9 +238,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code that identifies a particular procedure, diagnostic investigation, or
                 # panel of investigations, that have been requested.
@@ -240,8 +252,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # On whom or what the procedure or diagnostic is to be performed. This is
                 # usually a human patient, but can also be requested on animals, groups of
@@ -254,8 +267,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An encounter or episode of care that provides additional information about the
                 # healthcare context in which this request is made.
@@ -266,8 +280,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date/time at which the diagnostic testing should occur.
                 StructField("occurrenceDateTime", StringType(), True),
@@ -279,8 +294,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date/time at which the diagnostic testing should occur.
                 StructField(
@@ -290,8 +306,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If a CodeableConcept is present, it indicates the pre-condition for performing
                 # the procedure.  For example "pain", "on flare-up", etc.
@@ -305,8 +322,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the request transitioned to being actionable.
                 StructField("authoredOn", StringType(), True),
@@ -319,8 +337,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Desired type of performer for doing the diagnostic testing.
                 StructField(
@@ -330,8 +349,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The desired perfomer for doing the diagnostic testing.  For example, the
                 # surgeon, dermatopathologist, endoscopist, etc.
@@ -342,8 +362,9 @@ class ProcedureRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An explanation or justification for why this diagnostic investigation is being
                 # requested in coded or textual form.   This is often for billing purposes.  May
@@ -356,9 +377,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates another resource that provides a justification for why this
                 # diagnostic investigation is being requested.   May relate to the resources
@@ -371,9 +393,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Additional clinical information about the patient or specimen that may
                 # influence the procedure or diagnostics or their interpretations.     This
@@ -391,9 +414,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # One or more specimens that the laboratory procedure will use.
                 StructField(
@@ -404,9 +428,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Anatomic location where the procedure should be performed. This is the target
                 # site.
@@ -418,9 +443,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Any other notes and comments made about the service request. For example,
                 # letting provider know that "patient hates needles" or other provider
@@ -433,9 +459,10 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Key events in the history of the request.
                 StructField(
@@ -446,16 +473,18 @@ class ProcedureRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class SubstanceSpecification_IsotopeSchema:
     The detailed description of a substance, typically at a level beyond what is
     used for prescribing.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SubstanceSpecification_IsotopeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
@@ -53,19 +54,22 @@ class SubstanceSpecification_IsotopeSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import SubstanceSpecification_MolecularWeightSchema
+        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import (
+            SubstanceSpecification_MolecularWeightSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceSpecification_Isotope") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceSpecification_Isotope")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceSpecification_Isotope"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceSpecification_Isotope"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -84,9 +88,10 @@ class SubstanceSpecification_IsotopeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Substance identifier for each non-natural or radioisotope.
                 StructField(
@@ -96,8 +101,9 @@ class SubstanceSpecification_IsotopeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Substance name for each non-natural or radioisotope.
                 StructField(
@@ -107,8 +113,9 @@ class SubstanceSpecification_IsotopeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of isotopic substitution present in a single substance.
                 StructField(
@@ -118,8 +125,9 @@ class SubstanceSpecification_IsotopeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Half life - for a non-natural nuclide.
                 StructField(
@@ -129,8 +137,9 @@ class SubstanceSpecification_IsotopeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The molecular weight or weight range (for proteins, polymers or nucleic
                 # acids).
@@ -141,15 +150,17 @@ class SubstanceSpecification_IsotopeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

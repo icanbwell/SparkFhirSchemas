@@ -15,6 +15,7 @@ class AttachmentSchema:
     """
     For referring to data content defined in other formats.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class AttachmentSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         For referring to data content defined in other formats.
@@ -64,6 +65,7 @@ class AttachmentSchema:
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Attachment") >= max_recursion_limit
@@ -89,9 +91,10 @@ class AttachmentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the type of the data in the attachment and allows a method to be
                 # chosen to interpret or render the data. Includes mime type parameters such as
@@ -103,8 +106,9 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The human language of the content. The value can be any valid value according
                 # to BCP 47.
@@ -115,8 +119,9 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The actual data of the attachment - a sequence of bytes, base64 encoded.
                 StructField(
@@ -126,8 +131,9 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A location where the data can be accessed.
                 StructField(
@@ -137,8 +143,9 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The number of bytes of data that make up this attachment (before base64
                 # encoding, if that is done).
@@ -149,8 +156,9 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The calculated hash of the data using SHA-1. Represented using base64.
                 StructField(
@@ -160,8 +168,9 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A label or set of text to display in place of the data.
                 StructField("title", StringType(), True),
@@ -173,15 +182,17 @@ class AttachmentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

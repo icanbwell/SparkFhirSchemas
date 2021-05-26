@@ -15,6 +15,7 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
     """
     An ingredient of a manufactured item or pharmaceutical product.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An ingredient of a manufactured item or pharmaceutical product.
@@ -49,11 +50,14 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("MedicinalProductIngredient_ReferenceStrength")
+            max_recursion_limit
+            and nesting_list.count("MedicinalProductIngredient_ReferenceStrength")
             >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -79,9 +83,10 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Relevant reference substance.
                 StructField(
@@ -91,8 +96,9 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Strength expressed in terms of a reference substance.
                 StructField(
@@ -102,8 +108,9 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Strength expressed in terms of a reference substance.
                 StructField(
@@ -113,8 +120,9 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # For when strength is measured at a particular point or distance.
                 StructField("measurementPoint", StringType(), True),
@@ -127,16 +135,18 @@ class MedicinalProductIngredient_ReferenceStrengthSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

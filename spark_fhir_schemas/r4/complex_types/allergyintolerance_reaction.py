@@ -16,6 +16,7 @@ class AllergyIntolerance_ReactionSchema:
     Risk of harmful or undesirable, physiological response which is unique to an
     individual and associated with exposure to a substance.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class AllergyIntolerance_ReactionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Risk of harmful or undesirable, physiological response which is unique to an
@@ -68,19 +69,19 @@ class AllergyIntolerance_ReactionSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("AllergyIntolerance_Reaction") >=
-            max_recursion_limit
+            and nesting_list.count("AllergyIntolerance_Reaction") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "AllergyIntolerance_Reaction"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["AllergyIntolerance_Reaction"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -99,9 +100,10 @@ class AllergyIntolerance_ReactionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identification of the specific substance (or pharmaceutical product)
                 # considered to be responsible for the Adverse Reaction event. Note: the
@@ -121,8 +123,9 @@ class AllergyIntolerance_ReactionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Clinical symptoms and/or signs that are observed or associated with the
                 # adverse reaction event.
@@ -134,9 +137,10 @@ class AllergyIntolerance_ReactionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Text description about the reaction as a whole, including details of the
                 # manifestation if required.
@@ -149,8 +153,9 @@ class AllergyIntolerance_ReactionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Clinical assessment of the severity of the reaction event as a whole,
                 # potentially considering multiple different manifestations.
@@ -163,8 +168,9 @@ class AllergyIntolerance_ReactionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional text about the adverse reaction event not captured in other fields.
                 StructField(
@@ -175,16 +181,18 @@ class AllergyIntolerance_ReactionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

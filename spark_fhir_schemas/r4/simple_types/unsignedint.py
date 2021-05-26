@@ -13,6 +13,7 @@ class unsignedIntSchema:
     """
     An integer with a value that is not negative (e.g. >= 0)
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -20,7 +21,7 @@ class unsignedIntSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An integer with a value that is not negative (e.g. >= 0)

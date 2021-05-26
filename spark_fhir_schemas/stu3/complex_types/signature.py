@@ -18,6 +18,7 @@ class SignatureSchema:
     written signature, or a signature process. Different signature approaches have
     different utilities.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class SignatureSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A digital signature along with supporting context. The signature may be
@@ -62,6 +63,7 @@ class SignatureSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Signature") >= max_recursion_limit
@@ -82,9 +84,10 @@ class SignatureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # When the digital signature was signed.
                 StructField("when", StringType(), True),
@@ -100,8 +103,9 @@ class SignatureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to an application-usable description of the identity that is
                 # represented by the signature.
@@ -115,8 +119,9 @@ class SignatureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A mime type that indicates the technical format of the signature. Important
                 # mime types are application/signature+xml for X ML DigSig, application/jwt for
@@ -129,8 +134,9 @@ class SignatureSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -15,6 +15,7 @@ class InsurancePlan_PlanSchema:
     """
     Details of a Health Insurance product/plan provided by an organization.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class InsurancePlan_PlanSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Details of a Health Insurance product/plan provided by an organization.
@@ -53,10 +54,17 @@ class InsurancePlan_PlanSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.insuranceplan_generalcost import InsurancePlan_GeneralCostSchema
-        from spark_fhir_schemas.r4.complex_types.insuranceplan_specificcost import InsurancePlan_SpecificCostSchema
+        from spark_fhir_schemas.r4.complex_types.insuranceplan_generalcost import (
+            InsurancePlan_GeneralCostSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.insuranceplan_specificcost import (
+            InsurancePlan_SpecificCostSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("InsurancePlan_Plan") >= max_recursion_limit
@@ -82,9 +90,10 @@ class InsurancePlan_PlanSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Business identifiers assigned to this health insurance plan which remain
                 # constant as the resource is updated and propagates from server to server.
@@ -96,9 +105,10 @@ class InsurancePlan_PlanSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Type of plan. For example, "Platinum" or "High Deductable".
                 StructField(
@@ -108,8 +118,9 @@ class InsurancePlan_PlanSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The geographic region in which a health insurance plan's benefits apply.
                 StructField(
@@ -120,9 +131,10 @@ class InsurancePlan_PlanSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reference to the network that providing the type of coverage.
                 StructField(
@@ -133,9 +145,10 @@ class InsurancePlan_PlanSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Overall costs associated with the plan.
                 StructField(
@@ -146,9 +159,10 @@ class InsurancePlan_PlanSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Costs associated with the coverage provided by the product.
                 StructField(
@@ -159,16 +173,18 @@ class InsurancePlan_PlanSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

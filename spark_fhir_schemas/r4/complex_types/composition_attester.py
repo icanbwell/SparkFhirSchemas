@@ -23,6 +23,7 @@ class Composition_AttesterSchema:
     Composition must be included as subsequent entries in the Bundle (for example
     Patient, Practitioner, Encounter, etc.).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -30,7 +31,7 @@ class Composition_AttesterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A set of healthcare-related information that is assembled together into a
@@ -63,9 +64,10 @@ class Composition_AttesterSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("Composition_Attester") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("Composition_Attester") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -88,9 +90,10 @@ class Composition_AttesterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of attestation the authenticator offers.
                 StructField("mode", StringType(), True),
@@ -102,8 +105,9 @@ class Composition_AttesterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who attested the composition in the specified way.
                 StructField(
@@ -113,15 +117,17 @@ class Composition_AttesterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

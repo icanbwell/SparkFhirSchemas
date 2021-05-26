@@ -15,6 +15,7 @@ class Measure_GroupSchema:
     """
     The Measure resource provides the definition of a quality measure.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Measure_GroupSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The Measure resource provides the definition of a quality measure.
@@ -43,8 +44,13 @@ class Measure_GroupSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.measure_population import Measure_PopulationSchema
-        from spark_fhir_schemas.stu3.complex_types.measure_stratifier import Measure_StratifierSchema
+        from spark_fhir_schemas.stu3.complex_types.measure_population import (
+            Measure_PopulationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.measure_stratifier import (
+            Measure_StratifierSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Measure_Group") >= max_recursion_limit
@@ -63,8 +69,9 @@ class Measure_GroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Optional name or short description of this group.
                 StructField("name", StringType(), True),
@@ -79,9 +86,10 @@ class Measure_GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The stratifier criteria for the measure report, specified as either the name
                 # of a valid CQL expression defined within a referenced library, or a valid FHIR
@@ -94,16 +102,18 @@ class Measure_GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

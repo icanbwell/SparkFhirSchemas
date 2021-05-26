@@ -16,6 +16,7 @@ class TestReportSchema:
     """
     A summary of information based on the results of executing a TestScript.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class TestReportSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A summary of information based on the results of executing a TestScript.
@@ -64,10 +65,19 @@ class TestReportSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.testreport_participant import TestReport_ParticipantSchema
-        from spark_fhir_schemas.stu3.complex_types.testreport_setup import TestReport_SetupSchema
-        from spark_fhir_schemas.stu3.complex_types.testreport_test import TestReport_TestSchema
-        from spark_fhir_schemas.stu3.complex_types.testreport_teardown import TestReport_TeardownSchema
+        from spark_fhir_schemas.stu3.complex_types.testreport_participant import (
+            TestReport_ParticipantSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testreport_setup import (
+            TestReport_SetupSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testreport_test import (
+            TestReport_TestSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testreport_teardown import (
+            TestReport_TeardownSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("TestReport") >= max_recursion_limit
@@ -88,8 +98,9 @@ class TestReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A free text natural language name identifying the executed TestScript.
                 StructField("name", StringType(), True),
@@ -104,8 +115,9 @@ class TestReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The overall result from the execution of the TestScript.
                 StructField("result", StringType(), True),
@@ -126,9 +138,10 @@ class TestReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The results of the series of required setup operations before the tests were
                 # executed.
@@ -139,8 +152,9 @@ class TestReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A test executed from the test script.
                 StructField(
@@ -151,9 +165,10 @@ class TestReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The results of the series of operations required to clean up after the all the
                 # tests were executed (successfully or otherwise).
@@ -164,15 +179,17 @@ class TestReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

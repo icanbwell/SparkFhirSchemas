@@ -19,6 +19,7 @@ class MessageHeaderSchema:
     in which the MessageHeader resource instance is the first resource in the
     bundle.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class MessageHeaderSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The header for a message exchange that is either requesting or responding to
@@ -76,11 +77,20 @@ class MessageHeaderSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.messageheader_destination import MessageHeader_DestinationSchema
+        from spark_fhir_schemas.stu3.complex_types.messageheader_destination import (
+            MessageHeader_DestinationSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.messageheader_source import MessageHeader_SourceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.messageheader_response import MessageHeader_ResponseSchema
+        from spark_fhir_schemas.stu3.complex_types.messageheader_source import (
+            MessageHeader_SourceSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.messageheader_response import (
+            MessageHeader_ResponseSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("MessageHeader") >= max_recursion_limit
@@ -102,8 +112,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The destination application which the message is intended for.
                 StructField(
@@ -114,9 +125,10 @@ class MessageHeaderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Allows data conveyed by a message to be addressed to a particular person or
                 # department when routing to a specific application isn't sufficient.
@@ -127,8 +139,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the sending system to allow the use of a trust relationship.
                 StructField(
@@ -138,8 +151,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The time that the message was sent.
                 StructField("timestamp", StringType(), True),
@@ -153,8 +167,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The logical author of the message - the person or device that decided the
                 # described event should happen. When there is more than one candidate, pick the
@@ -166,8 +181,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The source application from which this message originated.
                 StructField(
@@ -177,8 +193,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The person or organization that accepts overall responsibility for the
                 # contents of the message. The implication is that the message event happened
@@ -190,8 +207,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Coded indication of the cause for the event - indicates  a reason for the
                 # occurrence of the event that is a focus of this message.
@@ -202,8 +220,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Information about the message that this message is a response to.  Only
                 # present if this message is a response.
@@ -214,8 +233,9 @@ class MessageHeaderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The actual data of the message - a reference to the root/focus class of the
                 # event.
@@ -227,16 +247,18 @@ class MessageHeaderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

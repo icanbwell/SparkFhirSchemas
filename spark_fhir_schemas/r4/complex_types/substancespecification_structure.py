@@ -16,6 +16,7 @@ class SubstanceSpecification_StructureSchema:
     The detailed description of a substance, typically at a level beyond what is
     used for prescribing.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SubstanceSpecification_StructureSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
@@ -60,21 +61,28 @@ class SubstanceSpecification_StructureSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_isotope import SubstanceSpecification_IsotopeSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import SubstanceSpecification_MolecularWeightSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_isotope import (
+            SubstanceSpecification_IsotopeSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import (
+            SubstanceSpecification_MolecularWeightSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_representation import SubstanceSpecification_RepresentationSchema
+        from spark_fhir_schemas.r4.complex_types.substancespecification_representation import (
+            SubstanceSpecification_RepresentationSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceSpecification_Structure") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceSpecification_Structure")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceSpecification_Structure"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceSpecification_Structure"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -93,9 +101,10 @@ class SubstanceSpecification_StructureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Stereochemistry type.
                 StructField(
@@ -105,8 +114,9 @@ class SubstanceSpecification_StructureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Optical activity type.
                 StructField(
@@ -116,8 +126,9 @@ class SubstanceSpecification_StructureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Molecular formula.
                 StructField("molecularFormula", StringType(), True),
@@ -134,9 +145,10 @@ class SubstanceSpecification_StructureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The molecular weight or weight range (for proteins, polymers or nucleic
                 # acids).
@@ -147,8 +159,9 @@ class SubstanceSpecification_StructureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Supporting literature.
                 StructField(
@@ -159,9 +172,10 @@ class SubstanceSpecification_StructureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Molecular structural representation.
                 StructField(
@@ -172,16 +186,18 @@ class SubstanceSpecification_StructureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -18,6 +18,7 @@ class CapabilityStatement_SearchParamSchema:
     actual server functionality or a statement of required or desired server
     implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class CapabilityStatement_SearchParamSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -61,16 +62,15 @@ class CapabilityStatement_SearchParamSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("CapabilityStatement_SearchParam") >=
-            max_recursion_limit
+            and nesting_list.count("CapabilityStatement_SearchParam")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "CapabilityStatement_SearchParam"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["CapabilityStatement_SearchParam"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -89,9 +89,10 @@ class CapabilityStatement_SearchParamSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The name of the search parameter used in the interface.
                 StructField("name", StringType(), True),
@@ -107,8 +108,9 @@ class CapabilityStatement_SearchParamSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of value a search parameter refers to, and how the content is
                 # interpreted.
@@ -122,15 +124,17 @@ class CapabilityStatement_SearchParamSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

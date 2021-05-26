@@ -15,6 +15,7 @@ class MedicinalProductIngredient_SubstanceSchema:
     """
     An ingredient of a manufactured item or pharmaceutical product.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicinalProductIngredient_SubstanceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An ingredient of a manufactured item or pharmaceutical product.
@@ -44,12 +45,17 @@ class MedicinalProductIngredient_SubstanceSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.medicinalproductingredient_strength import MedicinalProductIngredient_StrengthSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.medicinalproductingredient_strength import (
+            MedicinalProductIngredient_StrengthSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicinalProductIngredient_Substance") >=
-            max_recursion_limit
+            and nesting_list.count("MedicinalProductIngredient_Substance")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -74,9 +80,10 @@ class MedicinalProductIngredient_SubstanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The ingredient substance.
                 StructField(
@@ -86,8 +93,9 @@ class MedicinalProductIngredient_SubstanceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Quantity of the substance or specified substance present in the manufactured
                 # item or pharmaceutical product.
@@ -99,16 +107,18 @@ class MedicinalProductIngredient_SubstanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

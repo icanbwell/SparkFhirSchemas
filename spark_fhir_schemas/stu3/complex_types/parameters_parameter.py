@@ -19,6 +19,7 @@ class Parameters_ParameterSchema:
     response (operations.html). It has no other use, and there is no RESTful
     endpoint associated with it.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class Parameters_ParameterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This special resource type is used to represent an operation request and
@@ -149,12 +150,16 @@ class Parameters_ParameterSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.element import ElementSchema
         from spark_fhir_schemas.stu3.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.stu3.complex_types.backboneelement import BackboneElementSchema
+        from spark_fhir_schemas.stu3.complex_types.backboneelement import (
+            BackboneElementSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.narrative import NarrativeSchema
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.stu3.complex_types.duration import DurationSchema
@@ -170,22 +175,39 @@ class Parameters_ParameterSchema:
         from spark_fhir_schemas.stu3.complex_types.signature import SignatureSchema
         from spark_fhir_schemas.stu3.complex_types.humanname import HumanNameSchema
         from spark_fhir_schemas.stu3.complex_types.address import AddressSchema
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
         from spark_fhir_schemas.stu3.complex_types.meta import MetaSchema
-        from spark_fhir_schemas.stu3.complex_types.elementdefinition import ElementDefinitionSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.stu3.complex_types.elementdefinition import (
+            ElementDefinitionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.contributor import ContributorSchema
         from spark_fhir_schemas.stu3.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.stu3.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement import DataRequirementSchema
-        from spark_fhir_schemas.stu3.complex_types.parameterdefinition import ParameterDefinitionSchema
-        from spark_fhir_schemas.stu3.complex_types.triggerdefinition import TriggerDefinitionSchema
+        from spark_fhir_schemas.stu3.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.parameterdefinition import (
+            ParameterDefinitionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.triggerdefinition import (
+            TriggerDefinitionSchema,
+        )
         from spark_fhir_schemas.stu3.simple_types.resourcelist import ResourceListSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("Parameters_Parameter") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("Parameters_Parameter") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -236,8 +258,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -247,8 +270,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -258,8 +282,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -269,8 +294,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -280,8 +306,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -291,8 +318,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -302,8 +330,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -313,8 +342,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -324,8 +354,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -335,8 +366,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -346,8 +378,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -357,8 +390,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -368,8 +402,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -379,8 +414,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -390,8 +426,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -401,8 +438,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -412,8 +450,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -423,8 +462,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -434,8 +474,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -445,8 +486,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -456,8 +498,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -467,8 +510,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -478,8 +522,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -489,8 +534,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -500,8 +546,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -511,8 +558,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -522,8 +570,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -533,8 +582,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -544,8 +594,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -555,8 +606,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -566,8 +618,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -577,8 +630,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -588,8 +642,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -599,8 +654,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -610,8 +666,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a data type.
                 StructField(
@@ -621,8 +678,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the parameter is a whole resource.
                 StructField(
@@ -632,8 +690,9 @@ class Parameters_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A named part of a multi-part parameter.
                 StructField(
@@ -644,16 +703,18 @@ class Parameters_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

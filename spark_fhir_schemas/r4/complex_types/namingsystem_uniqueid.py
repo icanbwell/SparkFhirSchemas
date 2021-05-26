@@ -18,6 +18,7 @@ class NamingSystem_UniqueIdSchema:
     identification of concepts, people, devices, etc.  Represents a "System" used
     within the Identifier and Coding data types.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class NamingSystem_UniqueIdSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A curated namespace that issues unique symbols within that namespace for the
@@ -58,9 +59,10 @@ class NamingSystem_UniqueIdSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("NamingSystem_UniqueId") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("NamingSystem_UniqueId") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -83,9 +85,10 @@ class NamingSystem_UniqueIdSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the unique identifier scheme used for this particular identifier.
                 StructField("type", StringType(), True),
@@ -106,15 +109,17 @@ class NamingSystem_UniqueIdSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

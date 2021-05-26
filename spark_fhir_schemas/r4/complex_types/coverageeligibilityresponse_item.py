@@ -17,6 +17,7 @@ class CoverageEligibilityResponse_ItemSchema:
     This resource provides eligibility and plan details from the processing of an
     CoverageEligibilityRequest resource.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class CoverageEligibilityResponse_ItemSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides eligibility and plan details from the processing of an
@@ -78,20 +79,23 @@ class CoverageEligibilityResponse_ItemSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_benefit import CoverageEligibilityResponse_BenefitSchema
+        from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_benefit import (
+            CoverageEligibilityResponse_BenefitSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("CoverageEligibilityResponse_Item") >=
-            max_recursion_limit
+            and nesting_list.count("CoverageEligibilityResponse_Item")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "CoverageEligibilityResponse_Item"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["CoverageEligibilityResponse_Item"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -110,9 +114,10 @@ class CoverageEligibilityResponse_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Code to identify the general type of benefits under which products and
                 # services are provided.
@@ -123,8 +128,9 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This contains the product, service, drug or other billing code for the item.
                 StructField(
@@ -134,8 +140,9 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Item typification or modifiers codes to convey additional context for the
                 # product or service.
@@ -147,9 +154,10 @@ class CoverageEligibilityResponse_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The practitioner who is eligible for the provision of the product or service.
                 StructField(
@@ -159,8 +167,9 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # True if the indicated class of service is excluded from the plan, missing or
                 # False indicates the product or service is included in the coverage.
@@ -178,8 +187,9 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates if the benefits apply to an individual or to the family.
                 StructField(
@@ -189,8 +199,9 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The term or period of the values such as 'maximum lifetime benefit' or
                 # 'maximum annual visits'.
@@ -201,8 +212,9 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Benefits used to date.
                 StructField(
@@ -213,9 +225,10 @@ class CoverageEligibilityResponse_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A boolean flag indicating whether a preauthorization is required prior to
                 # actual service delivery.
@@ -230,9 +243,10 @@ class CoverageEligibilityResponse_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A web location for obtaining requirements or descriptive information regarding
                 # the preauthorization.
@@ -243,15 +257,17 @@ class CoverageEligibilityResponse_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

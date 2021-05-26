@@ -17,6 +17,7 @@ class CoverageEligibilityResponse_BenefitSchema:
     This resource provides eligibility and plan details from the processing of an
     CoverageEligibilityRequest resource.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class CoverageEligibilityResponse_BenefitSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides eligibility and plan details from the processing of an
@@ -56,12 +57,15 @@ class CoverageEligibilityResponse_BenefitSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.money import MoneySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("CoverageEligibilityResponse_Benefit") >=
-            max_recursion_limit
+            and nesting_list.count("CoverageEligibilityResponse_Benefit")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -86,9 +90,10 @@ class CoverageEligibilityResponse_BenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Classification of benefit being provided.
                 StructField(
@@ -98,8 +103,9 @@ class CoverageEligibilityResponse_BenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The quantity of the benefit which is permitted under the coverage.
                 StructField("allowedUnsignedInt", IntegerType(), True),
@@ -113,8 +119,9 @@ class CoverageEligibilityResponse_BenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The quantity of the benefit which have been consumed to date.
                 StructField("usedUnsignedInt", IntegerType(), True),
@@ -128,15 +135,17 @@ class CoverageEligibilityResponse_BenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

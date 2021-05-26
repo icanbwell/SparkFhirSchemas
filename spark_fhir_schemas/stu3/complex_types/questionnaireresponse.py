@@ -17,6 +17,7 @@ class QuestionnaireResponseSchema:
     grouped into coherent subsets, corresponding to the structure of the grouping
     of the questionnaire being responded to.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class QuestionnaireResponseSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of questions and their answers. The questions are ordered and
@@ -71,10 +72,13 @@ class QuestionnaireResponseSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.questionnaireresponse_item import QuestionnaireResponse_ItemSchema
+        from spark_fhir_schemas.stu3.complex_types.questionnaireresponse_item import (
+            QuestionnaireResponse_ItemSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("QuestionnaireResponse") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("QuestionnaireResponse") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -92,8 +96,9 @@ class QuestionnaireResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The order, proposal or plan that is fulfilled in whole or in part by this
                 # QuestionnaireResponse.  For example, a ProcedureRequest seeking an intake
@@ -107,9 +112,10 @@ class QuestionnaireResponseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A procedure or observation that this questionnaire was performed as part of
                 # the execution of.  For example, the surgery a checklist was executed as part
@@ -122,9 +128,10 @@ class QuestionnaireResponseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The Questionnaire that defines and organizes the questions for which answers
                 # are being provided.
@@ -135,8 +142,9 @@ class QuestionnaireResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The position of the questionnaire response within its overall lifecycle.
                 StructField("status", StringType(), True),
@@ -150,8 +158,9 @@ class QuestionnaireResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The encounter or episode of care with primary association to the questionnaire
                 # response.
@@ -162,8 +171,9 @@ class QuestionnaireResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date and/or time that this set of answers were last changed.
                 StructField("authored", StringType(), True),
@@ -176,8 +186,9 @@ class QuestionnaireResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The person who answered the questions about the subject.
                 StructField(
@@ -187,8 +198,9 @@ class QuestionnaireResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A group or question item from the original questionnaire for which answers are
                 # provided.
@@ -200,16 +212,18 @@ class QuestionnaireResponseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

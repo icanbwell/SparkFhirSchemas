@@ -16,6 +16,7 @@ class Contract_TermSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Contract_TermSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
@@ -75,12 +76,23 @@ class Contract_TermSchema:
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.contract_securitylabel import Contract_SecurityLabelSchema
-        from spark_fhir_schemas.r4.complex_types.contract_offer import Contract_OfferSchema
-        from spark_fhir_schemas.r4.complex_types.contract_asset import Contract_AssetSchema
-        from spark_fhir_schemas.r4.complex_types.contract_action import Contract_ActionSchema
+        from spark_fhir_schemas.r4.complex_types.contract_securitylabel import (
+            Contract_SecurityLabelSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_offer import (
+            Contract_OfferSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_asset import (
+            Contract_AssetSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_action import (
+            Contract_ActionSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Contract_Term") >= max_recursion_limit
@@ -106,9 +118,10 @@ class Contract_TermSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Unique identifier for this particular Contract Provision.
                 StructField(
@@ -118,8 +131,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When this Contract Provision was issued.
                 StructField(
@@ -129,8 +143,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Relevant time or time-period when this Contract Provision is applicable.
                 StructField(
@@ -140,8 +155,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The entity that the term applies to.
                 StructField(
@@ -151,8 +167,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The entity that the term applies to.
                 StructField(
@@ -162,8 +179,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A legal clause or condition contained within a contract that requires one or
                 # both parties to perform a particular requirement by some specified time or
@@ -176,8 +194,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A specialized legal clause or condition based on overarching contract type.
                 StructField(
@@ -187,8 +206,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Statement of a provision in a policy or a contract.
                 StructField("text", StringType(), True),
@@ -202,9 +222,10 @@ class Contract_TermSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The matter of concern in the context of this provision of the agrement.
                 StructField(
@@ -214,8 +235,9 @@ class Contract_TermSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Contract Term Asset List.
                 StructField(
@@ -226,9 +248,10 @@ class Contract_TermSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An actor taking a role in an activity for which it can be assigned some degree
                 # of responsibility for the activity taking place.
@@ -240,9 +263,10 @@ class Contract_TermSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Nested group of Contract Provisions.
                 StructField(
@@ -253,16 +277,18 @@ class Contract_TermSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

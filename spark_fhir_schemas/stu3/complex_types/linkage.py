@@ -17,6 +17,7 @@ class LinkageSchema:
     Identifies two or more records (resource instances) that are referring to the
     same real-world "occurrence".
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class LinkageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Identifies two or more records (resource instances) that are referring to the
@@ -45,10 +46,12 @@ class LinkageSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.linkage_item import Linkage_ItemSchema
+        from spark_fhir_schemas.stu3.complex_types.linkage_item import (
+            Linkage_ItemSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Linkage") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Linkage") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -69,8 +72,9 @@ class LinkageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies one of the records that is considered to refer to the same real-
                 # world occurrence as well as how the items hould be evaluated within the
@@ -83,16 +87,18 @@ class LinkageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

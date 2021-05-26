@@ -17,6 +17,7 @@ class AuditEventSchema:
     uses include detection of intrusion attempts and monitoring for inappropriate
     usage.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class AuditEventSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of an event made for purposes of maintaining a security log. Typical
@@ -59,10 +60,19 @@ class AuditEventSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.auditevent_agent import AuditEvent_AgentSchema
-        from spark_fhir_schemas.stu3.complex_types.auditevent_source import AuditEvent_SourceSchema
-        from spark_fhir_schemas.stu3.complex_types.auditevent_entity import AuditEvent_EntitySchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.auditevent_agent import (
+            AuditEvent_AgentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.auditevent_source import (
+            AuditEvent_SourceSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.auditevent_entity import (
+            AuditEvent_EntitySchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("AuditEvent") >= max_recursion_limit
@@ -84,8 +94,9 @@ class AuditEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifier for the category of event.
                 StructField(
@@ -96,9 +107,10 @@ class AuditEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicator for type of action performed during the event that generated the
                 # audit.
@@ -118,9 +130,10 @@ class AuditEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An actor taking an active role in the event or activity that is logged.
                 StructField(
@@ -131,9 +144,10 @@ class AuditEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The system that is reporting the event.
                 StructField(
@@ -143,8 +157,9 @@ class AuditEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specific instances of data or objects that have been accessed.
                 StructField(
@@ -155,16 +170,18 @@ class AuditEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

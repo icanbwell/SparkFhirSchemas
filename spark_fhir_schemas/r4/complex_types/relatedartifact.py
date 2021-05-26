@@ -16,6 +16,7 @@ class RelatedArtifactSchema:
     Related artifacts such as additional documentation, justification, or
     bibliographic references.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class RelatedArtifactSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Related artifacts such as additional documentation, justification, or
@@ -64,6 +65,7 @@ class RelatedArtifactSchema:
         from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("RelatedArtifact") >= max_recursion_limit
@@ -89,9 +91,10 @@ class RelatedArtifactSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of relationship to the related artifact.
                 StructField("type", StringType(), True),
@@ -110,8 +113,9 @@ class RelatedArtifactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A url for the artifact that can be followed to access the actual content.
                 StructField(
@@ -121,8 +125,9 @@ class RelatedArtifactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The document being referenced, represented as an attachment. This is exclusive
                 # with the resource element.
@@ -133,8 +138,9 @@ class RelatedArtifactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The related resource, such as a library, value set, profile, or other
                 # knowledge resource.
@@ -145,15 +151,17 @@ class RelatedArtifactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

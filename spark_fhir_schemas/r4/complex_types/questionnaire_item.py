@@ -18,6 +18,7 @@ class Questionnaire_ItemSchema:
     end-users. Questionnaires provide detailed control over order, presentation,
     phraseology and grouping to allow coherent, consistent data collection.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class Questionnaire_ItemSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of questions intended to guide the collection of answers from
@@ -109,11 +110,18 @@ class Questionnaire_ItemSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.r4.complex_types.questionnaire_enablewhen import Questionnaire_EnableWhenSchema
+        from spark_fhir_schemas.r4.complex_types.questionnaire_enablewhen import (
+            Questionnaire_EnableWhenSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        from spark_fhir_schemas.r4.complex_types.questionnaire_answeroption import Questionnaire_AnswerOptionSchema
-        from spark_fhir_schemas.r4.complex_types.questionnaire_initial import Questionnaire_InitialSchema
+        from spark_fhir_schemas.r4.complex_types.questionnaire_answeroption import (
+            Questionnaire_AnswerOptionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.questionnaire_initial import (
+            Questionnaire_InitialSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Questionnaire_Item") >= max_recursion_limit
@@ -139,9 +147,10 @@ class Questionnaire_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An identifier that is unique within the Questionnaire allowing linkage to the
                 # equivalent item in a QuestionnaireResponse resource.
@@ -168,8 +177,9 @@ class Questionnaire_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A terminology code that corresponds to this group or question (e.g. a code
                 # from LOINC, which defines many questions and answers).
@@ -181,9 +191,10 @@ class Questionnaire_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A short label for a particular group, question or set of display text within
                 # the questionnaire used for reference by the individual completing the
@@ -206,9 +217,10 @@ class Questionnaire_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Controls how multiple enableWhen values are interpreted -  whether all or any
                 # must be true.
@@ -233,8 +245,9 @@ class Questionnaire_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a value set containing a list of codes representing permitted
                 # answers for a "choice" or "open-choice" question.
@@ -245,8 +258,9 @@ class Questionnaire_ItemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # One of the permitted answers for a "choice" or "open-choice" question.
                 StructField(
@@ -257,9 +271,10 @@ class Questionnaire_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # One or more values that should be pre-populated in the answer when initially
                 # rendering the questionnaire for user input.
@@ -271,9 +286,10 @@ class Questionnaire_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Text, questions and other groups to be nested beneath a question or group.
                 StructField(
@@ -284,16 +300,18 @@ class Questionnaire_ItemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

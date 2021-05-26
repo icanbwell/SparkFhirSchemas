@@ -19,6 +19,7 @@ class ImmunizationSchema:
     may include vaccine reaction information and what vaccination protocol was
     followed.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class ImmunizationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes the event of a patient being administered a vaccination or a record
@@ -88,14 +89,25 @@ class ImmunizationSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.stu3.complex_types.immunization_practitioner import Immunization_PractitionerSchema
+        from spark_fhir_schemas.stu3.complex_types.immunization_practitioner import (
+            Immunization_PractitionerSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.immunization_explanation import Immunization_ExplanationSchema
-        from spark_fhir_schemas.stu3.complex_types.immunization_reaction import Immunization_ReactionSchema
-        from spark_fhir_schemas.stu3.complex_types.immunization_vaccinationprotocol import Immunization_VaccinationProtocolSchema
+        from spark_fhir_schemas.stu3.complex_types.immunization_explanation import (
+            Immunization_ExplanationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.immunization_reaction import (
+            Immunization_ReactionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.immunization_vaccinationprotocol import (
+            Immunization_VaccinationProtocolSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Immunization") >= max_recursion_limit
@@ -116,9 +128,10 @@ class ImmunizationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the current status of the vaccination event.
                 StructField("status", StringType(), True),
@@ -132,8 +145,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The patient who either received or did not receive the immunization.
                 StructField(
@@ -143,8 +157,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The visit or admission or other contact between patient and health care
                 # provider the immunization was performed as part of.
@@ -155,8 +170,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Date vaccine administered or was to be administered.
                 StructField("date", StringType(), True),
@@ -173,8 +189,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The service delivery location where the vaccine administration occurred.
                 StructField(
@@ -184,8 +201,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Name of vaccine manufacturer.
                 StructField(
@@ -195,8 +213,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Lot number of the  vaccine product.
                 StructField("lotNumber", StringType(), True),
@@ -210,8 +229,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The path by which the vaccine product is taken into the body.
                 StructField(
@@ -221,8 +241,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The quantity of vaccine product that was administered.
                 StructField(
@@ -232,8 +253,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates who or what performed the event.
                 StructField(
@@ -244,9 +266,10 @@ class ImmunizationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Extra information about the immunization that is not conveyed by the other
                 # attributes.
@@ -258,9 +281,10 @@ class ImmunizationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reasons why a vaccine was or was not administered.
                 StructField(
@@ -270,8 +294,9 @@ class ImmunizationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Categorical data indicating that an adverse event is associated in time to an
                 # immunization.
@@ -283,9 +308,10 @@ class ImmunizationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contains information about the protocol(s) under which the vaccine was
                 # administered.
@@ -297,16 +323,18 @@ class ImmunizationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

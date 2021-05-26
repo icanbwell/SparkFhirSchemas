@@ -16,6 +16,7 @@ class PaymentReconciliation_ProcessNoteSchema:
     This resource provides the details including amount of a payment and allocates
     the payment items being paid.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class PaymentReconciliation_ProcessNoteSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides the details including amount of a payment and allocates
@@ -45,10 +46,11 @@ class PaymentReconciliation_ProcessNoteSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("PaymentReconciliation_ProcessNote") >=
-            max_recursion_limit
+            and nesting_list.count("PaymentReconciliation_ProcessNote")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -73,9 +75,10 @@ class PaymentReconciliation_ProcessNoteSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The business purpose of the note text.
                 StructField("type", StringType(), True),
@@ -85,8 +88,9 @@ class PaymentReconciliation_ProcessNoteSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

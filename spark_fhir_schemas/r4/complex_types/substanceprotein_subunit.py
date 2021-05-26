@@ -22,6 +22,7 @@ class SubstanceProtein_SubunitSchema:
     peptide/SubstanceProtein hormones, enzymes, toxins, toxoids, recombinant
     vaccines, and immunomodulators.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -29,7 +30,7 @@ class SubstanceProtein_SubunitSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A SubstanceProtein is defined as a single unit of a linear amino acid
@@ -90,16 +91,14 @@ class SubstanceProtein_SubunitSchema:
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceProtein_Subunit") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceProtein_Subunit") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceProtein_Subunit"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceProtein_Subunit"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -118,9 +117,10 @@ class SubstanceProtein_SubunitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Index of primary sequences of amino acids linked through peptide bonds in
                 # order of decreasing length. Sequences of the same length will be ordered by
@@ -133,8 +133,9 @@ class SubstanceProtein_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The sequence information shall be provided enumerating the amino acids from N-
                 # to C-terminal end using standard single-letter amino acid codes. Uppercase
@@ -152,8 +153,9 @@ class SubstanceProtein_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The sequence information shall be provided enumerating the amino acids from N-
                 # to C-terminal end using standard single-letter amino acid codes. Uppercase
@@ -169,8 +171,9 @@ class SubstanceProtein_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Unique identifier for molecular fragment modification based on the ISO 11238
                 # Substance ID.
@@ -181,8 +184,9 @@ class SubstanceProtein_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The name of the fragment modified at the N-terminal of the SubstanceProtein
                 # shall be specified.
@@ -196,8 +200,9 @@ class SubstanceProtein_SubunitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The modification at the C-terminal shall be specified.
                 StructField("cTerminalModification", StringType(), True),
@@ -205,8 +210,9 @@ class SubstanceProtein_SubunitSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

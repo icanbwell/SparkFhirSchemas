@@ -18,6 +18,7 @@ class PlanDefinition_ActionSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class PlanDefinition_ActionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
@@ -111,23 +112,40 @@ class PlanDefinition_ActionSchema:
             chosen as part of realizing the action definition.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.stu3.complex_types.triggerdefinition import TriggerDefinitionSchema
-        from spark_fhir_schemas.stu3.complex_types.plandefinition_condition import PlanDefinition_ConditionSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement import DataRequirementSchema
-        from spark_fhir_schemas.stu3.complex_types.plandefinition_relatedaction import PlanDefinition_RelatedActionSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.triggerdefinition import (
+            TriggerDefinitionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.plandefinition_condition import (
+            PlanDefinition_ConditionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.plandefinition_relatedaction import (
+            PlanDefinition_RelatedActionSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.duration import DurationSchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.stu3.complex_types.plandefinition_participant import PlanDefinition_ParticipantSchema
+        from spark_fhir_schemas.stu3.complex_types.plandefinition_participant import (
+            PlanDefinition_ParticipantSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.plandefinition_dynamicvalue import PlanDefinition_DynamicValueSchema
+        from spark_fhir_schemas.stu3.complex_types.plandefinition_dynamicvalue import (
+            PlanDefinition_DynamicValueSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("PlanDefinition_Action") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("PlanDefinition_Action") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -155,9 +173,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of why this action is necessary or appropriate.
                 StructField(
@@ -168,9 +187,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Didactic or other informational resources associated with the action that can
                 # be provided to the CDS recipient. Information resources can include inline
@@ -183,9 +203,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies goals that this action supports. The reference must be to a goal
                 # element defined within this plan definition.
@@ -198,9 +219,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An expression that describes applicability criteria, or start/stop conditions
                 # for the action.
@@ -212,9 +234,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines input data requirements for the action.
                 StructField(
@@ -225,9 +248,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines the outputs of the action, if any.
                 StructField(
@@ -238,9 +262,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A relationship to another action such as "before" or "30-60 minutes after
                 # start of".
@@ -252,9 +277,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An optional value describing when the action should be performed.
                 StructField("timingDateTime", StringType(), True),
@@ -266,8 +292,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
@@ -277,8 +304,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
@@ -288,8 +316,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An optional value describing when the action should be performed.
                 StructField(
@@ -299,8 +328,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates who should participate in performing the action described.
                 StructField(
@@ -311,9 +341,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of action to perform (create, update, remove).
                 StructField(
@@ -323,8 +354,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Defines the grouping behavior for the action and its children.
                 StructField("groupingBehavior", StringType(), True),
@@ -345,8 +377,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a StructureMap resource that defines a transform that can be
                 # executed to produce the intent resource using the ActivityDefinition instance
@@ -358,8 +391,9 @@ class PlanDefinition_ActionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Customizations that should be applied to the statically defined resource. For
                 # example, if the dosage of a medication must be computed based on the patient's
@@ -373,9 +407,10 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Sub actions that are contained within the action. The behavior of this action
                 # determines the functionality of the sub-actions. For example, a selection
@@ -389,16 +424,18 @@ class PlanDefinition_ActionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

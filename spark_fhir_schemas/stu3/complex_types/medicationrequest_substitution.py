@@ -19,6 +19,7 @@ class MedicationRequest_SubstitutionSchema:
     to generalize the use across inpatient and outpatient settings, including care
     plans, etc., and to harmonize with workflow patterns.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class MedicationRequest_SubstitutionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An order or request for both supply of the medication and the instructions for
@@ -43,17 +44,18 @@ class MedicationRequest_SubstitutionSchema:
             not be performed.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicationRequest_Substitution") >=
-            max_recursion_limit
+            and nesting_list.count("MedicationRequest_Substitution")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MedicationRequest_Substitution"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MedicationRequest_Substitution"]
         schema = StructType(
             [
                 # True if the prescriber allows a different drug to be dispensed from what was
@@ -68,15 +70,17 @@ class MedicationRequest_SubstitutionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

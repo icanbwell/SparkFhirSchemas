@@ -15,6 +15,7 @@ class InsurancePlan_SpecificCostSchema:
     """
     Details of a Health Insurance product/plan provided by an organization.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class InsurancePlan_SpecificCostSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Details of a Health Insurance product/plan provided by an organization.
@@ -44,18 +45,20 @@ class InsurancePlan_SpecificCostSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.insuranceplan_benefit1 import InsurancePlan_Benefit1Schema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.insuranceplan_benefit1 import (
+            InsurancePlan_Benefit1Schema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("InsurancePlan_SpecificCost") >=
-            max_recursion_limit
+            and nesting_list.count("InsurancePlan_SpecificCost") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "InsurancePlan_SpecificCost"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["InsurancePlan_SpecificCost"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,9 +77,10 @@ class InsurancePlan_SpecificCostSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # General category of benefit (Medical; Dental; Vision; Drug; Mental Health;
                 # Substance Abuse; Hospice, Home Health).
@@ -87,8 +91,9 @@ class InsurancePlan_SpecificCostSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # List of the specific benefits under this category of benefit.
                 StructField(
@@ -99,16 +104,18 @@ class InsurancePlan_SpecificCostSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

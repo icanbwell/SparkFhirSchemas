@@ -15,6 +15,7 @@ class dateSchema:
     zone. The format is a union of the schema types gYear, gYearMonth and date.
     Dates SHALL be valid dates.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class dateSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A date or partial date (e.g. just year or year + month). There is no time

@@ -17,6 +17,7 @@ class PractitionerRoleSchema:
     A specific set of Roles/Locations/specialties/services that a practitioner may
     perform at an organization for a period of time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class PractitionerRoleSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A specific set of Roles/Locations/specialties/services that a practitioner may
@@ -71,10 +72,19 @@ class PractitionerRoleSchema:
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
-        from spark_fhir_schemas.stu3.complex_types.practitionerrole_availabletime import PractitionerRole_AvailableTimeSchema
-        from spark_fhir_schemas.stu3.complex_types.practitionerrole_notavailable import PractitionerRole_NotAvailableSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.practitionerrole_availabletime import (
+            PractitionerRole_AvailableTimeSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.practitionerrole_notavailable import (
+            PractitionerRole_NotAvailableSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("PractitionerRole") >= max_recursion_limit
@@ -95,9 +105,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Whether this practitioner's record is in active use.
                 StructField("active", BooleanType(), True),
@@ -110,8 +121,9 @@ class PractitionerRoleSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Practitioner that is able to provide the defined services for the organation.
                 StructField(
@@ -121,8 +133,9 @@ class PractitionerRoleSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The organization where the Practitioner performs the roles associated.
                 StructField(
@@ -132,8 +145,9 @@ class PractitionerRoleSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Roles which this practitioner is authorized to perform for the organization.
                 StructField(
@@ -144,9 +158,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Specific specialty of the practitioner.
                 StructField(
@@ -157,9 +172,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The location(s) at which this practitioner provides care.
                 StructField(
@@ -170,9 +186,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The list of healthcare services that this worker provides for this role's
                 # Organization/Location(s).
@@ -184,9 +201,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contact details that are specific to the role/location/service.
                 StructField(
@@ -197,9 +215,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A collection of times that the Service Site is available.
                 StructField(
@@ -210,9 +229,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The HealthcareService is not available during this period of time due to the
                 # provided reason.
@@ -224,9 +244,10 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of site availability exceptions, e.g. public holiday
                 # availability. Succinctly describing all possible exceptions to normal site
@@ -242,16 +263,18 @@ class PractitionerRoleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

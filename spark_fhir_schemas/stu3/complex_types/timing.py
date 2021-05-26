@@ -18,6 +18,7 @@ class TimingSchema:
     when planning care of various kinds, and may be used for reporting the
     schedule to which past regular activities were carried out.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class TimingSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Specifies an event that may occur multiple times. Timing schedules are used to
@@ -47,11 +48,15 @@ class TimingSchema:
             over the code (and is not contained in the code).
 
         """
-        from spark_fhir_schemas.stu3.complex_types.timing_repeat import Timing_RepeatSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.timing_repeat import (
+            Timing_RepeatSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Timing") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Timing") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -67,8 +72,9 @@ class TimingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code for the timing schedule. Some codes such as BID are ubiquitous, but
                 # many institutions define their own additional codes. If a code is provided,
@@ -83,15 +89,17 @@ class TimingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

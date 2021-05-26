@@ -14,6 +14,7 @@ class NarrativeSchema:
     """
     A human-readable formatted text, including images.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -21,7 +22,7 @@ class NarrativeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A human-readable formatted text, including images.
@@ -53,8 +54,9 @@ class NarrativeSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

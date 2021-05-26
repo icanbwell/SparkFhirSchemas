@@ -18,6 +18,7 @@ class ValueSet_ExpansionSchema:
     between [[[CodeSystem]]] definitions and their use in [coded
     elements](terminologies.html).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ValueSet_ExpansionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
@@ -71,8 +72,13 @@ class ValueSet_ExpansionSchema:
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        from spark_fhir_schemas.r4.complex_types.valueset_parameter import ValueSet_ParameterSchema
-        from spark_fhir_schemas.r4.complex_types.valueset_contains import ValueSet_ContainsSchema
+        from spark_fhir_schemas.r4.complex_types.valueset_parameter import (
+            ValueSet_ParameterSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.valueset_contains import (
+            ValueSet_ContainsSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ValueSet_Expansion") >= max_recursion_limit
@@ -98,9 +104,10 @@ class ValueSet_ExpansionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An identifier that uniquely identifies this expansion of the valueset, based
                 # on a unique combination of the provided parameters, the system default
@@ -115,8 +122,9 @@ class ValueSet_ExpansionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The time at which the expansion was produced by the expanding system.
                 StructField(
@@ -126,8 +134,9 @@ class ValueSet_ExpansionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The total number of concepts in the expansion. If the number of concept nodes
                 # in this resource is less than the stated number, then the server can return
@@ -139,8 +148,9 @@ class ValueSet_ExpansionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If paging is being used, the offset at which this resource starts.  I.e. this
                 # resource is a partial view into the expansion. If paging is not being used,
@@ -152,8 +162,9 @@ class ValueSet_ExpansionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A parameter that controlled the expansion process. These parameters may be
                 # used by users of expanded value sets to check whether the expansion is
@@ -166,9 +177,10 @@ class ValueSet_ExpansionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The codes that are contained in the value set expansion.
                 StructField(
@@ -179,16 +191,18 @@ class ValueSet_ExpansionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

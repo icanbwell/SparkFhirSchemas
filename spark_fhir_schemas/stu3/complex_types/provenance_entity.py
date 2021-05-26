@@ -23,6 +23,7 @@ class Provenance_EntitySchema:
     stage in lifecycle (e.g. Document Completion - has the artifact been legally
     authenticated), all of which may impact security, privacy, and trust policies.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -30,7 +31,7 @@ class Provenance_EntitySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Provenance of a resource is a record that describes entities and processes
@@ -63,7 +64,10 @@ class Provenance_EntitySchema:
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.provenance_agent import Provenance_AgentSchema
+        from spark_fhir_schemas.stu3.complex_types.provenance_agent import (
+            Provenance_AgentSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Provenance_Entity") >= max_recursion_limit
@@ -87,8 +91,9 @@ class Provenance_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identity of the  Entity used. May be a logical or physical uri and maybe
                 # absolute or relative.
@@ -99,8 +104,9 @@ class Provenance_EntitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The entity is attributed to an agent to express the agent's responsibility for
                 # that entity, possibly along with other agents. This description can be
@@ -114,16 +120,18 @@ class Provenance_EntitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -18,6 +18,7 @@ class ChargeItemDefinition_ApplicabilitySchema:
     differ largely depending on type and realm, therefore this resource gives only
     a rough structure and requires profiling for each type of billing code system.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ChargeItemDefinition_ApplicabilitySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The ChargeItemDefinition resource provides the properties that apply to the
@@ -57,10 +58,11 @@ class ChargeItemDefinition_ApplicabilitySchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ChargeItemDefinition_Applicability") >=
-            max_recursion_limit
+            and nesting_list.count("ChargeItemDefinition_Applicability")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -85,9 +87,10 @@ class ChargeItemDefinition_ApplicabilitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A brief, natural language description of the condition that effectively
                 # communicates the intended semantics.
@@ -105,8 +108,9 @@ class ChargeItemDefinition_ApplicabilitySchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class ConceptMap_TargetSchema:
     A statement of relationships from one set of concepts to one or more other
     concepts - either code systems or data elements, or classes in class models.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ConceptMap_TargetSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A statement of relationships from one set of concepts to one or more other
@@ -53,7 +54,10 @@ class ConceptMap_TargetSchema:
             on.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.conceptmap_dependson import ConceptMap_DependsOnSchema
+        from spark_fhir_schemas.stu3.complex_types.conceptmap_dependson import (
+            ConceptMap_DependsOnSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ConceptMap_Target") >= max_recursion_limit
@@ -86,9 +90,10 @@ class ConceptMap_TargetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A set of additional outcomes from this mapping to other elements. To properly
                 # execute this mapping, the specified element must be mapped to some data
@@ -103,16 +108,18 @@ class ConceptMap_TargetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

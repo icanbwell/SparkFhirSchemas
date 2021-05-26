@@ -15,6 +15,7 @@ class MedicinalProductIngredient_StrengthSchema:
     """
     An ingredient of a manufactured item or pharmaceutical product.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicinalProductIngredient_StrengthSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An ingredient of a manufactured item or pharmaceutical product.
@@ -58,12 +59,17 @@ class MedicinalProductIngredient_StrengthSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.medicinalproductingredient_referencestrength import MedicinalProductIngredient_ReferenceStrengthSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.medicinalproductingredient_referencestrength import (
+            MedicinalProductIngredient_ReferenceStrengthSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicinalProductIngredient_Strength") >=
-            max_recursion_limit
+            and nesting_list.count("MedicinalProductIngredient_Strength")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -88,9 +94,10 @@ class MedicinalProductIngredient_StrengthSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The quantity of substance in the unit of presentation, or in the volume (or
                 # mass) of the single pharmaceutical product or manufactured item.
@@ -101,8 +108,9 @@ class MedicinalProductIngredient_StrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A lower limit for the quantity of substance in the unit of presentation. For
                 # use when there is a range of strengths, this is the lower limit, with the
@@ -114,8 +122,9 @@ class MedicinalProductIngredient_StrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The strength per unitary volume (or mass).
                 StructField(
@@ -125,8 +134,9 @@ class MedicinalProductIngredient_StrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A lower limit for the strength per unitary volume (or mass), for when there is
                 # a range. The concentration attribute then becomes the upper limit.
@@ -137,8 +147,9 @@ class MedicinalProductIngredient_StrengthSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # For when strength is measured at a particular point or distance.
                 StructField("measurementPoint", StringType(), True),
@@ -151,30 +162,32 @@ class MedicinalProductIngredient_StrengthSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Strength expressed in terms of a reference substance.
                 StructField(
                     "referenceStrength",
                     ArrayType(
-                        MedicinalProductIngredient_ReferenceStrengthSchema.
-                        get_schema(
+                        MedicinalProductIngredient_ReferenceStrengthSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

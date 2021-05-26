@@ -18,6 +18,7 @@ class TerminologyCapabilities_ExpansionSchema:
     of a FHIR Terminology Server that may be used as a statement of actual server
     functionality or a statement of required or desired server implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class TerminologyCapabilities_ExpansionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A TerminologyCapabilities resource documents a set of capabilities (behaviors)
@@ -54,12 +55,15 @@ class TerminologyCapabilities_ExpansionSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.terminologycapabilities_parameter import TerminologyCapabilities_ParameterSchema
+        from spark_fhir_schemas.r4.complex_types.terminologycapabilities_parameter import (
+            TerminologyCapabilities_ParameterSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("TerminologyCapabilities_Expansion") >=
-            max_recursion_limit
+            and nesting_list.count("TerminologyCapabilities_Expansion")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -84,9 +88,10 @@ class TerminologyCapabilities_ExpansionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Whether the server can return nested value sets.
                 StructField("hierarchical", BooleanType(), True),
@@ -103,9 +108,10 @@ class TerminologyCapabilities_ExpansionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Documentation about text searching works.
                 StructField(
@@ -115,15 +121,17 @@ class TerminologyCapabilities_ExpansionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

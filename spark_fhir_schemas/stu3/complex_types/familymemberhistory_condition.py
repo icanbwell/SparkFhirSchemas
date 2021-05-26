@@ -16,6 +16,7 @@ class FamilyMemberHistory_ConditionSchema:
     Significant health events and conditions for a person related to the patient
     relevant in the context of care for the patient.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class FamilyMemberHistory_ConditionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Significant health events and conditions for a person related to the patient
@@ -56,21 +57,22 @@ class FamilyMemberHistory_ConditionSchema:
         note: An area where general notes can be placed about this specific condition.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.age import AgeSchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("FamilyMemberHistory_Condition") >=
-            max_recursion_limit
+            and nesting_list.count("FamilyMemberHistory_Condition")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "FamilyMemberHistory_Condition"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["FamilyMemberHistory_Condition"]
         schema = StructType(
             [
                 # The actual condition specified. Could be a coded condition (like MI or
@@ -83,8 +85,9 @@ class FamilyMemberHistory_ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what happened as a result of this condition.  If the condition
                 # resulted in death, deceased date is captured on the relation.
@@ -95,8 +98,9 @@ class FamilyMemberHistory_ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
@@ -108,8 +112,9 @@ class FamilyMemberHistory_ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
@@ -121,8 +126,9 @@ class FamilyMemberHistory_ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
@@ -134,8 +140,9 @@ class FamilyMemberHistory_ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either the age of onset, range of approximate age or descriptive string can be
                 # recorded.  For conditions with multiple occurrences, this describes the first
@@ -150,16 +157,18 @@ class FamilyMemberHistory_ConditionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

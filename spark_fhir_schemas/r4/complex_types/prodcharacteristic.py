@@ -16,6 +16,7 @@ class ProdCharacteristicSchema:
     The marketing status describes the date when a medicinal product is actually
     put on the market or the date as of which it is no longer available.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ProdCharacteristicSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The marketing status describes the date when a medicinal product is actually
@@ -87,7 +88,10 @@ class ProdCharacteristicSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ProdCharacteristic") >= max_recursion_limit
@@ -113,9 +117,10 @@ class ProdCharacteristicSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Where applicable, the height can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
@@ -128,8 +133,9 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where applicable, the width can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
@@ -142,8 +148,9 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where applicable, the depth can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
@@ -156,8 +163,9 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where applicable, the weight can be specified using a numerical value and its
                 # unit of measurement The unit of measurement shall be specified in accordance
@@ -170,8 +178,9 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where applicable, the nominal volume can be specified using a numerical value
                 # and its unit of measurement The unit of measurement shall be specified in
@@ -184,8 +193,9 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where applicable, the external diameter can be specified using a numerical
                 # value and its unit of measurement The unit of measurement shall be specified
@@ -198,8 +208,9 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where applicable, the shape can be specified An appropriate controlled
                 # vocabulary shall be used The term and the term identifier shall be used.
@@ -219,9 +230,10 @@ class ProdCharacteristicSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Where applicable, the scoring can be specified An appropriate controlled
                 # vocabulary shall be used The term and the term identifier shall be used.
@@ -232,15 +244,17 @@ class ProdCharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

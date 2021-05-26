@@ -15,6 +15,7 @@ class MolecularSequence_VariantSchema:
     """
     Raw data describing a biological sequence.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MolecularSequence_VariantSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -70,16 +71,14 @@ class MolecularSequence_VariantSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MolecularSequence_Variant") >=
-            max_recursion_limit
+            and nesting_list.count("MolecularSequence_Variant") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MolecularSequence_Variant"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MolecularSequence_Variant"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -98,9 +97,10 @@ class MolecularSequence_VariantSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Start position of the variant on the  reference sequence. If the coordinate
                 # system is either 0-based or 1-based, then start position is inclusive.
@@ -111,8 +111,9 @@ class MolecularSequence_VariantSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # End position of the variant on the reference sequence. If the coordinate
                 # system is 0-based then end is exclusive and does not include the last
@@ -125,8 +126,9 @@ class MolecularSequence_VariantSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An allele is one of a set of coexisting sequence variants of a gene ([SO:00010
                 # 23](http://www.sequenceontology.org/browser/current_svn/term/SO:0001023)).
@@ -155,15 +157,17 @@ class MolecularSequence_VariantSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

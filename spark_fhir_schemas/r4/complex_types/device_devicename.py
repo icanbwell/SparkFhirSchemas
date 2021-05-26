@@ -17,6 +17,7 @@ class Device_DeviceNameSchema:
     without being substantially changed through that activity. The device may be a
     medical or non-medical device.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Device_DeviceNameSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A type of a manufactured item that is used in the provision of healthcare
@@ -49,6 +50,7 @@ class Device_DeviceNameSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Device_DeviceName") >= max_recursion_limit
@@ -74,9 +76,10 @@ class Device_DeviceNameSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The name of the device.
                 StructField("name", StringType(), True),
@@ -88,8 +91,9 @@ class Device_DeviceNameSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -17,6 +17,7 @@ class VerificationResult_AttestationSchema:
     Describes validation requirements, source(s), status and dates for one or more
     elements.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class VerificationResult_AttestationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes validation requirements, source(s), status and dates for one or more
@@ -63,18 +64,19 @@ class VerificationResult_AttestationSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("VerificationResult_Attestation") >=
-            max_recursion_limit
+            and nesting_list.count("VerificationResult_Attestation")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "VerificationResult_Attestation"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["VerificationResult_Attestation"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -93,9 +95,10 @@ class VerificationResult_AttestationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The individual or organization attesting to information.
                 StructField(
@@ -105,8 +108,9 @@ class VerificationResult_AttestationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the who is asserting on behalf of another (organization or individual).
                 StructField(
@@ -116,8 +120,9 @@ class VerificationResult_AttestationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The method by which attested information was submitted/retrieved (manual; API;
                 # Push).
@@ -128,8 +133,9 @@ class VerificationResult_AttestationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date the information was attested to.
                 StructField("date", DateType(), True),
@@ -147,8 +153,9 @@ class VerificationResult_AttestationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Signed assertion by the attestation source that they have attested to the
                 # information.
@@ -159,15 +166,17 @@ class VerificationResult_AttestationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

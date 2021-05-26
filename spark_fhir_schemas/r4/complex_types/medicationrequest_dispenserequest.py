@@ -19,6 +19,7 @@ class MedicationRequest_DispenseRequestSchema:
     to generalize the use across inpatient and outpatient settings, including care
     plans, etc., and to harmonize with workflow patterns.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class MedicationRequest_DispenseRequestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An order or request for both supply of the medication and the instructions for
@@ -70,16 +71,19 @@ class MedicationRequest_DispenseRequestSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.medicationrequest_initialfill import MedicationRequest_InitialFillSchema
+        from spark_fhir_schemas.r4.complex_types.medicationrequest_initialfill import (
+            MedicationRequest_InitialFillSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicationRequest_DispenseRequest") >=
-            max_recursion_limit
+            and nesting_list.count("MedicationRequest_DispenseRequest")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -104,9 +108,10 @@ class MedicationRequest_DispenseRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the quantity or duration for the first dispense of the medication.
                 StructField(
@@ -116,8 +121,9 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The minimum period of time that must occur between dispenses of the
                 # medication.
@@ -128,8 +134,9 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This indicates the validity period of a prescription (stale dating the
                 # Prescription).
@@ -140,8 +147,9 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An integer indicating the number of times, in addition to the original
                 # dispense, (aka refills or repeats) that the patient can receive the prescribed
@@ -157,8 +165,9 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The amount that is to be dispensed for one fill.
                 StructField(
@@ -168,8 +177,9 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the period time over which the supplied product is expected to be
                 # used, or the length of time the dispense is expected to last.
@@ -180,8 +190,9 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the intended dispensing Organization specified by the prescriber.
                 StructField(
@@ -191,15 +202,17 @@ class MedicationRequest_DispenseRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

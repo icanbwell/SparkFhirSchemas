@@ -17,6 +17,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
     population plus exposure state where the risk estimate is derived from a
     combination of research studies.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The RiskEvidenceSynthesis resource describes the likelihood of an outcome in a
@@ -49,19 +50,22 @@ class RiskEvidenceSynthesis_CertaintySchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.r4.complex_types.riskevidencesynthesis_certaintysubcomponent import RiskEvidenceSynthesis_CertaintySubcomponentSchema
+        from spark_fhir_schemas.r4.complex_types.riskevidencesynthesis_certaintysubcomponent import (
+            RiskEvidenceSynthesis_CertaintySubcomponentSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("RiskEvidenceSynthesis_Certainty") >=
-            max_recursion_limit
+            and nesting_list.count("RiskEvidenceSynthesis_Certainty")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "RiskEvidenceSynthesis_Certainty"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["RiskEvidenceSynthesis_Certainty"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -80,9 +84,10 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A rating of the certainty of the effect estimate.
                 StructField(
@@ -93,9 +98,10 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A human-readable string to clarify or explain concepts about the resource.
                 StructField(
@@ -106,30 +112,32 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of a component of the overall certainty.
                 StructField(
                     "certaintySubcomponent",
                     ArrayType(
-                        RiskEvidenceSynthesis_CertaintySubcomponentSchema.
-                        get_schema(
+                        RiskEvidenceSynthesis_CertaintySubcomponentSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

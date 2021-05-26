@@ -15,6 +15,7 @@ class InsurancePlan_GeneralCostSchema:
     """
     Details of a Health Insurance product/plan provided by an organization.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class InsurancePlan_GeneralCostSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Details of a Health Insurance product/plan provided by an organization.
@@ -47,19 +48,19 @@ class InsurancePlan_GeneralCostSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.money import MoneySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("InsurancePlan_GeneralCost") >=
-            max_recursion_limit
+            and nesting_list.count("InsurancePlan_GeneralCost") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "InsurancePlan_GeneralCost"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["InsurancePlan_GeneralCost"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -78,9 +79,10 @@ class InsurancePlan_GeneralCostSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Type of cost.
                 StructField(
@@ -90,8 +92,9 @@ class InsurancePlan_GeneralCostSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Number of participants enrolled in the plan.
                 StructField(
@@ -101,8 +104,9 @@ class InsurancePlan_GeneralCostSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Value of the cost.
                 StructField(
@@ -112,8 +116,9 @@ class InsurancePlan_GeneralCostSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information about the general costs associated with this plan.
                 StructField("comment", StringType(), True),
@@ -121,8 +126,9 @@ class InsurancePlan_GeneralCostSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

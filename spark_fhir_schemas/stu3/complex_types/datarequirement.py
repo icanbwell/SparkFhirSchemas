@@ -16,6 +16,7 @@ class DataRequirementSchema:
     Describes a required data item for evaluation in terms of the type of data,
     and optional code or date-based filters of the data.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DataRequirementSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes a required data item for evaluation in terms of the type of data,
@@ -51,8 +52,13 @@ class DataRequirementSchema:
             applicable date range for specific elements.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.datarequirement_codefilter import DataRequirement_CodeFilterSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement_datefilter import DataRequirement_DateFilterSchema
+        from spark_fhir_schemas.stu3.complex_types.datarequirement_codefilter import (
+            DataRequirement_CodeFilterSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.datarequirement_datefilter import (
+            DataRequirement_DateFilterSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("DataRequirement") >= max_recursion_limit
@@ -84,9 +90,10 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Date filters specify additional constraints on the data in terms of the
                 # applicable date range for specific elements.
@@ -98,16 +105,18 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class ContractSchema:
     A formal agreement between parties regarding the conduct of business, exchange
     of information or other matters.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ContractSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formal agreement between parties regarding the conduct of business, exchange
@@ -113,16 +114,33 @@ class ContractSchema:
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.contract_agent import Contract_AgentSchema
-        from spark_fhir_schemas.stu3.complex_types.contract_signer import Contract_SignerSchema
-        from spark_fhir_schemas.stu3.complex_types.contract_valueditem import Contract_ValuedItemSchema
-        from spark_fhir_schemas.stu3.complex_types.contract_term import Contract_TermSchema
+        from spark_fhir_schemas.stu3.complex_types.contract_agent import (
+            Contract_AgentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contract_signer import (
+            Contract_SignerSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contract_valueditem import (
+            Contract_ValuedItemSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contract_term import (
+            Contract_TermSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.stu3.complex_types.contract_friendly import Contract_FriendlySchema
-        from spark_fhir_schemas.stu3.complex_types.contract_legal import Contract_LegalSchema
-        from spark_fhir_schemas.stu3.complex_types.contract_rule import Contract_RuleSchema
+        from spark_fhir_schemas.stu3.complex_types.contract_friendly import (
+            Contract_FriendlySchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contract_legal import (
+            Contract_LegalSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.contract_rule import (
+            Contract_RuleSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Contract") >= max_recursion_limit
@@ -142,8 +160,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The status of the resource instance.
                 StructField("status", StringType(), True),
@@ -157,8 +176,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The target entity impacted by or of interest to parties to the agreement.
                 StructField(
@@ -169,9 +189,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The matter of concern in the context of this agreement.
                 StructField(
@@ -182,9 +203,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A formally or informally recognized grouping of people, principals,
                 # organizations, or jurisdictions formed for the purpose of achieving some form
@@ -198,9 +220,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Recognized governance framework or system operating with a circumscribed scope
                 # in accordance with specified principles, policies, processes or procedures for
@@ -214,9 +237,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Type of Contract such as an insurance policy, real estate contract, a will,
                 # power of attorny, Privacy or Security policy , trust framework agreement, etc.
@@ -227,8 +251,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # More specific type or specialization of an overarching or more general
                 # contract such as auto insurance, home owner  insurance, prenupial agreement,
@@ -241,9 +266,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Action stipulated by this Contract.
                 StructField(
@@ -254,9 +280,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reason for action stipulated by this Contract.
                 StructField(
@@ -267,9 +294,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of decision made by a grantor with respect to an offer made by a
                 # grantee.
@@ -280,8 +308,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The minimal content derived from the basal information source at a specific
                 # stage in its lifecycle.
@@ -292,8 +321,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A set of security labels that define which resources are controlled by this
                 # consent. If more than one label is specified, all resources must have all the
@@ -306,9 +336,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An actor taking a role in an activity for which it can be assigned some degree
                 # of responsibility for the activity taking place.
@@ -320,9 +351,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Parties with legal standing in the Contract, including the principal parties,
                 # the grantor(s) and grantee(s), which are any person or organization bound by
@@ -336,9 +368,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contract Valued Item List.
                 StructField(
@@ -349,9 +382,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # One or more Contract Provisions, which may be related and conveyed as a group,
                 # and may contain nested groups.
@@ -363,9 +397,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Legally binding Contract: This is the signed and legally recognized
                 # representation of the Contract, which is considered the "source of truth" and
@@ -378,8 +413,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Legally binding Contract: This is the signed and legally recognized
                 # representation of the Contract, which is considered the "source of truth" and
@@ -392,8 +428,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The "patient friendly language" versionof the Contract in whole or in parts.
                 # "Patient friendly language" means the representation of the Contract and
@@ -409,9 +446,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # List of Legal expressions or representations of this Contract.
                 StructField(
@@ -422,9 +460,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # List of Computable Policy Rule Language Representations of this Contract.
                 StructField(
@@ -435,16 +474,18 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

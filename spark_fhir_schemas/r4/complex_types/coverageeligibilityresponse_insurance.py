@@ -17,6 +17,7 @@ class CoverageEligibilityResponse_InsuranceSchema:
     This resource provides eligibility and plan details from the processing of an
     CoverageEligibilityRequest resource.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class CoverageEligibilityResponse_InsuranceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides eligibility and plan details from the processing of an
@@ -56,11 +57,14 @@ class CoverageEligibilityResponse_InsuranceSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_item import CoverageEligibilityResponse_ItemSchema
+        from spark_fhir_schemas.r4.complex_types.coverageeligibilityresponse_item import (
+            CoverageEligibilityResponse_ItemSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("CoverageEligibilityResponse_Insurance") >=
-            max_recursion_limit
+            and nesting_list.count("CoverageEligibilityResponse_Insurance")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -85,9 +89,10 @@ class CoverageEligibilityResponse_InsuranceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reference to the insurance card level information contained in the Coverage
                 # resource. The coverage issuing insurer will use these details to locate the
@@ -99,8 +104,9 @@ class CoverageEligibilityResponse_InsuranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Flag indicating if the coverage provided is inforce currently if no service
                 # date(s) specified or for the whole duration of the service dates.
@@ -113,8 +119,9 @@ class CoverageEligibilityResponse_InsuranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Benefits and optionally current balances, and authorization details by
                 # category or service.
@@ -126,16 +133,18 @@ class CoverageEligibilityResponse_InsuranceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

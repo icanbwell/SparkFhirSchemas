@@ -17,6 +17,7 @@ class Consent_ExceptSchema:
     identified recipient(s) or recipient role(s) to perform one or more actions
     within a given policy context, for specific purposes and periods of time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Consent_ExceptSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a healthcare consumer’s policy choices, which permits or denies
@@ -62,10 +63,17 @@ class Consent_ExceptSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.consent_actor1 import Consent_Actor1Schema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.consent_actor1 import (
+            Consent_Actor1Schema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.consent_data1 import Consent_Data1Schema
+        from spark_fhir_schemas.stu3.complex_types.consent_data1 import (
+            Consent_Data1Schema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Consent_Except") >= max_recursion_limit
@@ -85,8 +93,9 @@ class Consent_ExceptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who or what is controlled by this Exception. Use group to identify a set of
                 # actors by some property they share (e.g. 'admitting officers').
@@ -98,9 +107,10 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Actions controlled by this Exception.
                 StructField(
@@ -111,9 +121,10 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A set of security labels that define which resources are controlled by this
                 # exception. If more than one label is specified, all resources must have all
@@ -126,9 +137,10 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The context of the activities a user is taking - why the user is accessing the
                 # data - that are controlled by this exception.
@@ -140,9 +152,10 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The class of information covered by this exception. The type can be a FHIR
                 # resource type, a profile on a type, or a CDA document, or some other type that
@@ -155,9 +168,10 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # If this code is found in an instance, then the exception applies.
                 StructField(
@@ -168,9 +182,10 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Clinical or Operational Relevant period of time that bounds the data
                 # controlled by this exception.
@@ -181,8 +196,9 @@ class Consent_ExceptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The resources controlled by this exception, if specific resources are
                 # referenced.
@@ -194,16 +210,18 @@ class Consent_ExceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

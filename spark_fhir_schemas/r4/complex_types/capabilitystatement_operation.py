@@ -18,6 +18,7 @@ class CapabilityStatement_OperationSchema:
     actual server functionality or a statement of required or desired server
     implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class CapabilityStatement_OperationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -64,16 +65,15 @@ class CapabilityStatement_OperationSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("CapabilityStatement_Operation") >=
-            max_recursion_limit
+            and nesting_list.count("CapabilityStatement_Operation")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "CapabilityStatement_Operation"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["CapabilityStatement_Operation"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -92,9 +92,10 @@ class CapabilityStatement_OperationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The name of the operation or query. For an operation, this is the name
                 # prefixed with $ and used in the URL. For a query, this is the name used in the
@@ -115,8 +116,9 @@ class CapabilityStatement_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Documentation that describes anything special about the operation behavior,
                 # possibly detailing different behavior for system, type and instance-level
@@ -128,15 +130,17 @@ class CapabilityStatement_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

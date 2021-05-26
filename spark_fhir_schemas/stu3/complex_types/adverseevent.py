@@ -18,6 +18,7 @@ class AdverseEventSchema:
     healthcare setting factors that requires additional monitoring, treatment, or
     hospitalization, or that results in death.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class AdverseEventSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Actual or  potential/avoided event causing unintended physical injury
@@ -81,9 +82,14 @@ class AdverseEventSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.adverseevent_suspectentity import AdverseEvent_SuspectEntitySchema
+        from spark_fhir_schemas.stu3.complex_types.adverseevent_suspectentity import (
+            AdverseEvent_SuspectEntitySchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("AdverseEvent") >= max_recursion_limit
@@ -105,8 +111,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of event which is important to characterize what occurred and caused
                 # harm to the subject, or had the potential to cause harm to the subject.
@@ -120,8 +127,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This subject or group impacted by the event.  With a prospective adverse
                 # event, there will be no subject as the adverse event was prevented.
@@ -132,8 +140,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date (and perhaps time) when the adverse event occurred.
                 StructField("date", StringType(), True),
@@ -147,9 +156,10 @@ class AdverseEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The information about where the adverse event occurred.
                 StructField(
@@ -159,8 +169,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the seriousness or severity of the adverse event.
                 StructField(
@@ -170,8 +181,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the type of outcome from the adverse event.
                 StructField(
@@ -181,8 +193,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Information on who recorded the adverse event.  May be the patient or a
                 # practitioner.
@@ -193,8 +206,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Parties that may or should contribute or have contributed information to the
                 # Act. Such information includes information leading to the decision to perform
@@ -208,8 +222,9 @@ class AdverseEventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the adverse event in text.
                 StructField("description", StringType(), True),
@@ -222,9 +237,10 @@ class AdverseEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # AdverseEvent.subjectMedicalHistory.
                 StructField(
@@ -235,9 +251,10 @@ class AdverseEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # AdverseEvent.referenceDocument.
                 StructField(
@@ -248,9 +265,10 @@ class AdverseEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # AdverseEvent.study.
                 StructField(
@@ -261,16 +279,18 @@ class AdverseEventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

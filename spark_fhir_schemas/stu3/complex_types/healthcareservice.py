@@ -16,6 +16,7 @@ class HealthcareServiceSchema:
     """
     The details of a healthcare service available at a location.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class HealthcareServiceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The details of a healthcare service available at a location.
@@ -97,11 +98,20 @@ class HealthcareServiceSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
-        from spark_fhir_schemas.stu3.complex_types.healthcareservice_availabletime import HealthcareService_AvailableTimeSchema
-        from spark_fhir_schemas.stu3.complex_types.healthcareservice_notavailable import HealthcareService_NotAvailableSchema
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.healthcareservice_availabletime import (
+            HealthcareService_AvailableTimeSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.healthcareservice_notavailable import (
+            HealthcareService_NotAvailableSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("HealthcareService") >= max_recursion_limit
@@ -122,9 +132,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Whether this healthcareservice record is in active use.
                 StructField("active", BooleanType(), True),
@@ -136,8 +147,9 @@ class HealthcareServiceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the broad category of service being performed or delivered.
                 StructField(
@@ -147,8 +159,9 @@ class HealthcareServiceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The specific type of service that may be delivered or performed.
                 StructField(
@@ -159,9 +172,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Collection of specialties handled by the service site. This is more of a
                 # medical term.
@@ -173,9 +187,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The location(s) where this healthcare service may be provided.
                 StructField(
@@ -186,9 +201,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Further description of the service as it would be presented to a consumer
                 # while searching.
@@ -208,8 +224,9 @@ class HealthcareServiceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # List of contacts related to this specific healthcare service.
                 StructField(
@@ -220,9 +237,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The location(s) that this service is available to (not where the service is
                 # provided).
@@ -234,9 +252,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The code(s) that detail the conditions under which the healthcare service is
                 # available/offered.
@@ -248,9 +267,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Does this service have specific eligibility requirements that need to be met
                 # in order to use the service?
@@ -261,8 +281,9 @@ class HealthcareServiceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the eligibility conditions for the service.
                 StructField("eligibilityNote", StringType(), True),
@@ -276,9 +297,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Ways that the service accepts referrals, if this is not provided then it is
                 # implied that no referral is required.
@@ -290,9 +312,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates whether or not a prospective consumer will require an appointment
                 # for a particular service at a site to be provided by the Organization.
@@ -307,9 +330,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The HealthcareService is not available during this period of time due to the
                 # provided reason.
@@ -321,9 +345,10 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of site availability exceptions, e.g. public holiday
                 # availability. Succinctly describing all possible exceptions to normal site
@@ -339,16 +364,18 @@ class HealthcareServiceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

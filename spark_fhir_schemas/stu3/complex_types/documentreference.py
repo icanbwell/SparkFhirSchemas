@@ -15,6 +15,7 @@ class DocumentReferenceSchema:
     """
     A reference to a document.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class DocumentReferenceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A reference to a document.
@@ -84,11 +85,20 @@ class DocumentReferenceSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.documentreference_relatesto import DocumentReference_RelatesToSchema
-        from spark_fhir_schemas.stu3.complex_types.documentreference_content import DocumentReference_ContentSchema
-        from spark_fhir_schemas.stu3.complex_types.documentreference_context import DocumentReference_ContextSchema
+        from spark_fhir_schemas.stu3.complex_types.documentreference_relatesto import (
+            DocumentReference_RelatesToSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.documentreference_content import (
+            DocumentReference_ContentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.documentreference_context import (
+            DocumentReference_ContextSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("DocumentReference") >= max_recursion_limit
@@ -110,8 +120,9 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Other identifiers associated with the document, including version independent
                 # identifiers.
@@ -123,9 +134,10 @@ class DocumentReferenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of this document reference.
                 StructField("status", StringType(), True),
@@ -141,8 +153,9 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A categorization for the type of document referenced - helps for indexing and
                 # searching. This may be implied by or derived from the code specified in the
@@ -154,8 +167,9 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who or what the document is about. The document can be about a person,
                 # (patient or healthcare practitioner), a device (e.g. a machine) or even a
@@ -168,8 +182,9 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the document was created.
                 StructField("created", StringType(), True),
@@ -184,9 +199,10 @@ class DocumentReferenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Which person or organization authenticates that this document is valid.
                 StructField(
@@ -196,8 +212,9 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the organization or group who is responsible for ongoing
                 # maintenance of and access to the document.
@@ -208,8 +225,9 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Relationships that this document has with other document references that
                 # already exist.
@@ -221,9 +239,10 @@ class DocumentReferenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Human-readable description of the source document. This is sometimes known as
                 # the "title".
@@ -241,9 +260,10 @@ class DocumentReferenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The document and format referenced. There may be multiple content element
                 # repetitions, each with a different format.
@@ -255,9 +275,10 @@ class DocumentReferenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The clinical context in which the document was prepared.
                 StructField(
@@ -267,15 +288,17 @@ class DocumentReferenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

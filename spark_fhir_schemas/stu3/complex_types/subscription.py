@@ -19,6 +19,7 @@ class SubscriptionSchema:
     resource matches the given criteria, it sends a message on the defined
     "channel" so that another system is able to take an appropriate action.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class SubscriptionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The subscription resource is used to define a push based subscription from a
@@ -61,9 +62,14 @@ class SubscriptionSchema:
             is processed.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
-        from spark_fhir_schemas.stu3.complex_types.subscription_channel import Subscription_ChannelSchema
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.subscription_channel import (
+            Subscription_ChannelSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Subscription") >= max_recursion_limit
@@ -88,9 +94,10 @@ class SubscriptionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The time for the server to turn the subscription off.
                 StructField("end", StringType(), True),
@@ -111,8 +118,9 @@ class SubscriptionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A tag to add to any resource that matches the criteria, after the subscription
                 # is processed.
@@ -124,16 +132,18 @@ class SubscriptionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

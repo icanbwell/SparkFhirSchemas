@@ -16,6 +16,7 @@ class OperationDefinition_ParameterSchema:
     A formal computable definition of an operation (on the RESTful interface) or a
     named query (using the search interaction).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class OperationDefinition_ParameterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formal computable definition of an operation (on the RESTful interface) or a
@@ -78,18 +79,21 @@ class OperationDefinition_ParameterSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        from spark_fhir_schemas.r4.complex_types.operationdefinition_binding import OperationDefinition_BindingSchema
-        from spark_fhir_schemas.r4.complex_types.operationdefinition_referencedfrom import OperationDefinition_ReferencedFromSchema
+        from spark_fhir_schemas.r4.complex_types.operationdefinition_binding import (
+            OperationDefinition_BindingSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.operationdefinition_referencedfrom import (
+            OperationDefinition_ReferencedFromSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("OperationDefinition_Parameter") >=
-            max_recursion_limit
+            and nesting_list.count("OperationDefinition_Parameter")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "OperationDefinition_Parameter"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["OperationDefinition_Parameter"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -108,9 +112,10 @@ class OperationDefinition_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The name of used to identify the parameter.
                 StructField(
@@ -120,8 +125,9 @@ class OperationDefinition_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Whether this is an input or an output parameter.
                 StructField("use", StringType(), True),
@@ -134,8 +140,9 @@ class OperationDefinition_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum number of times this element is permitted to appear in the request
                 # or response.
@@ -150,8 +157,9 @@ class OperationDefinition_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Used when the type is "Reference" or "canonical", and identifies a profile
                 # structure or implementation Guide that applies to the target of the reference
@@ -169,9 +177,10 @@ class OperationDefinition_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # How the parameter is understood as a search parameter. This is only used if
                 # the parameter type is 'string'.
@@ -185,8 +194,9 @@ class OperationDefinition_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies other resource parameters within the operation invocation that are
                 # expected to resolve to this resource.
@@ -198,9 +208,10 @@ class OperationDefinition_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The parts of a nested Parameter.
                 StructField(
@@ -211,16 +222,18 @@ class OperationDefinition_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -17,6 +17,7 @@ class ConsentSchema:
     identified recipient(s) or recipient role(s) to perform one or more actions
     within a given policy context, for specific purposes and periods of time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ConsentSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a healthcare consumer’s policy choices, which permits or denies
@@ -99,18 +100,28 @@ class ConsentSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.consent_actor import Consent_ActorSchema
+        from spark_fhir_schemas.stu3.complex_types.consent_actor import (
+            Consent_ActorSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.stu3.complex_types.consent_policy import Consent_PolicySchema
+        from spark_fhir_schemas.stu3.complex_types.consent_policy import (
+            Consent_PolicySchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.consent_data import Consent_DataSchema
-        from spark_fhir_schemas.stu3.complex_types.consent_except import Consent_ExceptSchema
+        from spark_fhir_schemas.stu3.complex_types.consent_data import (
+            Consent_DataSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.consent_except import (
+            Consent_ExceptSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Consent") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Consent") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -127,8 +138,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the current state of this consent.
                 StructField("status", StringType(), True),
@@ -142,9 +154,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The patient/healthcare consumer to whom this consent applies.
                 StructField(
@@ -154,8 +167,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Relevant time or time-period when this Consent is applicable.
                 StructField(
@@ -165,8 +179,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When this  Consent was issued / created / indexed.
                 StructField("dateTime", StringType(), True),
@@ -182,9 +197,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Who or what is controlled by this consent. Use group to identify a set of
                 # actors by some property they share (e.g. 'admitting officers').
@@ -196,9 +212,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Actions controlled by this consent.
                 StructField(
@@ -209,9 +226,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The organization that manages the consent, and the framework within which it
                 # is executed.
@@ -223,9 +241,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The source on which this consent statement is based. The source might be a
                 # scanned original paper form, or a reference to a consent that links back to
@@ -238,8 +257,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The source on which this consent statement is based. The source might be a
                 # scanned original paper form, or a reference to a consent that links back to
@@ -252,8 +272,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The source on which this consent statement is based. The source might be a
                 # scanned original paper form, or a reference to a consent that links back to
@@ -266,8 +287,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The references to the policies that are included in this consent scope.
                 # Policies may be organizational, but are often defined jurisdictionally, or in
@@ -280,9 +302,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A referece to the specific computable policy.
                 StructField("policyRule", StringType(), True),
@@ -297,9 +320,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The context of the activities a user is taking - why the user is accessing the
                 # data - that are controlled by this consent.
@@ -311,9 +335,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Clinical or Operational Relevant period of time that bounds the data
                 # controlled by this consent.
@@ -324,8 +349,9 @@ class ConsentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The resources controlled by this consent, if specific resources are
                 # referenced.
@@ -337,9 +363,10 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An exception to the base policy of this consent. An exception can be an
                 # addition or removal of access permissions.
@@ -351,16 +378,18 @@ class ConsentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

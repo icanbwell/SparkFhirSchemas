@@ -15,6 +15,7 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
     """
     Information about a medication that is used to support knowledge.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Information about a medication that is used to support knowledge.
@@ -48,13 +49,20 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.medicationknowledge_dosage import MedicationKnowledge_DosageSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.medicationknowledge_dosage import (
+            MedicationKnowledge_DosageSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.medicationknowledge_patientcharacteristics import MedicationKnowledge_PatientCharacteristicsSchema
+        from spark_fhir_schemas.r4.complex_types.medicationknowledge_patientcharacteristics import (
+            MedicationKnowledge_PatientCharacteristicsSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("MedicationKnowledge_AdministrationGuidelines")
+            max_recursion_limit
+            and nesting_list.count("MedicationKnowledge_AdministrationGuidelines")
             >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -80,9 +88,10 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Dosage for the medication for the specific guidelines.
                 StructField(
@@ -93,9 +102,10 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indication for use that apply to the specific administration guidelines.
                 StructField(
@@ -105,8 +115,9 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indication for use that apply to the specific administration guidelines.
                 StructField(
@@ -116,30 +127,32 @@ class MedicationKnowledge_AdministrationGuidelinesSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Characteristics of the patient that are relevant to the administration
                 # guidelines (for example, height, weight, gender, etc.).
                 StructField(
                     "patientCharacteristics",
                     ArrayType(
-                        MedicationKnowledge_PatientCharacteristicsSchema.
-                        get_schema(
+                        MedicationKnowledge_PatientCharacteristicsSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

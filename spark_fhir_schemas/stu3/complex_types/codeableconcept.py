@@ -24,7 +24,7 @@ class CodeableConceptSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A concept that may be defined by a formal reference to a terminology or
@@ -39,6 +39,7 @@ class CodeableConceptSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("CodeableConcept") >= max_recursion_limit
@@ -57,9 +58,10 @@ class CodeableConceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A human language representation of the concept as seen/selected/uttered by the
                 # user who entered the data and/or which represents the intended meaning of the
@@ -69,8 +71,9 @@ class CodeableConceptSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

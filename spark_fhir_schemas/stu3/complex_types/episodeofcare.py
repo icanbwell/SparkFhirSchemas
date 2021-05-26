@@ -17,6 +17,7 @@ class EpisodeOfCareSchema:
     during which time encounters may occur. The managing organization assumes a
     level of responsibility for the patient during this time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class EpisodeOfCareSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An association between a patient and an organization / healthcare provider(s)
@@ -68,11 +69,18 @@ class EpisodeOfCareSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.episodeofcare_statushistory import EpisodeOfCare_StatusHistorySchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.episodeofcare_diagnosis import EpisodeOfCare_DiagnosisSchema
+        from spark_fhir_schemas.stu3.complex_types.episodeofcare_statushistory import (
+            EpisodeOfCare_StatusHistorySchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.episodeofcare_diagnosis import (
+            EpisodeOfCare_DiagnosisSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("EpisodeOfCare") >= max_recursion_limit
@@ -95,9 +103,10 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # planned | waitlist | active | onhold | finished | cancelled.
                 StructField("status", StringType(), True),
@@ -111,9 +120,10 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A classification of the type of episode of care; e.g. specialist referral,
                 # disease management, type of funded care.
@@ -125,9 +135,10 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The list of diagnosis relevant to this episode of care.
                 StructField(
@@ -138,9 +149,10 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The patient who is the focus of this episode of care.
                 StructField(
@@ -150,8 +162,9 @@ class EpisodeOfCareSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The organization that has assumed the specific responsibilities for the
                 # specified duration.
@@ -162,8 +175,9 @@ class EpisodeOfCareSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The interval during which the managing organization assumes the defined
                 # responsibility.
@@ -174,8 +188,9 @@ class EpisodeOfCareSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Referral Request(s) that are fulfilled by this EpisodeOfCare, incoming
                 # referrals.
@@ -187,9 +202,10 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The practitioner that is the care manager/care co-ordinator for this patient.
                 StructField(
@@ -199,8 +215,9 @@ class EpisodeOfCareSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The list of practitioners that may be facilitating this episode of care for
                 # specific purposes.
@@ -212,9 +229,10 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The set of accounts that may be used for billing for this EpisodeOfCare.
                 StructField(
@@ -225,16 +243,18 @@ class EpisodeOfCareSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

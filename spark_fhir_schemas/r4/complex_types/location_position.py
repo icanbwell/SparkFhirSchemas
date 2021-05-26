@@ -17,6 +17,7 @@ class Location_PositionSchema:
     provided and resources and participants may be stored, found, contained, or
     accommodated.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Location_PositionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Details and position information for a physical place where services are
@@ -53,6 +54,7 @@ class Location_PositionSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Location_Position") >= max_recursion_limit
@@ -78,9 +80,10 @@ class Location_PositionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Longitude. The value domain and the interpretation are the same as for the
                 # text of the longitude element in KML (see notes below).
@@ -91,8 +94,9 @@ class Location_PositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Latitude. The value domain and the interpretation are the same as for the text
                 # of the latitude element in KML (see notes below).
@@ -103,8 +107,9 @@ class Location_PositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Altitude. The value domain and the interpretation are the same as for the text
                 # of the altitude element in KML (see notes below).
@@ -115,15 +120,17 @@ class Location_PositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

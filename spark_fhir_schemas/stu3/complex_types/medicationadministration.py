@@ -20,6 +20,7 @@ class MedicationAdministrationSchema:
     prescription, and the specific encounter between patient and health care
     practitioner.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class MedicationAdministrationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes the event of a patient consuming or otherwise being administered a
@@ -116,21 +117,25 @@ class MedicationAdministrationSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.medicationadministration_performer import MedicationAdministration_PerformerSchema
+        from spark_fhir_schemas.stu3.complex_types.medicationadministration_performer import (
+            MedicationAdministration_PerformerSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.medicationadministration_dosage import MedicationAdministration_DosageSchema
+        from spark_fhir_schemas.stu3.complex_types.medicationadministration_dosage import (
+            MedicationAdministration_DosageSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicationAdministration") >=
-            max_recursion_limit
+            and nesting_list.count("MedicationAdministration") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MedicationAdministration"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MedicationAdministration"]
         schema = StructType(
             [
                 # This is a MedicationAdministration resource
@@ -150,9 +155,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A protocol, guideline, orderset or other definition that was adhered to in
                 # whole or in part by this event.
@@ -164,9 +170,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A larger event of which this particular event is a component or step.
                 StructField(
@@ -177,9 +184,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Will generally be set to show that the administration has been completed.  For
                 # some long running administrations such as infusions it is possible for an
@@ -195,8 +203,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the medication that was administered. This is either a link to a
                 # resource representing the details of the medication or a simple attribute
@@ -209,8 +218,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the medication that was administered. This is either a link to a
                 # resource representing the details of the medication or a simple attribute
@@ -223,8 +233,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The person or animal or group receiving the medication.
                 StructField(
@@ -234,8 +245,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The visit, admission or other contact between patient and health care provider
                 # the medication administration was performed as part of.
@@ -246,8 +258,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information (for example, patient height and weight) that supports
                 # the administration of the medication.
@@ -259,9 +272,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A specific date/time or interval of time during which the administration took
                 # place (or did not take place, when the 'notGiven' attribute is true). For many
@@ -279,8 +293,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The individual who was responsible for giving the medication to the patient.
                 StructField(
@@ -291,9 +306,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Set this to true if the record is saying that the medication was NOT
                 # administered.
@@ -307,9 +323,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code indicating why the medication was given.
                 StructField(
@@ -320,9 +337,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Condition or observation that supports why the medication was administered.
                 StructField(
@@ -333,9 +351,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The original request, instruction or authority to perform the administration.
                 StructField(
@@ -345,8 +364,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The device used in administering the medication to the patient.  For example,
                 # a particular infusion pump.
@@ -358,9 +378,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Extra information about the medication administration that is not conveyed by
                 # the other attributes.
@@ -372,9 +393,10 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Describes the medication dosage information details e.g. dose, rate, site,
                 # route, etc.
@@ -385,8 +407,9 @@ class MedicationAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A summary of the events of interest that have occurred, such as when the
                 # administration was verified.
@@ -398,16 +421,18 @@ class MedicationAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema
