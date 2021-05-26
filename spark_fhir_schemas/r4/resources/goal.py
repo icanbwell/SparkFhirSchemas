@@ -312,7 +312,7 @@ class GoalSchema:
                     ), True
                 ),
                 # The date or event after which the goal should begin being pursued.
-                StructField("startDate", StringType(), True),
+                StructField("startDate", DateType(), True),
                 # The date or event after which the goal should begin being pursued.
                 StructField(
                     "startCodeableConcept",

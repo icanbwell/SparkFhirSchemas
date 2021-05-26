@@ -45,6 +45,8 @@ class {{resource.Name}}Schema:
 {#    if it is a simple property #}
     {% if resource.Name.lower() == "datetime" %}
         return TimestampType()
+    {% elif resource.Name.lower() == "time" %}
+        return TimestampType()
     {% elif resource.Type == "date" or resource.Name.lower() == "date" %}
         return DateType()
     {% elif resource.Name == "decimal" %}
@@ -101,6 +103,12 @@ class {{resource.Name}}Schema:
                 StructField("{{property.Name}}", DateType(), True),
             {% elif (property.Type == "number" or property.UnderlyingDataType == "number") and ("Decimal" in property.Name) %}
                 StructField("{{property.Name}}", FloatType(), True),
+            {% elif (property.Type == "string" or property.UnderlyingDataType == "string") and ("DateTime" in property.Name) %}
+                StructField("{{property.Name}}", TimestampType(), True),
+            {% elif (property.Type == "string" or property.UnderlyingDataType == "string") and ("Time" in property.Name) %}
+                StructField("{{property.Name}}", TimestampType(), True),
+            {% elif (property.Type == "string" or property.UnderlyingDataType == "string") and ("Date" in property.Name) %}
+                StructField("{{property.Name}}", DateType(), True),
             {% elif property.Type == "string" or property.UnderlyingDataType == "string" %}
                 StructField("{{property.Name}}", StringType(), True),
             {% elif property.Type == "boolean" or property.UnderlyingDataType == "boolean" %}

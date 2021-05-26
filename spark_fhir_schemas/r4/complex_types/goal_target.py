@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import DateType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -236,7 +237,7 @@ class Goal_TargetSchema:
                 ),
                 # Indicates either the date or the duration after start by which the goal should
                 # be met.
-                StructField("dueDate", StringType(), True),
+                StructField("dueDate", DateType(), True),
                 # Indicates either the date or the duration after start by which the goal should
                 # be met.
                 StructField(

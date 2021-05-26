@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import DateType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
 from pyspark.sql.types import StructType
@@ -382,7 +383,7 @@ class FamilyMemberHistorySchema:
                     ), True
                 ),
                 # The actual or approximate date of birth of the relative.
-                StructField("bornDate", StringType(), True),
+                StructField("bornDate", DateType(), True),
                 # The actual or approximate date of birth of the relative.
                 StructField("bornString", StringType(), True),
                 # The age of the relative at the time the family member history is recorded.
@@ -440,7 +441,7 @@ class FamilyMemberHistorySchema:
                 ),
                 # Deceased flag or the actual or approximate age of the relative at the time of
                 # death for the family member history record.
-                StructField("deceasedDate", StringType(), True),
+                StructField("deceasedDate", DateType(), True),
                 # Deceased flag or the actual or approximate age of the relative at the time of
                 # death for the family member history record.
                 StructField("deceasedString", StringType(), True),

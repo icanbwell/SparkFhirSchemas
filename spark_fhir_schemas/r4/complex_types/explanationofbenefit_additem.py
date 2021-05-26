@@ -4,6 +4,7 @@ from typing import Union
 
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import DateType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
 from pyspark.sql.types import StructType
@@ -236,7 +237,7 @@ class ExplanationOfBenefit_AddItemSchema:
                 ),
                 # The date or dates when the service or product was supplied, performed or
                 # completed.
-                StructField("servicedDate", StringType(), True),
+                StructField("servicedDate", DateType(), True),
                 # The date or dates when the service or product was supplied, performed or
                 # completed.
                 StructField(
