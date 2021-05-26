@@ -4,7 +4,7 @@ from typing import Union
 
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import DataType
-from pyspark.sql.types import IntegerType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
 from pyspark.sql.types import StructType
@@ -114,7 +114,7 @@ class RiskAssessment_PredictionSchema:
                     ), True
                 ),
                 # Indicates how likely the outcome is (in the specified timeframe).
-                StructField("probabilityDecimal", IntegerType(), True),
+                StructField("probabilityDecimal", FloatType(), True),
                 # Indicates how likely the outcome is (in the specified timeframe).
                 StructField(
                     "probabilityRange",

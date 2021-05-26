@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -145,7 +146,7 @@ class Contract_AnswerSchema:
                 # values to be agreed to, e.g., the period of participation, the date of
                 # occupancy of a rental, warrently duration, or whether biospecimen may be used
                 # for further research.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # Response to an offer clause or question text,  which enables selection of
                 # values to be agreed to, e.g., the period of participation, the date of
                 # occupancy of a rental, warrently duration, or whether biospecimen may be used

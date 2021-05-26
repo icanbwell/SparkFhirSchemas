@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -1829,7 +1830,7 @@ class ElementDefinitionSchema:
                 StructField("defaultValueDateTime", StringType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
-                StructField("defaultValueDecimal", IntegerType(), True),
+                StructField("defaultValueDecimal", FloatType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
                 StructField("defaultValueId", StringType(), True),
@@ -2288,7 +2289,7 @@ class ElementDefinitionSchema:
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
                 # elements/attributes must also be missing.
-                StructField("fixedDecimal", IntegerType(), True),
+                StructField("fixedDecimal", FloatType(), True),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
@@ -2915,7 +2916,7 @@ class ElementDefinitionSchema:
                 # 1. If primitive: it must match exactly the pattern value
                 # 2. If a complex object: it must match (recursively) the pattern value
                 # 3. If an array: it must match (recursively) the pattern value.
-                StructField("patternDecimal", IntegerType(), True),
+                StructField("patternDecimal", FloatType(), True),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
                 # may be found too. This is effectively constraint by example.
@@ -4045,7 +4046,7 @@ class ElementDefinitionSchema:
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("minValueDecimal", IntegerType(), True),
+                StructField("minValueDecimal", FloatType(), True),
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
@@ -4090,7 +4091,7 @@ class ElementDefinitionSchema:
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("maxValueDecimal", IntegerType(), True),
+                StructField("maxValueDecimal", FloatType(), True),
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.

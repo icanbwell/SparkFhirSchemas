@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -125,7 +126,7 @@ class Questionnaire_EnableWhenSchema:
                 StructField("answerBoolean", BooleanType(), True),
                 # A value that the referenced question is tested using the specified operator in
                 # order for the item to be enabled.
-                StructField("answerDecimal", IntegerType(), True),
+                StructField("answerDecimal", FloatType(), True),
                 # A value that the referenced question is tested using the specified operator in
                 # order for the item to be enabled.
                 StructField("answerInteger", IntegerType(), True),

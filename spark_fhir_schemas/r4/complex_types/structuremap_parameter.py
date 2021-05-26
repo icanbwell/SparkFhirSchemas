@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -91,7 +92,7 @@ class StructureMap_ParameterSchema:
                 # Parameter value - variable or literal.
                 StructField("valueInteger", IntegerType(), True),
                 # Parameter value - variable or literal.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
             ]
         )
         if not include_extension:

@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -172,7 +173,7 @@ class ExtensionSchema:
                 StructField("valueDateTime", StringType(), True),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # Value of extension - must be one of a constrained set of the data types (see
                 # [Extensibility](extensibility.html) for a list).
                 StructField("valueId", StringType(), True),

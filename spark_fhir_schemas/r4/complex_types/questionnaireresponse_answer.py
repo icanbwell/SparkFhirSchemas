@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -111,7 +112,7 @@ class QuestionnaireResponse_AnswerSchema:
                 # The answer (or one of the answers) provided by the respondent to the question.
                 StructField("valueBoolean", BooleanType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
                 StructField("valueInteger", IntegerType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.

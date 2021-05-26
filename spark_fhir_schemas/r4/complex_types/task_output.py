@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -227,7 +228,7 @@ class Task_OutputSchema:
                 # The value of the Output parameter as a basic type.
                 StructField("valueDateTime", StringType(), True),
                 # The value of the Output parameter as a basic type.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The value of the Output parameter as a basic type.
                 StructField("valueId", StringType(), True),
                 # The value of the Output parameter as a basic type.

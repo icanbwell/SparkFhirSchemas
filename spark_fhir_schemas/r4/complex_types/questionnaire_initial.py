@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -105,7 +106,7 @@ class Questionnaire_InitialSchema:
                 # The actual value to for an initial answer.
                 StructField("valueBoolean", BooleanType(), True),
                 # The actual value to for an initial answer.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The actual value to for an initial answer.
                 StructField("valueInteger", IntegerType(), True),
                 # The actual value to for an initial answer.

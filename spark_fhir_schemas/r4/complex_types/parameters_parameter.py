@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -227,7 +228,7 @@ class Parameters_ParameterSchema:
                 # If the parameter is a data type.
                 StructField("valueDateTime", StringType(), True),
                 # If the parameter is a data type.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # If the parameter is a data type.
                 StructField("valueId", StringType(), True),
                 # If the parameter is a data type.

@@ -5,6 +5,7 @@ from typing import Union
 from pyspark.sql.types import ArrayType
 from pyspark.sql.types import BooleanType
 from pyspark.sql.types import DataType
+from pyspark.sql.types import FloatType
 from pyspark.sql.types import IntegerType
 from pyspark.sql.types import StringType
 from pyspark.sql.types import StructField
@@ -280,7 +281,7 @@ class ElementDefinition_ExampleSchema:
                 StructField("valueDateTime", StringType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField("valueId", StringType(), True),
