@@ -5,6 +5,15 @@ repos:
     hooks:
     -   id: autoflake
         args: [--in-place, --remove-all-unused-imports, --remove-unused-variable]
+-   repo: https://github.com/hadialqattan/pycln
+    rev: v0.0.2 # Possible releases: https://github.com/hadialqattan/pycln/tags
+    hooks:
+    -   id: pycln
+        args: [--all]
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+    -   id: flake8
 -   repo: https://github.com/ambv/black
     rev: 21.5b0
     hooks:
