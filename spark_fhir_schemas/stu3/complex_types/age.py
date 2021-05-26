@@ -13,6 +13,7 @@ class AgeSchema:
     """
     A duration of time during which an organism (or a process) has existed.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -20,7 +21,7 @@ class AgeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A duration of time during which an organism (or a process) has existed.

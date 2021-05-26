@@ -17,6 +17,7 @@ class CapabilityStatement_RestSchema:
     Server that may be used as a statement of actual server functionality or a
     statement of required or desired server implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class CapabilityStatement_RestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -59,21 +60,29 @@ class CapabilityStatement_RestSchema:
             its canonical URL .
 
         """
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_security import CapabilityStatement_SecuritySchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_resource import CapabilityStatement_ResourceSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_interaction1 import CapabilityStatement_Interaction1Schema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_searchparam import CapabilityStatement_SearchParamSchema
-        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_operation import CapabilityStatement_OperationSchema
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_security import (
+            CapabilityStatement_SecuritySchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_resource import (
+            CapabilityStatement_ResourceSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_interaction1 import (
+            CapabilityStatement_Interaction1Schema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_searchparam import (
+            CapabilityStatement_SearchParamSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.capabilitystatement_operation import (
+            CapabilityStatement_OperationSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("CapabilityStatement_Rest") >=
-            max_recursion_limit
+            and nesting_list.count("CapabilityStatement_Rest") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "CapabilityStatement_Rest"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["CapabilityStatement_Rest"]
         schema = StructType(
             [
                 # Identifies whether this portion of the statement is describing the ability to
@@ -91,8 +100,9 @@ class CapabilityStatement_RestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A specification of the restful capabilities of the solution for a specific
                 # resource type.
@@ -104,9 +114,10 @@ class CapabilityStatement_RestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A specification of restful operations supported by the system.
                 StructField(
@@ -117,9 +128,10 @@ class CapabilityStatement_RestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Search parameters that are supported for searching all resources for
                 # implementations to support and/or make use of - either references to ones
@@ -133,9 +145,10 @@ class CapabilityStatement_RestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Definition of an operation or a named query together with its parameters and
                 # their meaning and type.
@@ -147,9 +160,10 @@ class CapabilityStatement_RestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An absolute URI which is a reference to the definition of a compartment that
                 # the system supports. The reference is to a CompartmentDefinition resource by
@@ -158,8 +172,9 @@ class CapabilityStatement_RestSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

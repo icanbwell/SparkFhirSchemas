@@ -18,6 +18,7 @@ class PlanDefinition_GoalSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class PlanDefinition_GoalSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
@@ -65,12 +66,19 @@ class PlanDefinition_GoalSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.r4.complex_types.plandefinition_target import PlanDefinition_TargetSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.plandefinition_target import (
+            PlanDefinition_TargetSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("PlanDefinition_Goal") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("PlanDefinition_Goal") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -93,9 +101,10 @@ class PlanDefinition_GoalSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates a category the goal falls within.
                 StructField(
@@ -105,8 +114,9 @@ class PlanDefinition_GoalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Human-readable and/or coded description of a specific desired objective of
                 # care, such as "control blood pressure" or "negotiate an obstacle course" or
@@ -118,8 +128,9 @@ class PlanDefinition_GoalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the expected level of importance associated with
                 # reaching/sustaining the defined goal.
@@ -130,8 +141,9 @@ class PlanDefinition_GoalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The event after which the goal should begin being pursued.
                 StructField(
@@ -141,8 +153,9 @@ class PlanDefinition_GoalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies problems, conditions, issues, or concerns the goal is intended to
                 # address.
@@ -154,9 +167,10 @@ class PlanDefinition_GoalSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Didactic or other informational resources associated with the goal that
                 # provide further supporting information about the goal. Information resources
@@ -169,9 +183,10 @@ class PlanDefinition_GoalSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates what should be done and within what timeframe.
                 StructField(
@@ -182,16 +197,18 @@ class PlanDefinition_GoalSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

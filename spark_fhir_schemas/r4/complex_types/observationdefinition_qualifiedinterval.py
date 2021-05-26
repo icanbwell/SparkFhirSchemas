@@ -16,6 +16,7 @@ class ObservationDefinition_QualifiedIntervalSchema:
     Set of definitional characteristics for a kind of observation or measurement
     produced or consumed by an orderable health care service.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ObservationDefinition_QualifiedIntervalSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Set of definitional characteristics for a kind of observation or measurement
@@ -63,7 +64,10 @@ class ObservationDefinition_QualifiedIntervalSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ObservationDefinition_QualifiedInterval")
@@ -92,9 +96,10 @@ class ObservationDefinition_QualifiedIntervalSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The category of interval of values for continuous or ordinal observations
                 # conforming to this ObservationDefinition.
@@ -108,8 +113,9 @@ class ObservationDefinition_QualifiedIntervalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Codes to indicate the health context the range applies to. For example, the
                 # normal or therapeutic range.
@@ -120,8 +126,9 @@ class ObservationDefinition_QualifiedIntervalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Codes to indicate the target population this reference range applies to.
                 StructField(
@@ -132,9 +139,10 @@ class ObservationDefinition_QualifiedIntervalSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Sex of the population the range applies to.
                 StructField("gender", StringType(), True),
@@ -147,8 +155,9 @@ class ObservationDefinition_QualifiedIntervalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The gestational age to which this reference range is applicable, in the
                 # context of pregnancy.
@@ -159,8 +168,9 @@ class ObservationDefinition_QualifiedIntervalSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Text based condition for which the reference range is valid.
                 StructField("condition", StringType(), True),
@@ -168,8 +178,9 @@ class ObservationDefinition_QualifiedIntervalSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

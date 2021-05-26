@@ -18,6 +18,7 @@ class EvidenceSchema:
     exposures being compared within the population) and outcome (if specified)
     that the knowledge (evidence, assertion, recommendation) is about.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class EvidenceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The Evidence resource describes the conditional state (population and any
@@ -176,14 +177,21 @@ class EvidenceSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
+        from spark_fhir_schemas.r4.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Evidence") >= max_recursion_limit
@@ -204,8 +212,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -217,8 +226,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -231,8 +241,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -242,8 +253,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -258,8 +270,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -272,9 +285,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -289,9 +303,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An absolute URI that is used to identify this evidence when it is referenced
                 # in a specification, model, design or an instance; also called its canonical
@@ -306,8 +321,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A formal identifier that is used to identify this evidence when it is
                 # represented in other formats, or referenced in a specification, model, design
@@ -320,9 +336,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the evidence when it
                 # is referenced in a specification, model, design or instance. This is an
@@ -360,8 +377,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The name of the organization or individual that published the evidence.
                 StructField("publisher", StringType(), True),
@@ -375,9 +393,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the evidence from a consumer's
                 # perspective.
@@ -388,8 +407,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable string to clarify or explain concepts about the resource.
                 StructField(
@@ -400,9 +420,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -417,9 +438,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the evidence is intended to be used.
                 StructField(
@@ -430,9 +452,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the evidence and/or its contents. Copyright
                 # statements are generally legal restrictions on the use and publishing of the
@@ -444,8 +467,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date on which the resource content was approved by the publisher. Approval
                 # happens once when the content is officially approved for usage.
@@ -462,8 +486,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the content of the Evidence. Topics provide a
                 # high-level categorization grouping types of Evidences that can be useful for
@@ -476,9 +501,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individiual or organization primarily involved in the creation and
                 # maintenance of the content.
@@ -490,9 +516,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization primarily responsible for internal coherence of
                 # the content.
@@ -504,9 +531,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization primarily responsible for review of some aspect
                 # of the content.
@@ -518,9 +546,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization responsible for officially endorsing the content
                 # for use in some setting.
@@ -532,9 +561,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Related artifacts such as additional documentation, justification, or
                 # bibliographic references.
@@ -546,9 +576,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a EvidenceVariable resource that defines the population for the
                 # research.
@@ -559,8 +590,9 @@ class EvidenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a EvidenceVariable resource that defines the exposure for the
                 # research.
@@ -572,9 +604,10 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a EvidenceVariable resomece that defines the outcome for the
                 # research.
@@ -586,16 +619,18 @@ class EvidenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

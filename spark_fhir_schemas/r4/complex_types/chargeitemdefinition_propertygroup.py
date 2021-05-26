@@ -18,6 +18,7 @@ class ChargeItemDefinition_PropertyGroupSchema:
     differ largely depending on type and realm, therefore this resource gives only
     a rough structure and requires profiling for each type of billing code system.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ChargeItemDefinition_PropertyGroupSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The ChargeItemDefinition resource provides the properties that apply to the
@@ -54,12 +55,17 @@ class ChargeItemDefinition_PropertyGroupSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.chargeitemdefinition_applicability import ChargeItemDefinition_ApplicabilitySchema
-        from spark_fhir_schemas.r4.complex_types.chargeitemdefinition_pricecomponent import ChargeItemDefinition_PriceComponentSchema
+        from spark_fhir_schemas.r4.complex_types.chargeitemdefinition_applicability import (
+            ChargeItemDefinition_ApplicabilitySchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.chargeitemdefinition_pricecomponent import (
+            ChargeItemDefinition_PriceComponentSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("ChargeItemDefinition_PropertyGroup") >=
-            max_recursion_limit
+            and nesting_list.count("ChargeItemDefinition_PropertyGroup")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -84,9 +90,10 @@ class ChargeItemDefinition_PropertyGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Expressions that describe applicability criteria for the priceComponent.
                 StructField(
@@ -97,9 +104,10 @@ class ChargeItemDefinition_PropertyGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The price for a ChargeItem may be calculated as a base price with
                 # surcharges/deductions that apply in certain conditions. A ChargeItemDefinition
@@ -115,16 +123,18 @@ class ChargeItemDefinition_PropertyGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

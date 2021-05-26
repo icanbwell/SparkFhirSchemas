@@ -16,6 +16,7 @@ class CapabilityStatement_EndpointSchema:
     Server that may be used as a statement of actual server functionality or a
     statement of required or desired server implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class CapabilityStatement_EndpointSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -39,16 +40,15 @@ class CapabilityStatement_EndpointSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("CapabilityStatement_Endpoint") >=
-            max_recursion_limit
+            and nesting_list.count("CapabilityStatement_Endpoint")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "CapabilityStatement_Endpoint"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["CapabilityStatement_Endpoint"]
         schema = StructType(
             [
                 # A list of the messaging transport protocol(s) identifiers, supported by this
@@ -60,8 +60,9 @@ class CapabilityStatement_EndpointSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The network address of the end-point. For solutions that do not use network
                 # addresses for routing, it can be just an identifier.
@@ -70,8 +71,9 @@ class CapabilityStatement_EndpointSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

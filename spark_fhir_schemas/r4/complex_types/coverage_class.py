@@ -16,6 +16,7 @@ class Coverage_ClassSchema:
     Financial instrument which may be used to reimburse or pay for health care
     products and services. Includes both insurance and self-payment.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Coverage_ClassSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Financial instrument which may be used to reimburse or pay for health care
@@ -49,7 +50,10 @@ class Coverage_ClassSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Coverage_Class") >= max_recursion_limit
@@ -75,9 +79,10 @@ class Coverage_ClassSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of classification for which an insurer-specific class label or number
                 # and optional name is provided, for example may be used to identify a class of
@@ -89,8 +94,9 @@ class Coverage_ClassSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The alphanumeric string value associated with the insurer issued label.
                 StructField("value", StringType(), True),
@@ -100,8 +106,9 @@ class Coverage_ClassSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

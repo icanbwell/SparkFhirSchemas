@@ -17,6 +17,7 @@ class SupplyRequestSchema:
     A record of a request for a medication, substance or device used in the
     healthcare setting.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class SupplyRequestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a request for a medication, substance or device used in the
@@ -118,13 +119,18 @@ class SupplyRequestSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.r4.complex_types.supplyrequest_parameter import SupplyRequest_ParameterSchema
+        from spark_fhir_schemas.r4.complex_types.supplyrequest_parameter import (
+            SupplyRequest_ParameterSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("SupplyRequest") >= max_recursion_limit
@@ -145,8 +151,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -158,8 +165,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -172,8 +180,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -183,8 +192,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -199,8 +209,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -213,9 +224,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -230,9 +242,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Business identifiers assigned to this SupplyRequest by the author and/or other
                 # systems. These identifiers remain constant as the resource is updated and
@@ -245,9 +258,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Status of the supply request.
                 StructField("status", StringType(), True),
@@ -260,8 +274,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates how quickly this SupplyRequest should be addressed with respect to
                 # other requests.
@@ -272,8 +287,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The item that is requested to be supplied. This is either a link to a resource
                 # representing the details of the item or a code that identifies the item from a
@@ -285,8 +301,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The item that is requested to be supplied. This is either a link to a resource
                 # representing the details of the item or a code that identifies the item from a
@@ -298,8 +315,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The amount that is being ordered of the indicated item.
                 StructField(
@@ -309,8 +327,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specific parameters for the ordered item.  For example, the size of the
                 # indicated item.
@@ -322,9 +341,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # When the request should be fulfilled.
                 StructField("occurrenceDateTime", TimestampType(), True),
@@ -336,8 +356,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the request should be fulfilled.
                 StructField(
@@ -347,8 +368,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the request was made.
                 StructField(
@@ -358,8 +380,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The device, practitioner, etc. who initiated the request.
                 StructField(
@@ -369,8 +392,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who is intended to fulfill the request.
                 StructField(
@@ -381,9 +405,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The reason why the supply item was requested.
                 StructField(
@@ -394,9 +419,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The reason why the supply item was requested.
                 StructField(
@@ -407,9 +433,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Where the supply is expected to come from.
                 StructField(
@@ -419,8 +446,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the supply is destined to go.
                 StructField(
@@ -430,15 +458,17 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

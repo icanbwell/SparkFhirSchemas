@@ -17,6 +17,7 @@ class Claim_CareTeamSchema:
     A provider issued list of services and products provided, or to be provided,
     to a patient which is provided to an insurer for payment recovery.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Claim_CareTeamSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A provider issued list of services and products provided, or to be provided,
@@ -45,7 +46,10 @@ class Claim_CareTeamSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Claim_CareTeam") >= max_recursion_limit
@@ -65,8 +69,9 @@ class Claim_CareTeamSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party who is billing and responsible for the claimed good or service
                 # rendered to the patient.
@@ -80,8 +85,9 @@ class Claim_CareTeamSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The qualification which is applicable for this service.
                 StructField(
@@ -91,15 +97,17 @@ class Claim_CareTeamSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

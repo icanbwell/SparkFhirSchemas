@@ -15,6 +15,7 @@ class Task_RestrictionSchema:
     """
     A task to be performed.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Task_RestrictionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A task to be performed.
@@ -49,6 +50,7 @@ class Task_RestrictionSchema:
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Task_Restriction") >= max_recursion_limit
@@ -74,9 +76,10 @@ class Task_RestrictionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the number of times the requested action should occur.
                 StructField(
@@ -86,8 +89,9 @@ class Task_RestrictionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Over what time-period is fulfillment sought.
                 StructField(
@@ -97,8 +101,9 @@ class Task_RestrictionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # For requests that are targeted to more than on potential recipient/target, for
                 # whom is fulfillment sought?
@@ -110,16 +115,18 @@ class Task_RestrictionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

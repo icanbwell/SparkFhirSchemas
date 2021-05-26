@@ -16,6 +16,7 @@ class AccountSchema:
     A financial tool for tracking value accrued for a particular purpose.  In the
     healthcare field, used to track charges for a patient, cost centers, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class AccountSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A financial tool for tracking value accrued for a particular purpose.  In the
@@ -68,15 +69,21 @@ class AccountSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.money import MoneySchema
-        from spark_fhir_schemas.stu3.complex_types.account_coverage import Account_CoverageSchema
-        from spark_fhir_schemas.stu3.complex_types.account_guarantor import Account_GuarantorSchema
+        from spark_fhir_schemas.stu3.complex_types.account_coverage import (
+            Account_CoverageSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.account_guarantor import (
+            Account_GuarantorSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Account") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Account") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -95,9 +102,10 @@ class AccountSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates whether the account is presently used/usable or not.
                 StructField("status", StringType(), True),
@@ -109,8 +117,9 @@ class AccountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Name used for the account when displaying it to humans in reports, etc.
                 StructField("name", StringType(), True),
@@ -123,8 +132,9 @@ class AccountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the period of time the account applies to; e.g. accounts created
                 # per fiscal year, quarter, etc.
@@ -135,8 +145,9 @@ class AccountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the period of time over which the account is allowed to have
                 # transactions posted to it.
@@ -149,8 +160,9 @@ class AccountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Represents the sum of all credits less all debits associated with the account.
                 # Might be positive, zero or negative.
@@ -161,8 +173,9 @@ class AccountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party(s) that are responsible for covering the payment of this account,
                 # and what order should they be applied to the account.
@@ -174,9 +187,10 @@ class AccountSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the organization, department, etc. with responsibility for the
                 # account.
@@ -187,8 +201,9 @@ class AccountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Provides additional information about what the account tracks and how it is
                 # used.
@@ -202,16 +217,18 @@ class AccountSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -15,6 +15,7 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
     """
     A pharmaceutical product described in terms of its composition and dose form.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A pharmaceutical product described in terms of its composition and dose form.
@@ -44,11 +45,16 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.medicinalproductpharmaceutical_withdrawalperiod import MedicinalProductPharmaceutical_WithdrawalPeriodSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.medicinalproductpharmaceutical_withdrawalperiod import (
+            MedicinalProductPharmaceutical_WithdrawalPeriodSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("MedicinalProductPharmaceutical_TargetSpecies")
+            max_recursion_limit
+            and nesting_list.count("MedicinalProductPharmaceutical_TargetSpecies")
             >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -74,9 +80,10 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Coded expression for the species.
                 StructField(
@@ -86,30 +93,32 @@ class MedicinalProductPharmaceutical_TargetSpeciesSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A species specific time during which consumption of animal product is not
                 # appropriate.
                 StructField(
                     "withdrawalPeriod",
                     ArrayType(
-                        MedicinalProductPharmaceutical_WithdrawalPeriodSchema.
-                        get_schema(
+                        MedicinalProductPharmaceutical_WithdrawalPeriodSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

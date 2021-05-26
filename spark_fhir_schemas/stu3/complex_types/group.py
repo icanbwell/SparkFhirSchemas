@@ -20,6 +20,7 @@ class GroupSchema:
     formally or legally recognized; i.e. a collection of entities that isn't an
     Organization.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class GroupSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Represents a defined collection of entities that may be discussed or acted
@@ -62,12 +63,18 @@ class GroupSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.group_characteristic import Group_CharacteristicSchema
-        from spark_fhir_schemas.stu3.complex_types.group_member import Group_MemberSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.group_characteristic import (
+            Group_CharacteristicSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.group_member import (
+            Group_MemberSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Group") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Group") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -85,9 +92,10 @@ class GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates whether the record for the group is available for use or is merely
                 # being retained for historical purposes.
@@ -107,8 +115,9 @@ class GroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A label assigned to the group for human identification and communication.
                 StructField("name", StringType(), True),
@@ -123,9 +132,10 @@ class GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the resource instances that are members of the group.
                 StructField(
@@ -136,16 +146,18 @@ class GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

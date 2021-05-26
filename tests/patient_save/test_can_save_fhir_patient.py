@@ -12,9 +12,9 @@ from spark_fhir_schemas.r4.resources.patient import PatientSchema
 
 def test_can_save_fhir_patient(spark_session: SparkSession) -> None:
     # Arrange
-    data_dir: Path = Path(__file__).parent.joinpath('./')
+    data_dir: Path = Path(__file__).parent.joinpath("./")
 
-    temp_folder = data_dir.joinpath('./temp')
+    temp_folder = data_dir.joinpath("./temp")
     if path.isdir(temp_folder):
         rmtree(temp_folder)
 
@@ -22,10 +22,11 @@ def test_can_save_fhir_patient(spark_session: SparkSession) -> None:
 
     patient_schema: Union[StructType, DataType] = PatientSchema.get_schema()
     assert isinstance(patient_schema, StructType)
-    df = spark_session.read.option("multiLine",
-                                   True).schema(patient_schema).json(
-                                       str(data_dir.joinpath("test.json"))
-                                   )
+    df = (
+        spark_session.read.option("multiLine", True)
+        .schema(patient_schema)
+        .json(str(data_dir.joinpath("test.json")))
+    )
     # df = spark_session.createDataFrame(data2)
 
     # Act

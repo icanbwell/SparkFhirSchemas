@@ -18,6 +18,7 @@ class PatientSchema:
     Demographics and other administrative information about an individual or
     animal receiving care or other health-related services.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class PatientSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Demographics and other administrative information about an individual or
@@ -80,18 +81,30 @@ class PatientSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.humanname import HumanNameSchema
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.address import AddressSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.stu3.complex_types.patient_contact import Patient_ContactSchema
-        from spark_fhir_schemas.stu3.complex_types.patient_animal import Patient_AnimalSchema
-        from spark_fhir_schemas.stu3.complex_types.patient_communication import Patient_CommunicationSchema
+        from spark_fhir_schemas.stu3.complex_types.patient_contact import (
+            Patient_ContactSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.patient_animal import (
+            Patient_AnimalSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.patient_communication import (
+            Patient_CommunicationSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.patient_link import Patient_LinkSchema
+        from spark_fhir_schemas.stu3.complex_types.patient_link import (
+            Patient_LinkSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Patient") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Patient") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -109,9 +122,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Whether this patient record is in active use.
                 StructField("active", BooleanType(), True),
@@ -124,9 +138,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A contact detail (e.g. a telephone number or an email address) by which the
                 # individual may be contacted.
@@ -138,9 +153,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Administrative Gender - the gender that the patient is considered to have for
                 # administration and record keeping purposes.
@@ -160,9 +176,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This field contains a patient's most recent marital (civil) status.
                 StructField(
@@ -172,8 +189,9 @@ class PatientSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates whether the patient is part of a multiple (bool) or indicates the
                 # actual birth order (integer).
@@ -190,9 +208,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A contact party (e.g. guardian, partner, friend) for the patient.
                 StructField(
@@ -203,9 +222,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This patient is known to be an animal.
                 StructField(
@@ -215,8 +235,9 @@ class PatientSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Languages which may be used to communicate with the patient about his or her
                 # health.
@@ -228,9 +249,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Patient's nominated care provider.
                 StructField(
@@ -241,9 +263,10 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Organization that is the custodian of the patient record.
                 StructField(
@@ -253,8 +276,9 @@ class PatientSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Link to another patient resource that concerns the same actual patient.
                 StructField(
@@ -265,16 +289,18 @@ class PatientSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

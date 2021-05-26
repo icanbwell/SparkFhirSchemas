@@ -17,6 +17,7 @@ class StructureDefinition_ContextSchema:
     underlying resources, data types defined in FHIR, and also for describing
     extensions and constraints on resources and data types.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class StructureDefinition_ContextSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A definition of a FHIR structure. This resource is used to describe the
@@ -48,16 +49,14 @@ class StructureDefinition_ContextSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("StructureDefinition_Context") >=
-            max_recursion_limit
+            and nesting_list.count("StructureDefinition_Context") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "StructureDefinition_Context"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["StructureDefinition_Context"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -76,9 +75,10 @@ class StructureDefinition_ContextSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines how to interpret the expression that defines what the context of the
                 # extension is.
@@ -89,8 +89,9 @@ class StructureDefinition_ContextSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

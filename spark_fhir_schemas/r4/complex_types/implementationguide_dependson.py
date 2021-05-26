@@ -18,6 +18,7 @@ class ImplementationGuide_DependsOnSchema:
     gather all the parts of an implementation guide into a logical whole and to
     publish a computable definition of all the parts.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ImplementationGuide_DependsOnSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A set of rules of how a particular interoperability or standards problem is
@@ -54,16 +55,15 @@ class ImplementationGuide_DependsOnSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ImplementationGuide_DependsOn") >=
-            max_recursion_limit
+            and nesting_list.count("ImplementationGuide_DependsOn")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ImplementationGuide_DependsOn"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ImplementationGuide_DependsOn"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -82,9 +82,10 @@ class ImplementationGuide_DependsOnSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A canonical reference to the Implementation guide for the dependency.
                 StructField(
@@ -94,8 +95,9 @@ class ImplementationGuide_DependsOnSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The NPM package name for the Implementation Guide that this IG depends on.
                 StructField(
@@ -105,8 +107,9 @@ class ImplementationGuide_DependsOnSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The version of the IG that is depended on, when the correct version is
                 # required to understand the IG correctly.
@@ -115,8 +118,9 @@ class ImplementationGuide_DependsOnSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

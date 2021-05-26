@@ -17,6 +17,7 @@ class PractitionerRole_AvailableTimeSchema:
     A specific set of Roles/Locations/specialties/services that a practitioner may
     perform at an organization for a period of time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class PractitionerRole_AvailableTimeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A specific set of Roles/Locations/specialties/services that a practitioner may
@@ -55,16 +56,15 @@ class PractitionerRole_AvailableTimeSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.time import timeSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("PractitionerRole_AvailableTime") >=
-            max_recursion_limit
+            and nesting_list.count("PractitionerRole_AvailableTime")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "PractitionerRole_AvailableTime"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["PractitionerRole_AvailableTime"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -83,9 +83,10 @@ class PractitionerRole_AvailableTimeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates which days of the week are available between the start and end
                 # Times.
@@ -97,9 +98,10 @@ class PractitionerRole_AvailableTimeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Is this always available? (hence times are irrelevant) e.g. 24 hour service.
                 StructField("allDay", BooleanType(), True),
@@ -112,8 +114,9 @@ class PractitionerRole_AvailableTimeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The closing time of day. Note: If the AllDay flag is set, then this time is
                 # ignored.
@@ -124,15 +127,17 @@ class PractitionerRole_AvailableTimeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

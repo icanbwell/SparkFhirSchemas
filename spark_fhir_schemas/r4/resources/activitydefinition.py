@@ -20,6 +20,7 @@ class ActivityDefinitionSchema:
     independent of a particular patient, practitioner, or other performance
     context.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class ActivityDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of some activity to be performed,
@@ -258,23 +259,34 @@ class ActivityDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
+        from spark_fhir_schemas.r4.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
         from spark_fhir_schemas.r4.complex_types.age import AgeSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        from spark_fhir_schemas.r4.complex_types.activitydefinition_participant import ActivityDefinition_ParticipantSchema
+        from spark_fhir_schemas.r4.complex_types.activitydefinition_participant import (
+            ActivityDefinition_ParticipantSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.r4.complex_types.activitydefinition_dynamicvalue import ActivityDefinition_DynamicValueSchema
+        from spark_fhir_schemas.r4.complex_types.activitydefinition_dynamicvalue import (
+            ActivityDefinition_DynamicValueSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ActivityDefinition") >= max_recursion_limit
@@ -295,8 +307,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -308,8 +321,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -322,8 +336,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -333,8 +348,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -349,8 +365,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -363,9 +380,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -380,9 +398,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An absolute URI that is used to identify this activity definition when it is
                 # referenced in a specification, model, design or an instance; also called its
@@ -398,8 +417,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A formal identifier that is used to identify this activity definition when it
                 # is represented in other formats, or referenced in a specification, model,
@@ -412,9 +432,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the activity
                 # definition when it is referenced in a specification, model, design or
@@ -453,8 +474,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code or group definition that describes the intended subject of the activity
                 # being defined.
@@ -465,8 +487,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date  (and optionally time) when the activity definition was published.
                 # The date must change when the business version changes and it must change if
@@ -479,8 +502,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The name of the organization or individual that published the activity
                 # definition.
@@ -495,9 +519,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the activity definition from a
                 # consumer's perspective.
@@ -508,8 +533,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -524,9 +550,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the activity definition is intended to
                 # be used.
@@ -538,9 +565,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explanation of why this activity definition is needed and why it has been
                 # designed as it has.
@@ -551,8 +579,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A detailed description of how the activity definition is used from a clinical
                 # perspective.
@@ -567,8 +596,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date on which the resource content was approved by the publisher. Approval
                 # happens once when the content is officially approved for usage.
@@ -585,8 +615,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the content of the activity. Topics provide a
                 # high-level categorization of the activity that can be useful for filtering and
@@ -599,9 +630,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individiual or organization primarily involved in the creation and
                 # maintenance of the content.
@@ -613,9 +645,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization primarily responsible for internal coherence of
                 # the content.
@@ -627,9 +660,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization primarily responsible for review of some aspect
                 # of the content.
@@ -641,9 +675,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization responsible for officially endorsing the content
                 # for use in some setting.
@@ -655,9 +690,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Related artifacts such as additional documentation, justification, or
                 # bibliographic references.
@@ -669,9 +705,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a Library resource containing any formal logic used by the
                 # activity definition.
@@ -683,9 +720,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of the kind of resource the activity definition is representing.
                 # For example, a MedicationRequest, a ServiceRequest, or a CommunicationRequest.
@@ -697,8 +735,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A profile to which the target of the activity definition is expected to
                 # conform.
@@ -709,8 +748,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Detailed description of the type of activity; e.g. What lab test, what
                 # procedure, what kind of encounter.
@@ -721,8 +761,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the level of authority/intentionality associated with the activity
                 # and where the request should fit into the workflow chain.
@@ -733,8 +774,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates how quickly the activity  should be addressed with respect to other
                 # requests.
@@ -745,8 +787,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Set this to true if the definition is to indicate that a particular activity
                 # should NOT be performed. If true, this element should be interpreted to
@@ -761,8 +804,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField("timingDateTime", TimestampType(), True),
@@ -774,8 +818,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
@@ -785,8 +830,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
@@ -796,8 +842,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
@@ -807,8 +854,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the facility where the activity will occur; e.g. home, hospital,
                 # specific clinic, etc.
@@ -819,8 +867,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates who should participate in performing the action described.
                 StructField(
@@ -831,9 +880,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the food, drug or other product being consumed or supplied in the
                 # activity.
@@ -844,8 +894,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the food, drug or other product being consumed or supplied in the
                 # activity.
@@ -856,8 +907,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the quantity expected to be consumed at once (per dose, per meal,
                 # etc.).
@@ -868,8 +920,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Provides detailed dosage instructions in the same way that they are described
                 # for MedicationRequest resources.
@@ -881,9 +934,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the sites on the subject's body where the procedure should be
                 # performed (I.e. the target sites).
@@ -895,9 +949,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines specimen requirements for the action to be performed, such as required
                 # specimens for a lab test.
@@ -909,9 +964,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines observation requirements for the action to be performed, such as body
                 # weight or surface area.
@@ -923,9 +979,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines the observations that are expected to be produced by the action.
                 StructField(
@@ -936,9 +993,10 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a StructureMap resource that defines a transform that can be
                 # executed to produce the intent resource using the ActivityDefinition instance
@@ -950,8 +1008,9 @@ class ActivityDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Dynamic values that will be evaluated to produce values for elements of the
                 # resulting resource. For example, if the dosage of a medication must be
@@ -966,16 +1025,18 @@ class ActivityDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

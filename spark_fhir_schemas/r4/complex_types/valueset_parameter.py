@@ -22,6 +22,7 @@ class ValueSet_ParameterSchema:
     between [[[CodeSystem]]] definitions and their use in [coded
     elements](terminologies.html).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -29,7 +30,7 @@ class ValueSet_ParameterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
@@ -67,6 +68,7 @@ class ValueSet_ParameterSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ValueSet_Parameter") >= max_recursion_limit
@@ -92,9 +94,10 @@ class ValueSet_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Name of the input parameter to the $expand operation; may be a server-assigned
                 # name for additional default or other server-supplied parameters used to
@@ -118,8 +121,9 @@ class ValueSet_ParameterSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

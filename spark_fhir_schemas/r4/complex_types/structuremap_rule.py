@@ -16,6 +16,7 @@ class StructureMap_RuleSchema:
     A Map of relationships between 2 structures that can be used to transform
     data.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class StructureMap_RuleSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Map of relationships between 2 structures that can be used to transform
@@ -54,9 +55,16 @@ class StructureMap_RuleSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
-        from spark_fhir_schemas.r4.complex_types.structuremap_source import StructureMap_SourceSchema
-        from spark_fhir_schemas.r4.complex_types.structuremap_target import StructureMap_TargetSchema
-        from spark_fhir_schemas.r4.complex_types.structuremap_dependent import StructureMap_DependentSchema
+        from spark_fhir_schemas.r4.complex_types.structuremap_source import (
+            StructureMap_SourceSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.structuremap_target import (
+            StructureMap_TargetSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.structuremap_dependent import (
+            StructureMap_DependentSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("StructureMap_Rule") >= max_recursion_limit
@@ -82,9 +90,10 @@ class StructureMap_RuleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Name of the rule for internal references.
                 StructField(
@@ -94,8 +103,9 @@ class StructureMap_RuleSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Source inputs to the mapping.
                 StructField(
@@ -106,9 +116,10 @@ class StructureMap_RuleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Content to create because of this mapping rule.
                 StructField(
@@ -119,9 +130,10 @@ class StructureMap_RuleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Rules contained in this rule.
                 StructField(
@@ -132,9 +144,10 @@ class StructureMap_RuleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Which other rules to apply in the context of this rule.
                 StructField(
@@ -145,9 +158,10 @@ class StructureMap_RuleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Documentation for this instance of data.
                 StructField("documentation", StringType(), True),
@@ -155,8 +169,9 @@ class StructureMap_RuleSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

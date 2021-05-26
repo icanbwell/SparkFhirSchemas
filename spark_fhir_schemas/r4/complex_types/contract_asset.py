@@ -16,6 +16,7 @@ class Contract_AssetSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Contract_AssetSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
@@ -76,14 +77,23 @@ class Contract_AssetSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.r4.complex_types.contract_context import Contract_ContextSchema
+        from spark_fhir_schemas.r4.complex_types.contract_context import (
+            Contract_ContextSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.contract_answer import Contract_AnswerSchema
+        from spark_fhir_schemas.r4.complex_types.contract_answer import (
+            Contract_AnswerSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
-        from spark_fhir_schemas.r4.complex_types.contract_valueditem import Contract_ValuedItemSchema
+        from spark_fhir_schemas.r4.complex_types.contract_valueditem import (
+            Contract_ValuedItemSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Contract_Asset") >= max_recursion_limit
@@ -109,9 +119,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Differentiates the kind of the asset .
                 StructField(
@@ -121,8 +132,9 @@ class Contract_AssetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Target entity type about which the term may be concerned.
                 StructField(
@@ -133,9 +145,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Associated entities.
                 StructField(
@@ -146,9 +159,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be a subtype or part of an offered asset.
                 StructField(
@@ -159,9 +173,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Specifies the applicability of the term to an asset resource instance, and
                 # instances it refers to orinstances that refer to it, and/or are owned by the
@@ -173,8 +188,9 @@ class Contract_AssetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Circumstance of the asset.
                 StructField(
@@ -185,9 +201,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Description of the quality and completeness of the asset that imay be a factor
                 # in its valuation.
@@ -201,9 +218,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Asset relevant contractual time period.
                 StructField(
@@ -214,9 +232,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Time period of asset use.
                 StructField(
@@ -227,9 +246,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Clause or question text (Prose Object) concerning the asset in a linked form,
                 # such as a QuestionnaireResponse used in the formation of the contract.
@@ -246,9 +266,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Security labels that protects the asset.
                 StructField(
@@ -259,9 +280,10 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contract Valued Item List.
                 StructField(
@@ -272,16 +294,18 @@ class Contract_AssetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

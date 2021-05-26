@@ -16,6 +16,7 @@ class RequestGroupSchema:
     A group of related requests that can be used to capture intended activities
     that have inter-dependencies such as "give this medication after that one".
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class RequestGroupSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A group of related requests that can be used to capture intended activities
@@ -81,9 +82,14 @@ class RequestGroupSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.requestgroup_action import RequestGroup_ActionSchema
+        from spark_fhir_schemas.stu3.complex_types.requestgroup_action import (
+            RequestGroup_ActionSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("RequestGroup") >= max_recursion_limit
@@ -104,9 +110,10 @@ class RequestGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A protocol, guideline, orderset or other definition that is adhered to in
                 # whole or in part by this request.
@@ -118,9 +125,10 @@ class RequestGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A plan, proposal or order that is fulfilled in whole or in part by this
                 # request.
@@ -132,9 +140,10 @@ class RequestGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Completed or terminated request(s) whose function is taken by this new
                 # request.
@@ -146,9 +155,10 @@ class RequestGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A shared identifier common to all requests that were authorized more or less
                 # simultaneously by a single author, representing the identifier of the
@@ -160,8 +170,9 @@ class RequestGroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The current state of the request. For request groups, the status reflects the
                 # status of all the requests in the group.
@@ -180,8 +191,9 @@ class RequestGroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the context of the request group, if any.
                 StructField(
@@ -191,8 +203,9 @@ class RequestGroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates when the request group was created.
                 StructField("authoredOn", StringType(), True),
@@ -204,8 +217,9 @@ class RequestGroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the reason the request group was created. This is typically provided
                 # as a parameter to the evaluation and echoed by the service, although for some
@@ -218,8 +232,9 @@ class RequestGroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the reason the request group was created. This is typically provided
                 # as a parameter to the evaluation and echoed by the service, although for some
@@ -232,8 +247,9 @@ class RequestGroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Provides a mechanism to communicate additional information about the response.
                 StructField(
@@ -244,9 +260,10 @@ class RequestGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The actions, if any, produced by the evaluation of the artifact.
                 StructField(
@@ -257,16 +274,18 @@ class RequestGroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

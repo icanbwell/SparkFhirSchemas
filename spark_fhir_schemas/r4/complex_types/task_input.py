@@ -20,6 +20,7 @@ class Task_InputSchema:
     """
     A task to be performed.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class Task_InputSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A task to be performed.
@@ -147,7 +148,9 @@ class Task_InputSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.address import AddressSchema
         from spark_fhir_schemas.r4.complex_types.age import AgeSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
@@ -168,16 +171,27 @@ class Task_InputSchema:
         from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.r4.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.parameterdefinition import ParameterDefinitionSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.r4.complex_types.triggerdefinition import TriggerDefinitionSchema
+        from spark_fhir_schemas.r4.complex_types.parameterdefinition import (
+            ParameterDefinitionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.triggerdefinition import (
+            TriggerDefinitionSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Task_Input") >= max_recursion_limit
@@ -203,9 +217,10 @@ class Task_InputSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code or description indicating how the input is intended to be used as part
                 # of the task execution.
@@ -216,8 +231,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField("valueBase64Binary", StringType(), True),
@@ -265,8 +281,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -276,8 +293,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -287,8 +305,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -298,8 +317,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -309,8 +329,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -320,8 +341,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -331,8 +353,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -342,8 +365,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -353,8 +377,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -364,8 +389,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -375,8 +401,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -386,8 +413,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -397,8 +425,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -408,8 +437,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -419,8 +449,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -430,8 +461,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -441,8 +473,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -452,8 +485,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -463,8 +497,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -474,8 +509,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -485,8 +521,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -496,8 +533,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -507,8 +545,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -518,8 +557,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -529,8 +569,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -540,8 +581,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -551,8 +593,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -562,8 +605,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -573,8 +617,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -584,8 +629,9 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the input parameter as a basic type.
                 StructField(
@@ -595,15 +641,17 @@ class Task_InputSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

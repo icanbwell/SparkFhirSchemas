@@ -16,6 +16,7 @@ class DocumentManifestSchema:
     A collection of documents compiled for a purpose together with metadata that
     applies to the collection.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DocumentManifestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A collection of documents compiled for a purpose together with metadata that
@@ -73,10 +74,17 @@ class DocumentManifestSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.documentmanifest_content import DocumentManifest_ContentSchema
-        from spark_fhir_schemas.stu3.complex_types.documentmanifest_related import DocumentManifest_RelatedSchema
+        from spark_fhir_schemas.stu3.complex_types.documentmanifest_content import (
+            DocumentManifest_ContentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.documentmanifest_related import (
+            DocumentManifest_RelatedSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("DocumentManifest") >= max_recursion_limit
@@ -97,8 +105,9 @@ class DocumentManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Other identifiers associated with the document manifest, including version
                 # independent  identifiers.
@@ -110,9 +119,10 @@ class DocumentManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of this document manifest.
                 StructField("status", StringType(), True),
@@ -127,8 +137,9 @@ class DocumentManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who or what the set of documents is about. The documents can be about a
                 # person, (patient or healthcare practitioner), a device (i.e. machine) or even
@@ -142,8 +153,9 @@ class DocumentManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the document manifest was created for submission to the server (not
                 # necessarily the same thing as the actual resource last modified time, since it
@@ -159,9 +171,10 @@ class DocumentManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A patient, practitioner, or organization for which this set of documents is
                 # intended.
@@ -173,9 +186,10 @@ class DocumentManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the source system, application, or software that produced the
                 # document manifest.
@@ -192,9 +206,10 @@ class DocumentManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Related identifiers or resources associated with the DocumentManifest.
                 StructField(
@@ -205,16 +220,18 @@ class DocumentManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

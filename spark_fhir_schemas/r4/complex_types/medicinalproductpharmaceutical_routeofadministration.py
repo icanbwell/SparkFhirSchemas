@@ -15,6 +15,7 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
     """
     A pharmaceutical product described in terms of its composition and dose form.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A pharmaceutical product described in terms of its composition and dose form.
@@ -62,15 +63,22 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        from spark_fhir_schemas.r4.complex_types.medicinalproductpharmaceutical_targetspecies import MedicinalProductPharmaceutical_TargetSpeciesSchema
+        from spark_fhir_schemas.r4.complex_types.medicinalproductpharmaceutical_targetspecies import (
+            MedicinalProductPharmaceutical_TargetSpeciesSchema,
+        )
+
         if (
-            max_recursion_limit and nesting_list.
-            count("MedicinalProductPharmaceutical_RouteOfAdministration") >=
             max_recursion_limit
+            and nesting_list.count(
+                "MedicinalProductPharmaceutical_RouteOfAdministration"
+            )
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -95,9 +103,10 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Coded expression for the route.
                 StructField(
@@ -107,8 +116,9 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The first dose (dose quantity) administered in humans can be specified, for a
                 # product under investigation, using a numerical value and its unit of
@@ -120,8 +130,9 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum single dose that can be administered as per the protocol of a
                 # clinical trial can be specified using a numerical value and its unit of
@@ -133,8 +144,9 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum dose per day (maximum dose quantity to be administered in any one
                 # 24-h period) that can be administered as per the protocol referenced in the
@@ -146,8 +158,9 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum dose per treatment period that can be administered as per the
                 # protocol referenced in the clinical trial authorisation.
@@ -158,8 +171,9 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum treatment period during which an Investigational Medicinal Product
                 # can be administered as per the protocol referenced in the clinical trial
@@ -171,29 +185,31 @@ class MedicinalProductPharmaceutical_RouteOfAdministrationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A species for which this route applies.
                 StructField(
                     "targetSpecies",
                     ArrayType(
-                        MedicinalProductPharmaceutical_TargetSpeciesSchema.
-                        get_schema(
+                        MedicinalProductPharmaceutical_TargetSpeciesSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

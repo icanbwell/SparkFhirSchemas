@@ -17,6 +17,7 @@ class TestScript_OperationSchema:
     A structured set of tests against a FHIR server or client implementation to
     determine compliance against the FHIR specification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class TestScript_OperationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server or client implementation to
@@ -87,11 +88,14 @@ class TestScript_OperationSchema:
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        from spark_fhir_schemas.r4.complex_types.testscript_requestheader import TestScript_RequestHeaderSchema
+        from spark_fhir_schemas.r4.complex_types.testscript_requestheader import (
+            TestScript_RequestHeaderSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.id import idSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("TestScript_Operation") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("TestScript_Operation") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -114,9 +118,10 @@ class TestScript_OperationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Server interaction or operation type.
                 StructField(
@@ -126,8 +131,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of the resource.  See http://build.fhir.org/resourcelist.html.
                 StructField(
@@ -137,8 +143,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The label would be used for tracking/logging purposes by test engines.
                 StructField("label", StringType(), True),
@@ -153,8 +160,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The mime-type to use for RESTful operation in the 'Content-Type' header.
                 StructField(
@@ -164,8 +172,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The server where the request message is destined for.  Must be one of the
                 # server numbers listed in TestScript.destination section.
@@ -176,8 +185,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Whether or not to implicitly send the request url in encoded format. The
                 # default is true to match the standard RESTful client behavior. Set to false
@@ -195,8 +205,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Path plus parameters after [type].  Used to set parts of the request URL
                 # explicitly.
@@ -210,9 +221,10 @@ class TestScript_OperationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The fixture id (maybe new) to map to the request.
                 StructField(
@@ -222,8 +234,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The fixture id (maybe new) to map to the response.
                 StructField(
@@ -233,8 +246,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The id of the fixture used as the body of a PUT or POST request.
                 StructField(
@@ -244,8 +258,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Id of fixture used for extracting the [id],  [type], and [vid] for GET
                 # requests.
@@ -256,8 +271,9 @@ class TestScript_OperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Complete request URL.
                 StructField("url", StringType(), True),
@@ -265,8 +281,9 @@ class TestScript_OperationSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

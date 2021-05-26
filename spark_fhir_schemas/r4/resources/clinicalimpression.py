@@ -22,6 +22,7 @@ class ClinicalImpressionSchema:
     "ClinicalAssessment" to avoid confusion with the recording of assessment tools
     such as Apgar score.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -29,7 +30,7 @@ class ClinicalImpressionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a clinical assessment performed to determine what problem(s) may
@@ -140,13 +141,20 @@ class ClinicalImpressionSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.clinicalimpression_investigation import ClinicalImpression_InvestigationSchema
-        from spark_fhir_schemas.r4.complex_types.clinicalimpression_finding import ClinicalImpression_FindingSchema
+        from spark_fhir_schemas.r4.complex_types.clinicalimpression_investigation import (
+            ClinicalImpression_InvestigationSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.clinicalimpression_finding import (
+            ClinicalImpression_FindingSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ClinicalImpression") >= max_recursion_limit
@@ -167,8 +175,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -180,8 +189,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -194,8 +204,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -205,8 +216,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -221,8 +233,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -235,9 +248,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -252,9 +266,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Business identifiers assigned to this clinical impression by the performer or
                 # other systems which remain constant as the resource is updated and propagates
@@ -267,9 +282,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the workflow status of the assessment.
                 StructField(
@@ -279,8 +295,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Captures the reason for the current state of the ClinicalImpression.
                 StructField(
@@ -290,8 +307,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Categorizes the type of clinical assessment performed.
                 StructField(
@@ -301,8 +319,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A summary of the context and/or cause of the assessment - why / where it was
                 # performed, and what patient events/status prompted it.
@@ -315,8 +334,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The Encounter during which this ClinicalImpression was created or to which the
                 # creation of this record is tightly associated.
@@ -327,8 +347,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The point in time or period over which the subject was assessed.
                 StructField("effectiveDateTime", TimestampType(), True),
@@ -340,8 +361,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates when the documentation of the assessment was complete.
                 StructField(
@@ -351,8 +373,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The clinician performing the assessment.
                 StructField(
@@ -362,8 +385,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to the last assessment that was conducted on this patient.
                 # Assessments are often/usually ongoing in nature; a care provider (practitioner
@@ -376,8 +400,9 @@ class ClinicalImpressionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A list of the relevant problems/conditions for a patient.
                 StructField(
@@ -388,9 +413,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # One or more sets of investigations (signs, symptoms, etc.). The actual
                 # grouping of investigations varies greatly depending on the type and context of
@@ -405,9 +431,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reference to a specific published clinical protocol that was followed during
                 # this assessment, and/or that provides evidence in support of the diagnosis.
@@ -419,9 +446,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A text summary of the investigations and the diagnosis.
                 StructField("summary", StringType(), True),
@@ -435,9 +463,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Estimate of likely outcome.
                 StructField(
@@ -448,9 +477,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # RiskAssessment expressing likely outcome.
                 StructField(
@@ -461,9 +491,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Information supporting the clinical impression.
                 StructField(
@@ -474,9 +505,10 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Commentary about the impression, typically recorded after the impression
                 # itself was made, though supplemental notes by the original author could also
@@ -489,16 +521,18 @@ class ClinicalImpressionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

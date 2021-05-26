@@ -15,6 +15,7 @@ class OperationOutcome_IssueSchema:
     A collection of error, warning or information messages that result from a
     system action.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class OperationOutcome_IssueSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A collection of error, warning or information messages that result from a
@@ -52,10 +53,13 @@ class OperationOutcome_IssueSchema:
             caused this issue to be raised.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("OperationOutcome_Issue") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("OperationOutcome_Issue") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -77,8 +81,9 @@ class OperationOutcome_IssueSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional diagnostic information about the issue.  Typically, this may be a
                 # description of how a value is erroneous, or a stack dump to help trace the
@@ -95,8 +100,9 @@ class OperationOutcome_IssueSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

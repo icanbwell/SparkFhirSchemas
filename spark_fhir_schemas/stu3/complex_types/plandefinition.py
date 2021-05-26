@@ -19,6 +19,7 @@ class PlanDefinitionSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class PlanDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
@@ -135,15 +136,28 @@ class PlanDefinitionSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.relatedartifact import RelatedArtifactSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.plandefinition_goal import PlanDefinition_GoalSchema
-        from spark_fhir_schemas.stu3.complex_types.plandefinition_action import PlanDefinition_ActionSchema
+        from spark_fhir_schemas.stu3.complex_types.plandefinition_goal import (
+            PlanDefinition_GoalSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.plandefinition_action import (
+            PlanDefinition_ActionSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("PlanDefinition") >= max_recursion_limit
@@ -173,9 +187,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the plan definition
                 # when it is referenced in a specification, model, design or instance. This is
@@ -203,8 +218,9 @@ class PlanDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The status of this plan definition. Enables tracking the life-cycle of the
                 # content.
@@ -243,8 +259,9 @@ class PlanDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These terms may be used to assist with indexing and searching
@@ -257,9 +274,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the plan definition is intended to be
                 # used.
@@ -271,9 +289,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the content of the plan definition. Topics
                 # provide a high-level categorization of the definition that can be useful for
@@ -286,9 +305,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A contributor to the content of the asset, including authors, editors,
                 # reviewers, and endorsers.
@@ -300,9 +320,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contact details to assist a user in finding and communicating with the
                 # publisher.
@@ -314,9 +335,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the plan definition and/or its contents.
                 # Copyright statements are generally legal restrictions on the use and
@@ -332,9 +354,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a Library resource containing any formal logic used by the plan
                 # definition.
@@ -346,9 +369,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Goals that describe what the activities within the plan are intended to
                 # achieve. For example, weight loss, restoring an activity of daily living,
@@ -362,9 +386,10 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An action to be taken as part of the plan.
                 StructField(
@@ -375,16 +400,18 @@ class PlanDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

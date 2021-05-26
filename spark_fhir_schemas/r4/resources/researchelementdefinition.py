@@ -18,6 +18,7 @@ class ResearchElementDefinitionSchema:
     The ResearchElementDefinition resource describes a "PICO" element that
     knowledge (evidence, assertion, recommendation) is about.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ResearchElementDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The ResearchElementDefinition resource describes a "PICO" element that
@@ -198,26 +199,32 @@ class ResearchElementDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
+        from spark_fhir_schemas.r4.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        from spark_fhir_schemas.r4.complex_types.researchelementdefinition_characteristic import ResearchElementDefinition_CharacteristicSchema
+        from spark_fhir_schemas.r4.complex_types.researchelementdefinition_characteristic import (
+            ResearchElementDefinition_CharacteristicSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("ResearchElementDefinition") >=
-            max_recursion_limit
+            and nesting_list.count("ResearchElementDefinition") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ResearchElementDefinition"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ResearchElementDefinition"]
         schema = StructType(
             [
                 # This is a ResearchElementDefinition resource
@@ -231,8 +238,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -244,8 +252,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -258,8 +267,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -269,8 +279,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -285,8 +296,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -299,9 +311,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -316,9 +329,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An absolute URI that is used to identify this research element definition when
                 # it is referenced in a specification, model, design or an instance; also called
@@ -334,8 +348,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A formal identifier that is used to identify this research element definition
                 # when it is represented in other formats, or referenced in a specification,
@@ -348,9 +363,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the research element
                 # definition when it is referenced in a specification, model, design or
@@ -393,8 +409,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The intended subjects for the ResearchElementDefinition. If this element is
                 # not provided, a Patient subject is assumed, but the subject of the
@@ -406,8 +423,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date  (and optionally time) when the research element definition was
                 # published. The date must change when the business version changes and it must
@@ -420,8 +438,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The name of the organization or individual that published the research element
                 # definition.
@@ -436,9 +455,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the research element definition
                 # from a consumer's perspective.
@@ -449,8 +469,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable string to clarify or explain concepts about the resource.
                 StructField("comment", ArrayType(StringType()), True),
@@ -467,9 +488,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the research element definition is
                 # intended to be used.
@@ -481,9 +503,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explanation of why this research element definition is needed and why it has
                 # been designed as it has.
@@ -494,8 +517,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A detailed description, from a clinical perspective, of how the
                 # ResearchElementDefinition is used.
@@ -510,8 +534,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date on which the resource content was approved by the publisher. Approval
                 # happens once when the content is officially approved for usage.
@@ -528,8 +553,9 @@ class ResearchElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the content of the ResearchElementDefinition.
                 # Topics provide a high-level categorization grouping types of
@@ -542,9 +568,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individiual or organization primarily involved in the creation and
                 # maintenance of the content.
@@ -556,9 +583,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization primarily responsible for internal coherence of
                 # the content.
@@ -570,9 +598,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization primarily responsible for review of some aspect
                 # of the content.
@@ -584,9 +613,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An individual or organization responsible for officially endorsing the content
                 # for use in some setting.
@@ -598,9 +628,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Related artifacts such as additional documentation, justification, or
                 # bibliographic references.
@@ -612,9 +643,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a Library resource containing the formal logic used by the
                 # ResearchElementDefinition.
@@ -626,9 +658,10 @@ class ResearchElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of research element, a population, an exposure, or an outcome.
                 StructField("type", StringType(), True),
@@ -639,22 +672,23 @@ class ResearchElementDefinitionSchema:
                 StructField(
                     "characteristic",
                     ArrayType(
-                        ResearchElementDefinition_CharacteristicSchema.
-                        get_schema(
+                        ResearchElementDefinition_CharacteristicSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

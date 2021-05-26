@@ -15,6 +15,7 @@ class HealthcareService_NotAvailableSchema:
     """
     The details of a healthcare service available at a location.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class HealthcareService_NotAvailableSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The details of a healthcare service available at a location.
@@ -45,16 +46,15 @@ class HealthcareService_NotAvailableSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("HealthcareService_NotAvailable") >=
-            max_recursion_limit
+            and nesting_list.count("HealthcareService_NotAvailable")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "HealthcareService_NotAvailable"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["HealthcareService_NotAvailable"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -73,9 +73,10 @@ class HealthcareService_NotAvailableSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The reason that can be presented to the user as to why this time is not
                 # available.
@@ -88,15 +89,17 @@ class HealthcareService_NotAvailableSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

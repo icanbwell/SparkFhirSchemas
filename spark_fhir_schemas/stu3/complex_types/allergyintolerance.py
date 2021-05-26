@@ -16,6 +16,7 @@ class AllergyIntoleranceSchema:
     Risk of harmful or undesirable, physiological response which is unique to an
     individual and associated with exposure to a substance.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class AllergyIntoleranceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Risk of harmful or undesirable, physiological response which is unique to an
@@ -93,13 +94,18 @@ class AllergyIntoleranceSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.age import AgeSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.allergyintolerance_reaction import AllergyIntolerance_ReactionSchema
+        from spark_fhir_schemas.stu3.complex_types.allergyintolerance_reaction import (
+            AllergyIntolerance_ReactionSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("AllergyIntolerance") >= max_recursion_limit
@@ -123,9 +129,10 @@ class AllergyIntoleranceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The clinical status of the allergy or intolerance.
                 StructField("clinicalStatus", StringType(), True),
@@ -153,8 +160,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The patient who has the allergy or intolerance.
                 StructField(
@@ -164,8 +172,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date,  date-time, or age when allergy or intolerance was
                 # identified.
@@ -179,8 +188,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date,  date-time, or age when allergy or intolerance was
                 # identified.
@@ -191,8 +201,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date,  date-time, or age when allergy or intolerance was
                 # identified.
@@ -203,8 +214,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date,  date-time, or age when allergy or intolerance was
                 # identified.
@@ -220,8 +232,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The source of the information about the allergy that is recorded.
                 StructField(
@@ -231,8 +244,9 @@ class AllergyIntoleranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Represents the date and/or time of the last known occurrence of a reaction
                 # event.
@@ -247,9 +261,10 @@ class AllergyIntoleranceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details about each adverse reaction event linked to exposure to the identified
                 # substance.
@@ -261,16 +276,18 @@ class AllergyIntoleranceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

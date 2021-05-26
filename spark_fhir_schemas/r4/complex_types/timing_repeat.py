@@ -19,6 +19,7 @@ class Timing_RepeatSchema:
     when planning care of various kinds, and may be used for reporting the
     schedule to which past regular activities were carried out.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class Timing_RepeatSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Specifies an event that may occur multiple times. Timing schedules are used to
@@ -108,6 +109,7 @@ class Timing_RepeatSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.time import timeSchema
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Timing_Repeat") >= max_recursion_limit
@@ -133,9 +135,10 @@ class Timing_RepeatSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
@@ -146,8 +149,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
@@ -158,8 +162,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
@@ -170,8 +175,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A total count of the desired number of repetitions across the duration of the
                 # entire timing specification. If countMax is present, this element indicates
@@ -183,8 +189,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If present, indicates that the count is a range - so to perform the action
                 # between [count] and [countMax] times.
@@ -195,8 +202,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # How long this thing happens for when it happens. If durationMax is present,
                 # this element indicates the lower bound of the allowed range of the duration.
@@ -207,8 +215,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If present, indicates that the duration is a range - so to perform the action
                 # between [duration] and [durationMax] time length.
@@ -219,8 +228,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The units of time for the duration, in UCUM units.
                 StructField("durationUnit", StringType(), True),
@@ -234,8 +244,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If present, indicates that the frequency is a range - so to repeat between
                 # [frequency] and [frequencyMax] times within the period or period range.
@@ -246,8 +257,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the duration of time over which repetitions are to occur; e.g. to
                 # express "3 times per day", 3 would be the frequency and "1 day" would be the
@@ -260,8 +272,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If present, indicates that the period is a range from [period] to [periodMax],
                 # allowing expressing concepts such as "do this once every 3-5 days.
@@ -272,8 +285,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The units of time for the period in UCUM units.
                 StructField("periodUnit", StringType(), True),
@@ -287,9 +301,10 @@ class Timing_RepeatSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Specified time of day for action to take place.
                 StructField(
@@ -300,9 +315,10 @@ class Timing_RepeatSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An approximate time period during the day, potentially linked to an event of
                 # daily living that indicates when the action should occur.
@@ -316,15 +332,17 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

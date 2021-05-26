@@ -15,6 +15,7 @@ class TaskSchema:
     """
     A task to be performed.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class TaskSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A task to be performed.
@@ -108,16 +109,22 @@ class TaskSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.task_requester import Task_RequesterSchema
+        from spark_fhir_schemas.stu3.complex_types.task_requester import (
+            Task_RequesterSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.task_restriction import Task_RestrictionSchema
+        from spark_fhir_schemas.stu3.complex_types.task_restriction import (
+            Task_RestrictionSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.task_input import Task_InputSchema
         from spark_fhir_schemas.stu3.complex_types.task_output import Task_OutputSchema
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Task") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Task") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -135,9 +142,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a formal or informal definition of the task.  For example, a
                 # protocol, a step within a defined workflow definition, etc.
@@ -151,8 +159,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # BasedOn refers to a higher-level authorization that triggered the creation of
                 # the task.  It references a "request" resource such as a ProcedureRequest,
@@ -169,9 +178,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An identifier that links together multiple tasks and other requests that were
                 # created in the same context.
@@ -182,8 +192,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Task that this particular task is part of.
                 StructField(
@@ -194,9 +205,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The current status of the task.
                 StructField("status", StringType(), True),
@@ -208,8 +220,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Contains business-specific nuances of the business state.
                 StructField(
@@ -219,8 +232,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the "level" of actionability associated with the Task.  I.e. Is this
                 # a proposed task, a planned task, an actionable task, etc.
@@ -236,8 +250,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A free-text description of what is to be performed.
                 StructField("description", StringType(), True),
@@ -249,8 +264,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The entity who benefits from the performance of the service specified in the
                 # task (e.g., the patient).
@@ -261,8 +277,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The healthcare event  (e.g. a patient and healthcare provider interaction)
                 # during which this task was created.
@@ -273,8 +290,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the time action was first taken against the task (start) and/or the
                 # time final action was taken against the task prior to marking it as completed
@@ -286,8 +304,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date and time this task was created.
                 StructField("authoredOn", StringType(), True),
@@ -301,8 +320,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of participant that can execute the task.
                 StructField(
@@ -313,9 +333,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Individual organization or Device currently responsible for task execution.
                 StructField(
@@ -325,8 +346,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A description or code indicating why this task needs to be performed.
                 StructField(
@@ -336,8 +358,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Free-text information captured about the task as it progresses.
                 StructField(
@@ -348,9 +371,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Links to Provenance records for past versions of this Task that identify key
                 # state transitions or updates that are likely to be relevant to a user looking
@@ -363,9 +387,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # If the Task.focus is a request resource and the task is seeking fulfillment
                 # (i.e is asking for the request to be actioned), this element identifies any
@@ -377,8 +402,9 @@ class TaskSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information that may be needed in the execution of the task.
                 StructField(
@@ -389,9 +415,10 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Outputs produced by the Task.
                 StructField(
@@ -402,16 +429,18 @@ class TaskSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

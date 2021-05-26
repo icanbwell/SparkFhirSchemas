@@ -16,6 +16,7 @@ class TestScript_AssertSchema:
     A structured set of tests against a FHIR server implementation to determine
     compliance against the FHIR specification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class TestScript_AssertSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server implementation to determine
@@ -94,8 +95,13 @@ class TestScript_AssertSchema:
             this assert.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.testscript_rule2 import TestScript_Rule2Schema
-        from spark_fhir_schemas.stu3.complex_types.testscript_ruleset1 import TestScript_Ruleset1Schema
+        from spark_fhir_schemas.stu3.complex_types.testscript_rule2 import (
+            TestScript_Rule2Schema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.testscript_ruleset1 import (
+            TestScript_Ruleset1Schema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("TestScript_Assert") >= max_recursion_limit
@@ -163,8 +169,9 @@ class TestScript_AssertSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The TestScript.ruleset this assert will evaluate.
                 StructField(
@@ -174,8 +181,9 @@ class TestScript_AssertSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Fixture to evaluate the XPath/JSONPath expression or the headerField  against.
                 StructField("sourceId", StringType(), True),
@@ -190,8 +198,9 @@ class TestScript_AssertSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

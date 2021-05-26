@@ -16,6 +16,7 @@ class SubstanceSpecification_PropertySchema:
     The detailed description of a substance, typically at a level beyond what is
     used for prescribing.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SubstanceSpecification_PropertySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
@@ -58,19 +59,20 @@ class SubstanceSpecification_PropertySchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceSpecification_Property") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceSpecification_Property")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceSpecification_Property"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceSpecification_Property"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -89,9 +91,10 @@ class SubstanceSpecification_PropertySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A category for this property, e.g. Physical, Chemical, Enzymatic.
                 StructField(
@@ -101,8 +104,9 @@ class SubstanceSpecification_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Property type e.g. viscosity, pH, isoelectric point.
                 StructField(
@@ -112,8 +116,9 @@ class SubstanceSpecification_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Parameters that were used in the measurement of a property (e.g. for
                 # viscosity: measured at 20C with a pH of 7.1).
@@ -127,8 +132,9 @@ class SubstanceSpecification_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A substance upon which a defining property depends (e.g. for solubility: in
                 # water, in alcohol).
@@ -139,8 +145,9 @@ class SubstanceSpecification_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Quantitative value for this property.
                 StructField(
@@ -150,8 +157,9 @@ class SubstanceSpecification_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Quantitative value for this property.
                 StructField("amountString", StringType(), True),
@@ -159,8 +167,9 @@ class SubstanceSpecification_PropertySchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

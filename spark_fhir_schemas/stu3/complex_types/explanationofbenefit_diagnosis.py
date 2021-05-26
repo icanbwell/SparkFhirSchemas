@@ -18,6 +18,7 @@ class ExplanationOfBenefit_DiagnosisSchema:
     processing of a Claim; and optionally account balance information, for
     informing the subscriber of the benefits provided.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ExplanationOfBenefit_DiagnosisSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides: the claim details; adjudication details from the
@@ -46,18 +47,19 @@ class ExplanationOfBenefit_DiagnosisSchema:
             system.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ExplanationOfBenefit_Diagnosis") >=
-            max_recursion_limit
+            and nesting_list.count("ExplanationOfBenefit_Diagnosis")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ExplanationOfBenefit_Diagnosis"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ExplanationOfBenefit_Diagnosis"]
         schema = StructType(
             [
                 # Sequence of diagnosis which serves to provide a link.
@@ -70,8 +72,9 @@ class ExplanationOfBenefit_DiagnosisSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The diagnosis.
                 StructField(
@@ -81,8 +84,9 @@ class ExplanationOfBenefit_DiagnosisSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of the Diagnosis, for example: admitting, primary, secondary,
                 # discharge.
@@ -94,9 +98,10 @@ class ExplanationOfBenefit_DiagnosisSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The package billing code, for example DRG, based on the assigned grouping code
                 # system.
@@ -107,15 +112,17 @@ class ExplanationOfBenefit_DiagnosisSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

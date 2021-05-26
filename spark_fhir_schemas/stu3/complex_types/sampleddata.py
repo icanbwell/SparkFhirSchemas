@@ -16,6 +16,7 @@ class SampledDataSchema:
     A series of measurements taken by a device, with upper and lower limits. There
     may be more than one dimension in the data.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SampledDataSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A series of measurements taken by a device, with upper and lower limits. There
@@ -54,6 +55,7 @@ class SampledDataSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
             and nesting_list.count("SampledData") >= max_recursion_limit
@@ -72,8 +74,9 @@ class SampledDataSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The length of time between sampling times, measured in milliseconds.
                 StructField("period", IntegerType(), True),
@@ -98,8 +101,9 @@ class SampledDataSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class Goal_TargetSchema:
     for example, weight loss, restoring an activity of daily living, obtaining
     herd immunity via immunization, meeting a process improvement objective, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Goal_TargetSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes the intended objective(s) for a patient, group or organization care,
@@ -62,10 +63,13 @@ class Goal_TargetSchema:
             be met.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.duration import DurationSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Goal_Target") >= max_recursion_limit
@@ -84,8 +88,9 @@ class Goal_TargetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -100,8 +105,9 @@ class Goal_TargetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -116,8 +122,9 @@ class Goal_TargetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The target value of the focus to be achieved to signify the fulfillment of the
                 # goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the
@@ -132,8 +139,9 @@ class Goal_TargetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates either the date or the duration after start by which the goal should
                 # be met.
@@ -147,15 +155,17 @@ class Goal_TargetSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

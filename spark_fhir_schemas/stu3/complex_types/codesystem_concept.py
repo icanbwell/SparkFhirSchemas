@@ -16,6 +16,7 @@ class CodeSystem_ConceptSchema:
     A code system resource specifies a set of codes drawn from one or more code
     systems.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class CodeSystem_ConceptSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A code system resource specifies a set of codes drawn from one or more code
@@ -51,8 +52,13 @@ class CodeSystem_ConceptSchema:
             hierarchyMeaning.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codesystem_designation import CodeSystem_DesignationSchema
-        from spark_fhir_schemas.stu3.complex_types.codesystem_property1 import CodeSystem_Property1Schema
+        from spark_fhir_schemas.stu3.complex_types.codesystem_designation import (
+            CodeSystem_DesignationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codesystem_property1 import (
+            CodeSystem_Property1Schema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("CodeSystem_Concept") >= max_recursion_limit
@@ -83,9 +89,10 @@ class CodeSystem_ConceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A property value for this concept.
                 StructField(
@@ -96,9 +103,10 @@ class CodeSystem_ConceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Defines children of a concept to produce a hierarchy of concepts. The nature
                 # of the relationships is variable (is-a/contains/categorizes) - see
@@ -111,16 +119,18 @@ class CodeSystem_ConceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

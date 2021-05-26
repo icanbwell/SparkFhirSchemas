@@ -16,6 +16,7 @@ class ExpansionProfileSchema:
     """
     Resource to define constraints on the Expansion of a FHIR ValueSet.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ExpansionProfileSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Resource to define constraints on the Expansion of a FHIR ValueSet.
@@ -118,12 +119,25 @@ class ExpansionProfileSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.expansionprofile_fixedversion import ExpansionProfile_FixedVersionSchema
-        from spark_fhir_schemas.stu3.complex_types.expansionprofile_excludedsystem import ExpansionProfile_ExcludedSystemSchema
-        from spark_fhir_schemas.stu3.complex_types.expansionprofile_designation import ExpansionProfile_DesignationSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.expansionprofile_fixedversion import (
+            ExpansionProfile_FixedVersionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.expansionprofile_excludedsystem import (
+            ExpansionProfile_ExcludedSystemSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.expansionprofile_designation import (
+            ExpansionProfile_DesignationSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ExpansionProfile") >= max_recursion_limit
@@ -152,8 +166,9 @@ class ExpansionProfileSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the expansion profile
                 # when it is referenced in a specification, model, design or instance. This is
@@ -191,9 +206,10 @@ class ExpansionProfileSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the expansion profile from a
                 # consumer's perspective.
@@ -209,9 +225,10 @@ class ExpansionProfileSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the expansion profile is intended to be
                 # used.
@@ -223,9 +240,10 @@ class ExpansionProfileSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Fix use of a particular code system to a particular version.
                 StructField(
@@ -236,9 +254,10 @@ class ExpansionProfileSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Code system, or a particular version of a code system to be excluded from
                 # value set expansions.
@@ -249,8 +268,9 @@ class ExpansionProfileSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Controls whether concept designations are to be included or excluded in value
                 # set expansions.
@@ -264,8 +284,9 @@ class ExpansionProfileSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Controls whether the value set definition is included or excluded in value set
                 # expansions.
@@ -295,8 +316,9 @@ class ExpansionProfileSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

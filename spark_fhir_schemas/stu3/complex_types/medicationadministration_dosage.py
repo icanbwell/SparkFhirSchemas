@@ -18,6 +18,7 @@ class MedicationAdministration_DosageSchema:
     prescription, and the specific encounter between patient and health care
     practitioner.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class MedicationAdministration_DosageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes the event of a patient consuming or otherwise being administered a
@@ -69,19 +70,20 @@ class MedicationAdministration_DosageSchema:
             hours.  Other examples:  200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.stu3.complex_types.ratio import RatioSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicationAdministration_Dosage") >=
-            max_recursion_limit
+            and nesting_list.count("MedicationAdministration_Dosage")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MedicationAdministration_Dosage"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MedicationAdministration_Dosage"]
         schema = StructType(
             [
                 # Free text dosage can be used for cases where the dosage administered is too
@@ -100,8 +102,9 @@ class MedicationAdministration_DosageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code specifying the route or physiological path of administration of a
                 # therapeutic agent into or onto the patient.  For example, topical,
@@ -113,8 +116,9 @@ class MedicationAdministration_DosageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A coded value indicating the method by which the medication is intended to be
                 # or was introduced into or on the body.  This attribute will most often NOT be
@@ -127,8 +131,9 @@ class MedicationAdministration_DosageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The amount of the medication given at one administration event.   Use this
                 # value when the administration is essentially an instantaneous event such as a
@@ -140,8 +145,9 @@ class MedicationAdministration_DosageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the speed with which the medication was or will be introduced into
                 # the patient.  Typically the rate for an infusion e.g. 100 ml per 1 hour or 100
@@ -154,8 +160,9 @@ class MedicationAdministration_DosageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the speed with which the medication was or will be introduced into
                 # the patient.  Typically the rate for an infusion e.g. 100 ml per 1 hour or 100
@@ -168,15 +175,17 @@ class MedicationAdministration_DosageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

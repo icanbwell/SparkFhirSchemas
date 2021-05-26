@@ -16,6 +16,7 @@ class SupplyRequestSchema:
     A record of a request for a medication, substance or device used in the
     healthcare setting.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SupplyRequestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a request for a medication, substance or device used in the
@@ -67,12 +68,19 @@ class SupplyRequestSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.supplyrequest_ordereditem import SupplyRequest_OrderedItemSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.supplyrequest_ordereditem import (
+            SupplyRequest_OrderedItemSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.stu3.complex_types.supplyrequest_requester import SupplyRequest_RequesterSchema
+        from spark_fhir_schemas.stu3.complex_types.supplyrequest_requester import (
+            SupplyRequest_RequesterSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("SupplyRequest") >= max_recursion_limit
@@ -92,8 +100,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Status of the supply request.
                 StructField("status", StringType(), True),
@@ -106,8 +115,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates how quickly this SupplyRequest should be addressed with respect to
                 # other requests.
@@ -120,8 +130,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the request should be fulfilled.
                 StructField("occurrenceDateTime", StringType(), True),
@@ -133,8 +144,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the request should be fulfilled.
                 StructField(
@@ -144,8 +156,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the request was made.
                 StructField("authoredOn", StringType(), True),
@@ -158,8 +171,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who is intended to fulfill the request.
                 StructField(
@@ -170,9 +184,10 @@ class SupplyRequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Why the supply item was requested.
                 StructField(
@@ -182,8 +197,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Why the supply item was requested.
                 StructField(
@@ -193,8 +209,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the supply is expected to come from.
                 StructField(
@@ -204,8 +221,9 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the supply is destined to go.
                 StructField(
@@ -215,15 +233,17 @@ class SupplyRequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

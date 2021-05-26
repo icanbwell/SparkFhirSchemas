@@ -15,6 +15,7 @@ class Bundle_RequestSchema:
     """
     A container for a collection of resources.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Bundle_RequestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
@@ -61,6 +62,7 @@ class Bundle_RequestSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.instant import instantSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Bundle_Request") >= max_recursion_limit
@@ -86,9 +88,10 @@ class Bundle_RequestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # In a transaction or batch, this is the HTTP action to be executed for this
                 # entry. In a history bundle, this indicates the HTTP action that occurred.
@@ -102,8 +105,9 @@ class Bundle_RequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the ETag values match, return a 304 Not Modified status. See the API
                 # documentation for ["Conditional Read"](http.html#cread).
@@ -117,8 +121,9 @@ class Bundle_RequestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Only perform the operation if the Etag value matches. For more information,
                 # see the API section ["Managing Resource Contention"](http.html#concurrency).
@@ -132,8 +137,9 @@ class Bundle_RequestSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

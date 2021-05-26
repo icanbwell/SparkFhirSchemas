@@ -18,6 +18,7 @@ class RelatedPerson_CommunicationSchema:
     is not the target of healthcare, nor has a formal responsibility in the care
     process.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class RelatedPerson_CommunicationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Information about a person that is involved in the care for a patient, but who
@@ -52,17 +53,17 @@ class RelatedPerson_CommunicationSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("RelatedPerson_Communication") >=
-            max_recursion_limit
+            and nesting_list.count("RelatedPerson_Communication") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "RelatedPerson_Communication"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["RelatedPerson_Communication"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -81,9 +82,10 @@ class RelatedPerson_CommunicationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The ISO-639-1 alpha 2 code in lower case for the language, optionally followed
                 # by a hyphen and the ISO-3166-1 alpha 2 code for the region in upper case; e.g.
@@ -96,8 +98,9 @@ class RelatedPerson_CommunicationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates whether or not the patient prefers this language (over other
                 # languages he masters up a certain level).
@@ -106,8 +109,9 @@ class RelatedPerson_CommunicationSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

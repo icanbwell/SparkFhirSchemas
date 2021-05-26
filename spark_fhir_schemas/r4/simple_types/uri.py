@@ -13,6 +13,7 @@ class uriSchema:
     """
     String of characters used to identify a name or a resource
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -20,7 +21,7 @@ class uriSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         String of characters used to identify a name or a resource

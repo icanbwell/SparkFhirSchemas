@@ -16,6 +16,7 @@ class ClaimResponse_AdjudicationSchema:
     This resource provides the adjudication details from the processing of a Claim
     resource.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ClaimResponse_AdjudicationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides the adjudication details from the processing of a Claim
@@ -40,18 +41,18 @@ class ClaimResponse_AdjudicationSchema:
             amount element above.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.money import MoneySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ClaimResponse_Adjudication") >=
-            max_recursion_limit
+            and nesting_list.count("ClaimResponse_Adjudication") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ClaimResponse_Adjudication"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ClaimResponse_Adjudication"]
         schema = StructType(
             [
                 # Code indicating: Co-Pay, deductible, eligible, benefit, tax, etc.
@@ -62,8 +63,9 @@ class ClaimResponse_AdjudicationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Adjudication reason such as limit reached.
                 StructField(
@@ -73,8 +75,9 @@ class ClaimResponse_AdjudicationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Monetary amount associated with the code.
                 StructField(
@@ -84,8 +87,9 @@ class ClaimResponse_AdjudicationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A non-monetary value for example a percentage. Mutually exclusive to the
                 # amount element above.
@@ -94,8 +98,9 @@ class ClaimResponse_AdjudicationSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

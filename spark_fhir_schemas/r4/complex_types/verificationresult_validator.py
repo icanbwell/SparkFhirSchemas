@@ -16,6 +16,7 @@ class VerificationResult_ValidatorSchema:
     Describes validation requirements, source(s), status and dates for one or more
     elements.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class VerificationResult_ValidatorSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes validation requirements, source(s), status and dates for one or more
@@ -49,16 +50,15 @@ class VerificationResult_ValidatorSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("VerificationResult_Validator") >=
-            max_recursion_limit
+            and nesting_list.count("VerificationResult_Validator")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "VerificationResult_Validator"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["VerificationResult_Validator"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -77,9 +77,10 @@ class VerificationResult_ValidatorSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reference to the organization validating information.
                 StructField(
@@ -89,8 +90,9 @@ class VerificationResult_ValidatorSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A digital identity certificate associated with the validator.
                 StructField("identityCertificate", StringType(), True),
@@ -102,15 +104,17 @@ class VerificationResult_ValidatorSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

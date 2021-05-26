@@ -16,6 +16,7 @@ class MeasureReport_GroupSchema:
     """
     The MeasureReport resource contains the results of evaluating a measure.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class MeasureReport_GroupSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The MeasureReport resource contains the results of evaluating a measure.
@@ -43,11 +44,16 @@ class MeasureReport_GroupSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.measurereport_population import MeasureReport_PopulationSchema
-        from spark_fhir_schemas.stu3.complex_types.measurereport_stratifier import MeasureReport_StratifierSchema
+        from spark_fhir_schemas.stu3.complex_types.measurereport_population import (
+            MeasureReport_PopulationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.measurereport_stratifier import (
+            MeasureReport_StratifierSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("MeasureReport_Group") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("MeasureReport_Group") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -62,8 +68,9 @@ class MeasureReport_GroupSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The populations that make up the population group, one for each type of
                 # population appropriate for the measure.
@@ -75,9 +82,10 @@ class MeasureReport_GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The measure score for this population group, calculated as appropriate for the
                 # measure type and scoring method, and based on the contents of the populations
@@ -93,16 +101,18 @@ class MeasureReport_GroupSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

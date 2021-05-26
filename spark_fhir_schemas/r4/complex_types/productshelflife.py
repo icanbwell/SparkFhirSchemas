@@ -16,6 +16,7 @@ class ProductShelfLifeSchema:
     The shelf-life and storage information for a medicinal product item or
     container can be described using this class.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ProductShelfLifeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The shelf-life and storage information for a medicinal product item or
@@ -60,8 +61,11 @@ class ProductShelfLifeSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ProductShelfLife") >= max_recursion_limit
@@ -87,9 +91,10 @@ class ProductShelfLifeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Unique identifier for the packaged Medicinal Product.
                 StructField(
@@ -99,8 +104,9 @@ class ProductShelfLifeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This describes the shelf life, taking into account various scenarios such as
                 # shelf life of the packaged Medicinal Product itself, shelf life after
@@ -115,8 +121,9 @@ class ProductShelfLifeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The shelf life time period can be specified using a numerical value for the
                 # period of time and its unit of time measurement The unit of measurement shall
@@ -129,8 +136,9 @@ class ProductShelfLifeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Special precautions for storage, if any, can be specified using an appropriate
                 # controlled vocabulary The controlled term and the controlled term identifier
@@ -143,16 +151,18 @@ class ProductShelfLifeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

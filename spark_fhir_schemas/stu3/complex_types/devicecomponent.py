@@ -16,6 +16,7 @@ class DeviceComponentSchema:
     The characteristics, operational status and capabilities of a medical-related
     component of a medical device.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DeviceComponentSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The characteristics, operational status and capabilities of a medical-related
@@ -63,9 +64,14 @@ class DeviceComponentSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.devicecomponent_productionspecification import DeviceComponent_ProductionSpecificationSchema
+        from spark_fhir_schemas.stu3.complex_types.devicecomponent_productionspecification import (
+            DeviceComponent_ProductionSpecificationSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("DeviceComponent") >= max_recursion_limit
@@ -86,8 +92,9 @@ class DeviceComponentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The component type as defined in the object-oriented or metric nomenclature
                 # partition.
@@ -98,8 +105,9 @@ class DeviceComponentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The timestamp for the most recent system change which includes device
                 # configuration or setting change.
@@ -113,8 +121,9 @@ class DeviceComponentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The link to the parent resource. For example: Channel is linked to its VMD
                 # parent.
@@ -125,8 +134,9 @@ class DeviceComponentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The current operational status of the device. For example: On, Off, Standby,
                 # etc.
@@ -138,9 +148,10 @@ class DeviceComponentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The parameter group supported by the current device component that is based on
                 # some nomenclature, e.g. cardiovascular.
@@ -151,8 +162,9 @@ class DeviceComponentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The physical principle of the measurement. For example: thermal, chemical,
                 # acoustical, etc.
@@ -161,15 +173,15 @@ class DeviceComponentSchema:
                 StructField(
                     "productionSpecification",
                     ArrayType(
-                        DeviceComponent_ProductionSpecificationSchema.
-                        get_schema(
+                        DeviceComponent_ProductionSpecificationSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The language code for the human-readable text string produced by the device.
                 # This language code will follow the IETF language tag. Example: en-US.
@@ -180,15 +192,17 @@ class DeviceComponentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -21,6 +21,7 @@ class Composition_EventSchema:
     is contained in a Bundle, of which the Composition is the first resource
     contained.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -28,7 +29,7 @@ class Composition_EventSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A set of healthcare-related information that is assembled together into a
@@ -53,9 +54,12 @@ class Composition_EventSchema:
             example, this could be used to document such a colonoscopy or an appendectomy.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Composition_Event") >= max_recursion_limit
@@ -77,9 +81,10 @@ class Composition_EventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The period of time covered by the documentation. There is no assertion that
                 # the documentation is a complete representation for this period, only that it
@@ -91,8 +96,9 @@ class Composition_EventSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The description and/or reference of the event(s) being documented. For
                 # example, this could be used to document such a colonoscopy or an appendectomy.
@@ -104,16 +110,18 @@ class Composition_EventSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

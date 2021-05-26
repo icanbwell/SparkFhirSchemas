@@ -14,6 +14,7 @@ class PeriodSchema:
     """
     A time period defined by a start and end date and optionally time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -21,7 +22,7 @@ class PeriodSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A time period defined by a start and end date and optionally time.
@@ -35,8 +36,7 @@ class PeriodSchema:
 
         """
         if (
-            max_recursion_limit
-            and nesting_list.count("Period") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Period") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -53,8 +53,9 @@ class PeriodSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

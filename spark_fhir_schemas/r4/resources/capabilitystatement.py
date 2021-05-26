@@ -19,6 +19,7 @@ class CapabilityStatementSchema:
     actual server functionality or a statement of required or desired server
     implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class CapabilityStatementSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -179,19 +180,34 @@ class CapabilityStatementSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_software import CapabilityStatement_SoftwareSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_implementation import CapabilityStatement_ImplementationSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_rest import CapabilityStatement_RestSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_messaging import CapabilityStatement_MessagingSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_document import CapabilityStatement_DocumentSchema
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_software import (
+            CapabilityStatement_SoftwareSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_implementation import (
+            CapabilityStatement_ImplementationSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_rest import (
+            CapabilityStatement_RestSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_messaging import (
+            CapabilityStatement_MessagingSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_document import (
+            CapabilityStatement_DocumentSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("CapabilityStatement") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("CapabilityStatement") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -209,8 +225,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -222,8 +239,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -236,8 +254,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -247,8 +266,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -263,8 +283,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -277,9 +298,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -294,9 +316,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An absolute URI that is used to identify this capability statement when it is
                 # referenced in a specification, model, design or an instance; also called its
@@ -312,8 +335,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the capability
                 # statement when it is referenced in a specification, model, design or instance.
@@ -346,8 +370,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The name of the organization or individual that published the capability
                 # statement.
@@ -362,9 +387,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the capability statement from a
                 # consumer's perspective. Typically, this is used when the capability statement
@@ -377,8 +403,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These contexts may be general categories (gender, age, ...)
@@ -393,9 +420,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the capability statement is intended to
                 # be used.
@@ -407,9 +435,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explanation of why this capability statement is needed and why it has been
                 # designed as it has.
@@ -420,8 +449,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the capability statement and/or its
                 # contents. Copyright statements are generally legal restrictions on the use and
@@ -433,8 +463,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The way that this statement is intended to be used, to describe an actual
                 # running instance of software, a particular product (kind, not instance of
@@ -453,9 +484,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Reference to a canonical URL of another CapabilityStatement that this software
                 # adds to. The capability statement automatically includes everything in the
@@ -469,9 +501,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Software that is covered by this capability statement.  It is used when the
                 # capability statement describes the capabilities of a particular software
@@ -483,8 +516,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies a specific implementation instance that is described by the
                 # capability statement - i.e. a particular installation, rather than the
@@ -496,8 +530,9 @@ class CapabilityStatementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The version of the FHIR specification that this CapabilityStatement describes
                 # (which SHALL be the same as the FHIR version of the CapabilityStatement
@@ -513,9 +548,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A list of the patch formats supported by this implementation using their
                 # content types.
@@ -527,9 +563,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A list of implementation guides that the server does (or should) support in
                 # their entirety.
@@ -541,9 +578,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A definition of the restful capabilities of the solution, if any.
                 StructField(
@@ -554,9 +592,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of the messaging capabilities of the solution.
                 StructField(
@@ -567,9 +606,10 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A document definition.
                 StructField(
@@ -580,16 +620,18 @@ class CapabilityStatementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

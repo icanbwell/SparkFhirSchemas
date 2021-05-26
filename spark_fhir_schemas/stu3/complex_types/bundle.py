@@ -16,6 +16,7 @@ class BundleSchema:
     """
     A container for a collection of resources.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class BundleSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
@@ -49,11 +50,13 @@ class BundleSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.bundle_link import Bundle_LinkSchema
-        from spark_fhir_schemas.stu3.complex_types.bundle_entry import Bundle_EntrySchema
+        from spark_fhir_schemas.stu3.complex_types.bundle_entry import (
+            Bundle_EntrySchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.signature import SignatureSchema
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Bundle") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Bundle") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -71,8 +74,9 @@ class BundleSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the purpose of this bundle - how it was intended to be used.
                 StructField("type", StringType(), True),
@@ -88,9 +92,10 @@ class BundleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An entry in a bundle resource - will either contain a resource, or information
                 # about a resource (transactions and history only).
@@ -102,9 +107,10 @@ class BundleSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Digital Signature - base64 encoded. XML-DSIg or a JWT.
                 StructField(
@@ -114,15 +120,17 @@ class BundleSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class SubstanceSpecification_MoietySchema:
     The detailed description of a substance, typically at a level beyond what is
     used for prescribing.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SubstanceSpecification_MoietySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
@@ -57,19 +58,20 @@ class SubstanceSpecification_MoietySchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceSpecification_Moiety") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceSpecification_Moiety")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceSpecification_Moiety"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceSpecification_Moiety"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -88,9 +90,10 @@ class SubstanceSpecification_MoietySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Role that the moiety is playing.
                 StructField(
@@ -100,8 +103,9 @@ class SubstanceSpecification_MoietySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifier by which this moiety substance is known.
                 StructField(
@@ -111,8 +115,9 @@ class SubstanceSpecification_MoietySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Textual name for this moiety substance.
                 StructField("name", StringType(), True),
@@ -124,8 +129,9 @@ class SubstanceSpecification_MoietySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Optical activity type.
                 StructField(
@@ -135,8 +141,9 @@ class SubstanceSpecification_MoietySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Molecular formula.
                 StructField("molecularFormula", StringType(), True),
@@ -148,8 +155,9 @@ class SubstanceSpecification_MoietySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Quantitative value for this moiety.
                 StructField("amountString", StringType(), True),
@@ -157,8 +165,9 @@ class SubstanceSpecification_MoietySchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

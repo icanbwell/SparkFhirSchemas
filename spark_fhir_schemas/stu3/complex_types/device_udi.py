@@ -20,6 +20,7 @@ class Device_UdiSchema:
     research for healthcare and public health.  Non-medical devices may include
     items such as a machine, cellphone, computer, application, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class Device_UdiSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource identifies an instance or a type of a manufactured item that is
@@ -119,8 +120,9 @@ class Device_UdiSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

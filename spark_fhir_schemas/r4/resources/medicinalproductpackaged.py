@@ -15,6 +15,7 @@ class MedicinalProductPackagedSchema:
     """
     A medicinal product in a container or package.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MedicinalProductPackagedSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A medicinal product in a container or package.
@@ -91,20 +92,26 @@ class MedicinalProductPackagedSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.marketingstatus import MarketingStatusSchema
-        from spark_fhir_schemas.r4.complex_types.medicinalproductpackaged_batchidentifier import MedicinalProductPackaged_BatchIdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.medicinalproductpackaged_packageitem import MedicinalProductPackaged_PackageItemSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.marketingstatus import (
+            MarketingStatusSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.medicinalproductpackaged_batchidentifier import (
+            MedicinalProductPackaged_BatchIdentifierSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.medicinalproductpackaged_packageitem import (
+            MedicinalProductPackaged_PackageItemSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicinalProductPackaged") >=
-            max_recursion_limit
+            and nesting_list.count("MedicinalProductPackaged") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MedicinalProductPackaged"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MedicinalProductPackaged"]
         schema = StructType(
             [
                 # This is a MedicinalProductPackaged resource
@@ -118,8 +125,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -131,8 +139,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -145,8 +154,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -156,8 +166,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -172,8 +183,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -186,9 +198,10 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -203,9 +216,10 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Unique identifier.
                 StructField(
@@ -216,9 +230,10 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The product with this is a pack for.
                 StructField(
@@ -229,9 +244,10 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Textual description.
                 StructField("description", StringType(), True),
@@ -244,8 +260,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Marketing information.
                 StructField(
@@ -256,9 +273,10 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Manufacturer of this Package Item.
                 StructField(
@@ -268,8 +286,9 @@ class MedicinalProductPackagedSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Manufacturer of this Package Item.
                 StructField(
@@ -280,23 +299,24 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Batch numbering.
                 StructField(
                     "batchIdentifier",
                     ArrayType(
-                        MedicinalProductPackaged_BatchIdentifierSchema.
-                        get_schema(
+                        MedicinalProductPackaged_BatchIdentifierSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A packaging item, as a contained for medicine, possibly with other packaging
                 # items within.
@@ -308,16 +328,18 @@ class MedicinalProductPackagedSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

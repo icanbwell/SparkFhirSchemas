@@ -18,6 +18,7 @@ class ServiceDefinitionSchema:
     is made available as a service, such as immunization modules or drug-drug
     interaction checking.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ServiceDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The ServiceDefinition describes a unit of decision support functionality that
@@ -128,14 +129,27 @@ class ServiceDefinitionSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.stu3.complex_types.triggerdefinition import TriggerDefinitionSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.triggerdefinition import (
+            TriggerDefinitionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ServiceDefinition") >= max_recursion_limit
@@ -167,9 +181,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the service definition
                 # when it is referenced in a specification, model, design or instance. This is
@@ -222,8 +237,9 @@ class ServiceDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These terms may be used to assist with indexing and searching
@@ -236,9 +252,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the service definition is intended to be
                 # used.
@@ -250,9 +267,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the module. Topics provide a high-level
                 # categorization of the module that can be useful for filtering and searching.
@@ -264,9 +282,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A contributor to the content of the module, including authors, editors,
                 # reviewers, and endorsers.
@@ -278,9 +297,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contact details to assist a user in finding and communicating with the
                 # publisher.
@@ -292,9 +312,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the service definition and/or its contents.
                 # Copyright statements are generally legal restrictions on the use and
@@ -310,9 +331,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The trigger element defines when the rule should be invoked. This information
                 # is used by consumers of the rule to determine how to integrate the rule into a
@@ -325,9 +347,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Data requirements are a machine processable description of the data required
                 # by the module in order to perform a successful evaluation.
@@ -339,9 +362,10 @@ class ServiceDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to the operation that is used to invoke this service.
                 StructField(
@@ -351,15 +375,17 @@ class ServiceDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

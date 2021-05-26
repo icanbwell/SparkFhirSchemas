@@ -18,6 +18,7 @@ class CodeSystemSchema:
     A code system resource specifies a set of codes drawn from one or more code
     systems.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class CodeSystemSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A code system resource specifies a set of codes drawn from one or more code
@@ -125,12 +126,25 @@ class CodeSystemSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.codesystem_filter import CodeSystem_FilterSchema
-        from spark_fhir_schemas.stu3.complex_types.codesystem_property import CodeSystem_PropertySchema
-        from spark_fhir_schemas.stu3.complex_types.codesystem_concept import CodeSystem_ConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codesystem_filter import (
+            CodeSystem_FilterSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codesystem_property import (
+            CodeSystem_PropertySchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codesystem_concept import (
+            CodeSystem_ConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("CodeSystem") >= max_recursion_limit
@@ -160,8 +174,9 @@ class CodeSystemSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the code system when
                 # it is referenced in a specification, model, design or instance. This is an
@@ -201,9 +216,10 @@ class CodeSystemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the code system from a consumer's
                 # perspective.
@@ -219,9 +235,10 @@ class CodeSystemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the code system is intended to be used.
                 StructField(
@@ -232,9 +249,10 @@ class CodeSystemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explaination of why this code system is needed and why it has been designed as
                 # it has.
@@ -273,9 +291,10 @@ class CodeSystemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A property defines an additional slot through which additional information can
                 # be provided about a concept.
@@ -287,9 +306,10 @@ class CodeSystemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Concepts that are in the code system. The concept definitions are inherently
                 # hierarchical, but the definitions must be consulted to determine what the
@@ -302,16 +322,18 @@ class CodeSystemSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

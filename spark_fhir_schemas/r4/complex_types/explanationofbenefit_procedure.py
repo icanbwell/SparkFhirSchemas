@@ -17,6 +17,7 @@ class ExplanationOfBenefit_ProcedureSchema:
     processing of a Claim; and optionally account balance information, for
     informing the subscriber of the benefits provided.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ExplanationOfBenefit_ProcedureSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides: the claim details; adjudication details from the
@@ -58,19 +59,20 @@ class ExplanationOfBenefit_ProcedureSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ExplanationOfBenefit_Procedure") >=
-            max_recursion_limit
+            and nesting_list.count("ExplanationOfBenefit_Procedure")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ExplanationOfBenefit_Procedure"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ExplanationOfBenefit_Procedure"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -89,9 +91,10 @@ class ExplanationOfBenefit_ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A number to uniquely identify procedure entries.
                 StructField(
@@ -101,8 +104,9 @@ class ExplanationOfBenefit_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the condition was observed or the relative ranking.
                 StructField(
@@ -113,9 +117,10 @@ class ExplanationOfBenefit_ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Date and optionally time the procedure was performed.
                 StructField(
@@ -125,8 +130,9 @@ class ExplanationOfBenefit_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The code or reference to a Procedure resource which identifies the clinical
                 # intervention performed.
@@ -137,8 +143,9 @@ class ExplanationOfBenefit_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The code or reference to a Procedure resource which identifies the clinical
                 # intervention performed.
@@ -149,8 +156,9 @@ class ExplanationOfBenefit_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Unique Device Identifiers associated with this line item.
                 StructField(
@@ -161,16 +169,18 @@ class ExplanationOfBenefit_ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

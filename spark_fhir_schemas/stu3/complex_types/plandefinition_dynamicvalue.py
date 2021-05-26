@@ -17,6 +17,7 @@ class PlanDefinition_DynamicValueSchema:
     to support the description of a broad range of clinical artifacts such as
     clinical decision support rules, order sets and protocols.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class PlanDefinition_DynamicValueSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
@@ -46,14 +47,11 @@ class PlanDefinition_DynamicValueSchema:
         """
         if (
             max_recursion_limit
-            and nesting_list.count("PlanDefinition_DynamicValue") >=
-            max_recursion_limit
+            and nesting_list.count("PlanDefinition_DynamicValue") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "PlanDefinition_DynamicValue"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["PlanDefinition_DynamicValue"]
         schema = StructType(
             [
                 # A brief, natural language description of the intended semantics of the dynamic
@@ -70,8 +68,9 @@ class PlanDefinition_DynamicValueSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

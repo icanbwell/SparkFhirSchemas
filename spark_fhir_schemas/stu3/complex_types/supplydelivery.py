@@ -15,6 +15,7 @@ class SupplyDeliverySchema:
     """
     Record of delivery of what is supplied.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class SupplyDeliverySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Record of delivery of what is supplied.
@@ -61,10 +62,15 @@ class SupplyDeliverySchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.supplydelivery_supplieditem import SupplyDelivery_SuppliedItemSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.supplydelivery_supplieditem import (
+            SupplyDelivery_SuppliedItemSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.timing import TimingSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("SupplyDelivery") >= max_recursion_limit
@@ -84,8 +90,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A plan, proposal or order that is fulfilled in whole or in part by this event.
                 StructField(
@@ -96,9 +103,10 @@ class SupplyDeliverySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A larger event of which this particular event is a component or step.
                 StructField(
@@ -109,9 +117,10 @@ class SupplyDeliverySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code specifying the state of the dispense event.
                 StructField("status", StringType(), True),
@@ -123,8 +132,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the type of dispensing event that is performed. Examples include:
                 # Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.
@@ -135,8 +145,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The item that is being delivered or has been supplied.
                 StructField(
@@ -146,8 +157,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date or time(s) the activity occurred.
                 StructField("occurrenceDateTime", StringType(), True),
@@ -159,8 +171,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date or time(s) the activity occurred.
                 StructField(
@@ -170,8 +183,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The individual responsible for dispensing the medication, supplier or device.
                 StructField(
@@ -181,8 +195,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identification of the facility/location where the Supply was shipped to, as
                 # part of the dispense event.
@@ -193,8 +208,9 @@ class SupplyDeliverySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the person who picked up the Supply.
                 StructField(
@@ -205,16 +221,18 @@ class SupplyDeliverySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

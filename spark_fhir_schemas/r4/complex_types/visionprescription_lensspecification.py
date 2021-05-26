@@ -16,6 +16,7 @@ class VisionPrescription_LensSpecificationSchema:
     An authorization for the provision of glasses and/or contact lenses to a
     patient.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class VisionPrescription_LensSpecificationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An authorization for the provision of glasses and/or contact lenses to a
@@ -70,16 +71,21 @@ class VisionPrescription_LensSpecificationSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        from spark_fhir_schemas.r4.complex_types.visionprescription_prism import VisionPrescription_PrismSchema
+        from spark_fhir_schemas.r4.complex_types.visionprescription_prism import (
+            VisionPrescription_PrismSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("VisionPrescription_LensSpecification") >=
-            max_recursion_limit
+            and nesting_list.count("VisionPrescription_LensSpecification")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -104,9 +110,10 @@ class VisionPrescription_LensSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the type of vision correction product which is required for the
                 # patient.
@@ -117,8 +124,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The eye for which the lens specification applies.
                 StructField("eye", StringType(), True),
@@ -130,8 +138,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Power adjustment for astigmatism measured in dioptres (0.25 units).
                 StructField(
@@ -141,8 +150,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Adjustment for astigmatism measured in integer degrees.
                 StructField(
@@ -152,8 +162,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Allows for adjustment on two axis.
                 StructField(
@@ -164,9 +175,10 @@ class VisionPrescription_LensSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Power adjustment for multifocal lenses measured in dioptres (0.25 units).
                 StructField(
@@ -176,8 +188,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Contact lens power measured in dioptres (0.25 units).
                 StructField(
@@ -187,8 +200,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Back curvature measured in millimetres.
                 StructField(
@@ -198,8 +212,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Contact lens diameter measured in millimetres.
                 StructField(
@@ -209,8 +224,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The recommended maximum wear period for the lens.
                 StructField(
@@ -220,8 +236,9 @@ class VisionPrescription_LensSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Special color or pattern.
                 StructField("color", StringType(), True),
@@ -236,16 +253,18 @@ class VisionPrescription_LensSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -17,6 +17,7 @@ class Consent_PolicySchema:
     identified recipient(s) or recipient role(s) to perform one or more actions
     within a given policy context, for specific purposes and periods of time.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Consent_PolicySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A record of a healthcare consumer’s  choices, which permits or denies
@@ -51,6 +52,7 @@ class Consent_PolicySchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Consent_Policy") >= max_recursion_limit
@@ -76,9 +78,10 @@ class Consent_PolicySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Entity or Organization having regulatory jurisdiction or accountability for
                 # enforcing policies pertaining to Consent Directives.
@@ -89,8 +92,9 @@ class Consent_PolicySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The references to the policies that are included in this consent scope.
                 # Policies may be organizational, but are often defined jurisdictionally, or in
@@ -102,15 +106,17 @@ class Consent_PolicySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

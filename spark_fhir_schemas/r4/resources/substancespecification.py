@@ -16,6 +16,7 @@ class SubstanceSpecificationSchema:
     The detailed description of a substance, typically at a level beyond what is
     used for prescribing.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class SubstanceSpecificationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The detailed description of a substance, typically at a level beyond what is
@@ -112,18 +113,35 @@ class SubstanceSpecificationSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_moiety import SubstanceSpecification_MoietySchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_property import SubstanceSpecification_PropertySchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_structure import SubstanceSpecification_StructureSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_code import SubstanceSpecification_CodeSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_name import SubstanceSpecification_NameSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import SubstanceSpecification_MolecularWeightSchema
-        from spark_fhir_schemas.r4.complex_types.substancespecification_relationship import SubstanceSpecification_RelationshipSchema
+        from spark_fhir_schemas.r4.complex_types.substancespecification_moiety import (
+            SubstanceSpecification_MoietySchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_property import (
+            SubstanceSpecification_PropertySchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_structure import (
+            SubstanceSpecification_StructureSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_code import (
+            SubstanceSpecification_CodeSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_name import (
+            SubstanceSpecification_NameSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_molecularweight import (
+            SubstanceSpecification_MolecularWeightSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancespecification_relationship import (
+            SubstanceSpecification_RelationshipSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("SubstanceSpecification") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("SubstanceSpecification") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -141,8 +159,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -154,8 +173,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -168,8 +188,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -179,8 +200,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -195,8 +217,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -209,9 +232,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -226,9 +250,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifier by which this substance is known.
                 StructField(
@@ -238,8 +263,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # High level categorization, e.g. polymer or nucleic acid.
                 StructField(
@@ -249,8 +275,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Status of substance within the catalogue e.g. approved.
                 StructField(
@@ -260,8 +287,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the substance applies to only human or veterinary use.
                 StructField(
@@ -271,8 +299,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Textual description of the substance.
                 StructField("description", StringType(), True),
@@ -285,9 +314,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Textual comment about this record of a substance.
                 StructField("comment", StringType(), True),
@@ -300,9 +330,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # General specifications for this substance, including how it is related to
                 # other substances.
@@ -314,9 +345,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # General information detailing this substance.
                 StructField(
@@ -326,8 +358,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Structural information.
                 StructField(
@@ -337,8 +370,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Codes associated with the substance.
                 StructField(
@@ -349,9 +383,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Names applicable to this substance.
                 StructField(
@@ -362,24 +397,25 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The molecular weight or weight range (for proteins, polymers or nucleic
                 # acids).
                 StructField(
                     "molecularWeight",
                     ArrayType(
-                        SubstanceSpecification_MolecularWeightSchema.
-                        get_schema(
+                        SubstanceSpecification_MolecularWeightSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A link between this substance and another, with details of the relationship.
                 StructField(
@@ -390,9 +426,10 @@ class SubstanceSpecificationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Data items specific to nucleic acids.
                 StructField(
@@ -402,8 +439,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Data items specific to polymers.
                 StructField(
@@ -413,8 +451,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Data items specific to proteins.
                 StructField(
@@ -424,8 +463,9 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Material or taxonomic/anatomical source for the substance.
                 StructField(
@@ -435,15 +475,17 @@ class SubstanceSpecificationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

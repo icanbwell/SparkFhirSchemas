@@ -17,6 +17,7 @@ class TestScript_CapabilitySchema:
     A structured set of tests against a FHIR server or client implementation to
     determine compliance against the FHIR specification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class TestScript_CapabilitySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of tests against a FHIR server or client implementation to
@@ -65,9 +66,10 @@ class TestScript_CapabilitySchema:
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("TestScript_Capability") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("TestScript_Capability") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -90,9 +92,10 @@ class TestScript_CapabilitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Whether or not the test execution will require the given capabilities of the
                 # server in order for this test script to execute.
@@ -112,9 +115,10 @@ class TestScript_CapabilitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Which server these requirements apply to.
                 StructField(
@@ -124,8 +128,9 @@ class TestScript_CapabilitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Links to the FHIR specification that describes this interaction and the
                 # resources involved in more detail.
@@ -137,9 +142,10 @@ class TestScript_CapabilitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Minimum capabilities required of server for test script to execute
                 # successfully.   If server does not meet at a minimum the referenced capability
@@ -151,15 +157,17 @@ class TestScript_CapabilitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -23,6 +23,7 @@ class ProvenanceSchema:
     stage in lifecycle (e.g. Document Completion - has the artifact been legally
     authenticated), all of which may impact security, privacy, and trust policies.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -30,7 +31,7 @@ class ProvenanceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Provenance of a resource is a record that describes entities and processes
@@ -78,9 +79,14 @@ class ProvenanceSchema:
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.provenance_agent import Provenance_AgentSchema
-        from spark_fhir_schemas.stu3.complex_types.provenance_entity import Provenance_EntitySchema
+        from spark_fhir_schemas.stu3.complex_types.provenance_agent import (
+            Provenance_AgentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.provenance_entity import (
+            Provenance_EntitySchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.signature import SignatureSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Provenance") >= max_recursion_limit
@@ -103,9 +109,10 @@ class ProvenanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The period during which the activity occurred.
                 StructField(
@@ -115,8 +122,9 @@ class ProvenanceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The instant of time at which the activity was recorded.
                 StructField("recorded", StringType(), True),
@@ -131,8 +139,9 @@ class ProvenanceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The reason that the activity was taking place.
                 StructField(
@@ -143,9 +152,10 @@ class ProvenanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An activity is something that occurs over a period of time and acts upon or
                 # with entities; it may include consuming, processing, transforming, modifying,
@@ -157,8 +167,9 @@ class ProvenanceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An actor taking a role in an activity  for which it can be assigned some
                 # degree of responsibility for the activity taking place.
@@ -170,9 +181,10 @@ class ProvenanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An entity used in this activity.
                 StructField(
@@ -183,9 +195,10 @@ class ProvenanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A digital signature on the target Reference(s). The signer should match a
                 # Provenance.agent. The purpose of the signature is indicated.
@@ -197,16 +210,18 @@ class ProvenanceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

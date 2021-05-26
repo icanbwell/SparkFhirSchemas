@@ -17,6 +17,7 @@ class ConditionSchema:
     A clinical condition, problem, diagnosis, or other event, situation, issue, or
     clinical concept that has risen to a level of concern.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ConditionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A clinical condition, problem, diagnosis, or other event, situation, issue, or
@@ -116,14 +117,21 @@ class ConditionSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.age import AgeSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
-        from spark_fhir_schemas.stu3.complex_types.condition_stage import Condition_StageSchema
-        from spark_fhir_schemas.stu3.complex_types.condition_evidence import Condition_EvidenceSchema
+        from spark_fhir_schemas.stu3.complex_types.condition_stage import (
+            Condition_StageSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.condition_evidence import (
+            Condition_EvidenceSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Condition") >= max_recursion_limit
@@ -147,9 +155,10 @@ class ConditionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The clinical status of the condition.
                 StructField("clinicalStatus", StringType(), True),
@@ -164,9 +173,10 @@ class ConditionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A subjective assessment of the severity of the condition as evaluated by the
                 # clinician.
@@ -177,8 +187,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identification of the condition, problem or diagnosis.
                 StructField(
@@ -188,8 +199,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The anatomical location where this condition manifests itself.
                 StructField(
@@ -200,9 +212,10 @@ class ConditionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the patient or group who the condition record is associated with.
                 StructField(
@@ -212,8 +225,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Encounter during which the condition was first asserted.
                 StructField(
@@ -223,8 +237,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
@@ -238,8 +253,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
@@ -250,8 +266,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
@@ -262,8 +279,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
@@ -284,8 +302,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
@@ -303,8 +322,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
@@ -317,8 +337,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
@@ -336,8 +357,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Clinical stage or grade of a condition. May include formal severity
                 # assessments.
@@ -348,8 +370,9 @@ class ConditionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Supporting Evidence / manifestations that are the basis on which this
                 # condition is suspected or confirmed.
@@ -361,9 +384,10 @@ class ConditionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Additional information about the Condition. This is a general notes/comments
                 # entry  for description of the Condition, its diagnosis and prognosis.
@@ -375,16 +399,18 @@ class ConditionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

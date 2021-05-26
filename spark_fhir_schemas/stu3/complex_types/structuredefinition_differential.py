@@ -17,6 +17,7 @@ class StructureDefinition_DifferentialSchema:
     underlying resources, data types defined in FHIR, and also for describing
     extensions and constraints on resources and data types.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class StructureDefinition_DifferentialSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A definition of a FHIR structure. This resource is used to describe the
@@ -35,17 +36,18 @@ class StructureDefinition_DifferentialSchema:
         element: Captures constraints on each element within the resource.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.elementdefinition import ElementDefinitionSchema
+        from spark_fhir_schemas.stu3.complex_types.elementdefinition import (
+            ElementDefinitionSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("StructureDefinition_Differential") >=
-            max_recursion_limit
+            and nesting_list.count("StructureDefinition_Differential")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "StructureDefinition_Differential"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["StructureDefinition_Differential"]
         schema = StructType(
             [
                 # Captures constraints on each element within the resource.
@@ -57,16 +59,18 @@ class StructureDefinition_DifferentialSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class ImagingManifest_SeriesSchema:
     A text description of the DICOM SOP instances selected in the ImagingManifest;
     or the reason for, or significance of, the selection.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ImagingManifest_SeriesSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A text description of the DICOM SOP instances selected in the ImagingManifest;
@@ -41,10 +42,13 @@ class ImagingManifest_SeriesSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.imagingmanifest_instance import ImagingManifest_InstanceSchema
+        from spark_fhir_schemas.stu3.complex_types.imagingmanifest_instance import (
+            ImagingManifest_InstanceSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ImagingManifest_Series") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ImagingManifest_Series") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -65,9 +69,10 @@ class ImagingManifest_SeriesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identity and locating information of the selected DICOM SOP instances.
                 StructField(
@@ -78,16 +83,18 @@ class ImagingManifest_SeriesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

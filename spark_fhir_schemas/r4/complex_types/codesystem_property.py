@@ -17,6 +17,7 @@ class CodeSystem_PropertySchema:
     code system or code system supplement and its key properties, and optionally
     define a part or all of its content.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class CodeSystem_PropertySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The CodeSystem resource is used to declare the existence of and describe a
@@ -59,9 +60,10 @@ class CodeSystem_PropertySchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("CodeSystem_Property") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("CodeSystem_Property") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -84,9 +86,10 @@ class CodeSystem_PropertySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code that is used to identify the property. The code is used internally (in
                 # CodeSystem.concept.property.code) and also externally, such as in property
@@ -98,8 +101,9 @@ class CodeSystem_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Reference to the formal meaning of the property. One possible source of
                 # meaning is the [Concept Properties](codesystem-concept-properties.html) code
@@ -111,8 +115,9 @@ class CodeSystem_PropertySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A description of the property- why it is defined, and how its value might be
                 # used.
@@ -124,8 +129,9 @@ class CodeSystem_PropertySchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

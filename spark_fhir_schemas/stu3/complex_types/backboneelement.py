@@ -14,6 +14,7 @@ class BackboneElementSchema:
     Base definition for all elements that are defined inside a resource - but not
     those in a data type.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -21,7 +22,7 @@ class BackboneElementSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Base definition for all elements that are defined inside a resource - but not

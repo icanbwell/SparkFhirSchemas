@@ -21,6 +21,7 @@ class ElementDefinitionSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -28,7 +29,7 @@ class ElementDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -1585,17 +1586,25 @@ class ElementDefinitionSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_slicing import ElementDefinition_SlicingSchema
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_slicing import (
+            ElementDefinition_SlicingSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.simple_types.unsignedint import unsignedIntSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_base import ElementDefinition_BaseSchema
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_base import (
+            ElementDefinition_BaseSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_type import ElementDefinition_TypeSchema
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_type import (
+            ElementDefinition_TypeSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.address import AddressSchema
         from spark_fhir_schemas.r4.complex_types.age import AgeSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.count import CountSchema
         from spark_fhir_schemas.r4.complex_types.distance import DistanceSchema
@@ -1611,22 +1620,41 @@ class ElementDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import ContactDetailSchema
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.r4.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.parameterdefinition import ParameterDefinitionSchema
-        from spark_fhir_schemas.r4.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.r4.complex_types.triggerdefinition import TriggerDefinitionSchema
+        from spark_fhir_schemas.r4.complex_types.parameterdefinition import (
+            ParameterDefinitionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.triggerdefinition import (
+            TriggerDefinitionSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_example import ElementDefinition_ExampleSchema
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_example import (
+            ElementDefinition_ExampleSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_constraint import ElementDefinition_ConstraintSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_binding import ElementDefinition_BindingSchema
-        from spark_fhir_schemas.r4.complex_types.elementdefinition_mapping import ElementDefinition_MappingSchema
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_constraint import (
+            ElementDefinition_ConstraintSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_binding import (
+            ElementDefinition_BindingSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.elementdefinition_mapping import (
+            ElementDefinition_MappingSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ElementDefinition") >= max_recursion_limit
@@ -1652,9 +1680,10 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The path identifies the element and is expressed as a "."-separated list of
                 # ancestor elements, beginning with the name of the resource or extension.
@@ -1685,9 +1714,10 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates that the element is sliced into a set of alternative definitions
                 # (i.e. in a structure definition, there are multiple different constraints on a
@@ -1703,8 +1733,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A concise description of what this element means (e.g. for use in
                 # autogenerated summaries).
@@ -1722,8 +1753,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Explanatory notes and implementation guidance about the data element,
                 # including notes about how to use the data properly, exceptions to proper use,
@@ -1736,8 +1768,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This element is for traceability of why the element was created and why the
                 # constraints exist as they do. This may be used to point to source materials or
@@ -1749,8 +1782,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies additional names by which this element might also be known.
                 StructField("alias", ArrayType(StringType()), True),
@@ -1762,8 +1796,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum number of times this element is permitted to appear in the
                 # instance.
@@ -1782,8 +1817,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies an element defined elsewhere in the definition whose content rules
                 # should be applied to the current element. ContentReferences bring across all
@@ -1796,8 +1832,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The data type or resource that the value of this element is permitted to be.
                 StructField(
@@ -1808,9 +1845,10 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1878,8 +1916,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1890,8 +1929,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1902,8 +1942,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1914,8 +1955,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1926,8 +1968,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1938,8 +1981,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1950,8 +1994,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1962,8 +2007,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1974,8 +2020,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1986,8 +2033,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -1998,8 +2046,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2010,8 +2059,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2022,8 +2072,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2034,8 +2085,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2046,8 +2098,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2058,8 +2111,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2070,8 +2124,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2082,8 +2137,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2094,8 +2150,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2106,8 +2163,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2118,8 +2176,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2130,8 +2189,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2142,8 +2202,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2154,8 +2215,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2166,8 +2228,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2178,8 +2241,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2190,8 +2254,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2202,8 +2267,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2214,8 +2280,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2226,8 +2293,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
@@ -2238,8 +2306,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The Implicit meaning that is to be understood when this element is missing
                 # (e.g. 'when this element is missing, the period is ongoing').
@@ -2250,8 +2319,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If present, indicates that the order of the repeating element has meaning and
                 # describes what that meaning is.  If absent, it means that the order of the
@@ -2363,8 +2433,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2377,8 +2448,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2391,8 +2463,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2405,8 +2478,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2419,8 +2493,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2433,8 +2508,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2447,8 +2523,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2461,8 +2538,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2475,8 +2553,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2489,8 +2568,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2503,8 +2583,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2517,8 +2598,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2531,8 +2613,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2545,8 +2628,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2559,8 +2643,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2573,8 +2658,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2587,8 +2673,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2601,8 +2688,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2615,8 +2703,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2629,8 +2718,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2643,8 +2733,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2657,8 +2748,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2671,8 +2763,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2685,8 +2778,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2699,8 +2793,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2713,8 +2808,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2727,8 +2823,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2741,8 +2838,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2755,8 +2853,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2769,8 +2868,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
@@ -2783,8 +2883,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3172,8 +3273,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3200,8 +3302,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3228,8 +3331,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3256,8 +3360,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3284,8 +3389,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3312,8 +3418,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3340,8 +3447,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3368,8 +3476,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3396,8 +3505,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3424,8 +3534,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3452,8 +3563,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3480,8 +3592,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3508,8 +3621,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3536,8 +3650,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3564,8 +3679,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3592,8 +3708,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3620,8 +3737,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3648,8 +3766,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3676,8 +3795,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3704,8 +3824,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3732,8 +3853,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3760,8 +3882,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3788,8 +3911,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3816,8 +3940,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3844,8 +3969,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3872,8 +3998,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3900,8 +4027,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3928,8 +4056,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3956,8 +4085,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -3984,8 +4114,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
@@ -4012,8 +4143,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A sample value for this element demonstrating the type of information that
                 # would typically be found in the element.
@@ -4025,9 +4157,10 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
@@ -4071,8 +4204,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
@@ -4116,8 +4250,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the maximum length in characters that is permitted to be present in
                 # conformant instances and which is expected to be supported by conformant
@@ -4129,8 +4264,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to an invariant that may make additional statements about the
                 # cardinality or value in the instance.
@@ -4142,9 +4278,10 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Formal constraints such as co-occurrence and other constraints that can be
                 # computationally evaluated within the context of the instance.
@@ -4156,9 +4293,10 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # If true, implementations that produce or consume resources SHALL provide
                 # "support" for the element in some meaningful way.  If false, the element may
@@ -4187,8 +4325,9 @@ class ElementDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies a concept from an external specification that roughly corresponds
                 # to this element.
@@ -4200,16 +4339,18 @@ class ElementDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

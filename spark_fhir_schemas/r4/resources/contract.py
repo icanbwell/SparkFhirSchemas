@@ -16,6 +16,7 @@ class ContractSchema:
     Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
     a policy or agreement.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ContractSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Legally enforceable, formally recorded unilateral or bilateral directive i.e.,
@@ -200,17 +201,32 @@ class ContractSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.contract_contentdefinition import Contract_ContentDefinitionSchema
-        from spark_fhir_schemas.r4.complex_types.contract_term import Contract_TermSchema
-        from spark_fhir_schemas.r4.complex_types.contract_signer import Contract_SignerSchema
-        from spark_fhir_schemas.r4.complex_types.contract_friendly import Contract_FriendlySchema
-        from spark_fhir_schemas.r4.complex_types.contract_legal import Contract_LegalSchema
-        from spark_fhir_schemas.r4.complex_types.contract_rule import Contract_RuleSchema
+        from spark_fhir_schemas.r4.complex_types.contract_contentdefinition import (
+            Contract_ContentDefinitionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_term import (
+            Contract_TermSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_signer import (
+            Contract_SignerSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_friendly import (
+            Contract_FriendlySchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_legal import (
+            Contract_LegalSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.contract_rule import (
+            Contract_RuleSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Contract") >= max_recursion_limit
@@ -231,8 +247,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -244,8 +261,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -258,8 +276,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -269,8 +288,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -285,8 +305,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -299,9 +320,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -316,9 +338,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Unique identifier for this Contract or a derivative that references a Source
                 # Contract.
@@ -330,9 +353,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Canonical identifier for this contract, represented as a URI (globally
                 # unique).
@@ -343,8 +367,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An edition identifier used for business purposes to label business significant
                 # variants.
@@ -357,8 +382,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Legal states of the formation of a legal instrument, which is a formally
                 # executed written document that can be formally attributed to its author,
@@ -372,8 +398,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The URL pointing to a FHIR-defined Contract Definition that is adhered to in
                 # whole or part by this Contract.
@@ -384,8 +411,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The URL pointing to an externally maintained definition that is adhered to in
                 # whole or in part by this Contract.
@@ -396,8 +424,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The minimal content derived from the basal information source at a specific
                 # stage in its lifecycle.
@@ -408,8 +437,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When this  Contract was issued.
                 StructField(
@@ -419,8 +449,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Relevant time or time-period when this Contract is applicable.
                 StructField(
@@ -430,8 +461,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Event resulting in discontinuation or termination of this Contract instance by
                 # one or more parties to the contract.
@@ -442,8 +474,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The target entity impacted by or of interest to parties to the agreement.
                 StructField(
@@ -454,9 +487,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A formally or informally recognized grouping of people, principals,
                 # organizations, or jurisdictions formed for the purpose of achieving some form
@@ -470,9 +504,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Recognized governance framework or system operating with a circumscribed scope
                 # in accordance with specified principles, policies, processes or procedures for
@@ -486,9 +521,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Sites in which the contract is complied with,  exercised, or in force.
                 StructField(
@@ -499,9 +535,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A natural language name identifying this Contract definition, derivative, or
                 # instance in any legal state. Provides additional information about its
@@ -529,8 +566,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A selector of legal concerns for this Contract definition, derivative, or
                 # instance in any legal state.
@@ -541,8 +579,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Narrows the range of legal concerns to focus on the achievement of specific
                 # contractual objectives.
@@ -553,8 +592,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Narrows the range of legal concerns to focus on the achievement of specific
                 # contractual objectives.
@@ -565,8 +605,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A high-level category for the legal instrument, whether constructed as a
                 # Contract definition, derivative, or instance in any legal state.  Provides
@@ -580,8 +621,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Sub-category for the Contract that distinguishes the kinds of systems that
                 # would be interested in the Contract within the context of the Contract's
@@ -594,9 +636,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Precusory content developed with a focus and intent of supporting the
                 # formation a Contract instance, which may be associated with and transformable
@@ -608,8 +651,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # One or more Contract Provisions, which may be related and conveyed as a group,
                 # and may contain nested groups.
@@ -621,9 +665,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Information that may be needed by/relevant to the performer in their execution
                 # of this term action.
@@ -635,9 +680,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Links to Provenance records for past versions of this Contract definition,
                 # derivative, or instance, which identify key state transitions or updates that
@@ -652,9 +698,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Parties with legal standing in the Contract, including the principal parties,
                 # the grantor(s) and grantee(s), which are any person or organization bound by
@@ -668,9 +715,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The "patient friendly language" versionof the Contract in whole or in parts.
                 # "Patient friendly language" means the representation of the Contract and
@@ -686,9 +734,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # List of Legal expressions or representations of this Contract.
                 StructField(
@@ -699,9 +748,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # List of Computable Policy Rule Language Representations of this Contract.
                 StructField(
@@ -712,9 +762,10 @@ class ContractSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Legally binding Contract: This is the signed and legally recognized
                 # representation of the Contract, which is considered the "source of truth" and
@@ -727,8 +778,9 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Legally binding Contract: This is the signed and legally recognized
                 # representation of the Contract, which is considered the "source of truth" and
@@ -741,15 +793,17 @@ class ContractSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

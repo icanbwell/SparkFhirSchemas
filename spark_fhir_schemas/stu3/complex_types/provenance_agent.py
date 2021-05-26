@@ -23,6 +23,7 @@ class Provenance_AgentSchema:
     stage in lifecycle (e.g. Document Completion - has the artifact been legally
     authenticated), all of which may impact security, privacy, and trust policies.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -30,7 +31,7 @@ class Provenance_AgentSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Provenance of a resource is a record that describes entities and processes
@@ -58,8 +59,11 @@ class Provenance_AgentSchema:
         relatedAgentType: The type of relationship between agents.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Provenance_Agent") >= max_recursion_limit
@@ -79,9 +83,10 @@ class Provenance_AgentSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The individual, device or organization that participated in the event.
                 StructField("whoUri", StringType(), True),
@@ -93,8 +98,9 @@ class Provenance_AgentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The individual, device, or organization for whom the change was made.
                 StructField("onBehalfOfUri", StringType(), True),
@@ -106,8 +112,9 @@ class Provenance_AgentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of relationship between agents.
                 StructField(
@@ -117,15 +124,17 @@ class Provenance_AgentSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

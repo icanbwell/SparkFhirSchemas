@@ -18,6 +18,7 @@ class ExplanationOfBenefit_InsuranceSchema:
     processing of a Claim; and optionally account balance information, for
     informing the subscriber of the benefits provided.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ExplanationOfBenefit_InsuranceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides: the claim details; adjudication details from the
@@ -56,16 +57,15 @@ class ExplanationOfBenefit_InsuranceSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ExplanationOfBenefit_Insurance") >=
-            max_recursion_limit
+            and nesting_list.count("ExplanationOfBenefit_Insurance")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ExplanationOfBenefit_Insurance"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ExplanationOfBenefit_Insurance"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -84,9 +84,10 @@ class ExplanationOfBenefit_InsuranceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A flag to indicate that this Coverage is to be used for adjudication of this
                 # claim when set to true.
@@ -101,8 +102,9 @@ class ExplanationOfBenefit_InsuranceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Reference numbers previously provided by the insurer to the provider to be
                 # quoted on subsequent claims containing services or products related to the
@@ -112,8 +114,9 @@ class ExplanationOfBenefit_InsuranceSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

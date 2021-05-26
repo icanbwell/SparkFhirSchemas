@@ -17,6 +17,7 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
     population plus exposure state where the risk estimate is derived from a
     combination of research studies.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The RiskEvidenceSynthesis resource describes the likelihood of an outcome in a
@@ -57,14 +58,19 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
-        from spark_fhir_schemas.r4.complex_types.riskevidencesynthesis_precisionestimate import RiskEvidenceSynthesis_PrecisionEstimateSchema
+        from spark_fhir_schemas.r4.complex_types.riskevidencesynthesis_precisionestimate import (
+            RiskEvidenceSynthesis_PrecisionEstimateSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("RiskEvidenceSynthesis_RiskEstimate") >=
-            max_recursion_limit
+            and nesting_list.count("RiskEvidenceSynthesis_RiskEstimate")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -89,9 +95,10 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Human-readable summary of risk estimate.
                 StructField("description", StringType(), True),
@@ -103,8 +110,9 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The point estimate of the risk estimate.
                 StructField(
@@ -114,8 +122,9 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies the UCUM unit for the outcome.
                 StructField(
@@ -125,8 +134,9 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The sample size for the group that was measured for this risk estimate.
                 StructField(
@@ -136,8 +146,9 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The number of group members with the outcome of interest.
                 StructField(
@@ -147,29 +158,31 @@ class RiskEvidenceSynthesis_RiskEstimateSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A description of the precision of the estimate for the effect.
                 StructField(
                     "precisionEstimate",
                     ArrayType(
-                        RiskEvidenceSynthesis_PrecisionEstimateSchema.
-                        get_schema(
+                        RiskEvidenceSynthesis_PrecisionEstimateSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

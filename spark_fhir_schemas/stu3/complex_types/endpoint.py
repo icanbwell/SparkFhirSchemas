@@ -17,6 +17,7 @@ class EndpointSchema:
     such as for web services providing XDS.b or a REST endpoint for another FHIR
     server. This may include any security context information.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class EndpointSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The technical details of an endpoint that can be used for electronic services,
@@ -69,9 +70,14 @@ class EndpointSchema:
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Endpoint") >= max_recursion_limit
@@ -93,9 +99,10 @@ class EndpointSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # active | suspended | error | off | test.
                 StructField("status", StringType(), True),
@@ -109,8 +116,9 @@ class EndpointSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A friendly name that this endpoint can be referred to with.
                 StructField("name", StringType(), True),
@@ -124,8 +132,9 @@ class EndpointSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Contact details for a human to contact about the subscription. The primary use
                 # of this for system administrator troubleshooting.
@@ -137,9 +146,10 @@ class EndpointSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The interval during which the endpoint is expected to be operational.
                 StructField(
@@ -149,8 +159,9 @@ class EndpointSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The payload type describes the acceptable content that can be communicated on
                 # the endpoint.
@@ -162,9 +173,10 @@ class EndpointSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The mime type to send the payload in - e.g. application/fhir+xml,
                 # application/fhir+json. If the mime type is not specified, then the sender
@@ -176,8 +188,9 @@ class EndpointSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

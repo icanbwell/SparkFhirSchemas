@@ -17,6 +17,7 @@ class PaymentReconciliation_DetailSchema:
     This resource provides the details including amount of a payment and allocates
     the payment items being paid.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class PaymentReconciliation_DetailSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides the details including amount of a payment and allocates
@@ -64,19 +65,20 @@ class PaymentReconciliation_DetailSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.money import MoneySchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("PaymentReconciliation_Detail") >=
-            max_recursion_limit
+            and nesting_list.count("PaymentReconciliation_Detail")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "PaymentReconciliation_Detail"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["PaymentReconciliation_Detail"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -95,9 +97,10 @@ class PaymentReconciliation_DetailSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Unique identifier for the current payment item for the referenced payable.
                 StructField(
@@ -107,8 +110,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Unique identifier for the prior payment item for the referenced payable.
                 StructField(
@@ -118,8 +122,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Code to indicate the nature of the payment.
                 StructField(
@@ -129,8 +134,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A resource, such as a Claim, the evaluation of which could lead to payment.
                 StructField(
@@ -140,8 +146,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party which submitted the claim or financial transaction.
                 StructField(
@@ -151,8 +158,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A resource, such as a ClaimResponse, which contains a commitment to payment.
                 StructField(
@@ -162,8 +170,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date from the response resource containing a commitment to pay.
                 StructField("date", DateType(), True),
@@ -176,8 +185,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party which is receiving the payment.
                 StructField(
@@ -187,8 +197,9 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The monetary amount allocated from the total payment to the payable.
                 StructField(
@@ -198,15 +209,17 @@ class PaymentReconciliation_DetailSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

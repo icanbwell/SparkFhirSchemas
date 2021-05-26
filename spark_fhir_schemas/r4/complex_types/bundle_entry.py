@@ -15,6 +15,7 @@ class Bundle_EntrySchema:
     """
     A container for a collection of resources.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Bundle_EntrySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
@@ -66,9 +67,16 @@ class Bundle_EntrySchema:
         from spark_fhir_schemas.r4.complex_types.bundle_link import Bundle_LinkSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
-        from spark_fhir_schemas.r4.complex_types.bundle_search import Bundle_SearchSchema
-        from spark_fhir_schemas.r4.complex_types.bundle_request import Bundle_RequestSchema
-        from spark_fhir_schemas.r4.complex_types.bundle_response import Bundle_ResponseSchema
+        from spark_fhir_schemas.r4.complex_types.bundle_search import (
+            Bundle_SearchSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.bundle_request import (
+            Bundle_RequestSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.bundle_response import (
+            Bundle_ResponseSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Bundle_Entry") >= max_recursion_limit
@@ -94,9 +102,10 @@ class Bundle_EntrySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A series of links that provide context to this entry.
                 StructField(
@@ -107,9 +116,10 @@ class Bundle_EntrySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The Absolute URL for the resource.  The fullUrl SHALL NOT disagree with the id
                 # in the resource - i.e. if the fullUrl is not a urn:uuid, the URL shall be
@@ -126,8 +136,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The Resource for the entry. The purpose/meaning of the resource is determined
                 # by the Bundle.type.
@@ -138,8 +149,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Information about the search process that lead to the creation of this entry.
                 StructField(
@@ -149,8 +161,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information about how this entry should be processed as part of a
                 # transaction or batch.  For history, it shows how the entry was processed to
@@ -162,8 +175,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the results of processing the corresponding 'request' entry in the
                 # batch or transaction being responded to or what the results of an operation
@@ -175,15 +189,17 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -15,6 +15,7 @@ class OperationDefinition_OverloadSchema:
     A formal computable definition of an operation (on the RESTful interface) or a
     named query (using the search interaction).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class OperationDefinition_OverloadSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formal computable definition of an operation (on the RESTful interface) or a
@@ -36,14 +37,12 @@ class OperationDefinition_OverloadSchema:
         """
         if (
             max_recursion_limit
-            and nesting_list.count("OperationDefinition_Overload") >=
-            max_recursion_limit
+            and nesting_list.count("OperationDefinition_Overload")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "OperationDefinition_Overload"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["OperationDefinition_Overload"]
         schema = StructType(
             [
                 # Name of parameter to include in overload.
@@ -53,8 +52,9 @@ class OperationDefinition_OverloadSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

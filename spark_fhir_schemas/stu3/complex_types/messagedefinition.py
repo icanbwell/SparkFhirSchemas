@@ -18,6 +18,7 @@ class MessageDefinitionSchema:
     including the type of event that initiates the message, the content to be
     transmitted and what response(s), if any, are permitted.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class MessageDefinitionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Defines the characteristics of a message that can be shared between systems,
@@ -116,13 +117,24 @@ class MessageDefinitionSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.messagedefinition_focus import MessageDefinition_FocusSchema
-        from spark_fhir_schemas.stu3.complex_types.messagedefinition_allowedresponse import MessageDefinition_AllowedResponseSchema
+        from spark_fhir_schemas.stu3.complex_types.messagedefinition_focus import (
+            MessageDefinition_FocusSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.messagedefinition_allowedresponse import (
+            MessageDefinition_AllowedResponseSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("MessageDefinition") >= max_recursion_limit
@@ -151,8 +163,9 @@ class MessageDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the message definition
                 # when it is referenced in a specification, model, design or instance. This is
@@ -192,9 +205,10 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the message definition from a
                 # consumer's perspective.
@@ -210,9 +224,10 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the message definition is intended to be
                 # used.
@@ -224,9 +239,10 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Explaination of why this message definition is needed and why it has been
                 # designed as it has.
@@ -243,8 +259,9 @@ class MessageDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies a protocol or workflow that this MessageDefinition represents a
                 # step in.
@@ -256,9 +273,10 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A MessageDefinition that is superseded by this definition.
                 StructField(
@@ -269,9 +287,10 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A coded identifier of a supported messaging event.
                 StructField(
@@ -281,8 +300,9 @@ class MessageDefinitionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The impact of the content of the message.
                 StructField("category", StringType(), True),
@@ -297,9 +317,10 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates whether a response is required for this message.
                 StructField("responseRequired", BooleanType(), True),
@@ -313,16 +334,18 @@ class MessageDefinitionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

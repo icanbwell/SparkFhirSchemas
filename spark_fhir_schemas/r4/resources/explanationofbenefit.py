@@ -17,6 +17,7 @@ class ExplanationOfBenefitSchema:
     processing of a Claim; and optionally account balance information, for
     informing the subscriber of the benefits provided.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ExplanationOfBenefitSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides: the claim details; adjudication details from the
@@ -188,30 +189,63 @@ class ExplanationOfBenefitSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_related import ExplanationOfBenefit_RelatedSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_payee import ExplanationOfBenefit_PayeeSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_careteam import ExplanationOfBenefit_CareTeamSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_supportinginfo import ExplanationOfBenefit_SupportingInfoSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_diagnosis import ExplanationOfBenefit_DiagnosisSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_procedure import ExplanationOfBenefit_ProcedureSchema
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_related import (
+            ExplanationOfBenefit_RelatedSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_payee import (
+            ExplanationOfBenefit_PayeeSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_careteam import (
+            ExplanationOfBenefit_CareTeamSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_supportinginfo import (
+            ExplanationOfBenefit_SupportingInfoSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_diagnosis import (
+            ExplanationOfBenefit_DiagnosisSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_procedure import (
+            ExplanationOfBenefit_ProcedureSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_insurance import ExplanationOfBenefit_InsuranceSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_accident import ExplanationOfBenefit_AccidentSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_item import ExplanationOfBenefit_ItemSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_additem import ExplanationOfBenefit_AddItemSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_adjudication import ExplanationOfBenefit_AdjudicationSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_total import ExplanationOfBenefit_TotalSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_payment import ExplanationOfBenefit_PaymentSchema
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_insurance import (
+            ExplanationOfBenefit_InsuranceSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_accident import (
+            ExplanationOfBenefit_AccidentSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_item import (
+            ExplanationOfBenefit_ItemSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_additem import (
+            ExplanationOfBenefit_AddItemSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_adjudication import (
+            ExplanationOfBenefit_AdjudicationSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_total import (
+            ExplanationOfBenefit_TotalSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_payment import (
+            ExplanationOfBenefit_PaymentSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_processnote import ExplanationOfBenefit_ProcessNoteSchema
-        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_benefitbalance import ExplanationOfBenefit_BenefitBalanceSchema
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_processnote import (
+            ExplanationOfBenefit_ProcessNoteSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.explanationofbenefit_benefitbalance import (
+            ExplanationOfBenefit_BenefitBalanceSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ExplanationOfBenefit") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ExplanationOfBenefit") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -229,8 +263,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -242,8 +277,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -256,8 +292,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -267,8 +304,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -283,8 +321,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -297,9 +336,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -314,9 +354,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A unique identifier assigned to this explanation of benefit.
                 StructField(
@@ -327,9 +368,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of the resource instance.
                 StructField("status", StringType(), True),
@@ -342,8 +384,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A finer grained suite of claim type codes which may convey additional
                 # information such as Inpatient vs Outpatient and/or a specialty service.
@@ -354,8 +397,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code to indicate whether the nature of the request is: to request
                 # adjudication of products and services previously rendered; or requesting
@@ -369,8 +413,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party to whom the professional services and/or products have been supplied
                 # or are being considered and for whom actual for forecast reimbursement is
@@ -382,8 +427,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period for which charges are being submitted.
                 StructField(
@@ -393,8 +439,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date this resource was created.
                 StructField(
@@ -404,8 +451,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Individual who created the claim, predetermination or preauthorization.
                 StructField(
@@ -415,8 +463,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party responsible for authorization, adjudication and reimbursement.
                 StructField(
@@ -426,8 +475,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The provider which is responsible for the claim, predetermination or
                 # preauthorization.
@@ -438,8 +488,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The provider-required urgency of processing the request. Typical values
                 # include: stat, routine deferred.
@@ -450,8 +501,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code to indicate whether and for whom funds are to be reserved for future
                 # claims.
@@ -462,8 +514,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code, used only on a response to a preauthorization, to indicate whether the
                 # benefits payable have been reserved and for whom.
@@ -474,8 +527,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Other claims which are related to this claim such as prior submissions or
                 # claims for related services or for the same event.
@@ -487,9 +541,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Prescription to support the dispensing of pharmacy, device or vision products.
                 StructField(
@@ -499,8 +554,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Original prescription which has been superseded by this prescription to
                 # support the dispensing of pharmacy services, medications or products.
@@ -511,8 +567,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party to be reimbursed for cost of the products and services according to
                 # the terms of the policy.
@@ -523,8 +580,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a referral resource.
                 StructField(
@@ -534,8 +592,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Facility where the services were provided.
                 StructField(
@@ -545,8 +604,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The business identifier for the instance of the adjudication request: claim
                 # predetermination or preauthorization.
@@ -557,8 +617,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The business identifier for the instance of the adjudication response: claim,
                 # predetermination or preauthorization response.
@@ -569,8 +630,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The outcome of the claim, predetermination, or preauthorization processing.
                 StructField(
@@ -580,8 +642,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human readable description of the status of the adjudication.
                 StructField("disposition", StringType(), True),
@@ -598,9 +661,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The members of the team who provided the products and services.
                 StructField(
@@ -611,9 +675,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Additional information codes regarding exceptions, special considerations, the
                 # condition, situation, prior or concurrent issues.
@@ -625,9 +690,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Information about diagnoses relevant to the claim items.
                 StructField(
@@ -638,9 +704,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Procedures performed on the patient relevant to the billing items with the
                 # claim.
@@ -652,9 +719,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This indicates the relative order of a series of EOBs related to different
                 # coverages for the same suite of services.
@@ -665,8 +733,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Financial instruments for reimbursement for the health care products and
                 # services specified on the claim.
@@ -678,9 +747,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details of a accident which resulted in injuries which required the products
                 # and services listed in the claim.
@@ -691,8 +761,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A claim line. Either a simple (a product or service) or a 'group' of details
                 # which can also be a simple items or groups of sub-details.
@@ -704,9 +775,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The first-tier service adjudications for payor added product or service lines.
                 StructField(
@@ -717,9 +789,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The adjudication results which are presented at the header level rather than
                 # at the line-item or add-item levels.
@@ -731,9 +804,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Categorized monetary totals for the adjudication.
                 StructField(
@@ -744,9 +818,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Payment details for the adjudication of the claim.
                 StructField(
@@ -756,8 +831,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code for the form to be used for printing the content.
                 StructField(
@@ -767,8 +843,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The actual form, by reference or inclusion, for printing the content or an
                 # EOB.
@@ -779,8 +856,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A note that describes or explains adjudication results in a human readable
                 # form.
@@ -792,9 +870,10 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The term of the benefits documented in this response.
                 StructField(
@@ -804,8 +883,9 @@ class ExplanationOfBenefitSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Balance by Benefit Category.
                 StructField(
@@ -816,16 +896,18 @@ class ExplanationOfBenefitSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

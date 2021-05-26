@@ -17,6 +17,7 @@ class GuidanceResponseSchema:
     any output parameters returned by the evaluation, as well as the description
     of any proposed actions to be taken.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class GuidanceResponseSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A guidance response is the formal response to a guidance request, including
@@ -92,9 +93,14 @@ class GuidanceResponseSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.stu3.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("GuidanceResponse") >= max_recursion_limit
@@ -118,8 +124,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to the knowledge module that was invoked.
                 StructField(
@@ -129,8 +136,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The status of the response. If the evaluation is completed successfully, the
                 # status will indicate success. However, in order to complete the evaluation,
@@ -149,8 +157,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Allows the context of the guidance response to be provided if available. In a
                 # service context, this would likely be unavailable.
@@ -161,8 +170,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates when the guidance response was processed.
                 StructField("occurrenceDateTime", StringType(), True),
@@ -174,8 +184,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the reason the request was initiated. This is typically provided as
                 # a parameter to the evaluation and echoed by the service, although for some use
@@ -188,8 +199,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the reason the request was initiated. This is typically provided as
                 # a parameter to the evaluation and echoed by the service, although for some use
@@ -202,8 +214,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Provides a mechanism to communicate additional information about the response.
                 StructField(
@@ -214,9 +227,10 @@ class GuidanceResponseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Messages resulting from the evaluation of the artifact or artifacts. As part
                 # of evaluating the request, the engine may produce informational or warning
@@ -229,9 +243,10 @@ class GuidanceResponseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The output parameters of the evaluation, if any. Many modules will result in
                 # the return of specific resources such as procedure or communication requests
@@ -245,8 +260,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The actions, if any, produced by the evaluation of the artifact.
                 StructField(
@@ -256,8 +272,9 @@ class GuidanceResponseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the evaluation could not be completed due to lack of information, or
                 # additional information would potentially result in a more accurate response,
@@ -271,16 +288,18 @@ class GuidanceResponseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

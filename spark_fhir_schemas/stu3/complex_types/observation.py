@@ -17,6 +17,7 @@ class ObservationSchema:
     Measurements and simple assertions made about a patient, device or other
     subject.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class ObservationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Measurements and simple assertions made about a patient, device or other
@@ -138,16 +139,25 @@ class ObservationSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.ratio import RatioSchema
         from spark_fhir_schemas.stu3.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
-        from spark_fhir_schemas.stu3.complex_types.observation_referencerange import Observation_ReferenceRangeSchema
-        from spark_fhir_schemas.stu3.complex_types.observation_related import Observation_RelatedSchema
-        from spark_fhir_schemas.stu3.complex_types.observation_component import Observation_ComponentSchema
+        from spark_fhir_schemas.stu3.complex_types.observation_referencerange import (
+            Observation_ReferenceRangeSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.observation_related import (
+            Observation_RelatedSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.observation_component import (
+            Observation_ComponentSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Observation") >= max_recursion_limit
@@ -168,9 +178,10 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A plan, proposal or order that is fulfilled in whole or in part by this event.
                 StructField(
@@ -181,9 +192,10 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of the result value.
                 StructField("status", StringType(), True),
@@ -196,9 +208,10 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Describes what was observed. Sometimes this is called the observation "name".
                 StructField(
@@ -208,8 +221,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The patient, or group of patients, location, or device whose characteristics
                 # (direct or indirect) are described by the observation and into whose record
@@ -223,8 +237,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The healthcare event  (e.g. a patient and healthcare provider interaction)
                 # during which this observation is made.
@@ -235,8 +250,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The time or time-period the observed value is asserted as being true. For
                 # biological subjects - e.g. human patients - this is usually called the
@@ -256,8 +272,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date and time this observation was made available to providers, typically
                 # after the results have been reviewed and verified.
@@ -271,9 +288,10 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -284,8 +302,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -296,8 +315,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -314,8 +334,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -326,8 +347,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -338,8 +360,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -350,8 +373,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
@@ -368,8 +392,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Provides a reason why the expected value in the element Observation.value[x]
                 # is missing.
@@ -380,8 +405,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The assessment made based on the result of the observation.  Intended as a
                 # simple compact code often placed adjacent to the result value in reports and
@@ -394,8 +420,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # May include statements about significant, unexpected or unreliable values, or
                 # information about the source of the value where this may be relevant to the
@@ -410,8 +437,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the mechanism used to perform the observation.
                 StructField(
@@ -421,8 +449,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The specimen that was used when this observation was made.
                 StructField(
@@ -432,8 +461,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The device used to generate the observation data.
                 StructField(
@@ -443,8 +473,9 @@ class ObservationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Guidance on how to interpret the value by comparison to a normal or
                 # recommended range.
@@ -456,9 +487,10 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A  reference to another resource (usually another Observation) whose
                 # relationship is defined by the relationship type code.
@@ -470,9 +502,10 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Some observations have multiple component observations.  These component
                 # observations are expressed as separate code value pairs that share the same
@@ -487,16 +520,18 @@ class ObservationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

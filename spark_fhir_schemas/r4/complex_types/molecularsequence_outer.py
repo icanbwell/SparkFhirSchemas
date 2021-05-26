@@ -15,6 +15,7 @@ class MolecularSequence_OuterSchema:
     """
     Raw data describing a biological sequence.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MolecularSequence_OuterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -47,10 +48,10 @@ class MolecularSequence_OuterSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MolecularSequence_Outer") >=
-            max_recursion_limit
+            and nesting_list.count("MolecularSequence_Outer") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -73,9 +74,10 @@ class MolecularSequence_OuterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Structural variant outer start. If the coordinate system is either 0-based or
                 # 1-based, then start position is inclusive.
@@ -86,8 +88,9 @@ class MolecularSequence_OuterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Structural variant outer end. If the coordinate system is 0-based then end is
                 # exclusive and does not include the last position. If the coordinate system is
@@ -99,15 +102,17 @@ class MolecularSequence_OuterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

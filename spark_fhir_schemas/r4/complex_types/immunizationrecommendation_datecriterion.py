@@ -16,6 +16,7 @@ class ImmunizationRecommendation_DateCriterionSchema:
     A patient's point-in-time set of recommendations (i.e. forecasting) according
     to a published schedule with optional supporting justification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ImmunizationRecommendation_DateCriterionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A patient's point-in-time set of recommendations (i.e. forecasting) according
@@ -46,8 +47,11 @@ class ImmunizationRecommendation_DateCriterionSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ImmunizationRecommendation_DateCriterion")
@@ -76,9 +80,10 @@ class ImmunizationRecommendation_DateCriterionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Date classification of recommendation.  For example, earliest date to give,
                 # latest date to give, etc.
@@ -89,8 +94,9 @@ class ImmunizationRecommendation_DateCriterionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date whose meaning is specified by dateCriterion.code.
                 StructField(
@@ -100,15 +106,17 @@ class ImmunizationRecommendation_DateCriterionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

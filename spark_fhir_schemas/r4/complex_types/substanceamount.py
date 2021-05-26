@@ -20,6 +20,7 @@ class SubstanceAmountSchema:
     grade, physical form or particle size are not taken into account in the
     definition of a chemical substance or in the assignment of a Substance ID.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class SubstanceAmountSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Chemical substances are a single substance type whose primary defining element
@@ -75,8 +76,13 @@ class SubstanceAmountSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.r4.complex_types.substanceamount_referencerange import SubstanceAmount_ReferenceRangeSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substanceamount_referencerange import (
+            SubstanceAmount_ReferenceRangeSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("SubstanceAmount") >= max_recursion_limit
@@ -102,9 +108,10 @@ class SubstanceAmountSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Used to capture quantitative values for a variety of elements. If only limits
                 # are given, the arithmetic mean would be the average. If only a single definite
@@ -116,8 +123,9 @@ class SubstanceAmountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Used to capture quantitative values for a variety of elements. If only limits
                 # are given, the arithmetic mean would be the average. If only a single definite
@@ -129,8 +137,9 @@ class SubstanceAmountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Used to capture quantitative values for a variety of elements. If only limits
                 # are given, the arithmetic mean would be the average. If only a single definite
@@ -150,8 +159,9 @@ class SubstanceAmountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A textual comment on a numeric value.
                 StructField("amountText", StringType(), True),
@@ -163,15 +173,17 @@ class SubstanceAmountSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

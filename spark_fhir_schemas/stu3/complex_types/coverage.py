@@ -17,6 +17,7 @@ class CoverageSchema:
     Financial instrument which may be used to reimburse or pay for health care
     products and services.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class CoverageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Financial instrument which may be used to reimburse or pay for health care
@@ -87,10 +88,15 @@ class CoverageSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.coverage_grouping import Coverage_GroupingSchema
+        from spark_fhir_schemas.stu3.complex_types.coverage_grouping import (
+            Coverage_GroupingSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Coverage") >= max_recursion_limit
@@ -114,9 +120,10 @@ class CoverageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of the resource instance.
                 StructField("status", StringType(), True),
@@ -129,8 +136,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party who 'owns' the insurance policy,  may be an individual, corporation
                 # or the subscriber's employer.
@@ -141,8 +149,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party who has signed-up for or 'owns' the contractual relationship to the
                 # policy or to whom the benefit of the policy for services rendered to them or
@@ -154,8 +163,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The insurer assigned ID for the Subscriber.
                 StructField("subscriberId", StringType(), True),
@@ -168,8 +178,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The relationship of beneficiary (patient) to the subscriber.
                 StructField(
@@ -179,8 +190,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Time period during which the coverage is in force. A missing start date
                 # indicates the start date isn't known, a missing end date means the coverage is
@@ -192,8 +204,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The program or plan underwriter or payor including both insurance and non-
                 # insurance agreements, such as patient-pay agreements. May provide multiple
@@ -207,9 +220,10 @@ class CoverageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A suite of underwrite specific classifiers, for example may be used to
                 # identify a class of coverage or employer group, Policy, Plan.
@@ -220,8 +234,9 @@ class CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A unique identifier for a dependent under the coverage.
                 StructField("dependent", StringType(), True),
@@ -246,16 +261,18 @@ class CoverageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

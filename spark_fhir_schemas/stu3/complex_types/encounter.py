@@ -16,6 +16,7 @@ class EncounterSchema:
     An interaction between a patient and healthcare provider(s) for the purpose of
     providing healthcare service(s) or assessing the health status of a patient.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class EncounterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An interaction between a patient and healthcare provider(s) for the purpose of
@@ -99,17 +100,32 @@ class EncounterSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.encounter_statushistory import Encounter_StatusHistorySchema
+        from spark_fhir_schemas.stu3.complex_types.encounter_statushistory import (
+            Encounter_StatusHistorySchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.encounter_classhistory import Encounter_ClassHistorySchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.encounter_classhistory import (
+            Encounter_ClassHistorySchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.encounter_participant import Encounter_ParticipantSchema
+        from spark_fhir_schemas.stu3.complex_types.encounter_participant import (
+            Encounter_ParticipantSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.duration import DurationSchema
-        from spark_fhir_schemas.stu3.complex_types.encounter_diagnosis import Encounter_DiagnosisSchema
-        from spark_fhir_schemas.stu3.complex_types.encounter_hospitalization import Encounter_HospitalizationSchema
-        from spark_fhir_schemas.stu3.complex_types.encounter_location import Encounter_LocationSchema
+        from spark_fhir_schemas.stu3.complex_types.encounter_diagnosis import (
+            Encounter_DiagnosisSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.encounter_hospitalization import (
+            Encounter_HospitalizationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.encounter_location import (
+            Encounter_LocationSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Encounter") >= max_recursion_limit
@@ -130,9 +146,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # planned | arrived | triaged | in-progress | onleave | finished | cancelled +.
                 StructField("status", StringType(), True),
@@ -147,9 +164,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # inpatient | outpatient | ambulatory | emergency +.
                 StructField(
@@ -159,8 +177,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The class history permits the tracking of the encounters transitions without
                 # needing to go  through the resource history.
@@ -178,9 +197,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Specific type of encounter (e.g. e-mail consultation, surgical day-care,
                 # skilled nursing, rehabilitation).
@@ -192,9 +212,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the urgency of the encounter.
                 StructField(
@@ -204,8 +225,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The patient ro group present at the encounter.
                 StructField(
@@ -215,8 +237,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where a specific encounter should be classified as a part of a specific
                 # episode(s) of care this field should be used. This association can facilitate
@@ -233,9 +256,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The referral request this encounter satisfies (incoming referral).
                 StructField(
@@ -246,9 +270,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The list of people responsible for providing the service.
                 StructField(
@@ -259,9 +284,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The appointment that scheduled this encounter.
                 StructField(
@@ -271,8 +297,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The start and end time of the encounter.
                 StructField(
@@ -282,8 +309,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Quantity of time the encounter lasted. This excludes the time during leaves of
                 # absence.
@@ -294,8 +322,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Reason the encounter takes place, expressed as a code. For admissions, this
                 # can be used for a coded admission diagnosis.
@@ -307,9 +336,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The list of diagnosis relevant to this encounter.
                 StructField(
@@ -320,9 +350,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The set of accounts that may be used for billing for this Encounter.
                 StructField(
@@ -333,9 +364,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details about the admission to a healthcare service.
                 StructField(
@@ -345,8 +377,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # List of locations where  the patient has been during this encounter.
                 StructField(
@@ -357,9 +390,10 @@ class EncounterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An organization that is in charge of maintaining the information of this
                 # Encounter (e.g. who maintains the report or the master service catalog item,
@@ -373,8 +407,9 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Another Encounter of which this encounter is a part of (administratively or in
                 # time).
@@ -385,15 +420,17 @@ class EncounterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

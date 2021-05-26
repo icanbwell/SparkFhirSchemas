@@ -15,6 +15,7 @@ class MeasureReportSchema:
     """
     The MeasureReport resource contains the results of evaluating a measure.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MeasureReportSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The MeasureReport resource contains the results of evaluating a measure.
@@ -62,7 +63,10 @@ class MeasureReportSchema:
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.measurereport_group import MeasureReport_GroupSchema
+        from spark_fhir_schemas.stu3.complex_types.measurereport_group import (
+            MeasureReport_GroupSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("MeasureReport") >= max_recursion_limit
@@ -84,8 +88,9 @@ class MeasureReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The report status. No data will be available until the report status is
                 # complete.
@@ -104,8 +109,9 @@ class MeasureReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Optional Patient if the report was requested for a single patient.
                 StructField(
@@ -115,8 +121,9 @@ class MeasureReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date this measure report was generated.
                 StructField("date", StringType(), True),
@@ -128,8 +135,9 @@ class MeasureReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The reporting period for which the report was calculated.
                 StructField(
@@ -139,8 +147,9 @@ class MeasureReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The results of the calculation, one for each population group in the measure.
                 StructField(
@@ -151,9 +160,10 @@ class MeasureReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a Bundle containing the Resources that were used in the
                 # evaluation of this report.
@@ -164,15 +174,17 @@ class MeasureReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

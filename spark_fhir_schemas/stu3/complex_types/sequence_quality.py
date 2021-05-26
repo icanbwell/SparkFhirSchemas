@@ -15,6 +15,7 @@ class Sequence_QualitySchema:
     """
     Raw data describing a biological sequence.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Sequence_QualitySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -76,8 +77,11 @@ class Sequence_QualitySchema:
             (precision + recall).
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Sequence_Quality") >= max_recursion_limit
@@ -97,8 +101,9 @@ class Sequence_QualitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Start position of the sequence. If the coordinate system is either 0-based or
                 # 1-based, then start position is inclusive.
@@ -116,8 +121,9 @@ class Sequence_QualitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Which method is used to get sequence quality.
                 StructField(
@@ -127,8 +133,9 @@ class Sequence_QualitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # True positives, from the perspective of the truth data, i.e. the number of
                 # sites in the Truth Call Set for which there are paths through the Query Call
@@ -165,8 +172,9 @@ class Sequence_QualitySchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

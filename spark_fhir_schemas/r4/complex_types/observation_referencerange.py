@@ -16,6 +16,7 @@ class Observation_ReferenceRangeSchema:
     Measurements and simple assertions made about a patient, device or other
     subject.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Observation_ReferenceRangeSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Measurements and simple assertions made about a patient, device or other
@@ -69,18 +70,18 @@ class Observation_ReferenceRangeSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("Observation_ReferenceRange") >=
-            max_recursion_limit
+            and nesting_list.count("Observation_ReferenceRange") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "Observation_ReferenceRange"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["Observation_ReferenceRange"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -99,9 +100,10 @@ class Observation_ReferenceRangeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The value of the low bound of the reference range.  The low bound of the
                 # reference range endpoint is inclusive of the value (e.g.  reference range is
@@ -114,8 +116,9 @@ class Observation_ReferenceRangeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The value of the high bound of the reference range.  The high bound of the
                 # reference range endpoint is inclusive of the value (e.g.  reference range is
@@ -128,8 +131,9 @@ class Observation_ReferenceRangeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Codes to indicate the what part of the targeted reference population it
                 # applies to. For example, the normal or therapeutic range.
@@ -140,8 +144,9 @@ class Observation_ReferenceRangeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Codes to indicate the target population this reference range applies to.  For
                 # example, a reference range may be based on the normal population or a
@@ -157,9 +162,10 @@ class Observation_ReferenceRangeSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The age at which this reference range is applicable. This is a neonatal age
                 # (e.g. number of weeks at term) if the meaning says so.
@@ -170,8 +176,9 @@ class Observation_ReferenceRangeSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Text based reference range in an observation which may be used when a
                 # quantitative range is not appropriate for an observation.  An example would be
@@ -181,8 +188,9 @@ class Observation_ReferenceRangeSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

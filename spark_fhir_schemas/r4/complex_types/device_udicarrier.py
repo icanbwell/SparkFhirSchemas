@@ -17,6 +17,7 @@ class Device_UdiCarrierSchema:
     without being substantially changed through that activity. The device may be a
     medical or non-medical device.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class Device_UdiCarrierSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A type of a manufactured item that is used in the provision of healthcare
@@ -76,6 +77,7 @@ class Device_UdiCarrierSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.base64binary import base64BinarySchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Device_UdiCarrier") >= max_recursion_limit
@@ -101,9 +103,10 @@ class Device_UdiCarrierSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The device identifier (DI) is a mandatory, fixed portion of a UDI that
                 # identifies the labeler and the specific version or model of a device.
@@ -125,8 +128,9 @@ class Device_UdiCarrierSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The identity of the authoritative source for UDI generation within a
                 # jurisdiction.  All UDIs are globally unique within a single namespace with the
@@ -140,8 +144,9 @@ class Device_UdiCarrierSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The full UDI carrier of the Automatic Identification and Data Capture (AIDC)
                 # technology representation of the barcode string as printed on the packaging of
@@ -155,8 +160,9 @@ class Device_UdiCarrierSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The full UDI carrier as the human readable form (HRF) representation of the
                 # barcode string as printed on the packaging of the device.
@@ -167,8 +173,9 @@ class Device_UdiCarrierSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

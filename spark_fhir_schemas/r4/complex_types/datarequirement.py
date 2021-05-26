@@ -16,6 +16,7 @@ class DataRequirementSchema:
     Describes a required data item for evaluation in terms of the type of data,
     and optional code or date-based filters of the data.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DataRequirementSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Describes a required data item for evaluation in terms of the type of data,
@@ -79,12 +80,21 @@ class DataRequirementSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement_codefilter import DataRequirement_CodeFilterSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement_datefilter import DataRequirement_DateFilterSchema
+        from spark_fhir_schemas.r4.complex_types.datarequirement_codefilter import (
+            DataRequirement_CodeFilterSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.datarequirement_datefilter import (
+            DataRequirement_DateFilterSchema,
+        )
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement_sort import DataRequirement_SortSchema
+        from spark_fhir_schemas.r4.complex_types.datarequirement_sort import (
+            DataRequirement_SortSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("DataRequirement") >= max_recursion_limit
@@ -110,9 +120,10 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of the required data, specified as the type name of a resource. For
                 # profiles, this value is set to the type of the base resource of the profile.
@@ -123,8 +134,9 @@ class DataRequirementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The profile of the required data, specified as the uri of the profile
                 # definition.
@@ -136,9 +148,10 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The intended subjects of the data requirement. If this element is not
                 # provided, a Patient subject is assumed.
@@ -149,8 +162,9 @@ class DataRequirementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The intended subjects of the data requirement. If this element is not
                 # provided, a Patient subject is assumed.
@@ -161,8 +175,9 @@ class DataRequirementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates that specific elements of the type are referenced by the knowledge
                 # module and must be supported by the consumer in order to obtain an effective
@@ -186,9 +201,10 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Date filters specify additional constraints on the data in terms of the
                 # applicable date range for specific elements. Each date filter specifies an
@@ -201,9 +217,10 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Specifies a maximum number of results that are required (uses the _count
                 # search parameter).
@@ -214,8 +231,9 @@ class DataRequirementSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specifies the order of the results to be returned.
                 StructField(
@@ -226,16 +244,18 @@ class DataRequirementSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

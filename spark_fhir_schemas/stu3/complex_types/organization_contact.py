@@ -18,6 +18,7 @@ class Organization_ContactSchema:
     companies, institutions, corporations, departments, community groups,
     healthcare practice groups, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class Organization_ContactSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formally or informally recognized grouping of people or organizations formed
@@ -44,13 +45,18 @@ class Organization_ContactSchema:
         address: Visiting or postal addresses for the contact.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.humanname import HumanNameSchema
-        from spark_fhir_schemas.stu3.complex_types.contactpoint import ContactPointSchema
+        from spark_fhir_schemas.stu3.complex_types.contactpoint import (
+            ContactPointSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.address import AddressSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("Organization_Contact") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("Organization_Contact") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -65,8 +71,9 @@ class Organization_ContactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A name associated with the contact.
                 StructField(
@@ -76,8 +83,9 @@ class Organization_ContactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A contact detail (e.g. a telephone number or an email address) by which the
                 # party may be contacted.
@@ -89,9 +97,10 @@ class Organization_ContactSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Visiting or postal addresses for the contact.
                 StructField(
@@ -101,15 +110,17 @@ class Organization_ContactSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

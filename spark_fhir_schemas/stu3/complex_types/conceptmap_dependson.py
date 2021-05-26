@@ -15,6 +15,7 @@ class ConceptMap_DependsOnSchema:
     A statement of relationships from one set of concepts to one or more other
     concepts - either code systems or data elements, or classes in class models.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class ConceptMap_DependsOnSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A statement of relationships from one set of concepts to one or more other
@@ -44,8 +45,8 @@ class ConceptMap_DependsOnSchema:
 
         """
         if (
-            max_recursion_limit and
-            nesting_list.count("ConceptMap_DependsOn") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ConceptMap_DependsOn") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -69,8 +70,9 @@ class ConceptMap_DependsOnSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

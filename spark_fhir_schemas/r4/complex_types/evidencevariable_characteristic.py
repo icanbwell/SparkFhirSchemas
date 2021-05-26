@@ -18,6 +18,7 @@ class EvidenceVariable_CharacteristicSchema:
     The EvidenceVariable resource describes a "PICO" element that knowledge
     (evidence, assertion, recommendation) is about.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class EvidenceVariable_CharacteristicSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The EvidenceVariable resource describes a "PICO" element that knowledge
@@ -94,24 +95,29 @@ class EvidenceVariable_CharacteristicSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement import DataRequirementSchema
-        from spark_fhir_schemas.r4.complex_types.triggerdefinition import TriggerDefinitionSchema
+        from spark_fhir_schemas.r4.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.triggerdefinition import (
+            TriggerDefinitionSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("EvidenceVariable_Characteristic") >=
-            max_recursion_limit
+            and nesting_list.count("EvidenceVariable_Characteristic")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "EvidenceVariable_Characteristic"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["EvidenceVariable_Characteristic"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -130,9 +136,10 @@ class EvidenceVariable_CharacteristicSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A short, natural language description of the characteristic that could be used
                 # to communicate the criteria to an end-user.
@@ -148,8 +155,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Define members of the evidence element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -167,8 +175,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Define members of the evidence element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -181,8 +190,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Define members of the evidence element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -195,8 +205,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Define members of the evidence element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -209,8 +220,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Use UsageContext to define the members of the population, such as Age Ranges,
                 # Genders, Settings.
@@ -222,16 +234,15 @@ class EvidenceVariable_CharacteristicSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # When true, members with this characteristic are excluded from the element.
                 StructField("exclude", BooleanType(), True),
                 # Indicates what effective period the study covers.
-                StructField(
-                    "participantEffectiveDateTime", TimestampType(), True
-                ),
+                StructField("participantEffectiveDateTime", TimestampType(), True),
                 # Indicates what effective period the study covers.
                 StructField(
                     "participantEffectivePeriod",
@@ -240,8 +251,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
@@ -251,8 +263,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
@@ -262,8 +275,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates duration from the participant's study entry.
                 StructField(
@@ -273,8 +287,9 @@ class EvidenceVariable_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates how elements are aggregated within the study effective period.
                 StructField("groupMeasure", StringType(), True),
@@ -282,8 +297,9 @@ class EvidenceVariable_CharacteristicSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

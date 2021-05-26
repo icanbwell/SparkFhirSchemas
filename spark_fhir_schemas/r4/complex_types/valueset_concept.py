@@ -18,6 +18,7 @@ class ValueSet_ConceptSchema:
     between [[[CodeSystem]]] definitions and their use in [coded
     elements](terminologies.html).
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ValueSet_ConceptSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
@@ -56,7 +57,10 @@ class ValueSet_ConceptSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
-        from spark_fhir_schemas.r4.complex_types.valueset_designation import ValueSet_DesignationSchema
+        from spark_fhir_schemas.r4.complex_types.valueset_designation import (
+            ValueSet_DesignationSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ValueSet_Concept") >= max_recursion_limit
@@ -82,9 +86,10 @@ class ValueSet_ConceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Specifies a code for the concept to be included or excluded.
                 StructField(
@@ -94,8 +99,9 @@ class ValueSet_ConceptSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The text to display to the user for this concept in the context of this
                 # valueset. If no display is provided, then applications using the value set use
@@ -112,16 +118,18 @@ class ValueSet_ConceptSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class GraphDefinition_CompartmentSchema:
     set of resources that form a graph by following references. The Graph
     Definition resource defines a set and makes rules about the set.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class GraphDefinition_CompartmentSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formal computable definition of a graph of resources - that is, a coherent
@@ -42,14 +43,11 @@ class GraphDefinition_CompartmentSchema:
         """
         if (
             max_recursion_limit
-            and nesting_list.count("GraphDefinition_Compartment") >=
-            max_recursion_limit
+            and nesting_list.count("GraphDefinition_Compartment") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "GraphDefinition_Compartment"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["GraphDefinition_Compartment"]
         schema = StructType(
             [
                 # Identifies the compartment.
@@ -64,8 +62,9 @@ class GraphDefinition_CompartmentSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

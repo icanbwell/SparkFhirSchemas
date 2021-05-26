@@ -16,6 +16,7 @@ class MarketingStatusSchema:
     The marketing status describes the date when a medicinal product is actually
     put on the market or the date as of which it is no longer available.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class MarketingStatusSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The marketing status describes the date when a medicinal product is actually
@@ -66,9 +67,12 @@ class MarketingStatusSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("MarketingStatus") >= max_recursion_limit
@@ -94,9 +98,10 @@ class MarketingStatusSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The country in which the marketing authorisation has been granted shall be
                 # specified It should be specified using the ISO 3166 ‑ 1 alpha-2 code elements.
@@ -107,8 +112,9 @@ class MarketingStatusSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where a Medicines Regulatory Agency has granted a marketing authorisation for
                 # which specific provisions within a jurisdiction apply, the jurisdiction can be
@@ -121,8 +127,9 @@ class MarketingStatusSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # This attribute provides information on the status of the marketing of the
                 # medicinal product See ISO/TS 20443 for more information and examples.
@@ -133,8 +140,9 @@ class MarketingStatusSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date when the Medicinal Product is placed on the market by the Marketing
                 # Authorisation Holder (or where applicable, the manufacturer/distributor) in a
@@ -149,8 +157,9 @@ class MarketingStatusSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date when the Medicinal Product is placed on the market by the Marketing
                 # Authorisation Holder (or where applicable, the manufacturer/distributor) in a
@@ -165,15 +174,17 @@ class MarketingStatusSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

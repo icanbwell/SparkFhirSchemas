@@ -15,6 +15,7 @@ class MolecularSequenceSchema:
     """
     Raw data describing a biological sequence.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MolecularSequenceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -119,11 +120,22 @@ class MolecularSequenceSchema:
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.r4.complex_types.molecularsequence_referenceseq import MolecularSequence_ReferenceSeqSchema
-        from spark_fhir_schemas.r4.complex_types.molecularsequence_variant import MolecularSequence_VariantSchema
-        from spark_fhir_schemas.r4.complex_types.molecularsequence_quality import MolecularSequence_QualitySchema
-        from spark_fhir_schemas.r4.complex_types.molecularsequence_repository import MolecularSequence_RepositorySchema
-        from spark_fhir_schemas.r4.complex_types.molecularsequence_structurevariant import MolecularSequence_StructureVariantSchema
+        from spark_fhir_schemas.r4.complex_types.molecularsequence_referenceseq import (
+            MolecularSequence_ReferenceSeqSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.molecularsequence_variant import (
+            MolecularSequence_VariantSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.molecularsequence_quality import (
+            MolecularSequence_QualitySchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.molecularsequence_repository import (
+            MolecularSequence_RepositorySchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.molecularsequence_structurevariant import (
+            MolecularSequence_StructureVariantSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("MolecularSequence") >= max_recursion_limit
@@ -144,8 +156,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -157,8 +170,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -171,8 +185,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -182,8 +197,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -198,8 +214,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -212,9 +229,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -229,9 +247,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A unique identifier for this particular sequence instance. This is a FHIR-
                 # defined id.
@@ -243,9 +262,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Amino Acid Sequence/ DNA Sequence / RNA Sequence.
                 StructField("type", StringType(), True),
@@ -259,8 +279,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The patient whose sequencing results are described by this resource.
                 StructField(
@@ -270,8 +291,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Specimen used for sequencing.
                 StructField(
@@ -281,8 +303,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The method for sequencing, for example, chip information.
                 StructField(
@@ -292,8 +315,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The organization or lab that should be responsible for this result.
                 StructField(
@@ -303,8 +327,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The number of copies of the sequence of interest. (RNASeq).
                 StructField(
@@ -314,8 +339,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A sequence that is used as a reference to describe variants that are present
                 # in a sequence analyzed.
@@ -326,8 +352,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The definition of variant here originates from Sequence ontology ([variant_of]
                 # (http://www.sequenceontology.org/browser/current_svn/term/variant_of)). This
@@ -342,9 +369,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Sequence that was observed. It is the result marked by referenceSeq along with
                 # variant records on referenceSeq. This shall start from
@@ -361,9 +389,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Coverage (read depth or depth) is the average number of reads representing a
                 # given nucleotide in the reconstructed sequence.
@@ -374,8 +403,9 @@ class MolecularSequenceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Configurations of the external repository. The repository shall store target's
                 # observedSeq or records related with target's observedSeq.
@@ -387,9 +417,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Pointer to next atomic sequence which at most contains one variant.
                 StructField(
@@ -400,9 +431,10 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Information about chromosome structure variation.
                 StructField(
@@ -413,16 +445,18 @@ class MolecularSequenceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

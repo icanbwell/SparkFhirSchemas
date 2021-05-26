@@ -14,6 +14,7 @@ class markdownSchema:
     A string that may contain Github Flavored Markdown syntax for optional
     processing by a mark down presentation engine
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -21,7 +22,7 @@ class markdownSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A string that may contain Github Flavored Markdown syntax for optional

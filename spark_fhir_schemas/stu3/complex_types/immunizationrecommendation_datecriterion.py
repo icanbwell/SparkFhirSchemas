@@ -16,6 +16,7 @@ class ImmunizationRecommendation_DateCriterionSchema:
     patient's immunization eligibility according to a published schedule) with
     optional supporting justification.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ImmunizationRecommendation_DateCriterionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A patient's point-in-time immunization and recommendation (i.e. forecasting a
@@ -37,7 +38,10 @@ class ImmunizationRecommendation_DateCriterionSchema:
         value: The date whose meaning is specified by dateCriterion.code.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ImmunizationRecommendation_DateCriterion")
@@ -59,8 +63,9 @@ class ImmunizationRecommendation_DateCriterionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date whose meaning is specified by dateCriterion.code.
                 StructField("value", StringType(), True),
@@ -68,8 +73,9 @@ class ImmunizationRecommendation_DateCriterionSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

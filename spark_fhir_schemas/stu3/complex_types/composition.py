@@ -21,6 +21,7 @@ class CompositionSchema:
     is contained in a Bundle, of which the Composition is the first resource
     contained.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -28,7 +29,7 @@ class CompositionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A set of healthcare-related information that is assembled together into a
@@ -89,12 +90,23 @@ class CompositionSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.composition_attester import Composition_AttesterSchema
-        from spark_fhir_schemas.stu3.complex_types.composition_relatesto import Composition_RelatesToSchema
-        from spark_fhir_schemas.stu3.complex_types.composition_event import Composition_EventSchema
-        from spark_fhir_schemas.stu3.complex_types.composition_section import Composition_SectionSchema
+        from spark_fhir_schemas.stu3.complex_types.composition_attester import (
+            Composition_AttesterSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.composition_relatesto import (
+            Composition_RelatesToSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.composition_event import (
+            Composition_EventSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.composition_section import (
+            Composition_SectionSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Composition") >= max_recursion_limit
@@ -115,8 +127,9 @@ class CompositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The workflow/clinical status of this composition. The status is a marker for
                 # the clinical standing of the document.
@@ -131,8 +144,9 @@ class CompositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A categorization for the type of the composition - helps for indexing and
                 # searching. This may be implied by or derived from the code specified in the
@@ -144,8 +158,9 @@ class CompositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Who or what the composition is about. The composition can be about a person,
                 # (patient or healthcare practitioner), a device (e.g. a machine) or even a
@@ -158,8 +173,9 @@ class CompositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Describes the clinical encounter or type of care this documentation is
                 # associated with.
@@ -170,8 +186,9 @@ class CompositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The composition editing time, when the composition was last logically changed
                 # by the author.
@@ -186,9 +203,10 @@ class CompositionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Official human-readable label for the composition.
                 StructField("title", StringType(), True),
@@ -203,9 +221,10 @@ class CompositionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifies the organization or group who is responsible for ongoing
                 # maintenance of and access to the composition/document information.
@@ -216,8 +235,9 @@ class CompositionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Relationships that this composition has with other compositions or documents
                 # that already exist.
@@ -229,9 +249,10 @@ class CompositionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The clinical service, such as a colonoscopy or an appendectomy, being
                 # documented.
@@ -243,9 +264,10 @@ class CompositionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The root of the sections that make up the composition.
                 StructField(
@@ -256,16 +278,18 @@ class CompositionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

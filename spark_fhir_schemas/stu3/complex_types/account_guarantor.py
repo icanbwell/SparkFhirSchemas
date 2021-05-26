@@ -16,6 +16,7 @@ class Account_GuarantorSchema:
     A financial tool for tracking value accrued for a particular purpose.  In the
     healthcare field, used to track charges for a patient, cost centers, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Account_GuarantorSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A financial tool for tracking value accrued for a particular purpose.  In the
@@ -41,6 +42,7 @@ class Account_GuarantorSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Account_Guarantor") >= max_recursion_limit
@@ -58,8 +60,9 @@ class Account_GuarantorSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A guarantor may be placed on credit hold or otherwise have their role
                 # temporarily suspended.
@@ -73,15 +76,17 @@ class Account_GuarantorSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

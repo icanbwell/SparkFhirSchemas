@@ -13,6 +13,7 @@ class instantSchema:
     """
     An instant in time - known at least to the second
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -20,7 +21,7 @@ class instantSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An instant in time - known at least to the second

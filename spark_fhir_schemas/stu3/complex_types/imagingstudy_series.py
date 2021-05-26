@@ -20,6 +20,7 @@ class ImagingStudy_SeriesSchema:
     common context.  A series is of only one modality (e.g. X-ray, CT, MR,
     ultrasound), but a study may have multiple series of different modalities.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class ImagingStudy_SeriesSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Representation of the content produced in a DICOM imaging study. A study
@@ -80,10 +81,13 @@ class ImagingStudy_SeriesSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.imagingstudy_instance import ImagingStudy_InstanceSchema
+        from spark_fhir_schemas.stu3.complex_types.imagingstudy_instance import (
+            ImagingStudy_InstanceSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ImagingStudy_Series") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ImagingStudy_Series") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -102,8 +106,9 @@ class ImagingStudy_SeriesSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A description of the series.
                 StructField("description", StringType(), True),
@@ -126,9 +131,10 @@ class ImagingStudy_SeriesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The anatomic structures examined. See DICOM Part 16 Annex L (http://dicom.nema
                 # .org/medical/dicom/current/output/chtml/part16/chapter_L.html) for DICOM to
@@ -142,8 +148,9 @@ class ImagingStudy_SeriesSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The laterality of the (possibly paired) anatomic structures examined. E.g.,
                 # the left knee, both lungs, or unpaired abdomen. If present, shall be
@@ -156,8 +163,9 @@ class ImagingStudy_SeriesSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date and time the series was started.
                 StructField("started", StringType(), True),
@@ -173,9 +181,10 @@ class ImagingStudy_SeriesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A single SOP instance within the series, e.g. an image, or presentation state.
                 StructField(
@@ -186,16 +195,18 @@ class ImagingStudy_SeriesSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

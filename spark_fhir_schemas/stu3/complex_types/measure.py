@@ -16,6 +16,7 @@ class MeasureSchema:
     """
     The Measure resource provides the definition of a quality measure.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class MeasureSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The Measure resource provides the definition of a quality measure.
@@ -162,17 +163,29 @@ class MeasureSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.relatedartifact import RelatedArtifactSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.measure_group import Measure_GroupSchema
-        from spark_fhir_schemas.stu3.complex_types.measure_supplementaldata import Measure_SupplementalDataSchema
+        from spark_fhir_schemas.stu3.complex_types.measure_group import (
+            Measure_GroupSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.measure_supplementaldata import (
+            Measure_SupplementalDataSchema,
+        )
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Measure") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Measure") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -199,9 +212,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the measure when it is
                 # referenced in a specification, model, design or instance. This is an arbitrary
@@ -256,8 +270,9 @@ class MeasureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These terms may be used to assist with indexing and searching
@@ -270,9 +285,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the measure is intended to be used.
                 StructField(
@@ -283,9 +299,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the content of the measure. Topics provide a
                 # high-level categorization of the type of the measure that can be useful for
@@ -298,9 +315,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A contributor to the content of the measure, including authors, editors,
                 # reviewers, and endorsers.
@@ -312,9 +330,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contact details to assist a user in finding and communicating with the
                 # publisher.
@@ -326,9 +345,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the measure and/or its contents. Copyright
                 # statements are generally legal restrictions on the use and publishing of the
@@ -344,9 +364,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to a Library resource containing the formal logic used by the
                 # measure.
@@ -358,9 +379,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Notices and disclaimers regarding the use of the measure, or related to
                 # intellectual property (such as code systems) referenced by the measure.
@@ -375,8 +397,9 @@ class MeasureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If this is a composite measure, the scoring method used to combine the
                 # component measures to determine the composite score.
@@ -387,8 +410,9 @@ class MeasureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates whether the measure is used to examine a process, an outcome over
                 # time, a patient-reported outcome, or a structure measure such as utilization.
@@ -400,9 +424,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A description of the risk adjustment factors that may impact the resulting
                 # score for the measure and how they may be accounted for when computing and
@@ -417,9 +442,7 @@ class MeasureSchema:
                 StructField("rationale", StringType(), True),
                 # Provides a summary of relevant clinical guidelines or other clinical
                 # recommendations supporting the measure.
-                StructField(
-                    "clinicalRecommendationStatement", StringType(), True
-                ),
+                StructField("clinicalRecommendationStatement", StringType(), True),
                 # Information on whether an increase or decrease in score is the preferred
                 # result (e.g., a higher score indicates better quality OR a lower score
                 # indicates better quality OR quality is whthin a range).
@@ -439,9 +462,10 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The supplemental data criteria for the measure report, specified as either the
                 # name of a valid CQL expression within a referenced library, or a valid FHIR
@@ -454,16 +478,18 @@ class MeasureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class MedicinalProductAuthorization_ProcedureSchema:
     """
     The regulatory authorization of a medicinal product.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class MedicinalProductAuthorization_ProcedureSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The regulatory authorization of a medicinal product.
@@ -51,8 +52,11 @@ class MedicinalProductAuthorization_ProcedureSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("MedicinalProductAuthorization_Procedure")
@@ -81,9 +85,10 @@ class MedicinalProductAuthorization_ProcedureSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Identifier for this procedure.
                 StructField(
@@ -93,8 +98,9 @@ class MedicinalProductAuthorization_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Type of procedure.
                 StructField(
@@ -104,8 +110,9 @@ class MedicinalProductAuthorization_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Date of procedure.
                 StructField(
@@ -115,8 +122,9 @@ class MedicinalProductAuthorization_ProcedureSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Date of procedure.
                 StructField("dateDateTime", TimestampType(), True),
@@ -124,22 +132,23 @@ class MedicinalProductAuthorization_ProcedureSchema:
                 StructField(
                     "application",
                     ArrayType(
-                        MedicinalProductAuthorization_ProcedureSchema.
-                        get_schema(
+                        MedicinalProductAuthorization_ProcedureSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

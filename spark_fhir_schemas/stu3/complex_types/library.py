@@ -19,6 +19,7 @@ class LibrarySchema:
     such as logic libraries and information model descriptions, as well as to
     describe a collection of knowledge assets.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class LibrarySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The Library resource is a general-purpose container for knowledge asset
@@ -133,18 +134,30 @@ class LibrarySchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.contributor import ContributorSchema
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.relatedartifact import RelatedArtifactSchema
-        from spark_fhir_schemas.stu3.complex_types.parameterdefinition import ParameterDefinitionSchema
-        from spark_fhir_schemas.stu3.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.relatedartifact import (
+            RelatedArtifactSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.parameterdefinition import (
+            ParameterDefinitionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Library") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Library") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -172,9 +185,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier that is used to identify this version of the library when it is
                 # referenced in a specification, model, design or instance. This is an arbitrary
@@ -208,8 +222,9 @@ class LibrarySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date  (and optionally time) when the library was published. The date must
                 # change if and when the business version changes and it must change if the
@@ -241,8 +256,9 @@ class LibrarySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The content was developed with a focus and intent of supporting the contexts
                 # that are listed. These terms may be used to assist with indexing and searching
@@ -255,9 +271,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the library is intended to be used.
                 StructField(
@@ -268,9 +285,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Descriptive topics related to the content of the library. Topics provide a
                 # high-level categorization of the library that can be useful for filtering and
@@ -283,9 +301,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A contributor to the content of the library, including authors, editors,
                 # reviewers, and endorsers.
@@ -297,9 +316,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Contact details to assist a user in finding and communicating with the
                 # publisher.
@@ -311,9 +331,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the library and/or its contents. Copyright
                 # statements are generally legal restrictions on the use and publishing of the
@@ -329,9 +350,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The parameter element defines parameters used by the library.
                 StructField(
@@ -342,9 +364,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Describes a set of data that must be provided in order to be able to
                 # successfully perform the computations defined by the library.
@@ -356,9 +379,10 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The content of the library as an Attachment. The content may be a reference to
                 # a url, or may be directly embedded as a base-64 string. Either way, the
@@ -371,16 +395,18 @@ class LibrarySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -16,6 +16,7 @@ class ClaimSchema:
     A provider issued list of services and products provided, or to be provided,
     to a patient which is provided to an insurer for payment recovery.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ClaimSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A provider issued list of services and products provided, or to be provided,
@@ -116,22 +117,38 @@ class ClaimSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_related import Claim_RelatedSchema
+        from spark_fhir_schemas.stu3.complex_types.claim_related import (
+            Claim_RelatedSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.claim_payee import Claim_PayeeSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_careteam import Claim_CareTeamSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_information import Claim_InformationSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_diagnosis import Claim_DiagnosisSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_procedure import Claim_ProcedureSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_insurance import Claim_InsuranceSchema
-        from spark_fhir_schemas.stu3.complex_types.claim_accident import Claim_AccidentSchema
+        from spark_fhir_schemas.stu3.complex_types.claim_careteam import (
+            Claim_CareTeamSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.claim_information import (
+            Claim_InformationSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.claim_diagnosis import (
+            Claim_DiagnosisSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.claim_procedure import (
+            Claim_ProcedureSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.claim_insurance import (
+            Claim_InsuranceSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.claim_accident import (
+            Claim_AccidentSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.claim_item import Claim_ItemSchema
         from spark_fhir_schemas.stu3.complex_types.money import MoneySchema
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Claim") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Claim") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -150,9 +167,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of the resource instance.
                 StructField("status", StringType(), True),
@@ -164,8 +182,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A finer grained suite of claim subtype codes which may convey Inpatient vs
                 # Outpatient and/or a specialty service. In the US the BillType.
@@ -177,9 +196,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Complete (Bill or Claim), Proposed (Pre-Authorization), Exploratory (Pre-
                 # determination).
@@ -192,8 +212,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The billable period for which charges are being submitted.
                 StructField(
@@ -203,8 +224,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date when the enclosed suite of services were performed or completed.
                 StructField("created", StringType(), True),
@@ -216,8 +238,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The Insurer who is target of the request.
                 StructField(
@@ -227,8 +250,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The provider which is responsible for the bill, claim pre-determination, pre-
                 # authorization.
@@ -239,8 +263,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The organization which is responsible for the bill, claim pre-determination,
                 # pre-authorization.
@@ -251,8 +276,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Immediate (STAT), best effort (NORMAL), deferred (DEFER).
                 StructField(
@@ -262,8 +288,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # In the case of a Pre-Determination/Pre-Authorization the provider may request
                 # that funds in the amount of the expected Benefit be reserved ('Patient' or
@@ -276,8 +303,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Other claims which are related to this claim such as prior claim versions or
                 # for related services.
@@ -289,9 +317,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Prescription to support the dispensing of Pharmacy or Vision products.
                 StructField(
@@ -301,8 +330,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Original prescription which has been superceded by this prescription to
                 # support the dispensing of pharmacy services, medications or products. For
@@ -319,8 +349,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The party to be reimbursed for the services.
                 StructField(
@@ -330,8 +361,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The referral resource which lists the date, practitioner, reason and other
                 # supporting information.
@@ -342,8 +374,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Facility where the services were provided.
                 StructField(
@@ -353,8 +386,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The members of the team who provided the overall service as well as their role
                 # and whether responsible and qualifications.
@@ -366,9 +400,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Additional information codes regarding exceptions, special considerations, the
                 # condition, situation, prior or concurrent issues. Often there are mutiple
@@ -381,9 +416,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # List of patient diagnosis for which care is sought.
                 StructField(
@@ -394,9 +430,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Ordered list of patient procedures performed to support the adjudication.
                 StructField(
@@ -407,9 +444,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Financial instrument by which payment information for health care.
                 StructField(
@@ -420,9 +458,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # An accident which resulted in the need for healthcare services.
                 StructField(
@@ -432,8 +471,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The start and optional end dates of when the patient was precluded from
                 # working due to the treatable condition(s).
@@ -444,8 +484,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The start and optional end dates of when the patient was confined to a
                 # treatment center.
@@ -456,8 +497,9 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # First tier of goods and services.
                 StructField(
@@ -468,9 +510,10 @@ class ClaimSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The total value of the claim.
                 StructField(
@@ -480,15 +523,17 @@ class ClaimSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

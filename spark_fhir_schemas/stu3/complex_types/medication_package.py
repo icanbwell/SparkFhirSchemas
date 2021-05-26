@@ -16,6 +16,7 @@ class Medication_PackageSchema:
     This resource is primarily used for the identification and definition of a
     medication. It covers the ingredients and the packaging for a medication.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Medication_PackageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource is primarily used for the identification and definition of a
@@ -38,9 +39,16 @@ class Medication_PackageSchema:
             production run.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.medication_content import Medication_ContentSchema
-        from spark_fhir_schemas.stu3.complex_types.medication_batch import Medication_BatchSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.medication_content import (
+            Medication_ContentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.medication_batch import (
+            Medication_BatchSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Medication_Package") >= max_recursion_limit
@@ -58,8 +66,9 @@ class Medication_PackageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A set of components that go to make up the described item.
                 StructField(
@@ -70,9 +79,10 @@ class Medication_PackageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Information about a group of medication produced or packaged from one
                 # production run.
@@ -84,16 +94,18 @@ class Medication_PackageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

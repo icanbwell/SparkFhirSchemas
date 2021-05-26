@@ -16,6 +16,7 @@ class DeviceDefinition_CapabilitySchema:
     The characteristics, operational status and capabilities of a medical-related
     component of a medical device.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DeviceDefinition_CapabilitySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The characteristics, operational status and capabilities of a medical-related
@@ -45,17 +46,17 @@ class DeviceDefinition_CapabilitySchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("DeviceDefinition_Capability") >=
-            max_recursion_limit
+            and nesting_list.count("DeviceDefinition_Capability") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "DeviceDefinition_Capability"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["DeviceDefinition_Capability"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -74,9 +75,10 @@ class DeviceDefinition_CapabilitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Type of capability.
                 StructField(
@@ -86,8 +88,9 @@ class DeviceDefinition_CapabilitySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Description of capability.
                 StructField(
@@ -98,16 +101,18 @@ class DeviceDefinition_CapabilitySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

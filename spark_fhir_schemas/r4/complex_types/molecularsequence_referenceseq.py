@@ -15,6 +15,7 @@ class MolecularSequence_ReferenceSeqSchema:
     """
     Raw data describing a biological sequence.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MolecularSequence_ReferenceSeqSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -73,19 +74,20 @@ class MolecularSequence_ReferenceSeqSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MolecularSequence_ReferenceSeq") >=
-            max_recursion_limit
+            and nesting_list.count("MolecularSequence_ReferenceSeq")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MolecularSequence_ReferenceSeq"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MolecularSequence_ReferenceSeq"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -104,9 +106,10 @@ class MolecularSequence_ReferenceSeqSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Structural unit composed of a nucleic acid molecule which controls its own
                 # replication through the interaction of specific proteins at one or more
@@ -119,8 +122,9 @@ class MolecularSequence_ReferenceSeqSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The Genome Build used for reference, following GRCh build versions e.g. 'GRCh
                 # 37'.  Version number must be included if a versioned release of a primary
@@ -141,8 +145,9 @@ class MolecularSequence_ReferenceSeqSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A pointer to another MolecularSequence entity as reference sequence.
                 StructField(
@@ -152,8 +157,9 @@ class MolecularSequence_ReferenceSeqSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A string like "ACGT".
                 StructField("referenceSeqString", StringType(), True),
@@ -170,8 +176,9 @@ class MolecularSequence_ReferenceSeqSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # End position of the window on the reference sequence. If the coordinate system
                 # is 0-based then end is exclusive and does not include the last position. If
@@ -184,15 +191,17 @@ class MolecularSequence_ReferenceSeqSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

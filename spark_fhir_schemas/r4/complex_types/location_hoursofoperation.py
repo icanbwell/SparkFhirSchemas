@@ -18,6 +18,7 @@ class Location_HoursOfOperationSchema:
     provided and resources and participants may be stored, found, contained, or
     accommodated.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class Location_HoursOfOperationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Details and position information for a physical place where services are
@@ -55,16 +56,14 @@ class Location_HoursOfOperationSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.time import timeSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("Location_HoursOfOperation") >=
-            max_recursion_limit
+            and nesting_list.count("Location_HoursOfOperation") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "Location_HoursOfOperation"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["Location_HoursOfOperation"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -83,9 +82,10 @@ class Location_HoursOfOperationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates which days of the week are available between the start and end
                 # Times.
@@ -97,9 +97,10 @@ class Location_HoursOfOperationSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The Location is open all day.
                 StructField("allDay", BooleanType(), True),
@@ -111,8 +112,9 @@ class Location_HoursOfOperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Time that the Location closes.
                 StructField(
@@ -122,15 +124,17 @@ class Location_HoursOfOperationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

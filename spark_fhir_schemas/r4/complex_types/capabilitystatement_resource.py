@@ -19,6 +19,7 @@ class CapabilityStatement_ResourceSchema:
     actual server functionality or a statement of required or desired server
     implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class CapabilityStatement_ResourceSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -105,19 +106,24 @@ class CapabilityStatement_ResourceSchema:
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_interaction import CapabilityStatement_InteractionSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_searchparam import CapabilityStatement_SearchParamSchema
-        from spark_fhir_schemas.r4.complex_types.capabilitystatement_operation import CapabilityStatement_OperationSchema
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_interaction import (
+            CapabilityStatement_InteractionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_searchparam import (
+            CapabilityStatement_SearchParamSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.capabilitystatement_operation import (
+            CapabilityStatement_OperationSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("CapabilityStatement_Resource") >=
-            max_recursion_limit
+            and nesting_list.count("CapabilityStatement_Resource")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "CapabilityStatement_Resource"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["CapabilityStatement_Resource"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -136,9 +142,10 @@ class CapabilityStatement_ResourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A type of resource exposed via the restful interface.
                 StructField(
@@ -148,8 +155,9 @@ class CapabilityStatement_ResourceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A specification of the profile that describes the solution's overall support
                 # for the resource, including any constraints on cardinality, bindings, lengths
@@ -162,8 +170,9 @@ class CapabilityStatement_ResourceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A list of profiles that represent different use cases supported by the system.
                 # For a server, "supported by the system" means the system hosts/produces a set
@@ -180,9 +189,10 @@ class CapabilityStatement_ResourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Additional information about the resource type used by the system.
                 StructField(
@@ -192,8 +202,9 @@ class CapabilityStatement_ResourceSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies a restful operation supported by the solution.
                 StructField(
@@ -204,9 +215,10 @@ class CapabilityStatement_ResourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This field is set to no-version to specify that the system does not support
                 # (server) or use (client) versioning for this resource type. If this has some
@@ -247,9 +259,10 @@ class CapabilityStatement_ResourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Definition of an operation or a named query together with its parameters and
                 # their meaning and type. Consult the definition of the operation for details
@@ -262,16 +275,18 @@ class CapabilityStatement_ResourceSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

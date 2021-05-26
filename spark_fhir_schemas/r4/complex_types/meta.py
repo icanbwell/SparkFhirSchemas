@@ -17,6 +17,7 @@ class MetaSchema:
     maintained by the infrastructure. Changes to the content might not always be
     associated with version changes to the resource.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class MetaSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The metadata about a resource. This is content in the resource that is
@@ -69,9 +70,9 @@ class MetaSchema:
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
+
         if (
-            max_recursion_limit
-            and nesting_list.count("Meta") >= max_recursion_limit
+            max_recursion_limit and nesting_list.count("Meta") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -94,9 +95,10 @@ class MetaSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The version specific identifier, as it appears in the version portion of the
                 # URL. This value changes when the resource is created, updated, or deleted.
@@ -107,8 +109,9 @@ class MetaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # When the resource last changed - e.g. when the version changed.
                 StructField(
@@ -118,8 +121,9 @@ class MetaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A uri that identifies the source system of the resource. This provides a
                 # minimal amount of [[[Provenance]]] information that can be used to track or
@@ -132,8 +136,9 @@ class MetaSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A list of profiles (references to [[[StructureDefinition]]] resources) that
                 # this resource claims to conform to. The URL is a reference to
@@ -146,9 +151,10 @@ class MetaSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Security labels applied to this resource. These tags connect specific
                 # resources to the overall security policy and infrastructure.
@@ -160,9 +166,10 @@ class MetaSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Tags applied to this resource. Tags are intended to be used to identify and
                 # relate resources to process and workflow, and applications are not required to
@@ -175,16 +182,18 @@ class MetaSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

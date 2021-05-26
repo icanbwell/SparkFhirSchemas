@@ -20,6 +20,7 @@ class MedicationDispenseSchema:
     medication dispense is the result of a pharmacy system responding to a
     medication order.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class MedicationDispenseSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Indicates that a medication product is to be or has been dispensed for a named
@@ -117,12 +118,19 @@ class MedicationDispenseSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.medicationdispense_performer import MedicationDispense_PerformerSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.medicationdispense_performer import (
+            MedicationDispense_PerformerSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.stu3.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.stu3.complex_types.medicationdispense_substitution import MedicationDispense_SubstitutionSchema
+        from spark_fhir_schemas.stu3.complex_types.medicationdispense_substitution import (
+            MedicationDispense_SubstitutionSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("MedicationDispense") >= max_recursion_limit
@@ -144,9 +152,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The procedure that the dispense is done because of.
                 StructField(
@@ -157,9 +166,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code specifying the state of the set of dispense events.
                 StructField("status", StringType(), True),
@@ -172,8 +182,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the medication being administered. This is either a link to a
                 # resource representing the details of the medication or a simple attribute
@@ -186,8 +197,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the medication being administered. This is either a link to a
                 # resource representing the details of the medication or a simple attribute
@@ -200,8 +212,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A link to a resource representing the person or the group to whom the
                 # medication will be given.
@@ -212,8 +225,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The encounter or episode of care that establishes the context for this event.
                 StructField(
@@ -223,8 +237,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information that supports the medication being dispensed.
                 StructField(
@@ -235,9 +250,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates who or what performed the event.  It should be assumed that the
                 # performer is the dispenser of the medication.
@@ -249,9 +265,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the medication order that is being dispensed against.
                 StructField(
@@ -262,9 +279,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the type of dispensing event that is performed. For example, Trial
                 # Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.
@@ -275,8 +293,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The amount of medication that has been dispensed. Includes unit of measure.
                 StructField(
@@ -286,8 +305,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The amount of medication expressed as a timing amount.
                 StructField(
@@ -297,8 +317,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The time when the dispensed product was packaged and reviewed.
                 StructField("whenPrepared", StringType(), True),
@@ -314,8 +335,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Identifies the person who picked up the medication.  This will usually be a
                 # patient or their caregiver, but some cases exist where it can be a healthcare
@@ -328,9 +350,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Extra information about the dispense that could not be conveyed in the other
                 # attributes.
@@ -342,9 +365,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates how the medication is to be used by the patient.
                 StructField(
@@ -355,9 +379,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates whether or not substitution was made as part of the dispense.  In
                 # some cases substitution will be expected but does not happen, in other cases
@@ -371,8 +396,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates an actual or potential clinical issue with or between one or more
                 # active or proposed clinical actions for a patient; e.g. Drug-drug interaction,
@@ -385,9 +411,10 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # True if the dispense was not performed for some reason.
                 StructField("notDone", BooleanType(), True),
@@ -399,8 +426,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the reason why a dispense was not performed.
                 StructField(
@@ -410,8 +438,9 @@ class MedicationDispenseSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A summary of the events of interest that have occurred, such as when the
                 # dispense was verified.
@@ -423,16 +452,18 @@ class MedicationDispenseSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

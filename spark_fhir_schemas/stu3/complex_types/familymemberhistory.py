@@ -17,6 +17,7 @@ class FamilyMemberHistorySchema:
     Significant health events and conditions for a person related to the patient
     relevant in the context of care for the patient.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class FamilyMemberHistorySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Significant health events and conditions for a person related to the patient
@@ -109,15 +110,20 @@ class FamilyMemberHistorySchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
         from spark_fhir_schemas.stu3.complex_types.age import AgeSchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.stu3.complex_types.familymemberhistory_condition import FamilyMemberHistory_ConditionSchema
+        from spark_fhir_schemas.stu3.complex_types.familymemberhistory_condition import (
+            FamilyMemberHistory_ConditionSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("FamilyMemberHistory") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("FamilyMemberHistory") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -138,9 +144,10 @@ class FamilyMemberHistorySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A protocol or questionnaire that was adhered to in whole or in part by this
                 # event.
@@ -152,9 +159,10 @@ class FamilyMemberHistorySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A code specifying the status of the record of the family history of a specific
                 # family member.
@@ -171,8 +179,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The person who this history concerns.
                 StructField(
@@ -182,8 +191,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date (and possibly time) when the family member history was taken.
                 StructField("date", StringType(), True),
@@ -199,8 +209,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Administrative Gender - the gender that the relative is considered to have for
                 # administration and record keeping purposes.
@@ -213,8 +224,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The actual or approximate date of birth of the relative.
                 StructField("bornDate", StringType(), True),
@@ -228,8 +240,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The age of the relative at the time the family member history is recorded.
                 StructField(
@@ -239,8 +252,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The age of the relative at the time the family member history is recorded.
                 StructField("ageString", StringType(), True),
@@ -258,8 +272,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Deceased flag or the actual or approximate age of the relative at the time of
                 # death for the family member history record.
@@ -270,8 +285,9 @@ class FamilyMemberHistorySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Deceased flag or the actual or approximate age of the relative at the time of
                 # death for the family member history record.
@@ -288,9 +304,10 @@ class FamilyMemberHistorySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates a Condition, Observation, AllergyIntolerance, or
                 # QuestionnaireResponse that justifies this family member history event.
@@ -302,9 +319,10 @@ class FamilyMemberHistorySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This property allows a non condition-specific note to the made about the
                 # related person. Ideally, the note would be in the condition property, but this
@@ -317,9 +335,10 @@ class FamilyMemberHistorySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The significant Conditions (or condition) that the family member had. This is
                 # a repeating section to allow a system to represent more than one condition per
@@ -333,16 +352,18 @@ class FamilyMemberHistorySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

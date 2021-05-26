@@ -18,6 +18,7 @@ class DiagnosticReport_ImageSchema:
     information, and some mix of atomic results, images, textual and coded
     interpretations, and formatted representation of diagnostic reports.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class DiagnosticReport_ImageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The findings and interpretation of diagnostic  tests performed on patients,
@@ -43,9 +44,10 @@ class DiagnosticReport_ImageSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("DiagnosticReport_Image") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("DiagnosticReport_Image") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -64,15 +66,17 @@ class DiagnosticReport_ImageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

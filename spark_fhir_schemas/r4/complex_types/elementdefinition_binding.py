@@ -16,6 +16,7 @@ class ElementDefinition_BindingSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ElementDefinition_BindingSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -51,16 +52,14 @@ class ElementDefinition_BindingSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("ElementDefinition_Binding") >=
-            max_recursion_limit
+            and nesting_list.count("ElementDefinition_Binding") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ElementDefinition_Binding"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ElementDefinition_Binding"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -79,9 +78,10 @@ class ElementDefinition_BindingSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates the degree of conformance expectations associated with this binding
                 # - that is, the degree to which the provided value set must be adhered to in
@@ -98,15 +98,17 @@ class ElementDefinition_BindingSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

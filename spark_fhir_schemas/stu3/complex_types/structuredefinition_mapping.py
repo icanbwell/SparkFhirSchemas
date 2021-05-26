@@ -16,6 +16,7 @@ class StructureDefinition_MappingSchema:
     underlying resources, data types defined in FHIR, and also for describing
     extensions and constraints on resources and data types.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class StructureDefinition_MappingSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A definition of a FHIR structure. This resource is used to describe the
@@ -45,14 +46,11 @@ class StructureDefinition_MappingSchema:
         """
         if (
             max_recursion_limit
-            and nesting_list.count("StructureDefinition_Mapping") >=
-            max_recursion_limit
+            and nesting_list.count("StructureDefinition_Mapping") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "StructureDefinition_Mapping"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["StructureDefinition_Mapping"]
         schema = StructType(
             [
                 # An Internal id that is used to identify this mapping set when specific
@@ -70,8 +68,9 @@ class StructureDefinition_MappingSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

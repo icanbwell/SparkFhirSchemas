@@ -16,6 +16,7 @@ class DetectedIssue_MitigationSchema:
     active or proposed clinical actions for a patient; e.g. Drug-drug interaction,
     Ineffective treatment frequency, Procedure-condition conflict, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class DetectedIssue_MitigationSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Indicates an actual or potential clinical issue with or between one or more
@@ -40,18 +41,18 @@ class DetectedIssue_MitigationSchema:
             responsibility for the mitigation step occurring.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("DetectedIssue_Mitigation") >=
-            max_recursion_limit
+            and nesting_list.count("DetectedIssue_Mitigation") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "DetectedIssue_Mitigation"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["DetectedIssue_Mitigation"]
         schema = StructType(
             [
                 # Describes the action that was taken or the observation that was made that
@@ -63,8 +64,9 @@ class DetectedIssue_MitigationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates when the mitigating action was documented.
                 StructField("date", StringType(), True),
@@ -77,15 +79,17 @@ class DetectedIssue_MitigationSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

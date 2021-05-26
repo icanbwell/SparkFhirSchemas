@@ -19,6 +19,7 @@ class Group_MemberSchema:
     formally or legally recognized; i.e. a collection of entities that isn't an
     Organization.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class Group_MemberSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Represents a defined collection of entities that may be discussed or acted
@@ -57,6 +58,7 @@ class Group_MemberSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Group_Member") >= max_recursion_limit
@@ -82,9 +84,10 @@ class Group_MemberSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A reference to the entity that is a member of the group. Must be consistent
                 # with Group.type. If the entity is another group, then the type must be the
@@ -96,8 +99,9 @@ class Group_MemberSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The period that the member was in the group, if known.
                 StructField(
@@ -107,8 +111,9 @@ class Group_MemberSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A flag to indicate that the member is no longer in the group, but previously
                 # may have been a member.
@@ -117,8 +122,9 @@ class Group_MemberSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

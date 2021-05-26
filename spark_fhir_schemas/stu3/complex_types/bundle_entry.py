@@ -15,6 +15,7 @@ class Bundle_EntrySchema:
     """
     A container for a collection of resources.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Bundle_EntrySchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A container for a collection of resources.
@@ -50,9 +51,16 @@ class Bundle_EntrySchema:
         """
         from spark_fhir_schemas.stu3.complex_types.bundle_link import Bundle_LinkSchema
         from spark_fhir_schemas.stu3.simple_types.resourcelist import ResourceListSchema
-        from spark_fhir_schemas.stu3.complex_types.bundle_search import Bundle_SearchSchema
-        from spark_fhir_schemas.stu3.complex_types.bundle_request import Bundle_RequestSchema
-        from spark_fhir_schemas.stu3.complex_types.bundle_response import Bundle_ResponseSchema
+        from spark_fhir_schemas.stu3.complex_types.bundle_search import (
+            Bundle_SearchSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.bundle_request import (
+            Bundle_RequestSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.bundle_response import (
+            Bundle_ResponseSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Bundle_Entry") >= max_recursion_limit
@@ -71,9 +79,10 @@ class Bundle_EntrySchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The Absolute URL for the resource.  The fullUrl SHALL not disagree with the id
                 # in the resource. The fullUrl is a version independent reference to the
@@ -90,8 +99,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Information about the search process that lead to the creation of this entry.
                 StructField(
@@ -101,8 +111,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information about how this entry should be processed as part of a
                 # transaction.
@@ -113,8 +124,9 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Additional information about how this entry should be processed as part of a
                 # transaction.
@@ -125,15 +137,17 @@ class Bundle_EntrySchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

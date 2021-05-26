@@ -28,6 +28,7 @@ class SubstanceSourceMaterialSchema:
     further explanation the Substance Class: Structurally Diverse and the herbal
     annex.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -35,7 +36,7 @@ class SubstanceSourceMaterialSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Source material shall capture information on the taxonomic and anatomical
@@ -144,15 +145,23 @@ class SubstanceSourceMaterialSchema:
         from spark_fhir_schemas.r4.complex_types.narrative import NarrativeSchema
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.r4.complex_types.substancesourcematerial_fractiondescription import SubstanceSourceMaterial_FractionDescriptionSchema
-        from spark_fhir_schemas.r4.complex_types.substancesourcematerial_organism import SubstanceSourceMaterial_OrganismSchema
-        from spark_fhir_schemas.r4.complex_types.substancesourcematerial_partdescription import SubstanceSourceMaterial_PartDescriptionSchema
+        from spark_fhir_schemas.r4.complex_types.substancesourcematerial_fractiondescription import (
+            SubstanceSourceMaterial_FractionDescriptionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancesourcematerial_organism import (
+            SubstanceSourceMaterial_OrganismSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.substancesourcematerial_partdescription import (
+            SubstanceSourceMaterial_PartDescriptionSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceSourceMaterial") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceSourceMaterial") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -170,8 +179,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
@@ -183,8 +193,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content. Often,
@@ -197,8 +208,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The base language in which the resource is written.
                 StructField(
@@ -208,8 +220,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A human-readable narrative that contains a summary of the resource and can be
                 # used to represent the content of the resource to a human. The narrative need
@@ -224,8 +237,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
@@ -238,9 +252,10 @@ class SubstanceSourceMaterialSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. To make the use of extensions safe and manageable,
@@ -255,9 +270,10 @@ class SubstanceSourceMaterialSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # General high level classification of the source material specific to the
                 # origin of the material.
@@ -268,8 +284,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of the source material shall be specified based on a controlled
                 # vocabulary. For vaccines, this subclause refers to the class of infectious
@@ -281,8 +298,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The state of the source material when extracted.
                 StructField(
@@ -292,8 +310,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The unique identifier associated with the source material parent organism
                 # shall be specified.
@@ -304,8 +323,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The organism accepted Scientific name shall be provided based on the organism
                 # taxonomy.
@@ -320,14 +340,13 @@ class SubstanceSourceMaterialSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The parent substance of the Herbal Drug, or Herbal preparation.
-                StructField(
-                    "parentSubstanceName", ArrayType(StringType()), True
-                ),
+                StructField("parentSubstanceName", ArrayType(StringType()), True),
                 # The country where the plant material is harvested or the countries where the
                 # plasma is sourced from as laid down in accordance with the Plasma Master File.
                 # For “Plasma-derived substances” the attribute country of origin provides
@@ -341,15 +360,14 @@ class SubstanceSourceMaterialSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The place/region where the plant is harvested or the places/regions where the
                 # animal source material has its habitat.
-                StructField(
-                    "geographicalLocation", ArrayType(StringType()), True
-                ),
+                StructField("geographicalLocation", ArrayType(StringType()), True),
                 # Stage of life for animals, plants, insects and microorganisms. This
                 # information shall be provided only when the substance is significantly
                 # different in these stages (e.g. foetal bovine serum).
@@ -360,8 +378,9 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Many complex materials are fractions of parts of plants, animals, or minerals.
                 # Fraction elements are often necessary to define both Substances and Specified
@@ -374,15 +393,15 @@ class SubstanceSourceMaterialSchema:
                 StructField(
                     "fractionDescription",
                     ArrayType(
-                        SubstanceSourceMaterial_FractionDescriptionSchema.
-                        get_schema(
+                        SubstanceSourceMaterial_FractionDescriptionSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This subclause describes the organism which the substance is derived from. For
                 # vaccines, the parent organism shall be specified based on these subclause
@@ -395,29 +414,31 @@ class SubstanceSourceMaterialSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # To do.
                 StructField(
                     "partDescription",
                     ArrayType(
-                        SubstanceSourceMaterial_PartDescriptionSchema.
-                        get_schema(
+                        SubstanceSourceMaterial_PartDescriptionSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -19,6 +19,7 @@ class Timing_RepeatSchema:
     when planning care of various kinds, and may be used for reporting the
     schedule to which past regular activities were carried out.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class Timing_RepeatSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Specifies an event that may occur multiple times. Timing schedules are used to
@@ -86,6 +87,7 @@ class Timing_RepeatSchema:
         from spark_fhir_schemas.stu3.complex_types.duration import DurationSchema
         from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Timing_Repeat") >= max_recursion_limit
@@ -104,8 +106,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
@@ -116,8 +119,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Either a duration for the length of the timing schedule, a range of possible
                 # length, or outer bounds for start and/or end limits of the timing schedule.
@@ -128,8 +132,9 @@ class Timing_RepeatSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A total count of the desired number of repetitions.
                 StructField("count", IntegerType(), True),
@@ -169,8 +174,9 @@ class Timing_RepeatSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

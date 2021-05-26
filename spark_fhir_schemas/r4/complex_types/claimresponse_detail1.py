@@ -16,6 +16,7 @@ class ClaimResponse_Detail1Schema:
     This resource provides the adjudication details from the processing of a Claim
     resource.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ClaimResponse_Detail1Schema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         This resource provides the adjudication details from the processing of a Claim
@@ -68,16 +69,23 @@ class ClaimResponse_Detail1Schema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.money import MoneySchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
-        from spark_fhir_schemas.r4.complex_types.claimresponse_adjudication import ClaimResponse_AdjudicationSchema
-        from spark_fhir_schemas.r4.complex_types.claimresponse_subdetail1 import ClaimResponse_SubDetail1Schema
+        from spark_fhir_schemas.r4.complex_types.claimresponse_adjudication import (
+            ClaimResponse_AdjudicationSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.claimresponse_subdetail1 import (
+            ClaimResponse_SubDetail1Schema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ClaimResponse_Detail1") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ClaimResponse_Detail1") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -100,9 +108,10 @@ class ClaimResponse_Detail1Schema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # When the value is a group code then this item collects a set of related claim
                 # details, otherwise this contains the product, service, drug or other billing
@@ -114,8 +123,9 @@ class ClaimResponse_Detail1Schema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Item typification or modifiers codes to convey additional context for the
                 # product or service.
@@ -127,9 +137,10 @@ class ClaimResponse_Detail1Schema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The number of repetitions of a service or product.
                 StructField(
@@ -139,8 +150,9 @@ class ClaimResponse_Detail1Schema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # If the item is not a group then this is the fee for the product or service,
                 # otherwise this is the total of the fees for the details of the group.
@@ -151,8 +163,9 @@ class ClaimResponse_Detail1Schema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A real number that represents a multiplier used in determining the overall
                 # value of services delivered and/or goods received. The concept of a Factor
@@ -165,8 +178,9 @@ class ClaimResponse_Detail1Schema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The quantity times the unit price for an additional service or product or
                 # charge.
@@ -177,8 +191,9 @@ class ClaimResponse_Detail1Schema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The numbers associated with notes below which apply to the adjudication of
                 # this item.
@@ -190,9 +205,10 @@ class ClaimResponse_Detail1Schema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The adjudication results.
                 StructField(
@@ -203,9 +219,10 @@ class ClaimResponse_Detail1Schema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The third-tier service adjudications for payor added services.
                 StructField(
@@ -216,16 +233,18 @@ class ClaimResponse_Detail1Schema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

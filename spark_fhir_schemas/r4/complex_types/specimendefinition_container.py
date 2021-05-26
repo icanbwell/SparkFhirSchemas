@@ -15,6 +15,7 @@ class SpecimenDefinition_ContainerSchema:
     """
     A kind of specimen with associated set of requirements.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class SpecimenDefinition_ContainerSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A kind of specimen with associated set of requirements.
@@ -59,19 +60,22 @@ class SpecimenDefinition_ContainerSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
-        from spark_fhir_schemas.r4.complex_types.specimendefinition_additive import SpecimenDefinition_AdditiveSchema
+        from spark_fhir_schemas.r4.complex_types.specimendefinition_additive import (
+            SpecimenDefinition_AdditiveSchema,
+        )
+
         if (
             max_recursion_limit
-            and nesting_list.count("SpecimenDefinition_Container") >=
-            max_recursion_limit
+            and nesting_list.count("SpecimenDefinition_Container")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SpecimenDefinition_Container"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SpecimenDefinition_Container"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -90,9 +94,10 @@ class SpecimenDefinition_ContainerSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The type of material of the container.
                 StructField(
@@ -102,8 +107,9 @@ class SpecimenDefinition_ContainerSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The type of container used to contain this kind of specimen.
                 StructField(
@@ -113,8 +119,9 @@ class SpecimenDefinition_ContainerSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Color of container cap.
                 StructField(
@@ -124,8 +131,9 @@ class SpecimenDefinition_ContainerSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The textual description of the kind of container.
                 StructField("description", StringType(), True),
@@ -137,8 +145,9 @@ class SpecimenDefinition_ContainerSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The minimum volume to be conditioned in the container.
                 StructField(
@@ -148,8 +157,9 @@ class SpecimenDefinition_ContainerSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The minimum volume to be conditioned in the container.
                 StructField("minimumVolumeString", StringType(), True),
@@ -163,9 +173,10 @@ class SpecimenDefinition_ContainerSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Special processing that should be applied to the container for this kind of
                 # specimen.
@@ -174,8 +185,9 @@ class SpecimenDefinition_ContainerSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

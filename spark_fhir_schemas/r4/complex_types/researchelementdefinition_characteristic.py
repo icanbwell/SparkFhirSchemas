@@ -18,6 +18,7 @@ class ResearchElementDefinition_CharacteristicSchema:
     The ResearchElementDefinition resource describes a "PICO" element that
     knowledge (evidence, assertion, recommendation) is about.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ResearchElementDefinition_CharacteristicSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The ResearchElementDefinition resource describes a "PICO" element that
@@ -98,13 +99,18 @@ class ResearchElementDefinition_CharacteristicSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement import DataRequirementSchema
+        from spark_fhir_schemas.r4.complex_types.datarequirement import (
+            DataRequirementSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("ResearchElementDefinition_Characteristic")
@@ -133,9 +139,10 @@ class ResearchElementDefinition_CharacteristicSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Define members of the research element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -148,8 +155,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Define members of the research element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -167,8 +175,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Define members of the research element using Codes (such as condition,
                 # medication, or observation), Expressions ( using an expression language such
@@ -181,8 +190,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Use UsageContext to define the members of the population, such as Age Ranges,
                 # Genders, Settings.
@@ -194,9 +204,10 @@ class ResearchElementDefinition_CharacteristicSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # When true, members with this characteristic are excluded from the element.
                 StructField("exclude", BooleanType(), True),
@@ -208,8 +219,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A narrative description of the time period the study covers.
                 StructField("studyEffectiveDescription", StringType(), True),
@@ -223,8 +235,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
@@ -234,8 +247,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
@@ -245,8 +259,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates duration from the study initiation.
                 StructField(
@@ -256,19 +271,16 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates how elements are aggregated within the study effective period.
                 StructField("studyEffectiveGroupMeasure", StringType(), True),
                 # A narrative description of the time period the study covers.
-                StructField(
-                    "participantEffectiveDescription", StringType(), True
-                ),
+                StructField("participantEffectiveDescription", StringType(), True),
                 # Indicates what effective period the study covers.
-                StructField(
-                    "participantEffectiveDateTime", TimestampType(), True
-                ),
+                StructField("participantEffectiveDateTime", TimestampType(), True),
                 # Indicates what effective period the study covers.
                 StructField(
                     "participantEffectivePeriod",
@@ -277,8 +289,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
@@ -288,8 +301,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates what effective period the study covers.
                 StructField(
@@ -299,8 +313,9 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates duration from the participant's study entry.
                 StructField(
@@ -310,19 +325,19 @@ class ResearchElementDefinition_CharacteristicSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates how elements are aggregated within the study effective period.
-                StructField(
-                    "participantEffectiveGroupMeasure", StringType(), True
-                ),
+                StructField("participantEffectiveGroupMeasure", StringType(), True),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

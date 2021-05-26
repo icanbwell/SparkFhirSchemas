@@ -18,6 +18,7 @@ class ImplementationGuideSchema:
     resource is used to gather all the parts of an implementation guide into a
     logical whole and to publish a computable definition of all the parts.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class ImplementationGuideSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A set of rules of how FHIR is used to solve a particular problem. This
@@ -105,16 +106,31 @@ class ImplementationGuideSchema:
             implementation guide home page.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.contactdetail import ContactDetailSchema
-        from spark_fhir_schemas.stu3.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.implementationguide_dependency import ImplementationGuide_DependencySchema
-        from spark_fhir_schemas.stu3.complex_types.implementationguide_package import ImplementationGuide_PackageSchema
-        from spark_fhir_schemas.stu3.complex_types.implementationguide_global import ImplementationGuide_GlobalSchema
-        from spark_fhir_schemas.stu3.complex_types.implementationguide_page import ImplementationGuide_PageSchema
+        from spark_fhir_schemas.stu3.complex_types.contactdetail import (
+            ContactDetailSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.usagecontext import (
+            UsageContextSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.implementationguide_dependency import (
+            ImplementationGuide_DependencySchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.implementationguide_package import (
+            ImplementationGuide_PackageSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.implementationguide_global import (
+            ImplementationGuide_GlobalSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.implementationguide_page import (
+            ImplementationGuide_PageSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("ImplementationGuide") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("ImplementationGuide") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -166,9 +182,10 @@ class ImplementationGuideSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A free text natural language description of the implementation guide from a
                 # consumer's perspective.
@@ -184,9 +201,10 @@ class ImplementationGuideSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A legal or geographic region in which the implementation guide is intended to
                 # be used.
@@ -198,9 +216,10 @@ class ImplementationGuideSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A copyright statement relating to the implementation guide and/or its
                 # contents. Copyright statements are generally legal restrictions on the use and
@@ -221,9 +240,10 @@ class ImplementationGuideSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A logical group of resources. Logical groups can be used when building pages.
                 StructField(
@@ -234,9 +254,10 @@ class ImplementationGuideSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A set of profiles that all resources covered by this implementation guide must
                 # conform to.
@@ -248,9 +269,10 @@ class ImplementationGuideSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A binary file that is included in the  implementation guide when it is
                 # published.
@@ -263,15 +285,17 @@ class ImplementationGuideSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

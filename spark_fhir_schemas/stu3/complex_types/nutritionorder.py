@@ -16,6 +16,7 @@ class NutritionOrderSchema:
     A request to supply a diet, formula feeding (enteral) or oral nutritional
     supplement to a patient/resident.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class NutritionOrderSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A request to supply a diet, formula feeding (enteral) or oral nutritional
@@ -78,10 +79,19 @@ class NutritionOrderSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
-        from spark_fhir_schemas.stu3.complex_types.nutritionorder_oraldiet import NutritionOrder_OralDietSchema
-        from spark_fhir_schemas.stu3.complex_types.nutritionorder_supplement import NutritionOrder_SupplementSchema
-        from spark_fhir_schemas.stu3.complex_types.nutritionorder_enteralformula import NutritionOrder_EnteralFormulaSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.nutritionorder_oraldiet import (
+            NutritionOrder_OralDietSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.nutritionorder_supplement import (
+            NutritionOrder_SupplementSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.nutritionorder_enteralformula import (
+            NutritionOrder_EnteralFormulaSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("NutritionOrder") >= max_recursion_limit
@@ -103,9 +113,10 @@ class NutritionOrderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The workflow status of the nutrition order/request.
                 StructField("status", StringType(), True),
@@ -118,8 +129,9 @@ class NutritionOrderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # An encounter that provides additional information about the healthcare context
                 # in which this request is made.
@@ -130,8 +142,9 @@ class NutritionOrderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date and time that this nutrition order was requested.
                 StructField("dateTime", StringType(), True),
@@ -144,8 +157,9 @@ class NutritionOrderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A link to a record of allergies or intolerances  which should be included in
                 # the nutrition order.
@@ -157,9 +171,10 @@ class NutritionOrderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This modifier is used to convey order-specific modifiers about the type of
                 # food that should be given. These can be derived from patient allergies,
@@ -174,9 +189,10 @@ class NutritionOrderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # This modifier is used to convey order-specific modifiers about the type of
                 # food that should NOT be given. These can be derived from patient allergies,
@@ -195,9 +211,10 @@ class NutritionOrderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Diet given orally in contrast to enteral (tube) feeding.
                 StructField(
@@ -207,8 +224,9 @@ class NutritionOrderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Oral nutritional products given in order to add further nutritional value to
                 # the patient's diet.
@@ -220,9 +238,10 @@ class NutritionOrderSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Feeding provided through the gastrointestinal tract via a tube, catheter, or
                 # stoma that delivers nutrition distal to the oral cavity.
@@ -233,15 +252,17 @@ class NutritionOrderSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

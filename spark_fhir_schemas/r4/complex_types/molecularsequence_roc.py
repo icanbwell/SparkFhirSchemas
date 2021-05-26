@@ -15,6 +15,7 @@ class MolecularSequence_RocSchema:
     """
     Raw data describing a biological sequence.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class MolecularSequence_RocSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Raw data describing a biological sequence.
@@ -59,9 +60,10 @@ class MolecularSequence_RocSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
+
         if (
-            max_recursion_limit and
-            nesting_list.count("MolecularSequence_Roc") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("MolecularSequence_Roc") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -84,9 +86,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Invidual data point representing the GQ (genotype quality) score threshold.
                 StructField(
@@ -97,9 +100,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The number of true positives if the GQ score threshold was set to "score"
                 # field value.
@@ -111,9 +115,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The number of false positives if the GQ score threshold was set to "score"
                 # field value.
@@ -125,9 +130,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The number of false negatives if the GQ score threshold was set to "score"
                 # field value.
@@ -139,9 +145,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Calculated precision if the GQ score threshold was set to "score" field value.
                 StructField(
@@ -152,9 +159,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Calculated sensitivity if the GQ score threshold was set to "score" field
                 # value.
@@ -166,9 +174,10 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Calculated fScore if the GQ score threshold was set to "score" field value.
                 StructField(
@@ -179,16 +188,18 @@ class MolecularSequence_RocSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

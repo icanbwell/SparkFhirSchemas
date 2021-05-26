@@ -18,6 +18,7 @@ class SubstanceNucleicAcid_LinkageSchema:
     elements. The nucleotide sequence will be always entered in the 5’-3’
     direction.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -25,7 +26,7 @@ class SubstanceNucleicAcid_LinkageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Nucleic acids are defined by three distinct elements: the base, sugar and
@@ -59,16 +60,15 @@ class SubstanceNucleicAcid_LinkageSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("SubstanceNucleicAcid_Linkage") >=
-            max_recursion_limit
+            and nesting_list.count("SubstanceNucleicAcid_Linkage")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "SubstanceNucleicAcid_Linkage"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["SubstanceNucleicAcid_Linkage"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -87,9 +87,10 @@ class SubstanceNucleicAcid_LinkageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The entity that links the sugar residues together should also be captured for
                 # nearly all naturally occurring nucleic acid the linkage is a phosphate group.
@@ -105,8 +106,9 @@ class SubstanceNucleicAcid_LinkageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Each linkage will be registered as a fragment and have at least one name. A
                 # single name shall be assigned to each linkage.
@@ -117,8 +119,9 @@ class SubstanceNucleicAcid_LinkageSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

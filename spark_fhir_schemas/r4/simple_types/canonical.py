@@ -13,6 +13,7 @@ class canonicalSchema:
     """
     A URI that is a reference to a canonical URL on a FHIR resource
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -20,7 +21,7 @@ class canonicalSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A URI that is a reference to a canonical URL on a FHIR resource

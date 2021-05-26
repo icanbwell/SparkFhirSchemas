@@ -19,6 +19,7 @@ class DiagnosticReportSchema:
     information, and some mix of atomic results, images, textual and coded
     interpretations, and formatted representation of diagnostic reports.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -26,7 +27,7 @@ class DiagnosticReportSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The findings and interpretation of diagnostic  tests performed on patients,
@@ -100,11 +101,18 @@ class DiagnosticReportSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.stu3.complex_types.diagnosticreport_performer import DiagnosticReport_PerformerSchema
-        from spark_fhir_schemas.stu3.complex_types.diagnosticreport_image import DiagnosticReport_ImageSchema
+        from spark_fhir_schemas.stu3.complex_types.diagnosticreport_performer import (
+            DiagnosticReport_PerformerSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.diagnosticreport_image import (
+            DiagnosticReport_ImageSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.attachment import AttachmentSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("DiagnosticReport") >= max_recursion_limit
@@ -125,9 +133,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details concerning a test or procedure requested.
                 StructField(
@@ -138,9 +147,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The status of the diagnostic report as a whole.
                 StructField("status", StringType(), True),
@@ -154,8 +164,9 @@ class DiagnosticReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A code or name that describes this diagnostic report.
                 StructField(
@@ -165,8 +176,9 @@ class DiagnosticReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The subject of the report. Usually, but not always, this is a patient. However
                 # diagnostic services also perform analyses on specimens collected from a
@@ -178,8 +190,9 @@ class DiagnosticReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The healthcare event  (e.g. a patient and healthcare provider interaction)
                 # which this DiagnosticReport per is about.
@@ -190,8 +203,9 @@ class DiagnosticReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The time or time-period the observed values are related to. When the subject
                 # of the report is a patient, this is usually either the time of the procedure
@@ -209,8 +223,9 @@ class DiagnosticReportSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The date and time that this version of the report was released from the source
                 # diagnostic service.
@@ -224,9 +239,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details about the specimens on which this diagnostic report is based.
                 StructField(
@@ -237,9 +253,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Observations that are part of this diagnostic report. Observations can be
                 # simple name/value pairs (e.g. "atomic" results), or they can be grouping
@@ -253,9 +270,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # One or more links to full details of any imaging performed during the
                 # diagnostic investigation. Typically, this is imaging performed by DICOM
@@ -269,9 +287,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # A list of key images associated with this report. The images are generally
                 # created during the diagnostic process, and may be directly of the patient, or
@@ -284,9 +303,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Concise and clinically contextualized impression / summary of the diagnostic
                 # report.
@@ -300,9 +320,10 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Rich text representation of the entire result as issued by the diagnostic
                 # service. Multiple formats are allowed but they SHALL be semantically
@@ -315,16 +336,18 @@ class DiagnosticReportSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

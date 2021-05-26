@@ -15,6 +15,7 @@ class Measure_StratifierSchema:
     """
     The Measure resource provides the definition of a quality measure.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class Measure_StratifierSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The Measure resource provides the definition of a quality measure.
@@ -53,9 +54,14 @@ class Measure_StratifierSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.measure_component import Measure_ComponentSchema
+        from spark_fhir_schemas.r4.complex_types.measure_component import (
+            Measure_ComponentSchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("Measure_Stratifier") >= max_recursion_limit
@@ -81,9 +87,10 @@ class Measure_StratifierSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Indicates a meaning for the stratifier. This can be as simple as a unique
                 # identifier, or it can establish meaning in a broader context by drawing from a
@@ -95,8 +102,9 @@ class Measure_StratifierSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The human readable description of this stratifier criteria.
                 StructField("description", StringType(), True),
@@ -110,8 +118,9 @@ class Measure_StratifierSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A component of the stratifier criteria for the measure report, specified as
                 # either the name of a valid CQL expression defined within a referenced library
@@ -124,16 +133,18 @@ class Measure_StratifierSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

@@ -17,6 +17,7 @@ class TerminologyCapabilities_ParameterSchema:
     of a FHIR Terminology Server that may be used as a statement of actual server
     functionality or a statement of required or desired server implementation.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class TerminologyCapabilities_ParameterSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A TerminologyCapabilities resource documents a set of capabilities (behaviors)
@@ -48,10 +49,11 @@ class TerminologyCapabilities_ParameterSchema:
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("TerminologyCapabilities_Parameter") >=
-            max_recursion_limit
+            and nesting_list.count("TerminologyCapabilities_Parameter")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -76,9 +78,10 @@ class TerminologyCapabilities_ParameterSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Expansion Parameter name.
                 StructField(
@@ -88,8 +91,9 @@ class TerminologyCapabilities_ParameterSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Description of support for parameter.
                 StructField("documentation", StringType(), True),
@@ -97,8 +101,9 @@ class TerminologyCapabilities_ParameterSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

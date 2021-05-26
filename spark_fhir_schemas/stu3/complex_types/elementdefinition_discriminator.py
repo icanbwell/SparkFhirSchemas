@@ -15,6 +15,7 @@ class ElementDefinition_DiscriminatorSchema:
     Captures constraints on each element within the resource, profile, or
     extension.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class ElementDefinition_DiscriminatorSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -37,14 +38,12 @@ class ElementDefinition_DiscriminatorSchema:
         """
         if (
             max_recursion_limit
-            and nesting_list.count("ElementDefinition_Discriminator") >=
-            max_recursion_limit
+            and nesting_list.count("ElementDefinition_Discriminator")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "ElementDefinition_Discriminator"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["ElementDefinition_Discriminator"]
         schema = StructType(
             [
                 # How the element value is interpreted when discrimination is evaluated.
@@ -56,8 +55,9 @@ class ElementDefinition_DiscriminatorSchema:
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

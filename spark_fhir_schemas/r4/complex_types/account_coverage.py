@@ -16,6 +16,7 @@ class Account_CoverageSchema:
     A financial tool for tracking value accrued for a particular purpose.  In the
     healthcare field, used to track charges for a patient, cost centers, etc.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class Account_CoverageSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A financial tool for tracking value accrued for a particular purpose.  In the
@@ -52,6 +53,7 @@ class Account_CoverageSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.positiveint import positiveIntSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Account_Coverage") >= max_recursion_limit
@@ -77,9 +79,10 @@ class Account_CoverageSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The party(s) that contribute to payment (or part of) of the charges applied to
                 # this account (including self-pay).
@@ -94,8 +97,9 @@ class Account_CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The priority of the coverage in the context of this account.
                 StructField(
@@ -105,15 +109,17 @@ class Account_CoverageSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

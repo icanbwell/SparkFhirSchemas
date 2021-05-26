@@ -17,6 +17,7 @@ class GraphDefinition_TargetSchema:
     set of resources that form a graph by following references. The Graph
     Definition resource defines a set and makes rules about the set.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -24,7 +25,7 @@ class GraphDefinition_TargetSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A formal computable definition of a graph of resources - that is, a coherent
@@ -41,11 +42,16 @@ class GraphDefinition_TargetSchema:
         link: Additional links from target resource.
 
         """
-        from spark_fhir_schemas.stu3.complex_types.graphdefinition_compartment import GraphDefinition_CompartmentSchema
-        from spark_fhir_schemas.stu3.complex_types.graphdefinition_link import GraphDefinition_LinkSchema
+        from spark_fhir_schemas.stu3.complex_types.graphdefinition_compartment import (
+            GraphDefinition_CompartmentSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.graphdefinition_link import (
+            GraphDefinition_LinkSchema,
+        )
+
         if (
-            max_recursion_limit and
-            nesting_list.count("GraphDefinition_Target") >= max_recursion_limit
+            max_recursion_limit
+            and nesting_list.count("GraphDefinition_Target") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -65,9 +71,10 @@ class GraphDefinition_TargetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Additional links from target resource.
                 StructField(
@@ -78,16 +85,18 @@ class GraphDefinition_TargetSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

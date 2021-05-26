@@ -16,6 +16,7 @@ class ImagingManifestSchema:
     A text description of the DICOM SOP instances selected in the ImagingManifest;
     or the reason for, or significance of, the selection.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -23,7 +24,7 @@ class ImagingManifestSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A text description of the DICOM SOP instances selected in the ImagingManifest;
@@ -63,7 +64,10 @@ class ImagingManifestSchema:
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.imagingmanifest_study import ImagingManifest_StudySchema
+        from spark_fhir_schemas.stu3.complex_types.imagingmanifest_study import (
+            ImagingManifest_StudySchema,
+        )
+
         if (
             max_recursion_limit
             and nesting_list.count("ImagingManifest") >= max_recursion_limit
@@ -84,8 +88,9 @@ class ImagingManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # A patient resource reference which is the patient subject of all DICOM SOP
                 # Instances in this ImagingManifest.
@@ -96,8 +101,9 @@ class ImagingManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Date and time when the selection of the referenced instances were made. It is
                 # (typically) different from the creation date of the selection resource, and
@@ -116,8 +122,9 @@ class ImagingManifestSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Free text narrative description of the ImagingManifest.
                 # The value may be derived from the DICOM Standard Part 16, CID-7010
@@ -137,16 +144,18 @@ class ImagingManifestSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

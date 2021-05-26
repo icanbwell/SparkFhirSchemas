@@ -20,6 +20,7 @@ class MedicationDispense_SubstitutionSchema:
     medication dispense is the result of a pharmacy system responding to a
     medication order.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -27,7 +28,7 @@ class MedicationDispense_SubstitutionSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Indicates that a medication product is to be or has been dispensed for a named
@@ -60,18 +61,19 @@ class MedicationDispense_SubstitutionSchema:
 
         """
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+
         if (
             max_recursion_limit
-            and nesting_list.count("MedicationDispense_Substitution") >=
-            max_recursion_limit
+            and nesting_list.count("MedicationDispense_Substitution")
+            >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
-        my_nesting_list: List[str] = nesting_list + [
-            "MedicationDispense_Substitution"
-        ]
+        my_nesting_list: List[str] = nesting_list + ["MedicationDispense_Substitution"]
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -90,9 +92,10 @@ class MedicationDispense_SubstitutionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # True if the dispenser dispensed a different drug or product from what was
                 # prescribed.
@@ -106,8 +109,9 @@ class MedicationDispense_SubstitutionSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Indicates the reason for the substitution (or lack of substitution) from what
                 # was prescribed.
@@ -119,9 +123,10 @@ class MedicationDispense_SubstitutionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The person or organization that has primary responsibility for the
                 # substitution.
@@ -133,16 +138,18 @@ class MedicationDispense_SubstitutionSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema

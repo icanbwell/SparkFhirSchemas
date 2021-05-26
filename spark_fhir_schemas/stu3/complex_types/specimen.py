@@ -15,6 +15,7 @@ class SpecimenSchema:
     """
     A sample to be used for analysis.
     """
+
     # noinspection PyDefaultArgument
     @staticmethod
     def get_schema(
@@ -22,7 +23,7 @@ class SpecimenSchema:
         nesting_depth: int = 0,
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
-        include_extension: Optional[bool] = False
+        include_extension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A sample to be used for analysis.
@@ -63,12 +64,21 @@ class SpecimenSchema:
 
         """
         from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
-        from spark_fhir_schemas.stu3.complex_types.codeableconcept import CodeableConceptSchema
+        from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
-        from spark_fhir_schemas.stu3.complex_types.specimen_collection import Specimen_CollectionSchema
-        from spark_fhir_schemas.stu3.complex_types.specimen_processing import Specimen_ProcessingSchema
-        from spark_fhir_schemas.stu3.complex_types.specimen_container import Specimen_ContainerSchema
+        from spark_fhir_schemas.stu3.complex_types.specimen_collection import (
+            Specimen_CollectionSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.specimen_processing import (
+            Specimen_ProcessingSchema,
+        )
+        from spark_fhir_schemas.stu3.complex_types.specimen_container import (
+            Specimen_ContainerSchema,
+        )
         from spark_fhir_schemas.stu3.complex_types.annotation import AnnotationSchema
+
         if (
             max_recursion_limit
             and nesting_list.count("Specimen") >= max_recursion_limit
@@ -89,9 +99,10 @@ class SpecimenSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The identifier assigned by the lab when accessioning specimen(s). This is not
                 # necessarily the same as the specimen identifier, depending on local lab
@@ -103,8 +114,9 @@ class SpecimenSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # The availability of the specimen.
                 StructField("status", StringType(), True),
@@ -116,8 +128,9 @@ class SpecimenSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Where the specimen came from. This may be from the patient(s) or from the
                 # environment or a device.
@@ -128,8 +141,9 @@ class SpecimenSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Time when specimen was received for processing or testing.
                 StructField("receivedTime", StringType(), True),
@@ -143,9 +157,10 @@ class SpecimenSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details concerning a test or procedure request that required a specimen to be
                 # collected.
@@ -157,9 +172,10 @@ class SpecimenSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # Details concerning the specimen collection.
                 StructField(
@@ -169,8 +185,9 @@ class SpecimenSchema:
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension
-                    ), True
+                        include_extension=include_extension,
+                    ),
+                    True,
                 ),
                 # Details concerning processing and processing steps for the specimen.
                 StructField(
@@ -181,9 +198,10 @@ class SpecimenSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # The container holding the specimen.  The recursive nature of containers; i.e.
                 # blood in tube in tray in rack is not addressed here.
@@ -195,9 +213,10 @@ class SpecimenSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
                 # To communicate any details or issues about the specimen or during the specimen
                 # collection. (for example: broken vial, sent with patient, frozen).
@@ -209,16 +228,18 @@ class SpecimenSchema:
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension
+                            include_extension=include_extension,
                         )
-                    ), True
+                    ),
+                    True,
                 ),
             ]
         )
         if not include_extension:
             schema.fields = [
-                c if c.name != "extension" else
-                StructField("extension", StringType(), True)
+                c
+                if c.name != "extension"
+                else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
         return schema
