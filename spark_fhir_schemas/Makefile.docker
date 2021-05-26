@@ -26,8 +26,8 @@ helmchart:
 
 .PHONY:up
 up:
-	docker-compose -p sparkpipelineframework -f spark_pipeline_framework_testing/docker-compose.yml up --detach
+	docker-compose -p spark_fhir_schemas -f spark_fhir_schemas/docker-compose.yml up --detach
 
 .PHONY:down
 down:
-	docker-compose -p sparkpipelineframework -f spark_pipeline_framework_testing/docker-compose.yml down
+	docker-compose -p spark_fhir_schemas -f spark_fhir_schemas/docker-compose.yml down
