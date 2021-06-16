@@ -18,6 +18,9 @@ class canonicalSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
+        extension_fields: Optional[List[str]] = None,
+        extension_depth: int = 0,
+        max_extension_depth: Optional[int] = 2,
     ) -> Union[StructType, DataType]:
         """
         A URI that is a reference to a canonical URL on a FHIR resource
