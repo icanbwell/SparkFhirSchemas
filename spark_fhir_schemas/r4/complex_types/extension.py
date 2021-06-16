@@ -370,11 +370,17 @@ class ExtensionSchema:
                 else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
+            schema.names = [n for n in schema.names if n != "extension"]
 
         if extension_fields:
             schema.fields = [
                 c
                 for c in schema.fields
-                if c.name in extension_fields or c.name in ["id", "extension"]
+                if c.name in extension_fields or c.name in ["id", "extension", "url"]
+            ]
+            schema.names = [
+                n
+                for n in schema.names
+                if n in extension_fields or n in ["id", "extension", "url"]
             ]
         return schema

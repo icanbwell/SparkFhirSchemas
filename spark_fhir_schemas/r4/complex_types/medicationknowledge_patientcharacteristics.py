@@ -129,5 +129,6 @@ class MedicationKnowledge_PatientCharacteristicsSchema:
                 else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
+            schema.names = [n for n in schema.names if n != "extension"]
 
         return schema
