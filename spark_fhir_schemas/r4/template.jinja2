@@ -87,7 +87,11 @@ class {{resource.Name}}Schema:
 
             {% elif property.Type == "array" %}
                 {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
+                    {% if resource.Name == "Extension" and property.Name == "extension" %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth)), True),
+                    {% else %}
+                StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth, max_extension_depth=max_extension_depth)), True),
+                    {% endif %}
                 {% elif property.Type == "date" or property.UnderlyingDataType == "date" %}
                 StructField("{{property.Name}}",ArrayType(DateType()), True),
                 {% elif (property.Type == "number" or property.UnderlyingDataType == "number") and ("Decimal" in property.Name) %}

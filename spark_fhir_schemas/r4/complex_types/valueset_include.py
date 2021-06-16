@@ -96,7 +96,7 @@ class ValueSet_IncludeSchema:
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
                             extension_fields=extension_fields,
-                            extension_depth=extension_depth + 1,
+                            extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                         )
                     ),
@@ -132,7 +132,7 @@ class ValueSet_IncludeSchema:
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
                             extension_fields=extension_fields,
-                            extension_depth=extension_depth + 1,
+                            extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                         )
                     ),
@@ -151,7 +151,7 @@ class ValueSet_IncludeSchema:
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
                             extension_fields=extension_fields,
-                            extension_depth=extension_depth + 1,
+                            extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                         )
                     ),
@@ -171,7 +171,7 @@ class ValueSet_IncludeSchema:
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
                             extension_fields=extension_fields,
-                            extension_depth=extension_depth + 1,
+                            extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                         )
                     ),
@@ -186,4 +186,5 @@ class ValueSet_IncludeSchema:
                 else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
+
         return schema

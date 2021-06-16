@@ -129,15 +129,10 @@ class ExtensionSchema:
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
 
         if (
-            (
-                max_recursion_limit
-                and nesting_list.count("Extension") >= max_recursion_limit
-            )
-            or (max_nesting_depth and nesting_depth >= max_nesting_depth)
-            or (max_extension_depth and extension_depth >= max_extension_depth)
-        ):
+            max_recursion_limit
+            and nesting_list.count("Extension") >= max_recursion_limit
+        ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
-
         if max_extension_depth and extension_depth >= max_extension_depth:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

@@ -208,4 +208,5 @@ class BinarySchema:
                 else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
+
         return schema
