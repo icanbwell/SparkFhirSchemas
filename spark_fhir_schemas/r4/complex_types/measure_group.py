@@ -18,6 +18,9 @@ class Measure_GroupSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
+        extension_fields: Optional[List[str]] = None,
+        extension_depth: int = 0,
+        max_extension_depth: Optional[int] = 2,
     ) -> Union[StructType, DataType]:
         """
         The Measure resource provides the definition of a quality measure.
@@ -82,6 +85,9 @@ class Measure_GroupSchema:
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
                         )
                     ),
                     True,
@@ -97,6 +103,9 @@ class Measure_GroupSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -112,6 +121,9 @@ class Measure_GroupSchema:
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
                         )
                     ),
                     True,
@@ -128,6 +140,9 @@ class Measure_GroupSchema:
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
                         )
                     ),
                     True,
