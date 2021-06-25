@@ -45,8 +45,31 @@ class EligibilityResponse_ErrorSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["EligibilityResponse_Error"]
-        schema = StructType(
-            [
+                # Unique id for the element within a resource (for internal references). This
+                # may be any string value that does not contain spaces.
+                StructField("id", StringType(), True),
+                # May be used to represent additional information that is not part of the basic
+                # definition of the element. To make the use of extensions safe and manageable,
+                # there is a strict set of governance  applied to the definition and use of
+                # extensions. Though any implementer can define an extension, there is a set of
+                # requirements that SHALL be met as part of the definition of the extension.
+                StructField(
+                    "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            # extension_fields=extension_fields,
+                            # extension_depth=extension_depth,
+                            # max_extension_depth=max_extension_depth,
+                        )
+                    ),
+                    True,
+                ),
+
                 # An error code,from a specified code system, which details why the eligibility
                 # check could not be performed.
                 StructField(
