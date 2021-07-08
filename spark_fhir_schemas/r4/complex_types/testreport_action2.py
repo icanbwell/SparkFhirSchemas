@@ -100,7 +100,7 @@ class TestReport_Action2Schema:
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
                         extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
+                        extension_depth=extension_depth,
                         max_extension_depth=max_extension_depth,
                     ),
                     True,
