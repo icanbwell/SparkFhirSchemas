@@ -26,6 +26,23 @@ class ExtensionSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
+        extension_fields: Optional[List[str]] = [
+            "valueBoolean",
+            "valueCode",
+            "valueDate",
+            "valueDateTime",
+            "valueDecimal",
+            "valueId",
+            "valueInteger",
+            "valuePositiveInt",
+            "valueString",
+            "valueTime",
+            "valueUnsignedInt",
+            "valueUri",
+            "valueUrl",
+        ],
+        extension_depth: int = 0,
+        max_extension_depth: Optional[int] = 2,
     ) -> Union[StructType, DataType]:
         """
         Optional Extension Element - found in all resources.
@@ -124,6 +141,8 @@ class ExtensionSchema:
             and nesting_list.count("Extension") >= max_recursion_limit
         ) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
+        if max_extension_depth and extension_depth >= max_extension_depth:
+            return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["Extension"]
         schema = StructType(
@@ -146,6 +165,9 @@ class ExtensionSchema:
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
                         )
                     ),
                     True,
@@ -198,6 +220,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -211,6 +236,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -224,6 +252,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -237,6 +268,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -250,6 +284,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -263,6 +300,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -276,6 +316,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -289,6 +332,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -302,6 +348,9 @@ class ExtensionSchema:
                         nesting_list=my_nesting_list,
                         max_recursion_limit=max_recursion_limit,
                         include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth,
+                        max_extension_depth=max_extension_depth,
                     ),
                     True,
                 ),
@@ -313,5 +362,17 @@ class ExtensionSchema:
                 if c.name != "extension"
                 else StructField("extension", StringType(), True)
                 for c in schema.fields
+            ]
+
+        if extension_fields:
+            schema.fields = [
+                c
+                for c in schema.fields
+                if c.name in extension_fields or c.name in ["id", "extension", "url"]
+            ]
+            schema.names = [
+                n
+                for n in schema.names
+                if n in extension_fields or n in ["id", "extension", "url"]
             ]
         return schema

@@ -25,6 +25,23 @@ class HealthcareService_AvailableTimeSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
+        extension_fields: Optional[List[str]] = [
+            "valueBoolean",
+            "valueCode",
+            "valueDate",
+            "valueDateTime",
+            "valueDecimal",
+            "valueId",
+            "valueInteger",
+            "valuePositiveInt",
+            "valueString",
+            "valueTime",
+            "valueUnsignedInt",
+            "valueUri",
+            "valueUrl",
+        ],
+        extension_depth: int = 0,
+        max_extension_depth: Optional[int] = 2,
     ) -> Union[StructType, DataType]:
         """
         The details of a healthcare service available at a location.
@@ -82,6 +99,9 @@ class HealthcareService_AvailableTimeSchema:
                             nesting_list=my_nesting_list,
                             max_recursion_limit=max_recursion_limit,
                             include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
                         )
                     ),
                     True,
@@ -105,4 +125,5 @@ class HealthcareService_AvailableTimeSchema:
                 else StructField("extension", StringType(), True)
                 for c in schema.fields
             ]
+
         return schema
