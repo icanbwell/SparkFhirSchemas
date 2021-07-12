@@ -53,6 +53,20 @@ class Consent_ProvisionSchema:
             extensions. Though any implementer can define an extension, there is a set of
             requirements that SHALL be met as part of the definition of the extension.
 
+        modifierExtension: May be used to represent additional information that is not part of the basic
+            definition of the element and that modifies the understanding of the element
+            in which it is contained and/or the understanding of the containing element's
+            descendants. Usually modifier elements provide negation or qualification. To
+            make the use of extensions safe and manageable, there is a strict set of
+            governance applied to the definition and use of extensions. Though any
+            implementer can define an extension, there is a set of requirements that SHALL
+            be met as part of the definition of the extension. Applications processing a
+            resource are required to check for modifier extensions.
+
+            Modifier extensions SHALL NOT change the meaning of any elements on Resource
+            or DomainResource (including cannot change the meaning of modifierExtension
+            itself).
+
         type: Action  to take - permit or deny - when the rule conditions are met.  Not
             permitted in root rule, required in all nested rules.
 
@@ -113,6 +127,35 @@ class Consent_ProvisionSchema:
                 # requirements that SHALL be met as part of the definition of the extension.
                 StructField(
                     "extension",
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                        )
+                    ),
+                    True,
+                ),
+                # May be used to represent additional information that is not part of the basic
+                # definition of the element and that modifies the understanding of the element
+                # in which it is contained and/or the understanding of the containing element's
+                # descendants. Usually modifier elements provide negation or qualification. To
+                # make the use of extensions safe and manageable, there is a strict set of
+                # governance applied to the definition and use of extensions. Though any
+                # implementer can define an extension, there is a set of requirements that SHALL
+                # be met as part of the definition of the extension. Applications processing a
+                # resource are required to check for modifier extensions.
+                #
+                # Modifier extensions SHALL NOT change the meaning of any elements on Resource
+                # or DomainResource (including cannot change the meaning of modifierExtension
+                # itself).
+                StructField(
+                    "modifierExtension",
                     ArrayType(
                         ExtensionSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,

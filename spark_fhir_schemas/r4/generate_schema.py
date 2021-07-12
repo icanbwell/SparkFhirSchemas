@@ -33,6 +33,28 @@ class ResourceInfo:
     Description: Optional[str]
 
 
+def get_parent_properties(
+    definitions: Dict[str, Any], parent_resource_reference: Dict[str, Any]
+) -> Dict[str, Any]:
+    parent_ref: str = parent_resource_reference["$ref"]
+    parent_resource_name: str = parent_ref.split("/")[-1]
+    parent_resource = definitions[parent_resource_name]
+    parent_resource_references1 = [r for r in parent_resource["allOf"] if "$ref" in r]
+    parent_properties1: Dict[str, Any] = {}
+    for parent_resource_reference1 in parent_resource_references1:
+        parent_properties1.update(
+            get_parent_properties(
+                definitions=definitions,
+                parent_resource_reference=parent_resource_reference1,
+            )
+        )
+    # now add in any properties
+    propertyContainer: Dict[str, Any]
+    for propertyContainer in [r for r in parent_resource["allOf"] if "properties" in r]:
+        parent_properties1.update(propertyContainer["properties"])
+    return parent_properties1
+
+
 def main() -> int:
     data_dir: Path = Path(__file__).parent.joinpath("./")
 
@@ -72,7 +94,7 @@ def main() -> int:
     ]  # number is not defined in fhir schema
     # extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
     extensions_blocked_for_resources: List[str] = []
-    properties_blocked: List[str] = ["modifierExtension"]
+    properties_blocked: List[str] = []
     complex_types: List[str] = []
     resource_types: List[str] = []
 
@@ -102,13 +124,27 @@ def main() -> int:
         if resource_name in []:
             continue
         print(f"Processing {resource_name}")
+        # concat properties from allOf
+        parent_resource_references = (
+            [r for r in resource["allOf"] if "$ref" in r] if "allOf" in resource else []
+        )
+        parent_properties: Dict[str, Any] = {}
+
+        # find the properties from parent resources and include those
+        for parent_resource_reference in parent_resource_references:
+            parent_properties.update(
+                get_parent_properties(
+                    definitions=definitions,
+                    parent_resource_reference=parent_resource_reference,
+                )
+            )
         resource_type: Optional[str] = resource["type"] if "type" in resource else None
         resource_description: Optional[str] = (
             resource["description"] if "description" in resource else None
         )
-        properties: Dict[str, Any] = (
-            resource["properties"] if "properties" in resource else {}
-        )
+        properties: Dict[str, Any] = parent_properties
+        properties.update(resource["properties"] if "properties" in resource else {})
+
         properties_info: List[PropertyInfo] = []
         # print("---- Properties ----")
         for key, value in {
@@ -158,36 +194,7 @@ def main() -> int:
                 else False,
             )
             if resource_name.lower() == "extension":
-                # have to skip a few properties or Spark runs out of memory
-                allowed_properties = [
-                    "id",
-                    "url",
-                    "extension",
-                    "valueBoolean",
-                    "valueCode",
-                    "valueDate",
-                    "valueDateTime",
-                    "valueDecimal",
-                    "valueId",
-                    "valueInteger",
-                    "valuePositiveInt",
-                    "valueString",
-                    "valueTime",
-                    "valueUnsignedInt",
-                    "valueUri",
-                    "valueUrl",
-                    "valueCodeableConcept",
-                    "valueCoding",
-                    "valueCount",
-                    "valueIdentifier",
-                    "valueMoney",
-                    "valuePeriod",
-                    "valueQuantity",
-                    "valueRange",
-                    "valueReference",
-                ]
-                if property_name in allowed_properties:
-                    properties_info.append(property_info)
+                properties_info.append(property_info)
             elif property_name not in properties_blocked:
                 properties_info.append(property_info)
             assert (
