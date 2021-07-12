@@ -45,6 +45,7 @@ class QuestionnaireSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A structured set of questions intended to guide the collection of answers from
@@ -229,6 +230,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -246,6 +248,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -264,6 +267,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -279,6 +283,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -299,6 +304,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -317,6 +323,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -338,6 +345,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -367,6 +375,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -389,6 +398,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -407,6 +417,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -437,6 +448,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -462,6 +474,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -481,6 +494,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -500,6 +514,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -517,6 +532,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -537,6 +553,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -555,6 +572,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -572,6 +590,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -589,6 +608,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -611,6 +631,7 @@ class QuestionnaireSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -628,6 +649,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -646,6 +668,7 @@ class QuestionnaireSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -657,6 +680,14 @@ class QuestionnaireSchema:
                 c
                 if c.name != "extension"
                 else StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
+
+        if not include_modifierExtension:
+            schema.fields = [
+                c
+                if c.name != "modifierExtension"
+                else StructField("modifierExtension", StringType(), True)
                 for c in schema.fields
             ]
 

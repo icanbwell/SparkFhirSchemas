@@ -36,6 +36,7 @@ class AllergyIntolerance_ReactionSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Risk of harmful or undesirable, physiological response which is unique to an
@@ -129,6 +130,7 @@ class AllergyIntolerance_ReactionSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -158,6 +160,7 @@ class AllergyIntolerance_ReactionSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -184,6 +187,7 @@ class AllergyIntolerance_ReactionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -201,6 +205,7 @@ class AllergyIntolerance_ReactionSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -220,6 +225,7 @@ class AllergyIntolerance_ReactionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -238,6 +244,7 @@ class AllergyIntolerance_ReactionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -254,6 +261,7 @@ class AllergyIntolerance_ReactionSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -265,6 +273,14 @@ class AllergyIntolerance_ReactionSchema:
                 c
                 if c.name != "extension"
                 else StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
+
+        if not include_modifierExtension:
+            schema.fields = [
+                c
+                if c.name != "modifierExtension"
+                else StructField("modifierExtension", StringType(), True)
                 for c in schema.fields
             ]
 

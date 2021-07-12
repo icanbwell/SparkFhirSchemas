@@ -39,6 +39,7 @@ class dateTimeSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A date, date-time or partial date (e.g. just year or year + month).  If hours
