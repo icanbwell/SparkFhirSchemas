@@ -35,6 +35,7 @@ class positiveIntSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An integer with a value that is positive (e.g. >0)

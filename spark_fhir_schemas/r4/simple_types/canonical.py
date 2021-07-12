@@ -35,6 +35,7 @@ class canonicalSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A URI that is a reference to a canonical URL on a FHIR resource

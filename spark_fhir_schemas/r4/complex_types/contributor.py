@@ -36,6 +36,7 @@ class ContributorSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A contributor to the content of a knowledge asset, including authors, editors,
@@ -93,6 +94,7 @@ class ContributorSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -115,6 +117,7 @@ class ContributorSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -126,6 +129,14 @@ class ContributorSchema:
                 c
                 if c.name != "extension"
                 else StructField("extension", StringType(), True)
+                for c in schema.fields
+            ]
+
+        if not include_modifierExtension:
+            schema.fields = [
+                c
+                if c.name != "modifierExtension"
+                else StructField("modifierExtension", StringType(), True)
                 for c in schema.fields
             ]
 

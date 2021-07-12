@@ -46,6 +46,7 @@ class ExtensionSchema:
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
+        include_modifierExtension: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         Optional Extension Element - found in all resources.
@@ -289,6 +290,7 @@ class ExtensionSchema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth + 1,
                             max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
                         )
                     ),
                     True,
@@ -305,6 +307,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -378,6 +381,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -394,6 +398,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -410,6 +415,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -426,6 +432,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -442,6 +449,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -458,6 +466,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -474,6 +483,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -490,6 +500,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -506,6 +517,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -522,6 +534,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -538,6 +551,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -554,6 +568,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -570,6 +585,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -586,6 +602,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -602,6 +619,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -618,6 +636,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -634,6 +653,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -650,6 +670,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -666,6 +687,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -682,6 +704,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -698,6 +721,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -714,6 +738,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -730,6 +755,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -746,6 +772,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -762,6 +789,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -778,6 +806,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -794,6 +823,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -810,6 +840,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -826,6 +857,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -842,6 +874,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -858,6 +891,7 @@ class ExtensionSchema:
                         extension_fields=extension_fields,
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
                     ),
                     True,
                 ),
@@ -871,15 +905,25 @@ class ExtensionSchema:
                 for c in schema.fields
             ]
 
+        if not include_modifierExtension:
+            schema.fields = [
+                c
+                if c.name != "modifierExtension"
+                else StructField("modifierExtension", StringType(), True)
+                for c in schema.fields
+            ]
+
         if extension_fields:
             schema.fields = [
                 c
                 for c in schema.fields
-                if c.name in extension_fields or c.name in ["id", "extension", "url"]
+                if c.name in extension_fields
+                or c.name in ["id", "extension", "url", "modifierExtension"]
             ]
             schema.names = [
                 n
                 for n in schema.names
-                if n in extension_fields or n in ["id", "extension", "url"]
+                if n in extension_fields
+                or n in ["id", "extension", "url", "modifierExtension"]
             ]
         return schema
