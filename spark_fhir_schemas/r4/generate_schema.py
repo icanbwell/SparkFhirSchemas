@@ -145,6 +145,17 @@ def main() -> int:
         properties: Dict[str, Any] = parent_properties
         properties.update(resource["properties"] if "properties" in resource else {})
 
+        # fix properties that are wrong in fhir schema
+        # these are specified as backbone elements in fhir_schema.json but are not
+        if resource_name in [
+            "DataRequirement_CodeFilter",
+            "DataRequirement_DateFilter",
+            "DataRequirement_Sort",
+        ]:
+            properties = {
+                k: v for k, v in properties.items() if k not in ["modifierExtension"]
+            }
+
         properties_info: List[PropertyInfo] = []
         # print("---- Properties ----")
         for key, value in {
