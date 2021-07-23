@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     BooleanType,
     DataType,
+    TimestampType,
 )
 
 
@@ -42,7 +43,7 @@ class MedicationAdministrationSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -445,7 +446,7 @@ class MedicationAdministrationSchema:
                 # place (or did not take place, when the 'notGiven' attribute is true). For many
                 # administrations, such as swallowing a tablet the use of dateTime is more
                 # appropriate.
-                StructField("effectiveDateTime", StringType(), True),
+                StructField("effectiveDateTime", TimestampType(), True),
                 # A specific date/time or interval of time during which the administration took
                 # place (or did not take place, when the 'notGiven' attribute is true). For many
                 # administrations, such as swallowing a tablet the use of dateTime is more

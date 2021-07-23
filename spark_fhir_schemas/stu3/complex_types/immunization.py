@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
 )
@@ -41,7 +42,7 @@ class ImmunizationSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -378,7 +379,7 @@ class ImmunizationSchema:
                 # Lot number of the  vaccine product.
                 StructField("lotNumber", StringType(), True),
                 # Date vaccine batch expires.
-                StructField("expirationDate", StringType(), True),
+                StructField("expirationDate", DateType(), True),
                 # Body site where vaccine was administered.
                 StructField(
                     "site",

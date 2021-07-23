@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
 )
@@ -38,7 +39,7 @@ class ValueSet_ComposeSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -118,7 +119,7 @@ class ValueSet_ComposeSchema:
                 # evaluated using the current version as of the locked date for referenced code
                 # system(s) and value set instances where ValueSet.compose.include.version is
                 # not defined.
-                StructField("lockedDate", StringType(), True),
+                StructField("lockedDate", DateType(), True),
                 # Whether inactive codes - codes that are not approved for current use - are in
                 # the value set. If inactive = true, inactive codes are to be included in the
                 # expansion, if inactive = false, the inactive codes will not be included in the

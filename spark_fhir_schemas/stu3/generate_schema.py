@@ -14,6 +14,7 @@ from attr import dataclass
 class PropertyInfo:
     Name: str
     Type: Optional[str]
+    Pattern: Optional[str]
     UnderlyingDataType: Optional[str]
     IsUniqueUnderlyingDataType: bool
     Description: Optional[str]
@@ -166,6 +167,7 @@ def main() -> int:
                 if "items" in value and "$ref" in value["items"]
                 else None
             )
+            pattern = value["pattern"] if "pattern" in value else None
             # print(f"{key}:{value}")
             # type_ == None means string
             reference_type: Optional[str] = (
@@ -178,6 +180,7 @@ def main() -> int:
             property_info = PropertyInfo(
                 Name=property_name,
                 Type=type_,
+                Pattern=pattern,
                 UnderlyingDataType=reference_type,
                 IsUniqueUnderlyingDataType=not any(
                     [pi.UnderlyingDataType == reference_type for pi in properties_info]

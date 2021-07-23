@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -40,7 +40,7 @@ class ExplanationOfBenefit_AdjudicationSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -161,7 +161,7 @@ class ExplanationOfBenefit_AdjudicationSchema:
                 ),
                 # A non-monetary value for example a percentage. Mutually exclusive to the
                 # amount element above.
-                StructField("value", IntegerType(), True),
+                StructField("value", FloatType(), True),
             ]
         )
         if not include_extension:

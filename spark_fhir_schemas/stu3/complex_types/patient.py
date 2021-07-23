@@ -5,9 +5,11 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
 )
 
 
@@ -40,7 +42,7 @@ class PatientSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -308,11 +310,11 @@ class PatientSchema:
                 # administration and record keeping purposes.
                 StructField("gender", StringType(), True),
                 # The date of birth for the individual.
-                StructField("birthDate", StringType(), True),
+                StructField("birthDate", DateType(), True),
                 # Indicates if the individual is deceased or not.
                 StructField("deceasedBoolean", BooleanType(), True),
                 # Indicates if the individual is deceased or not.
-                StructField("deceasedDateTime", StringType(), True),
+                StructField("deceasedDateTime", TimestampType(), True),
                 # Addresses for the individual.
                 StructField(
                     "address",

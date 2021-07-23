@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     BooleanType,
     DataType,
+    TimestampType,
 )
 
 
@@ -40,7 +41,7 @@ class ProcedureSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -436,7 +437,7 @@ class ProcedureSchema:
                 # The date(time)/period over which the procedure was performed. Allows a period
                 # to support complex procedures that span more than one date, and also allows
                 # for the length of the procedure to be captured.
-                StructField("performedDateTime", StringType(), True),
+                StructField("performedDateTime", TimestampType(), True),
                 # The date(time)/period over which the procedure was performed. Allows a period
                 # to support complex procedures that span more than one date, and also allows
                 # for the length of the procedure to be captured.

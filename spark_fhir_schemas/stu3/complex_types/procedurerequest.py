@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     BooleanType,
     DataType,
+    TimestampType,
 )
 
 
@@ -39,7 +40,7 @@ class ProcedureRequestSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -449,7 +450,7 @@ class ProcedureRequestSchema:
                     True,
                 ),
                 # The date/time at which the diagnostic testing should occur.
-                StructField("occurrenceDateTime", StringType(), True),
+                StructField("occurrenceDateTime", TimestampType(), True),
                 # The date/time at which the diagnostic testing should occur.
                 StructField(
                     "occurrencePeriod",

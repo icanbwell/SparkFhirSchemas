@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -39,7 +42,7 @@ class ExtensionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -63,16 +66,7 @@ class ExtensionSchema:
         valueBoolean: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueInteger: Value of extension - may be a resource or one of a constrained set of the data
-            types (see Extensibility in the spec for list).
-
-        valueDecimal: Value of extension - may be a resource or one of a constrained set of the data
-            types (see Extensibility in the spec for list).
-
-        valueString: Value of extension - may be a resource or one of a constrained set of the data
-            types (see Extensibility in the spec for list).
-
-        valueUri: Value of extension - may be a resource or one of a constrained set of the data
+        valueCode: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         valueDate: Value of extension - may be a resource or one of a constrained set of the data
@@ -81,22 +75,28 @@ class ExtensionSchema:
         valueDateTime: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueTime: Value of extension - may be a resource or one of a constrained set of the data
-            types (see Extensibility in the spec for list).
-
-        valueCode: Value of extension - may be a resource or one of a constrained set of the data
+        valueDecimal: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         valueId: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueUnsignedInt: Value of extension - may be a resource or one of a constrained set of the data
+        valueInteger: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         valuePositiveInt: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueIdentifier: Value of extension - may be a resource or one of a constrained set of the data
+        valueString: Value of extension - may be a resource or one of a constrained set of the data
+            types (see Extensibility in the spec for list).
+
+        valueTime: Value of extension - may be a resource or one of a constrained set of the data
+            types (see Extensibility in the spec for list).
+
+        valueUnsignedInt: Value of extension - may be a resource or one of a constrained set of the data
+            types (see Extensibility in the spec for list).
+
+        valueUri: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         valueCodeableConcept: Value of extension - may be a resource or one of a constrained set of the data
@@ -105,35 +105,38 @@ class ExtensionSchema:
         valueCoding: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueQuantity: Value of extension - may be a resource or one of a constrained set of the data
+        valueCount: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueCount: Value of extension - may be a resource or one of a constrained set of the data
+        valueIdentifier: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         valueMoney: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valueRange: Value of extension - may be a resource or one of a constrained set of the data
+        valuePeriod: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
-        valuePeriod: Value of extension - may be a resource or one of a constrained set of the data
+        valueQuantity: Value of extension - may be a resource or one of a constrained set of the data
+            types (see Extensibility in the spec for list).
+
+        valueRange: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         valueReference: Value of extension - may be a resource or one of a constrained set of the data
             types (see Extensibility in the spec for list).
 
         """
-        from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
         from spark_fhir_schemas.stu3.complex_types.coding import CodingSchema
-        from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.stu3.complex_types.count import CountSchema
+        from spark_fhir_schemas.stu3.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.stu3.complex_types.money import MoneySchema
-        from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.period import PeriodSchema
+        from spark_fhir_schemas.stu3.complex_types.quantity import QuantitySchema
+        from spark_fhir_schemas.stu3.complex_types.range import RangeSchema
         from spark_fhir_schemas.stu3.complex_types.reference import ReferenceSchema
 
         if (
@@ -179,53 +182,37 @@ class ExtensionSchema:
                 StructField("valueBoolean", BooleanType(), True),
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
-                StructField("valueInteger", IntegerType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
-                StructField("valueDecimal", IntegerType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
-                StructField("valueString", StringType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
-                StructField("valueUri", StringType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
-                StructField("valueDate", StringType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
-                StructField("valueDateTime", StringType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
-                StructField("valueTime", StringType(), True),
-                # Value of extension - may be a resource or one of a constrained set of the data
-                # types (see Extensibility in the spec for list).
                 StructField("valueCode", StringType(), True),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField("valueDate", DateType(), True),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField("valueDateTime", TimestampType(), True),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField("valueDecimal", FloatType(), True),
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField("valueId", StringType(), True),
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
-                StructField("valueUnsignedInt", IntegerType(), True),
+                StructField("valueInteger", IntegerType(), True),
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField("valuePositiveInt", IntegerType(), True),
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
-                StructField(
-                    "valueIdentifier",
-                    IdentifierSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                    ),
-                    True,
-                ),
+                StructField("valueString", StringType(), True),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField("valueTime", StringType(), True),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField("valueUnsignedInt", IntegerType(), True),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField("valueUri", StringType(), True),
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField(
@@ -261,8 +248,8 @@ class ExtensionSchema:
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField(
-                    "valueQuantity",
-                    QuantitySchema.get_schema(
+                    "valueCount",
+                    CountSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -277,8 +264,8 @@ class ExtensionSchema:
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField(
-                    "valueCount",
-                    CountSchema.get_schema(
+                    "valueIdentifier",
+                    IdentifierSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -309,8 +296,8 @@ class ExtensionSchema:
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField(
-                    "valueRange",
-                    RangeSchema.get_schema(
+                    "valuePeriod",
+                    PeriodSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -325,8 +312,24 @@ class ExtensionSchema:
                 # Value of extension - may be a resource or one of a constrained set of the data
                 # types (see Extensibility in the spec for list).
                 StructField(
-                    "valuePeriod",
-                    PeriodSchema.get_schema(
+                    "valueQuantity",
+                    QuantitySchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                    ),
+                    True,
+                ),
+                # Value of extension - may be a resource or one of a constrained set of the data
+                # types (see Extensibility in the spec for list).
+                StructField(
+                    "valueRange",
+                    RangeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,

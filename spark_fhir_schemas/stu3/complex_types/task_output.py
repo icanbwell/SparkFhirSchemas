@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -39,7 +42,7 @@ class Task_OutputSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -277,7 +280,7 @@ class Task_OutputSchema:
                 # The value of the Output parameter as a basic type.
                 StructField("valueInteger", IntegerType(), True),
                 # The value of the Output parameter as a basic type.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The value of the Output parameter as a basic type.
                 StructField("valueBase64Binary", StringType(), True),
                 # The value of the Output parameter as a basic type.
@@ -287,9 +290,9 @@ class Task_OutputSchema:
                 # The value of the Output parameter as a basic type.
                 StructField("valueUri", StringType(), True),
                 # The value of the Output parameter as a basic type.
-                StructField("valueDate", StringType(), True),
+                StructField("valueDate", DateType(), True),
                 # The value of the Output parameter as a basic type.
-                StructField("valueDateTime", StringType(), True),
+                StructField("valueDateTime", TimestampType(), True),
                 # The value of the Output parameter as a basic type.
                 StructField("valueTime", StringType(), True),
                 # The value of the Output parameter as a basic type.

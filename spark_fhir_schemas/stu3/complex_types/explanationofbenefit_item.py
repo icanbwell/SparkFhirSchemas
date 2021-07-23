@@ -5,8 +5,10 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -40,7 +42,7 @@ class ExplanationOfBenefit_ItemSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -276,7 +278,7 @@ class ExplanationOfBenefit_ItemSchema:
                 ),
                 # The date or dates when the enclosed suite of services were performed or
                 # completed.
-                StructField("servicedDate", StringType(), True),
+                StructField("servicedDate", DateType(), True),
                 # The date or dates when the enclosed suite of services were performed or
                 # completed.
                 StructField(
@@ -373,7 +375,7 @@ class ExplanationOfBenefit_ItemSchema:
                 # value of services delivered and/or goods received. The concept of a Factor
                 # allows for a discount or surcharge multiplier to be applied to a monetary
                 # amount.
-                StructField("factor", IntegerType(), True),
+                StructField("factor", FloatType(), True),
                 # The quantity times the unit price for an addittional service or product or
                 # charge. For example, the formula: unit Quantity * unit Price (Cost per Point)
                 # * factor Number  * points = net Amount. Quantity, factor and points are

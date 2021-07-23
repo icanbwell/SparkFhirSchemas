@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -39,7 +39,7 @@ class RiskAssessment_PredictionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -141,7 +141,7 @@ class RiskAssessment_PredictionSchema:
                     True,
                 ),
                 # How likely is the outcome (in the specified timeframe).
-                StructField("probabilityDecimal", IntegerType(), True),
+                StructField("probabilityDecimal", FloatType(), True),
                 # How likely is the outcome (in the specified timeframe).
                 StructField(
                     "probabilityRange",
@@ -177,7 +177,7 @@ class RiskAssessment_PredictionSchema:
                 # characteristics) divided by the risk of the population in general.  (Numbers
                 # greater than 1 = higher risk than the population, numbers less than 1 = lower
                 # risk.).
-                StructField("relativeRisk", IntegerType(), True),
+                StructField("relativeRisk", FloatType(), True),
                 # Indicates the period of time or age range of the subject to which the
                 # specified probability applies.
                 StructField(

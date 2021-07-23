@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
 )
@@ -39,7 +40,7 @@ class PractitionerSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -300,7 +301,7 @@ class PractitionerSchema:
                 # administration and record keeping purposes.
                 StructField("gender", StringType(), True),
                 # The date of birth for the practitioner.
-                StructField("birthDate", StringType(), True),
+                StructField("birthDate", DateType(), True),
                 # Image of the person.
                 StructField(
                     "photo",

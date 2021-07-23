@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -40,7 +43,7 @@ class ElementDefinitionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -1205,7 +1208,7 @@ class ElementDefinitionSchema:
                 StructField("defaultValueInteger", IntegerType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
-                StructField("defaultValueDecimal", IntegerType(), True),
+                StructField("defaultValueDecimal", FloatType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
                 StructField("defaultValueBase64Binary", StringType(), True),
@@ -1220,10 +1223,10 @@ class ElementDefinitionSchema:
                 StructField("defaultValueUri", StringType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
-                StructField("defaultValueDate", StringType(), True),
+                StructField("defaultValueDate", DateType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
-                StructField("defaultValueDateTime", StringType(), True),
+                StructField("defaultValueDateTime", TimestampType(), True),
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
                 StructField("defaultValueTime", StringType(), True),
@@ -1845,7 +1848,7 @@ class ElementDefinitionSchema:
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
                 # elements/attributes must also be missing.
-                StructField("fixedDecimal", IntegerType(), True),
+                StructField("fixedDecimal", FloatType(), True),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
@@ -1870,12 +1873,12 @@ class ElementDefinitionSchema:
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
                 # elements/attributes must also be missing.
-                StructField("fixedDate", StringType(), True),
+                StructField("fixedDate", DateType(), True),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
                 # elements/attributes must also be missing.
-                StructField("fixedDateTime", StringType(), True),
+                StructField("fixedDateTime", TimestampType(), True),
                 # Specifies a value that SHALL be exactly the value  for this element in the
                 # instance. For purposes of comparison, non-significant whitespace is ignored,
                 # and all values must be an exact match (case and accent sensitive). Missing
@@ -2581,7 +2584,7 @@ class ElementDefinitionSchema:
                 # may be found too. This is effectively constraint by example.  The values of
                 # elements present in the pattern must match exactly (case-sensitive, accent-
                 # sensitive, etc.).
-                StructField("patternDecimal", IntegerType(), True),
+                StructField("patternDecimal", FloatType(), True),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
                 # may be found too. This is effectively constraint by example.  The values of
@@ -2611,13 +2614,13 @@ class ElementDefinitionSchema:
                 # may be found too. This is effectively constraint by example.  The values of
                 # elements present in the pattern must match exactly (case-sensitive, accent-
                 # sensitive, etc.).
-                StructField("patternDate", StringType(), True),
+                StructField("patternDate", DateType(), True),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
                 # may be found too. This is effectively constraint by example.  The values of
                 # elements present in the pattern must match exactly (case-sensitive, accent-
                 # sensitive, etc.).
-                StructField("patternDateTime", StringType(), True),
+                StructField("patternDateTime", TimestampType(), True),
                 # Specifies a value that the value in the instance SHALL follow - that is, any
                 # value in the pattern must be found in the instance. Other additional values
                 # may be found too. This is effectively constraint by example.  The values of
@@ -3371,11 +3374,11 @@ class ElementDefinitionSchema:
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("minValueDate", StringType(), True),
+                StructField("minValueDate", DateType(), True),
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("minValueDateTime", StringType(), True),
+                StructField("minValueDateTime", TimestampType(), True),
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
@@ -3387,7 +3390,7 @@ class ElementDefinitionSchema:
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("minValueDecimal", IntegerType(), True),
+                StructField("minValueDecimal", FloatType(), True),
                 # The minimum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
@@ -3420,11 +3423,11 @@ class ElementDefinitionSchema:
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("maxValueDate", StringType(), True),
+                StructField("maxValueDate", DateType(), True),
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("maxValueDateTime", StringType(), True),
+                StructField("maxValueDateTime", TimestampType(), True),
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
@@ -3436,7 +3439,7 @@ class ElementDefinitionSchema:
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.
-                StructField("maxValueDecimal", IntegerType(), True),
+                StructField("maxValueDecimal", FloatType(), True),
                 # The maximum allowed value for the element. The value is inclusive. This is
                 # allowed for the types date, dateTime, instant, time, decimal, integer, and
                 # Quantity.

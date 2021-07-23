@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     BooleanType,
     DataType,
+    TimestampType,
 )
 
 
@@ -39,7 +40,7 @@ class ObservationSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -414,7 +415,7 @@ class ObservationSchema:
                 # "physiologically relevant time". This is usually either the time of the
                 # procedure or of specimen collection, but very often the source of the
                 # date/time is not known, only the date/time itself.
-                StructField("effectiveDateTime", StringType(), True),
+                StructField("effectiveDateTime", TimestampType(), True),
                 # The time or time-period the observed value is asserted as being true. For
                 # biological subjects - e.g. human patients - this is usually called the
                 # "physiologically relevant time". This is usually either the time of the
@@ -561,7 +562,7 @@ class ObservationSchema:
                 StructField("valueTime", StringType(), True),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
-                StructField("valueDateTime", StringType(), True),
+                StructField("valueDateTime", TimestampType(), True),
                 # The information determined as a result of making the observation, if the
                 # information has a simple value.
                 StructField(

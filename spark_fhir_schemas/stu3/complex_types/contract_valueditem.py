@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -39,7 +39,7 @@ class Contract_ValuedItemSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -213,12 +213,12 @@ class Contract_ValuedItemSchema:
                 # A real number that represents a multiplier used in determining the overall
                 # value of the Contract Valued Item delivered. The concept of a Factor allows
                 # for a discount or surcharge multiplier to be applied to a monetary amount.
-                StructField("factor", IntegerType(), True),
+                StructField("factor", FloatType(), True),
                 # An amount that expresses the weighting (based on difficulty, cost and/or
                 # resource intensiveness) associated with the Contract Valued Item delivered.
                 # The concept of Points allows for assignment of point values for a Contract
                 # Valued Item, such that a monetary amount can be assigned to each point.
-                StructField("points", IntegerType(), True),
+                StructField("points", FloatType(), True),
                 # Expresses the product of the Contract Valued Item unitQuantity and the
                 # unitPriceAmt. For example, the formula: unit Quantity * unit Price (Cost per
                 # Point) * factor Number  * points = net Amount. Quantity, factor and points are

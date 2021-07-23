@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -41,7 +44,7 @@ class Questionnaire_ItemSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -316,16 +319,16 @@ class Questionnaire_ItemSchema:
                 StructField("initialBoolean", BooleanType(), True),
                 # The value that should be defaulted when initially rendering the questionnaire
                 # for user input.
-                StructField("initialDecimal", IntegerType(), True),
+                StructField("initialDecimal", FloatType(), True),
                 # The value that should be defaulted when initially rendering the questionnaire
                 # for user input.
                 StructField("initialInteger", IntegerType(), True),
                 # The value that should be defaulted when initially rendering the questionnaire
                 # for user input.
-                StructField("initialDate", StringType(), True),
+                StructField("initialDate", DateType(), True),
                 # The value that should be defaulted when initially rendering the questionnaire
                 # for user input.
-                StructField("initialDateTime", StringType(), True),
+                StructField("initialDateTime", TimestampType(), True),
                 # The value that should be defaulted when initially rendering the questionnaire
                 # for user input.
                 StructField("initialTime", StringType(), True),

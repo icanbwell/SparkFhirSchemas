@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
 )
@@ -39,7 +40,7 @@ class FamilyMemberHistorySchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -384,7 +385,7 @@ class FamilyMemberHistorySchema:
                     True,
                 ),
                 # The actual or approximate date of birth of the relative.
-                StructField("bornDate", StringType(), True),
+                StructField("bornDate", DateType(), True),
                 # The actual or approximate date of birth of the relative.
                 StructField("bornString", StringType(), True),
                 # The age of the relative at the time the family member history is recorded.
@@ -458,7 +459,7 @@ class FamilyMemberHistorySchema:
                 ),
                 # Deceased flag or the actual or approximate age of the relative at the time of
                 # death for the family member history record.
-                StructField("deceasedDate", StringType(), True),
+                StructField("deceasedDate", DateType(), True),
                 # Deceased flag or the actual or approximate age of the relative at the time of
                 # death for the family member history record.
                 StructField("deceasedString", StringType(), True),

@@ -5,8 +5,10 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
+    TimestampType,
 )
 
 
@@ -39,7 +41,7 @@ class ConditionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -401,7 +403,7 @@ class ConditionSchema:
                 ),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
-                StructField("onsetDateTime", StringType(), True),
+                StructField("onsetDateTime", TimestampType(), True),
                 # Estimated or actual date or date-time  the condition began, in the opinion of
                 # the clinician.
                 StructField(
@@ -457,7 +459,7 @@ class ConditionSchema:
                 # This is called "abatement" because of the many overloaded connotations
                 # associated with "remission" or "resolution" - Conditions are never really
                 # resolved, but they can abate.
-                StructField("abatementDateTime", StringType(), True),
+                StructField("abatementDateTime", TimestampType(), True),
                 # The date or estimated date that the condition resolved or went into remission.
                 # This is called "abatement" because of the many overloaded connotations
                 # associated with "remission" or "resolution" - Conditions are never really
@@ -524,7 +526,7 @@ class ConditionSchema:
                 StructField("abatementString", StringType(), True),
                 # The date on which the existance of the Condition was first asserted or
                 # acknowledged.
-                StructField("assertedDate", StringType(), True),
+                StructField("assertedDate", DateType(), True),
                 # Individual who is making the condition statement.
                 StructField(
                     "asserter",

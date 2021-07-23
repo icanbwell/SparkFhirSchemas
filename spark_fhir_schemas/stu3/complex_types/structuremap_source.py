@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -40,7 +43,7 @@ class StructureMap_SourceSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -297,7 +300,7 @@ class StructureMap_SourceSchema:
                 # A value to use if there is no existing value in the source object.
                 StructField("defaultValueInteger", IntegerType(), True),
                 # A value to use if there is no existing value in the source object.
-                StructField("defaultValueDecimal", IntegerType(), True),
+                StructField("defaultValueDecimal", FloatType(), True),
                 # A value to use if there is no existing value in the source object.
                 StructField("defaultValueBase64Binary", StringType(), True),
                 # A value to use if there is no existing value in the source object.
@@ -307,9 +310,9 @@ class StructureMap_SourceSchema:
                 # A value to use if there is no existing value in the source object.
                 StructField("defaultValueUri", StringType(), True),
                 # A value to use if there is no existing value in the source object.
-                StructField("defaultValueDate", StringType(), True),
+                StructField("defaultValueDate", DateType(), True),
                 # A value to use if there is no existing value in the source object.
-                StructField("defaultValueDateTime", StringType(), True),
+                StructField("defaultValueDateTime", TimestampType(), True),
                 # A value to use if there is no existing value in the source object.
                 StructField("defaultValueTime", StringType(), True),
                 # A value to use if there is no existing value in the source object.
