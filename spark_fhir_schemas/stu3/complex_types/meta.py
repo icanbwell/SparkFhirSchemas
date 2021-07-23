@@ -115,6 +115,7 @@ class MetaSchema:
                 # A list of profiles (references to [[[StructureDefinition]]] resources) that
                 # this resource claims to conform to. The URL is a reference to
                 # [[[StructureDefinition.url]]].
+                StructField("profile", ArrayType(StringType()), True),
                 # Security labels applied to this resource. These tags connect specific
                 # resources to the overall security policy and infrastructure.
                 StructField(

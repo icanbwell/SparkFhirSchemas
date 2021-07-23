@@ -114,6 +114,7 @@ class Subscription_ChannelSchema:
                 # in the notification, just a notification.
                 StructField("payload", StringType(), True),
                 # Additional headers / information to send as part of the notification.
+                StructField("header", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

@@ -275,6 +275,7 @@ class LocationSchema:
                 StructField("name", StringType(), True),
                 # A list of alternate names that the location is known as, or was known as in
                 # the past.
+                StructField("alias", ArrayType(StringType()), True),
                 # Description of the Location, which helps in finding or referencing the place.
                 StructField("description", StringType(), True),
                 # Indicates whether a resource instance represents a specific location or a

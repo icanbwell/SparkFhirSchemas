@@ -438,6 +438,7 @@ class QuestionnaireSchema:
                 ),
                 # The types of subjects that can be the subject of responses created for the
                 # questionnaire.
+                StructField("subjectType", ArrayType(StringType()), True),
                 # A particular question, question grouping or display text that is part of the
                 # questionnaire.
                 StructField(

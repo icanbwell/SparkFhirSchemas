@@ -285,6 +285,7 @@ class AllergyIntoleranceSchema:
                 # risk.
                 StructField("type", StringType(), True),
                 # Category of the identified substance.
+                StructField("category", ArrayType(StringType()), True),
                 # Estimate of the potential clinical harm, or seriousness, of the reaction to
                 # the identified substance.
                 StructField("criticality", StringType(), True),

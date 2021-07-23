@@ -213,8 +213,11 @@ class CapabilityStatement_ResourceSchema:
                 # A code that indicates how the server supports conditional delete.
                 StructField("conditionalDelete", StringType(), True),
                 # A set of flags that defines how references are supported.
+                StructField("referencePolicy", ArrayType(StringType()), True),
                 # A list of _include values supported by the server.
+                StructField("searchInclude", ArrayType(StringType()), True),
                 # A list of _revinclude (reverse include) values supported by the server.
+                StructField("searchRevInclude", ArrayType(StringType()), True),
                 # Search parameters for implementations to support and/or make use of - either
                 # references to ones defined in the specification, or additional ones defined
                 # for/by the implementation.

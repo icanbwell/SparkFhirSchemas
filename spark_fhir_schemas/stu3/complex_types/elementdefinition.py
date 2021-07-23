@@ -1091,6 +1091,7 @@ class ElementDefinitionSchema:
                 StructField("path", StringType(), True),
                 # Codes that define how this element is represented in instances, when the
                 # deviation varies from the normal case.
+                StructField("representation", ArrayType(StringType()), True),
                 # The name of this element definition slice, when slicing is working. The name
                 # must be a token with no dots or spaces. This is a unique name referring to a
                 # specific set of constraints applied to this element, used to provide a name to
@@ -1156,6 +1157,7 @@ class ElementDefinitionSchema:
                 # specifications that drove the structure of this element.
                 StructField("requirements", StringType(), True),
                 # Identifies additional names by which this element might also be known.
+                StructField("alias", ArrayType(StringType()), True),
                 # The minimum number of times this element SHALL appear in the instance.
                 StructField("min", IntegerType(), True),
                 # The maximum number of times this element is permitted to appear in the
@@ -3475,6 +3477,7 @@ class ElementDefinitionSchema:
                 StructField("maxLength", IntegerType(), True),
                 # A reference to an invariant that may make additional statements about the
                 # cardinality or value in the instance.
+                StructField("condition", ArrayType(StringType()), True),
                 # Formal constraints such as co-occurrence and other constraints that can be
                 # computationally evaluated within the context of the instance.
                 StructField(

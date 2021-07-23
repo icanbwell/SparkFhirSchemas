@@ -102,6 +102,7 @@ class CodeSystem_FilterSchema:
                 # A description of how or why the filter is used.
                 StructField("description", StringType(), True),
                 # A list of operators that can be used with the filter.
+                StructField("operator", ArrayType(StringType()), True),
                 # A description of what the value for the filter should be.
                 StructField("value", StringType(), True),
             ]

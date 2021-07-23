@@ -139,6 +139,7 @@ class ElementDefinition_TypeSchema:
                 # If the type is a reference to another resource, how the resource is or can be
                 # aggregated - is it a contained resource, or a reference, and if the context is
                 # a bundle, is it included in the bundle.
+                StructField("aggregation", ArrayType(StringType()), True),
                 # Whether this reference needs to be version specific or version independent, or
                 # whether either can be used.
                 StructField("versioning", StringType(), True),

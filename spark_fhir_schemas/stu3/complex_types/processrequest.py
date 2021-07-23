@@ -349,7 +349,9 @@ class ProcessRequestSchema:
                     True,
                 ),
                 # Names of resource types to include.
+                StructField("include", ArrayType(StringType()), True),
                 # Names of resource types to exclude.
+                StructField("exclude", ArrayType(StringType()), True),
                 # A period of time during which the fulfilling resources would have been
                 # created.
                 StructField(

@@ -96,6 +96,7 @@ class StructureMap_DependentSchema:
                 # Name of a rule or group to apply.
                 StructField("name", StringType(), True),
                 # Variable to pass to the rule or group.
+                StructField("variable", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

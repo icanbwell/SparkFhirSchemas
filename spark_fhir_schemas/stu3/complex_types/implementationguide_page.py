@@ -119,8 +119,10 @@ class ImplementationGuide_PageSchema:
                 # page of interest.
                 StructField("kind", StringType(), True),
                 # For constructed pages, what kind of resources to include in the list.
+                StructField("type", ArrayType(StringType()), True),
                 # For constructed pages, a list of packages to include in the page (or else
                 # empty for everything).
+                StructField("package", ArrayType(StringType()), True),
                 # The format of the page.
                 StructField("format", StringType(), True),
                 # Nested Pages/Sections under this page.

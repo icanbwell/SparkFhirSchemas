@@ -120,6 +120,7 @@ class DataRequirementSchema:
                 StructField("type", StringType(), True),
                 # The profile of the required data, specified as the uri of the profile
                 # definition.
+                StructField("profile", ArrayType(StringType()), True),
                 # Indicates that specific elements of the type are referenced by the knowledge
                 # module and must be supported by the consumer in order to obtain an effective
                 # evaluation. This does not mean that a value is required for this element, only
@@ -127,6 +128,7 @@ class DataRequirementSchema:
                 # values for it if they are available. Note that the value for this element can
                 # be a path to allow references to nested elements. In that case, all the
                 # elements along the path must be supported.
+                StructField("mustSupport", ArrayType(StringType()), True),
                 # Code filters specify additional constraints on the data, specifying the value
                 # set of interest for a particular element of the data.
                 StructField(

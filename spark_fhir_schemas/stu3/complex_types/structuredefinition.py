@@ -475,8 +475,10 @@ class StructureDefinitionSchema:
                 StructField("contextType", StringType(), True),
                 # Identifies the types of resource or data type elements to which the extension
                 # can be applied.
+                StructField("context", ArrayType(StringType()), True),
                 # A set of rules as Fluent Invariants about when the extension can be used (e.g.
                 # co-occurrence variants for the extension).
+                StructField("contextInvariant", ArrayType(StringType()), True),
                 # The type this structure describes. If the derivation kind is 'specialization'
                 # then this is the master definition for a type, and there is always one of
                 # these (a data type, an extension, a resource, including abstract ones).

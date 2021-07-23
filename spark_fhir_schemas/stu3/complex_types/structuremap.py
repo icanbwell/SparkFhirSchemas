@@ -403,6 +403,7 @@ class StructureMapSchema:
                     True,
                 ),
                 # Other maps used by this map (canonical URLs).
+                StructField("import", ArrayType(StringType()), True),
                 # Organizes the mapping into managable chunks for human review/ease of
                 # maintenance.
                 StructField(

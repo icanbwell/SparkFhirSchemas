@@ -101,6 +101,7 @@ class CompartmentDefinition_ResourceSchema:
                 # The name of a search parameter that represents the link to the compartment.
                 # More than one may be listed because a resource may be linked to a compartment
                 # in more than one way,.
+                StructField("param", ArrayType(StringType()), True),
                 # Additional documentation about the resource and compartment.
                 StructField("documentation", StringType(), True),
             ]

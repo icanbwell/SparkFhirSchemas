@@ -268,6 +268,7 @@ class ProvenanceSchema:
                 # Policy or plan the activity was defined by. Typically, a single activity may
                 # have multiple applicable policy documents, such as patient consent, guarantor
                 # funding, etc.
+                StructField("policy", ArrayType(StringType()), True),
                 # Where the activity occurred, if relevant.
                 StructField(
                     "location",

@@ -113,6 +113,7 @@ class ClaimResponse_DetailSchema:
                 # A service line number.
                 StructField("sequenceLinkId", IntegerType(), True),
                 # A list of note references to the notes provided below.
+                StructField("noteNumber", ArrayType(IntegerType()), True),
                 # The adjudications results.
                 StructField(
                     "adjudication",
