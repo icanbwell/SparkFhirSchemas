@@ -108,6 +108,7 @@ class HealthcareService_AvailableTimeSchema:
                 ),
                 # Indicates which days of the week are available between the start and end
                 # Times.
+                StructField("daysOfWeek", ArrayType(StringType()), True),
                 # Is this always available? (hence times are irrelevant) e.g. 24 hour service.
                 StructField("allDay", BooleanType(), True),
                 # The opening time of day. Note: If the AllDay flag is set, then this time is

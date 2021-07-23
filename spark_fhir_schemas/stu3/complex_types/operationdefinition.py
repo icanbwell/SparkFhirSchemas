@@ -401,6 +401,7 @@ class OperationDefinitionSchema:
                     True,
                 ),
                 # The types on which this operation can be executed.
+                StructField("resource", ArrayType(StringType()), True),
                 # Indicates whether this operation or named query can be invoked at the system
                 # level (e.g. without needing to choose a resource type for the context).
                 StructField("system", BooleanType(), True),

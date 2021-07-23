@@ -431,6 +431,7 @@ class ImplementationGuideSchema:
                 ),
                 # A binary file that is included in the  implementation guide when it is
                 # published.
+                StructField("binary", ArrayType(StringType()), True),
                 # A page / section in the implementation guide. The root page is the
                 # implementation guide home page.
                 StructField(

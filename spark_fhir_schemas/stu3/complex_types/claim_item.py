@@ -178,10 +178,14 @@ class Claim_ItemSchema:
                 # A service line number.
                 StructField("sequence", IntegerType(), True),
                 # CareTeam applicable for this service or product line.
+                StructField("careTeamLinkId", ArrayType(IntegerType()), True),
                 # Diagnosis applicable for this service or product line.
+                StructField("diagnosisLinkId", ArrayType(IntegerType()), True),
                 # Procedures applicable for this service or product line.
+                StructField("procedureLinkId", ArrayType(IntegerType()), True),
                 # Exceptions, special conditions and supporting information pplicable for this
                 # service or product line.
+                StructField("informationLinkId", ArrayType(IntegerType()), True),
                 # The type of reveneu or cost center providing the product and/or service.
                 StructField(
                     "revenue",

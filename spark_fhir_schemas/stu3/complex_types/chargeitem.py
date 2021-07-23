@@ -275,6 +275,7 @@ class ChargeItemSchema:
                 ),
                 # References the source of pricing information, rules of application for the
                 # code this ChargeItem uses.
+                StructField("definition", ArrayType(StringType()), True),
                 # The current state of the ChargeItem.
                 StructField("status", StringType(), True),
                 # ChargeItems can be grouped to larger ChargeItems covering the whole set.

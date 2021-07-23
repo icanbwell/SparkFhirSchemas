@@ -95,6 +95,7 @@ class OperationDefinition_OverloadSchema:
                     True,
                 ),
                 # Name of parameter to include in overload.
+                StructField("parameterName", ArrayType(StringType()), True),
                 # Comments to go on overload.
                 StructField("comment", StringType(), True),
             ]

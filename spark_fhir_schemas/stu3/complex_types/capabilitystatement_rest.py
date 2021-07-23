@@ -230,6 +230,7 @@ class CapabilityStatement_RestSchema:
                 # An absolute URI which is a reference to the definition of a compartment that
                 # the system supports. The reference is to a CompartmentDefinition resource by
                 # its canonical URL .
+                StructField("compartment", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

@@ -458,6 +458,7 @@ class HealthcareServiceSchema:
                 # Describes the eligibility conditions for the service.
                 StructField("eligibilityNote", StringType(), True),
                 # Program Names that can be used to categorize the service.
+                StructField("programName", ArrayType(StringType()), True),
                 # Collection of characteristics (attributes).
                 StructField(
                     "characteristic",

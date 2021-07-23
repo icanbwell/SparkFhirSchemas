@@ -150,6 +150,7 @@ class ValueSet_IncludeSchema:
                 ),
                 # Selects concepts found in this value set. This is an absolute URI that is a
                 # reference to ValueSet.url.
+                StructField("valueSet", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

@@ -330,6 +330,7 @@ class ExplanationOfBenefit_DetailSchema:
                     True,
                 ),
                 # A list of note references to the notes provided below.
+                StructField("noteNumber", ArrayType(IntegerType()), True),
                 # The adjudications results.
                 StructField(
                     "adjudication",

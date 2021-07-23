@@ -420,6 +420,7 @@ class ClinicalImpressionSchema:
                 ),
                 # Reference to a specific published clinical protocol that was followed during
                 # this assessment, and/or that provides evidence in support of the diagnosis.
+                StructField("protocol", ArrayType(StringType()), True),
                 # A text summary of the investigations and the diagnosis.
                 StructField("summary", StringType(), True),
                 # Specific findings or diagnoses that was considered likely or relevant to

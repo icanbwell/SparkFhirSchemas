@@ -376,6 +376,7 @@ class SearchParameterSchema:
                 # this search parameter.
                 StructField("code", StringType(), True),
                 # The base resource type(s) that this search parameter can be used against.
+                StructField("base", ArrayType(StringType()), True),
                 # The type of value a search parameter refers to, and how the content is
                 # interpreted.
                 StructField("type", StringType(), True),
@@ -396,14 +397,18 @@ class SearchParameterSchema:
                 # the xpath query.
                 StructField("xpathUsage", StringType(), True),
                 # Types of resource (if a resource is referenced).
+                StructField("target", ArrayType(StringType()), True),
                 # Comparators supported for the search parameter.
+                StructField("comparator", ArrayType(StringType()), True),
                 # A modifier supported for the search parameter.
+                StructField("modifier", ArrayType(StringType()), True),
                 # Contains the names of any search parameters which may be chained to the
                 # containing search parameter. Chained parameters may be added to search
                 # parameters of type reference, and specify that resources will only be returned
                 # if they contain a reference to a resource which matches the chained parameter
                 # value. Values for this field should be drawn from SearchParameter.code for a
                 # parameter on the target resource type.
+                StructField("chain", ArrayType(StringType()), True),
                 # Used to define the parts of a composite search parameter.
                 StructField(
                     "component",

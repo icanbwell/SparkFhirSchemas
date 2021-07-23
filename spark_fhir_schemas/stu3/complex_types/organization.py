@@ -264,6 +264,7 @@ class OrganizationSchema:
                 StructField("name", StringType(), True),
                 # A list of alternate names that the organization is known as, or was known as
                 # in the past.
+                StructField("alias", ArrayType(StringType()), True),
                 # A contact detail for the organization.
                 StructField(
                     "telecom",

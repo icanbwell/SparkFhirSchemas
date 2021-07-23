@@ -330,9 +330,11 @@ class EndpointSchema:
                 # The mime type to send the payload in - e.g. application/fhir+xml,
                 # application/fhir+json. If the mime type is not specified, then the sender
                 # could send any content (including no content depending on the connectionType).
+                StructField("payloadMimeType", ArrayType(StringType()), True),
                 # The uri that describes the actual end-point to connect to.
                 StructField("address", StringType(), True),
                 # Additional headers / information to send as part of the notification.
+                StructField("header", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

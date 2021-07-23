@@ -112,6 +112,7 @@ class TimingSchema:
                     True,
                 ),
                 # Identifies specific times when the event occurs.
+                StructField("event", ArrayType(StringType()), True),
                 # A set of rules that describe when the event is scheduled.
                 StructField(
                     "repeat",

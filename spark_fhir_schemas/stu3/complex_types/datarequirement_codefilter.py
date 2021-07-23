@@ -160,6 +160,7 @@ class DataRequirement_CodeFilterSchema:
                 # or valueCodeableConcept may be specified. If values are given, the filter will
                 # return only those data items for which the code-valued attribute specified by
                 # the path has a value that is one of the specified codes.
+                StructField("valueCode", ArrayType(StringType()), True),
                 # The Codings for the code filter. Only one of valueSet, valueCode,
                 # valueConding, or valueCodeableConcept may be specified. If values are given,
                 # the filter will return only those data items for which the code-valued

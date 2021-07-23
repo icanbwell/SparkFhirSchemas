@@ -273,6 +273,7 @@ class PlanDefinition_ActionSchema:
                 ),
                 # Identifies goals that this action supports. The reference must be to a goal
                 # element defined within this plan definition.
+                StructField("goalId", ArrayType(StringType()), True),
                 # A description of when the action should be triggered.
                 StructField(
                     "triggerDefinition",

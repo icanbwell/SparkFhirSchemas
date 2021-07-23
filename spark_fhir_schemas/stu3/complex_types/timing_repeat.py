@@ -228,8 +228,11 @@ class Timing_RepeatSchema:
                 StructField("periodUnit", StringType(), True),
                 # If one or more days of week is provided, then the action happens only on the
                 # specified day(s).
+                StructField("dayOfWeek", ArrayType(StringType()), True),
                 # Specified time of day for action to take place.
+                StructField("timeOfDay", ArrayType(StringType()), True),
                 # Real world events that the occurrence of the event should be tied to.
+                StructField("when", ArrayType(StringType()), True),
                 # The number of minutes from the event. If the event code does not indicate
                 # whether the minutes is before or after the event, then the offset is assumed
                 # to be after the event.

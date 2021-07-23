@@ -113,6 +113,7 @@ class ExplanationOfBenefit_InsuranceSchema:
                     True,
                 ),
                 # A list of references from the Insurer to which these services pertain.
+                StructField("preAuthRef", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

@@ -217,6 +217,7 @@ class AuditEvent_AgentSchema:
                 # single activity may have multiple applicable policies, such as patient
                 # consent, guarantor funding, etc. The policy would also indicate the security
                 # token used.
+                StructField("policy", ArrayType(StringType()), True),
                 # Type of media involved. Used when the event is about exporting/importing onto
                 # media.
                 StructField(

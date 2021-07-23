@@ -622,6 +622,7 @@ class MeasureSchema:
                 # indicates better quality OR quality is whthin a range).
                 StructField("improvementNotation", StringType(), True),
                 # Provides a description of an individual term used within the measure.
+                StructField("definition", ArrayType(StringType()), True),
                 # Additional guidance for the measure including how it can be used in a clinical
                 # context, and the intent of the measure.
                 StructField("guidance", StringType(), True),

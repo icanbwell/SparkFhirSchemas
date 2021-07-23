@@ -128,10 +128,12 @@ class TestScript_CapabilitySchema:
                 # to support.
                 StructField("description", StringType(), True),
                 # Which origin server these requirements apply to.
+                StructField("origin", ArrayType(IntegerType()), True),
                 # Which server these requirements apply to.
                 StructField("destination", IntegerType(), True),
                 # Links to the FHIR specification that describes this interaction and the
                 # resources involved in more detail.
+                StructField("link", ArrayType(StringType()), True),
                 # Minimum capabilities required of server for test script to execute
                 # successfully.   If server does not meet at a minimum the referenced capability
                 # statement, then all tests in this script are skipped.

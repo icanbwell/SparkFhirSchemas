@@ -117,6 +117,7 @@ class StructureMap_TargetSchema:
                 # Named context for field, if desired, and a field is specified.
                 StructField("variable", StringType(), True),
                 # If field is a list, how to manage the list.
+                StructField("listMode", ArrayType(StringType()), True),
                 # Internal rule reference for shared list items.
                 StructField("listRuleId", StringType(), True),
                 # How the data is copied / created.

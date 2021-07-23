@@ -107,6 +107,7 @@ class Composition_AttesterSchema:
                     True,
                 ),
                 # The type of attestation the authenticator offers.
+                StructField("mode", ArrayType(StringType()), True),
                 # When the composition was attested by the party.
                 StructField("time", StringType(), True),
                 # Who attested the composition in the specified way.

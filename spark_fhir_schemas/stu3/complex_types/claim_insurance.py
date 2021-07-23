@@ -138,6 +138,7 @@ class Claim_InsuranceSchema:
                 # conditions.
                 StructField("businessArrangement", StringType(), True),
                 # A list of references from the Insurer to which these services pertain.
+                StructField("preAuthRef", ArrayType(StringType()), True),
                 # The Coverages adjudication details.
                 StructField(
                     "claimResponse",

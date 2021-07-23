@@ -424,6 +424,7 @@ class CapabilityStatementSchema:
                 # implements or uses. This capability statement is a published API description
                 # that corresponds to a business service. The rest of the capability statement
                 # does not need to repeat the details of the referenced resource, but can do so.
+                StructField("instantiates", ArrayType(StringType()), True),
                 # Software that is covered by this capability statement.  It is used when the
                 # capability statement describes the capabilities of a particular software
                 # version, independent of an installation.
@@ -466,10 +467,13 @@ class CapabilityStatementSchema:
                 StructField("acceptUnknown", StringType(), True),
                 # A list of the formats supported by this implementation using their content
                 # types.
+                StructField("format", ArrayType(StringType()), True),
                 # A list of the patch formats supported by this implementation using their
                 # content types.
+                StructField("patchFormat", ArrayType(StringType()), True),
                 # A list of implementation guides that the server does (or should) support in
                 # their entirety.
+                StructField("implementationGuide", ArrayType(StringType()), True),
                 # A list of profiles that represent different use cases supported by the system.
                 # For a server, "supported by the system" means the system hosts/produces a set
                 # of resources that are conformant to a particular profile, and allows clients

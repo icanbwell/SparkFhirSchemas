@@ -113,10 +113,13 @@ class HumanNameSchema:
                 # Eritrea) the family name of a son is the first name of his father.
                 StructField("family", StringType(), True),
                 # Given name.
+                StructField("given", ArrayType(StringType()), True),
                 # Part of the name that is acquired as a title due to academic, legal,
                 # employment or nobility status, etc. and that appears at the start of the name.
+                StructField("prefix", ArrayType(StringType()), True),
                 # Part of the name that is acquired as a title due to academic, legal,
                 # employment or nobility status, etc. and that appears at the end of the name.
+                StructField("suffix", ArrayType(StringType()), True),
                 # Indicates the period of time when this name was valid for the named person.
                 StructField(
                     "period",

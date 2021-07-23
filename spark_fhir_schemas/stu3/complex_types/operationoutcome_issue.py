@@ -144,9 +144,11 @@ class OperationOutcome_IssueSchema:
                 # repetition indicators and the default child access that identifies one of the
                 # elements in the resource that caused this issue to be raised.  For HTTP
                 # errors, will be "http." + the parameter name.
+                StructField("location", ArrayType(StringType()), True),
                 # A simple FHIRPath limited to element names, repetition indicators and the
                 # default child access that identifies one of the elements in the resource that
                 # caused this issue to be raised.
+                StructField("expression", ArrayType(StringType()), True),
             ]
         )
         if not include_extension:

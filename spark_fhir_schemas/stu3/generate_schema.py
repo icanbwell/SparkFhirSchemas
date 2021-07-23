@@ -165,6 +165,8 @@ def main() -> int:
                 if "$ref" in value and type_ != "array"
                 else value["items"]["$ref"]
                 if "items" in value and "$ref" in value["items"]
+                else value["items"]["type"]
+                if "items" in value and "type" in value["items"]
                 else None
             )
             pattern = value["pattern"] if "pattern" in value else None

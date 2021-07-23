@@ -130,6 +130,7 @@ class AddressSchema:
                 # This component contains the house number, apartment number, street name,
                 # street direction,  P.O. Box number, delivery hints, and similar address
                 # information.
+                StructField("line", ArrayType(StringType()), True),
                 # The name of the city, town, village or other community or delivery center.
                 StructField("city", StringType(), True),
                 # The name of the administrative area (county).
