@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -42,7 +43,7 @@ class Timing_RepeatSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -205,9 +206,9 @@ class Timing_RepeatSchema:
                 # 6-8 times).
                 StructField("countMax", IntegerType(), True),
                 # How long this thing happens for when it happens.
-                StructField("duration", IntegerType(), True),
+                StructField("duration", FloatType(), True),
                 # The upper limit of how long this thing happens for when it happens.
-                StructField("durationMax", IntegerType(), True),
+                StructField("durationMax", FloatType(), True),
                 # The units of time for the duration, in UCUM units.
                 StructField("durationUnit", StringType(), True),
                 # The number of times to repeat the action within the specified period / period
@@ -219,10 +220,10 @@ class Timing_RepeatSchema:
                 # Indicates the duration of time over which repetitions are to occur; e.g. to
                 # express "3 times per day", 3 would be the frequency and "1 day" would be the
                 # period.
-                StructField("period", IntegerType(), True),
+                StructField("period", FloatType(), True),
                 # If present, indicates that the period is a range from [period] to [periodMax],
                 # allowing expressing concepts such as "do this once every 3-5 days.
-                StructField("periodMax", IntegerType(), True),
+                StructField("periodMax", FloatType(), True),
                 # The units of time for the period in UCUM units.
                 StructField("periodUnit", StringType(), True),
                 # If one or more days of week is provided, then the action happens only on the

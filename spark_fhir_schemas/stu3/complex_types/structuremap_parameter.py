@@ -8,6 +8,7 @@ from pyspark.sql.types import (
     BooleanType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -40,7 +41,7 @@ class StructureMap_ParameterSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -116,7 +117,7 @@ class StructureMap_ParameterSchema:
                 # Parameter value - variable or literal.
                 StructField("valueInteger", IntegerType(), True),
                 # Parameter value - variable or literal.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
             ]
         )
         if not include_extension:

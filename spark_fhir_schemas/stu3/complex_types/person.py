@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
 )
@@ -39,7 +40,7 @@ class PersonSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -267,7 +268,7 @@ class PersonSchema:
                 # Administrative Gender.
                 StructField("gender", StringType(), True),
                 # The birth date for the person.
-                StructField("birthDate", StringType(), True),
+                StructField("birthDate", DateType(), True),
                 # One or more addresses for the person.
                 StructField(
                     "address",

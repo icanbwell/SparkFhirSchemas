@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -40,7 +40,7 @@ class Location_PositionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -109,13 +109,13 @@ class Location_PositionSchema:
                 ),
                 # Longitude. The value domain and the interpretation are the same as for the
                 # text of the longitude element in KML (see notes below).
-                StructField("longitude", IntegerType(), True),
+                StructField("longitude", FloatType(), True),
                 # Latitude. The value domain and the interpretation are the same as for the text
                 # of the latitude element in KML (see notes below).
-                StructField("latitude", IntegerType(), True),
+                StructField("latitude", FloatType(), True),
                 # Altitude. The value domain and the interpretation are the same as for the text
                 # of the altitude element in KML (see notes below).
-                StructField("altitude", IntegerType(), True),
+                StructField("altitude", FloatType(), True),
             ]
         )
         if not include_extension:

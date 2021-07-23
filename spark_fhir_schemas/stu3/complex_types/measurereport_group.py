@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -38,7 +38,7 @@ class MeasureReport_GroupSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -149,7 +149,7 @@ class MeasureReport_GroupSchema:
                 # The measure score for this population group, calculated as appropriate for the
                 # measure type and scoring method, and based on the contents of the populations
                 # defined in the group.
-                StructField("measureScore", IntegerType(), True),
+                StructField("measureScore", FloatType(), True),
                 # When a measure includes multiple stratifiers, there will be a stratifier group
                 # for each stratifier defined by the measure.
                 StructField(

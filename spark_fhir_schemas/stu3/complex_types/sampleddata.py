@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -39,7 +40,7 @@ class SampledDataSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -136,16 +137,16 @@ class SampledDataSchema:
                     True,
                 ),
                 # The length of time between sampling times, measured in milliseconds.
-                StructField("period", IntegerType(), True),
+                StructField("period", FloatType(), True),
                 # A correction factor that is applied to the sampled data points before they are
                 # added to the origin.
-                StructField("factor", IntegerType(), True),
+                StructField("factor", FloatType(), True),
                 # The lower limit of detection of the measured points. This is needed if any of
                 # the data points have the value "L" (lower than detection limit).
-                StructField("lowerLimit", IntegerType(), True),
+                StructField("lowerLimit", FloatType(), True),
                 # The upper limit of detection of the measured points. This is needed if any of
                 # the data points have the value "U" (higher than detection limit).
-                StructField("upperLimit", IntegerType(), True),
+                StructField("upperLimit", FloatType(), True),
                 # The number of sample points at each time point. If this value is greater than
                 # one, then the dimensions will be interlaced - all the sample points for a
                 # point in time will be recorded at once.

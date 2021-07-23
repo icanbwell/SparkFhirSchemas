@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -38,7 +38,7 @@ class Bundle_SearchSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -103,7 +103,7 @@ class Bundle_SearchSchema:
                 # because of an _include requirement.
                 StructField("mode", StringType(), True),
                 # When searching, the server's search ranking score for the entry.
-                StructField("score", IntegerType(), True),
+                StructField("score", FloatType(), True),
             ]
         )
         if not include_extension:

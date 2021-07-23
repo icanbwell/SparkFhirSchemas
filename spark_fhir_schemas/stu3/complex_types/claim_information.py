@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     IntegerType,
     DataType,
 )
@@ -39,7 +40,7 @@ class Claim_InformationSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -168,7 +169,7 @@ class Claim_InformationSchema:
                     True,
                 ),
                 # The date when or period to which this information refers.
-                StructField("timingDate", StringType(), True),
+                StructField("timingDate", DateType(), True),
                 # The date when or period to which this information refers.
                 StructField(
                     "timingPeriod",

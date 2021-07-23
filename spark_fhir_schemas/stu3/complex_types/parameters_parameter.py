@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -41,7 +44,7 @@ class Parameters_ParameterSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -273,7 +276,7 @@ class Parameters_ParameterSchema:
                 # If the parameter is a data type.
                 StructField("valueInteger", IntegerType(), True),
                 # If the parameter is a data type.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # If the parameter is a data type.
                 StructField("valueBase64Binary", StringType(), True),
                 # If the parameter is a data type.
@@ -283,9 +286,9 @@ class Parameters_ParameterSchema:
                 # If the parameter is a data type.
                 StructField("valueUri", StringType(), True),
                 # If the parameter is a data type.
-                StructField("valueDate", StringType(), True),
+                StructField("valueDate", DateType(), True),
                 # If the parameter is a data type.
-                StructField("valueDateTime", StringType(), True),
+                StructField("valueDateTime", TimestampType(), True),
                 # If the parameter is a data type.
                 StructField("valueTime", StringType(), True),
                 # If the parameter is a data type.

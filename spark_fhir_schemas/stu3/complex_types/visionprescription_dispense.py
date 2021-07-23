@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -38,7 +39,7 @@ class VisionPrescription_DispenseSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -149,23 +150,23 @@ class VisionPrescription_DispenseSchema:
                 # The eye for which the lens applies.
                 StructField("eye", StringType(), True),
                 # Lens power measured in diopters (0.25 units).
-                StructField("sphere", IntegerType(), True),
+                StructField("sphere", FloatType(), True),
                 # Power adjustment for astigmatism measured in diopters (0.25 units).
-                StructField("cylinder", IntegerType(), True),
+                StructField("cylinder", FloatType(), True),
                 # Adjustment for astigmatism measured in integer degrees.
                 StructField("axis", IntegerType(), True),
                 # Amount of prism to compensate for eye alignment in fractional units.
-                StructField("prism", IntegerType(), True),
+                StructField("prism", FloatType(), True),
                 # The relative base, or reference lens edge, for the prism.
                 StructField("base", StringType(), True),
                 # Power adjustment for multifocal lenses measured in diopters (0.25 units).
-                StructField("add", IntegerType(), True),
+                StructField("add", FloatType(), True),
                 # Contact lens power measured in diopters (0.25 units).
-                StructField("power", IntegerType(), True),
+                StructField("power", FloatType(), True),
                 # Back curvature measured in millimeters.
-                StructField("backCurve", IntegerType(), True),
+                StructField("backCurve", FloatType(), True),
                 # Contact lens diameter measured in millimeters.
-                StructField("diameter", IntegerType(), True),
+                StructField("diameter", FloatType(), True),
                 # The recommended maximum wear period for the lens.
                 StructField(
                     "duration",

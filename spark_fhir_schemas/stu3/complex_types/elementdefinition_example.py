@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -40,7 +43,7 @@ class ElementDefinition_ExampleSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -322,7 +325,7 @@ class ElementDefinition_ExampleSchema:
                 StructField("valueInteger", IntegerType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField("valueBase64Binary", StringType(), True),
@@ -337,10 +340,10 @@ class ElementDefinition_ExampleSchema:
                 StructField("valueUri", StringType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
-                StructField("valueDate", StringType(), True),
+                StructField("valueDate", DateType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
-                StructField("valueDateTime", StringType(), True),
+                StructField("valueDateTime", TimestampType(), True),
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField("valueTime", StringType(), True),

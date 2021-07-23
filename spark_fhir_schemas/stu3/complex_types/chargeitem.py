@@ -5,8 +5,10 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
+    DateType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -42,7 +44,7 @@ class ChargeItemSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -338,7 +340,7 @@ class ChargeItemSchema:
                     True,
                 ),
                 # Date/time(s) or duration when the charged service was applied.
-                StructField("occurrenceDateTime", StringType(), True),
+                StructField("occurrenceDateTime", TimestampType(), True),
                 # Date/time(s) or duration when the charged service was applied.
                 StructField(
                     "occurrencePeriod",
@@ -449,7 +451,7 @@ class ChargeItemSchema:
                     True,
                 ),
                 # Factor overriding the factor determined by the rules associated with the code.
-                StructField("factorOverride", IntegerType(), True),
+                StructField("factorOverride", FloatType(), True),
                 # Total price of the charge overriding the list price associated with the code.
                 StructField(
                     "priceOverride",
@@ -485,7 +487,7 @@ class ChargeItemSchema:
                     True,
                 ),
                 # Date the charge item was entered.
-                StructField("enteredDate", StringType(), True),
+                StructField("enteredDate", DateType(), True),
                 # Describes why the event occurred in coded or textual form.
                 StructField(
                     "reason",

@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -40,7 +41,7 @@ class ExplanationOfBenefit_SubDetailSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -282,7 +283,7 @@ class ExplanationOfBenefit_SubDetailSchema:
                 # value of services delivered and/or goods received. The concept of a Factor
                 # allows for a discount or surcharge multiplier to be applied to a monetary
                 # amount.
-                StructField("factor", IntegerType(), True),
+                StructField("factor", FloatType(), True),
                 # The quantity times the unit price for an addittional service or product or
                 # charge. For example, the formula: unit Quantity * unit Price (Cost per Point)
                 # * factor Number  * points = net Amount. Quantity, factor and points are

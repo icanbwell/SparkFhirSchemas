@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -41,7 +44,7 @@ class QuestionnaireResponse_AnswerSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -136,13 +139,13 @@ class QuestionnaireResponse_AnswerSchema:
                 # The answer (or one of the answers) provided by the respondent to the question.
                 StructField("valueBoolean", BooleanType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
-                StructField("valueDecimal", IntegerType(), True),
+                StructField("valueDecimal", FloatType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
                 StructField("valueInteger", IntegerType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
-                StructField("valueDate", StringType(), True),
+                StructField("valueDate", DateType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
-                StructField("valueDateTime", StringType(), True),
+                StructField("valueDateTime", TimestampType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.
                 StructField("valueTime", StringType(), True),
                 # The answer (or one of the answers) provided by the respondent to the question.

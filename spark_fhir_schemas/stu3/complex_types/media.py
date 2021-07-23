@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     IntegerType,
     DataType,
+    TimestampType,
 )
 
 
@@ -39,7 +40,7 @@ class MediaSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -344,7 +345,7 @@ class MediaSchema:
                     True,
                 ),
                 # The date and time(s) at which the media was collected.
-                StructField("occurrenceDateTime", StringType(), True),
+                StructField("occurrenceDateTime", TimestampType(), True),
                 # The date and time(s) at which the media was collected.
                 StructField(
                     "occurrencePeriod",

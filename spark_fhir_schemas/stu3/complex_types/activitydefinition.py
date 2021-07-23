@@ -5,8 +5,10 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     DataType,
+    TimestampType,
 )
 
 
@@ -40,7 +42,7 @@ class ActivityDefinitionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -414,10 +416,10 @@ class ActivityDefinitionSchema:
                 StructField("usage", StringType(), True),
                 # The date on which the resource content was approved by the publisher. Approval
                 # happens once when the content is officially approved for usage.
-                StructField("approvalDate", StringType(), True),
+                StructField("approvalDate", DateType(), True),
                 # The date on which the resource content was last reviewed. Review happens
                 # periodically after approval, but doesn't change the original approval date.
-                StructField("lastReviewDate", StringType(), True),
+                StructField("lastReviewDate", DateType(), True),
                 # The period during which the activity definition content was or is planned to
                 # be in active use.
                 StructField(
@@ -602,7 +604,7 @@ class ActivityDefinitionSchema:
                     True,
                 ),
                 # The period, timing or frequency upon which the described activity is to occur.
-                StructField("timingDateTime", StringType(), True),
+                StructField("timingDateTime", TimestampType(), True),
                 # The period, timing or frequency upon which the described activity is to occur.
                 StructField(
                     "timingPeriod",

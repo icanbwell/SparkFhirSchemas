@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -38,7 +38,7 @@ class TestReportSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -266,7 +266,7 @@ class TestReportSchema:
                 StructField("result", StringType(), True),
                 # The final score (percentage of tests passed) resulting from the execution of
                 # the TestScript.
-                StructField("score", IntegerType(), True),
+                StructField("score", FloatType(), True),
                 # Name of the tester producing this report (Organization or individual).
                 StructField("tester", StringType(), True),
                 # When the TestScript was executed and this TestReport was generated.

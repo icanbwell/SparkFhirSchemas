@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -38,7 +38,7 @@ class MeasureReport_StratumSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -131,7 +131,7 @@ class MeasureReport_StratumSchema:
                 ),
                 # The measure score for this stratum, calculated as appropriate for the measure
                 # type and scoring method, and based on only the members of this stratum.
-                StructField("measureScore", IntegerType(), True),
+                StructField("measureScore", FloatType(), True),
             ]
         )
         if not include_extension:

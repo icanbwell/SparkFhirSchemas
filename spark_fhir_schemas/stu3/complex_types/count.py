@@ -5,8 +5,8 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -40,7 +40,7 @@ class CountSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -112,7 +112,7 @@ class CountSchema:
                 ),
                 # The value of the measured amount. The value includes an implicit precision in
                 # the presentation of the value.
-                StructField("value", IntegerType(), True),
+                StructField("value", FloatType(), True),
                 # How the value should be understood and represented - whether the actual value
                 # is greater or less than the stated value due to measurement issues; e.g. if
                 # the comparator is "<" , then the real value is < stated value.

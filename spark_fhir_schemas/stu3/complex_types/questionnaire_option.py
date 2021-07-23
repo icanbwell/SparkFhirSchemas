@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     IntegerType,
     DataType,
 )
@@ -40,7 +41,7 @@ class Questionnaire_OptionSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -112,7 +113,7 @@ class Questionnaire_OptionSchema:
                 # A potential answer that's allowed as the answer to this question.
                 StructField("valueInteger", IntegerType(), True),
                 # A potential answer that's allowed as the answer to this question.
-                StructField("valueDate", StringType(), True),
+                StructField("valueDate", DateType(), True),
                 # A potential answer that's allowed as the answer to this question.
                 StructField("valueTime", StringType(), True),
                 # A potential answer that's allowed as the answer to this question.

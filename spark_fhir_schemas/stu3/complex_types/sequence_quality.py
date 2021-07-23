@@ -7,6 +7,7 @@ from pyspark.sql.types import (
     ArrayType,
     IntegerType,
     DataType,
+    FloatType,
 )
 
 
@@ -38,7 +39,7 @@ class Sequence_QualitySchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -204,33 +205,33 @@ class Sequence_QualitySchema:
                 # sites in the Truth Call Set for which there are paths through the Query Call
                 # Set that are consistent with all of the alleles at this site, and for which
                 # there is an accurate genotype call for the event.
-                StructField("truthTP", IntegerType(), True),
+                StructField("truthTP", FloatType(), True),
                 # True positives, from the perspective of the query data, i.e. the number of
                 # sites in the Query Call Set for which there are paths through the Truth Call
                 # Set that are consistent with all of the alleles at this site, and for which
                 # there is an accurate genotype call for the event.
-                StructField("queryTP", IntegerType(), True),
+                StructField("queryTP", FloatType(), True),
                 # False negatives, i.e. the number of sites in the Truth Call Set for which
                 # there is no path through the Query Call Set that is consistent with all of the
                 # alleles at this site, or sites for which there is an inaccurate genotype call
                 # for the event. Sites with correct variant but incorrect genotype are counted
                 # here.
-                StructField("truthFN", IntegerType(), True),
+                StructField("truthFN", FloatType(), True),
                 # False positives, i.e. the number of sites in the Query Call Set for which
                 # there is no path through the Truth Call Set that is consistent with this site.
                 # Sites with correct variant but incorrect genotype are counted here.
-                StructField("queryFP", IntegerType(), True),
+                StructField("queryFP", FloatType(), True),
                 # The number of false positives where the non-REF alleles in the Truth and Query
                 # Call Sets match (i.e. cases where the truth is 1/1 and the query is 0/1 or
                 # similar).
-                StructField("gtFP", IntegerType(), True),
+                StructField("gtFP", FloatType(), True),
                 # QUERY.TP / (QUERY.TP + QUERY.FP).
-                StructField("precision", IntegerType(), True),
+                StructField("precision", FloatType(), True),
                 # TRUTH.TP / (TRUTH.TP + TRUTH.FN).
-                StructField("recall", IntegerType(), True),
+                StructField("recall", FloatType(), True),
                 # Harmonic mean of Recall and Precision, computed as: 2 * precision * recall /
                 # (precision + recall).
-                StructField("fScore", IntegerType(), True),
+                StructField("fScore", FloatType(), True),
             ]
         )
         if not include_extension:

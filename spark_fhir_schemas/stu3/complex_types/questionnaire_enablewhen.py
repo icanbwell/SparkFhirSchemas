@@ -5,9 +5,12 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
+    DateType,
     BooleanType,
     IntegerType,
     DataType,
+    TimestampType,
+    FloatType,
 )
 
 
@@ -41,7 +44,7 @@ class Questionnaire_EnableWhenSchema:
             "valueTime",
             "valueUnsignedInt",
             "valueUri",
-            "valueUrl",
+            "valueQuantity",
         ],
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
@@ -156,16 +159,16 @@ class Questionnaire_EnableWhenSchema:
                 StructField("answerBoolean", BooleanType(), True),
                 # An answer that the referenced question must match in order for the item to be
                 # enabled.
-                StructField("answerDecimal", IntegerType(), True),
+                StructField("answerDecimal", FloatType(), True),
                 # An answer that the referenced question must match in order for the item to be
                 # enabled.
                 StructField("answerInteger", IntegerType(), True),
                 # An answer that the referenced question must match in order for the item to be
                 # enabled.
-                StructField("answerDate", StringType(), True),
+                StructField("answerDate", DateType(), True),
                 # An answer that the referenced question must match in order for the item to be
                 # enabled.
-                StructField("answerDateTime", StringType(), True),
+                StructField("answerDateTime", TimestampType(), True),
                 # An answer that the referenced question must match in order for the item to be
                 # enabled.
                 StructField("answerTime", StringType(), True),
