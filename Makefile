@@ -6,9 +6,9 @@ BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 VERSION=$(shell cat VERSION)
 VENV_NAME=venv
 GIT_HASH=${CIRCLE_SHA1}
-SPARK_VER=3.1.1
+SPARK_VER=3.2.0
 HADOOP_VER=3.2
-PACKAGES_FOLDER=venv/lib/python3.6/site-packages
+PACKAGES_FOLDER=venv/lib/python3.7/site-packages
 SPF_BASE=${PACKAGES_FOLDER}
 
 include spark_fhir_schemas/Makefile.spark
