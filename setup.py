@@ -1,11 +1,8 @@
 # noinspection Mypy
-from os import getcwd
-from os import path
 from typing import Any
-from typing import List
 
-from setuptools import find_packages
-from setuptools import setup
+from setuptools import setup, find_packages
+from os import path, getcwd
 
 # from https://packaging.python.org/tutorials/packaging-projects/
 
@@ -44,48 +41,30 @@ def fix_setuptools() -> None:
 # Fix bugs in setuptools.
 fix_setuptools()
 
-
-def parse_requirements(file: str) -> List[str]:
-    with open(file, "r") as fs:
-        return [
-            r
-            for r in fs.read().splitlines()
-            if (
-                len(r.strip()) > 0
-                and not r.strip().startswith("#")
-                and not r.strip().startswith("--")
-            )
-        ]
-
-
-requirements: List[str] = parse_requirements("requirements.txt")
-test_requirements: List[str] = parse_requirements("requirements-test.txt")
-
 # classifiers list is here: https://pypi.org/classifiers/
 
 # create the package setup
 setup(
+    install_requires=["pyspark==3.1.1"],
     name=package_name,
     version=version,
     author="Imran Qureshi",
     author_email="imranq2@hotmail.com",
-    description="FHIR Schemas for Apache Spark",
+    description="AutoMapper for Spark",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/imranq2/sparkfhirschemas",
+    url="https://github.com/imranq2/SparkAutoMapper",
     packages=find_packages(),
-    install_requires=requirements,
-    tests_require=test_requirements,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3",
     dependency_links=[],
     include_package_data=True,
     zip_safe=False,
-    package_data={"spark_fhir_schemas": ["py.typed"]},
+    package_data={package_name: ["py.typed"]},
     data_files=[],
 )

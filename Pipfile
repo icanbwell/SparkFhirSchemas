@@ -1,0 +1,34 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyspark = "==3.1.1"
+
+[dev-packages]
+setuptools=">=60.9.3"
+wheel=">=0.37.1"
+twine=">=3.8.0"
+pre-commit=">=2.17.0"
+autoflake=">=1.4"
+flake8 = ">=4.0.1"
+mypy = ">=0.931"
+pytest = ">=7.0.1"
+black = ">=22.1.0"
+importlib-metadata = ">=4.0.1"
+py4j = "==0.10.9"
+pyspark="==3.1.1"  # should match the version of spark we use for testing
+pygments = ">=2.8.1" # not directly required, pinned by Snyk to avoid a vulnerability
+types-Deprecated=">=0.1.2"
+Sphinx="==4.1.2"
+sphinx-autoapi="==1.8.4"
+sphinx-rtd-theme="==0.5.2"
+myst-parser="==0.15.1"
+pipenv-setup = ">=3.2.0"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = false
