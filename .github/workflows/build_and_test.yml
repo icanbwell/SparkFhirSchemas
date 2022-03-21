@@ -14,27 +14,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
-          python-version: '3.6.11'
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '11.0.8' # The JDK version to make available on the path.
-          java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
-          architecture: x64 # (x64 or x86) - defaults to x64
-    # install required tools
-      - name: prereqs
+          python-version: '3.7'
+
+      - name: Set cache permissions
         run: |
-          pip install wheel
+          mkdir ~/.local && mkdir ~/.local/share && mkdir ~/.local/share/virtualenvs
+          chown -R $(whoami) ~/.local/share/virtualenvs/
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pip-deps-warehouse-p
+        with:
+          path: ~/.local/share/virtualenvs/
+          key: ${{ runner.os }}-${{ env.CACHE_SEED }}-${{ github.job }}-${{ env.cache-name }}-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.CACHE_SEED }}-${{ github.job }}-${{ env.cache-name }}-
+            ${{ runner.os }}-${{ env.CACHE_SEED }}-${{ github.job }}-
+            ${{ runner.os }}-${{ env.CACHE_SEED }}-
+            ${{ runner.os }}-
+
+      - name: pre-commit
+        run: make run-pre-commit
 
       # setup and install everything and run tests
-      - name: install_spark
-        run: make download_spark
-      - name: setup_packages
-        run: make setup_packages
-      - name: run-pre-commit
-        run: make run-pre-commit
-      - name: continuous_integration
-        run: make continuous_integration
+      - name: up
+        run: make up
+      - name: tests
+        run: make tests
