@@ -19,21 +19,7 @@ class VisionPrescriptionSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
-        extension_fields: Optional[List[str]] = [
-            "valueBoolean",
-            "valueCode",
-            "valueDate",
-            "valueDateTime",
-            "valueDecimal",
-            "valueId",
-            "valueInteger",
-            "valuePositiveInt",
-            "valueString",
-            "valueTime",
-            "valueUnsignedInt",
-            "valueUri",
-            "valueUrl",
-        ],
+        extension_fields: Optional[List[str]] = None,
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
@@ -110,6 +96,25 @@ class VisionPrescriptionSchema:
             authorization for the fullfillment by certified professionals.
 
         """
+        if extension_fields is None:
+            extension_fields = [
+                "valueBoolean",
+                "valueCode",
+                "valueDate",
+                "valueDateTime",
+                "valueDecimal",
+                "valueId",
+                "valueInteger",
+                "valuePositiveInt",
+                "valueString",
+                "valueTime",
+                "valueUnsignedInt",
+                "valueUri",
+                "valueUrl",
+                "valueReference",
+                "valueCodeableConcept",
+                "valueAddress",
+            ]
         from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
