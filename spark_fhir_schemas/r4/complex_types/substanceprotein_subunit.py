@@ -25,21 +25,7 @@ class SubstanceProtein_SubunitSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
-        extension_fields: Optional[List[str]] = [
-            "valueBoolean",
-            "valueCode",
-            "valueDate",
-            "valueDateTime",
-            "valueDecimal",
-            "valueId",
-            "valueInteger",
-            "valuePositiveInt",
-            "valueString",
-            "valueTime",
-            "valueUnsignedInt",
-            "valueUri",
-            "valueUrl",
-        ],
+        extension_fields: Optional[List[str]] = None,
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
@@ -113,6 +99,25 @@ class SubstanceProtein_SubunitSchema:
         cTerminalModification: The modification at the C-terminal shall be specified.
 
         """
+        if extension_fields is None:
+            extension_fields = [
+                "valueBoolean",
+                "valueCode",
+                "valueDate",
+                "valueDateTime",
+                "valueDecimal",
+                "valueId",
+                "valueInteger",
+                "valuePositiveInt",
+                "valueString",
+                "valueTime",
+                "valueUnsignedInt",
+                "valueUri",
+                "valueUrl",
+                "valueReference",
+                "valueCodeableConcept",
+                "valueAddress",
+            ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.attachment import AttachmentSchema

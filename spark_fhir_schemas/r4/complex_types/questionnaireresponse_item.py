@@ -20,21 +20,7 @@ class QuestionnaireResponse_ItemSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
-        extension_fields: Optional[List[str]] = [
-            "valueBoolean",
-            "valueCode",
-            "valueDate",
-            "valueDateTime",
-            "valueDecimal",
-            "valueId",
-            "valueInteger",
-            "valuePositiveInt",
-            "valueString",
-            "valueTime",
-            "valueUnsignedInt",
-            "valueUri",
-            "valueUrl",
-        ],
+        extension_fields: Optional[List[str]] = None,
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
@@ -82,6 +68,25 @@ class QuestionnaireResponse_ItemSchema:
         item: Questions or sub-groups nested beneath a question or group.
 
         """
+        if extension_fields is None:
+            extension_fields = [
+                "valueBoolean",
+                "valueCode",
+                "valueDate",
+                "valueDateTime",
+                "valueDecimal",
+                "valueId",
+                "valueInteger",
+                "valuePositiveInt",
+                "valueString",
+                "valueTime",
+                "valueUnsignedInt",
+                "valueUri",
+                "valueUrl",
+                "valueReference",
+                "valueCodeableConcept",
+                "valueAddress",
+            ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.questionnaireresponse_answer import (

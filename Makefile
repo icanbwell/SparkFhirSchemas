@@ -57,3 +57,15 @@ pipenv-setup:devdocker ## Brings up the bash shell in dev docker
 .PHONY:shell
 shell:devdocker ## Brings up the bash shell in dev docker
 	docker-compose run --rm --name sfs_shell dev /bin/bash
+
+.PHONY:schema
+schema:
+	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/r4/generate_schema.py && \
+	make run-pre-commit
+	make run-pre-commit
+
+.PHONY:schema-stu3
+schema-stu3:
+	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/stu3/generate_schema.py && \
+	make run-pre-commit
+	make run-pre-commit
