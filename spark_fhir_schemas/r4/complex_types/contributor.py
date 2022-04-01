@@ -23,6 +23,7 @@ class ContributorSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A contributor to the content of a knowledge asset, including authors, editors,
@@ -100,6 +101,7 @@ class ContributorSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -123,6 +125,7 @@ class ContributorSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,

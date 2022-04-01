@@ -20,6 +20,7 @@ class ResourceListSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """ """
         if extension_fields is None:

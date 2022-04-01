@@ -24,6 +24,7 @@ class {{resource.Name}}Schema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
 {%  if resource.Description %}
@@ -56,6 +57,8 @@ class {{resource.Name}}Schema:
 {% if not properties %}
 {#    if it is a simple property #}
     {% if resource.Name.lower() == "datetime" %}
+        if use_date:
+            return DateType()
         return TimestampType()
     {% elif resource.Type == "date" or resource.Name.lower() == "date" %}
         return DateType()
@@ -109,7 +112,8 @@ class {{resource.Name}}Schema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth+1,
                             max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension
+                            include_modifierExtension=include_modifierExtension,
+                            use_date=use_date
                         )), True),
                     {% else %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(
@@ -121,7 +125,8 @@ class {{resource.Name}}Schema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension
+                            include_modifierExtension=include_modifierExtension,
+                            use_date=use_date
                         )), True),
                     {% endif %}
                 {% elif property.Type == "date" or property.UnderlyingDataType == "date" %}
@@ -161,7 +166,8 @@ class {{resource.Name}}Schema:
                     extension_fields=extension_fields,
                     extension_depth=extension_depth+1,
                     max_extension_depth=max_extension_depth,
-                    include_modifierExtension=include_modifierExtension
+                    include_modifierExtension=include_modifierExtension,
+                    use_date=use_date
                 ), True),
             {% endif%}
         {% endfor%}
