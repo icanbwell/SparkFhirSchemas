@@ -24,6 +24,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         The RiskEvidenceSynthesis resource describes the likelihood of an outcome in a
@@ -120,6 +121,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -150,6 +152,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -168,6 +171,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -186,6 +190,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -204,6 +209,7 @@ class RiskEvidenceSynthesis_CertaintySchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,

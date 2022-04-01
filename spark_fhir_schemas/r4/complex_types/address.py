@@ -26,6 +26,7 @@ class AddressSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         An address expressed using postal conventions (as opposed to GPS or other
@@ -123,6 +124,7 @@ class AddressSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -165,6 +167,7 @@ class AddressSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),

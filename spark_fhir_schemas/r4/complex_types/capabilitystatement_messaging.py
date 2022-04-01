@@ -25,6 +25,7 @@ class CapabilityStatement_MessagingSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -130,6 +131,7 @@ class CapabilityStatement_MessagingSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -160,6 +162,7 @@ class CapabilityStatement_MessagingSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -179,6 +182,7 @@ class CapabilityStatement_MessagingSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -197,6 +201,7 @@ class CapabilityStatement_MessagingSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -215,6 +220,7 @@ class CapabilityStatement_MessagingSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -233,6 +239,7 @@ class CapabilityStatement_MessagingSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,

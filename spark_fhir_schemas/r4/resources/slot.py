@@ -29,6 +29,7 @@ class SlotSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A slot of time on a schedule that may be available for booking appointments.
@@ -170,6 +171,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -188,6 +190,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -207,6 +210,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -223,6 +227,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -244,6 +249,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -263,6 +269,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -285,6 +292,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -315,6 +323,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -333,6 +342,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -352,6 +362,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -373,6 +384,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -392,6 +404,7 @@ class SlotSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -410,6 +423,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -427,6 +441,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -445,6 +460,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
@@ -461,6 +477,7 @@ class SlotSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),

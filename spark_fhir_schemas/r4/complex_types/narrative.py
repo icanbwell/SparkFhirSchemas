@@ -23,6 +23,7 @@ class NarrativeSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A human-readable summary of the resource conveying the essential clinical and
@@ -97,6 +98,7 @@ class NarrativeSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -118,6 +120,7 @@ class NarrativeSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),
