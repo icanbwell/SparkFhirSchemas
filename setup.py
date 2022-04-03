@@ -45,7 +45,7 @@ fix_setuptools()
 
 # create the package setup
 setup(
-    install_requires=["pyspark==3.1.1"],
+    install_requires=["pyspark>=3.1.1"],
     name=package_name,
     version=version,
     author="Imran Qureshi",
