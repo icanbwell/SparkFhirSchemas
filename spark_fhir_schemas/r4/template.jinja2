@@ -20,10 +20,11 @@ class {{resource.Name}}Schema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
-        extension_fields: Optional[List[str]] = ["valueBoolean","valueCode","valueDate","valueDateTime","valueDecimal","valueId","valueInteger","valuePositiveInt","valueString","valueTime","valueUnsignedInt","valueUri","valueUrl"],
+        extension_fields: Optional[List[str]] = None,
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
 {%  if resource.Description %}
@@ -36,6 +37,8 @@ class {{resource.Name}}Schema:
     {%  endfor %}
 {%  endif %}
         """
+        if extension_fields is None:
+            extension_fields = ["valueBoolean","valueCode","valueDate","valueDateTime","valueDecimal","valueId","valueInteger","valuePositiveInt","valueString","valueTime","valueUnsignedInt","valueUri","valueUrl","valueReference","valueCodeableConcept","valueAddress"]
 {% for property in properties %}
     {% if property.UnderlyingDataType and property.UnderlyingDataType not in ["string","boolean","date","number"] %}
         {%  if property.UnderlyingDataType != resource.Name and property.IsUniqueUnderlyingDataType %}
@@ -54,6 +57,8 @@ class {{resource.Name}}Schema:
 {% if not properties %}
 {#    if it is a simple property #}
     {% if resource.Name.lower() == "datetime" %}
+        if use_date:
+            return DateType()
         return TimestampType()
     {% elif resource.Type == "date" or resource.Name.lower() == "date" %}
         return DateType()
@@ -107,7 +112,8 @@ class {{resource.Name}}Schema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth+1,
                             max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension
+                            include_modifierExtension=include_modifierExtension,
+                            use_date=use_date
                         )), True),
                     {% else %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(
@@ -119,7 +125,8 @@ class {{resource.Name}}Schema:
                             extension_fields=extension_fields,
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension
+                            include_modifierExtension=include_modifierExtension,
+                            use_date=use_date
                         )), True),
                     {% endif %}
                 {% elif property.Type == "date" or property.UnderlyingDataType == "date" %}
@@ -159,7 +166,8 @@ class {{resource.Name}}Schema:
                     extension_fields=extension_fields,
                     extension_depth=extension_depth+1,
                     max_extension_depth=max_extension_depth,
-                    include_modifierExtension=include_modifierExtension
+                    include_modifierExtension=include_modifierExtension,
+                    use_date=use_date
                 ), True),
             {% endif%}
         {% endfor%}

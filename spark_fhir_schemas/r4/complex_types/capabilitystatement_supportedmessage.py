@@ -21,24 +21,11 @@ class CapabilityStatement_SupportedMessageSchema:
         nesting_list: List[str] = [],
         max_recursion_limit: Optional[int] = 2,
         include_extension: Optional[bool] = False,
-        extension_fields: Optional[List[str]] = [
-            "valueBoolean",
-            "valueCode",
-            "valueDate",
-            "valueDateTime",
-            "valueDecimal",
-            "valueId",
-            "valueInteger",
-            "valuePositiveInt",
-            "valueString",
-            "valueTime",
-            "valueUnsignedInt",
-            "valueUri",
-            "valueUrl",
-        ],
+        extension_fields: Optional[List[str]] = None,
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
+        use_date: Optional[bool] = False,
     ) -> Union[StructType, DataType]:
         """
         A Capability Statement documents a set of capabilities (behaviors) of a FHIR
@@ -77,6 +64,25 @@ class CapabilityStatement_SupportedMessageSchema:
             structure, allowed responses, etc.
 
         """
+        if extension_fields is None:
+            extension_fields = [
+                "valueBoolean",
+                "valueCode",
+                "valueDate",
+                "valueDateTime",
+                "valueDecimal",
+                "valueId",
+                "valueInteger",
+                "valuePositiveInt",
+                "valueString",
+                "valueTime",
+                "valueUnsignedInt",
+                "valueUri",
+                "valueUrl",
+                "valueReference",
+                "valueCodeableConcept",
+                "valueAddress",
+            ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
 
@@ -113,6 +119,7 @@ class CapabilityStatement_SupportedMessageSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -143,6 +150,7 @@ class CapabilityStatement_SupportedMessageSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
+                            use_date=use_date,
                         )
                     ),
                     True,
@@ -164,6 +172,7 @@ class CapabilityStatement_SupportedMessageSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
+                        use_date=use_date,
                     ),
                     True,
                 ),

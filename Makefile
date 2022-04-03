@@ -2,108 +2,70 @@ LANG=en_US.utf-8
 
 export LANG
 
-BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
-VERSION=$(shell cat VERSION)
-VENV_NAME=venv
-GIT_HASH=${CIRCLE_SHA1}
-SPARK_VER=3.2.0
-HADOOP_VER=3.2
-PACKAGES_FOLDER=venv/lib/python3.7/site-packages
-SPF_BASE=${PACKAGES_FOLDER}
+Pipfile.lock: Pipfile
+	docker-compose run --rm --name spark_fhir_schemas dev pipenv lock --dev
 
-include spark_fhir_schemas/Makefile.spark
-include spark_fhir_schemas/Makefile.docker
-include spark_fhir_schemas/Makefile.python
-
-.PHONY:devsetup
-devsetup:venv
-	. $(VENV_NAME)/bin/activate && \
-    pip install --upgrade pip && \
-    pip install --upgrade -r requirements.txt && \
-    pip install --upgrade -r requirements-test.txt && \
-    pre-commit install && \
-    python setup.py install
-
-.PHONY:checks
-checks:venv
-	. $(VENV_NAME)/bin/activate && \
-    pip install --upgrade -r requirements.txt && \
-    flake8 spark_fhir_schemas && \
-    mypy spark_fhir_schemas --strict && \
-    flake8 tests && \
-    mypy tests --strict
-
-.PHONY:update
-update:
-	. $(VENV_NAME)/bin/activate && \
-	pip install --upgrade -r requirements.txt && \
-	pip install --upgrade -r requirements-test.txt
-
-.PHONY:build
-build:venv
-	. $(VENV_NAME)/bin/activate && \
-    pip install --upgrade pip && \
-    pip install --upgrade -r requirements.txt && \
-    python setup.py install && \
-    rm -r dist/ && \
-    python3 setup.py sdist bdist_wheel
-
-.PHONY:testpackage
-testpackage:venv build
-	. $(VENV_NAME)/bin/activate && \
-	python3 -m twine upload -u __token__ --repository testpypi dist/*
-# password can be set in TWINE_PASSWORD. https://twine.readthedocs.io/en/latest/
-
-.PHONY:package
-package:venv build
-	. $(VENV_NAME)/bin/activate && \
-	python3 -m twine upload -u __token__ --repository pypi dist/*
-# password can be set in TWINE_PASSWORD. https://twine.readthedocs.io/en/latest/
-
-.PHONY:tests
-tests:
-	. $(VENV_NAME)/bin/activate && \
-    pip install --upgrade -r requirements.txt && \
-	pip install --upgrade -r requirements-test.txt && \
-	pytest tests
-
-.PHONY:clean-pre-commit
-clean-pre-commit:
-	pre-commit clean
-
-.PHONY:setup-pre-commit
-setup-pre-commit:
-	pre-commit install
-
-.PHONY:run-pre-commit
-run-pre-commit:
-	pre-commit run --all-files
+.PHONY:devdocker
+devdocker: ## Builds the docker for dev
+	docker-compose build --no-cache
 
 .PHONY:init
-init: installspark up devsetup tests
+init: devdocker up setup-pre-commit  ## Initializes the local developer environment
+
+.PHONY: up
+up: Pipfile.lock
+	docker-compose up --build -d --remove-orphans
+
+.PHONY: down
+down:
+	docker-compose down
+
+.PHONY:clean-pre-commit
+clean-pre-commit: ## removes pre-commit hook
+	rm -f .git/hooks/pre-commit
+
+.PHONY:setup-pre-commit
+setup-pre-commit: Pipfile.lock
+	cp ./pre-commit-hook ./.git/hooks/pre-commit
+
+.PHONY:run-pre-commit
+run-pre-commit: setup-pre-commit
+	./.git/hooks/pre-commit
+
+.PHONY:update
+update: down Pipfile.lock setup-pre-commit  ## Updates all the packages using Pipfile
+	docker-compose run --rm --name sfs_pipenv dev pipenv sync --dev && \
+	make devdocker && \
+	make pipenv-setup
+
+.PHONY:tests
+tests: up
+	docker-compose run --rm --name sfs_tests dev pytest tests
+
+.PHONY: sphinx-html
+sphinx-html:
+	docker-compose run --rm --name spark_fhir_schemas dev make -C docsrc html
+	@echo "copy html to docs... why? https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316"
+	@rm -rf docs/*
+	@touch docs/.nojekyll
+	cp -a docsrc/_build/html/. docs
+
+.PHONY:pipenv-setup
+pipenv-setup:devdocker ## Brings up the bash shell in dev docker
+	docker-compose run --rm --name sfs_tests dev pipenv-setup sync --pipfile
+
+.PHONY:shell
+shell:devdocker ## Brings up the bash shell in dev docker
+	docker-compose run --rm --name sfs_shell dev /bin/bash
 
 .PHONY:schema
 schema:
-	. ${VENV_NAME}/bin/activate && \
-	python3 spark_fhir_schemas/r4/generate_schema.py && \
-	pre-commit run --all-files
-	pre-commit run --all-files
+	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/r4/generate_schema.py && \
+	make run-pre-commit
+	make run-pre-commit
 
 .PHONY:schema-stu3
 schema-stu3:
-	. ${VENV_NAME}/bin/activate && \
-	python3 spark_fhir_schemas/stu3/generate_schema.py && \
-	pre-commit run --all-files
-	pre-commit run --all-files
-# run twice to check that the formatting was fixed
-
-.PHONY:setup_packages
-setup_packages:
-	pip install --upgrade pip && \
-    pip install --upgrade -r requirements.txt && \
-    pip install --upgrade -r requirements-test.txt && \
-    python setup.py install
-
-.PHONY:continuous_integration
-continuous_integration:
-	pytest tests
+	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/stu3/generate_schema.py && \
+	make run-pre-commit
+	make run-pre-commit

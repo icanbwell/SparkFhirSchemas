@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  dev:
+    user: root
+    build:
+      dockerfile: spark.Dockerfile
+      context: .
+    image: sparkfhirschemas_dev
+    volumes:
+      - ./:/sfs/
+      - ~/.local/share/virtualenvs:/.local/share/virtualenvs:rw
+    container_name: sfs_dev
+    working_dir: /sfs
