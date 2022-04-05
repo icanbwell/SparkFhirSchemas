@@ -24,7 +24,8 @@ class codeSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         A string which has at least one character and no leading or trailing

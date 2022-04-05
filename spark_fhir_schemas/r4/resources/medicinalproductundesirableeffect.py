@@ -22,7 +22,8 @@ class MedicinalProductUndesirableEffectSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         Describe the undesirable effects of the medicinal product.
@@ -128,6 +129,11 @@ class MedicinalProductUndesirableEffectSchema:
         my_nesting_list: List[str] = nesting_list + [
             "MedicinalProductUndesirableEffect"
         ]
+        my_parent_path = (
+            parent_path + ".medicinalproductundesirableeffect"
+            if parent_path
+            else "medicinalproductundesirableeffect"
+        )
         schema = StructType(
             [
                 # This is a MedicinalProductUndesirableEffect resource
@@ -146,7 +152,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".id",
                     ),
                     True,
                 ),
@@ -165,7 +172,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -185,7 +193,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".implicitrules",
                     ),
                     True,
                 ),
@@ -202,7 +211,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".language",
                     ),
                     True,
                 ),
@@ -224,7 +234,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -244,7 +255,8 @@ class MedicinalProductUndesirableEffectSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -267,7 +279,8 @@ class MedicinalProductUndesirableEffectSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -298,7 +311,8 @@ class MedicinalProductUndesirableEffectSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -317,7 +331,8 @@ class MedicinalProductUndesirableEffectSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -335,7 +350,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -352,7 +368,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -369,7 +386,8 @@ class MedicinalProductUndesirableEffectSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -387,7 +405,8 @@ class MedicinalProductUndesirableEffectSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,

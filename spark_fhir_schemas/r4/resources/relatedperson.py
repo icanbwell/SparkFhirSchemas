@@ -32,7 +32,8 @@ class RelatedPersonSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         Information about a person that is involved in the care for a patient, but who
@@ -161,6 +162,9 @@ class RelatedPersonSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["RelatedPerson"]
+        my_parent_path = (
+            parent_path + ".relatedperson" if parent_path else "relatedperson"
+        )
         schema = StructType(
             [
                 # This is a RelatedPerson resource
@@ -179,7 +183,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".id",
                     ),
                     True,
                 ),
@@ -198,7 +203,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -218,7 +224,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".implicitrules",
                     ),
                     True,
                 ),
@@ -235,7 +242,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".language",
                     ),
                     True,
                 ),
@@ -257,7 +265,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -277,7 +286,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -300,7 +310,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -331,7 +342,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -350,7 +362,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -370,7 +383,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -388,7 +402,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -407,7 +422,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -426,7 +442,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -450,7 +467,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -469,7 +487,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -488,7 +507,8 @@ class RelatedPersonSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -506,7 +526,8 @@ class RelatedPersonSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,

@@ -30,7 +30,8 @@ class RiskAssessment_PredictionSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         An assessment of the likely outcome(s) for a patient or other subject as well
@@ -118,6 +119,11 @@ class RiskAssessment_PredictionSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["RiskAssessment_Prediction"]
+        my_parent_path = (
+            parent_path + ".riskassessment_prediction"
+            if parent_path
+            else "riskassessment_prediction"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -141,7 +147,8 @@ class RiskAssessment_PredictionSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -172,7 +179,8 @@ class RiskAssessment_PredictionSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -191,7 +199,8 @@ class RiskAssessment_PredictionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -210,7 +219,8 @@ class RiskAssessment_PredictionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -228,7 +238,8 @@ class RiskAssessment_PredictionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -248,7 +259,8 @@ class RiskAssessment_PredictionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".relativerisk",
                     ),
                     True,
                 ),
@@ -266,7 +278,8 @@ class RiskAssessment_PredictionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -284,7 +297,8 @@ class RiskAssessment_PredictionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),

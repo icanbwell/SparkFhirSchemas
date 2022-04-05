@@ -23,7 +23,8 @@ class VisionPrescription_LensSpecificationSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         An authorization for the provision of glasses and/or contact lenses to a
@@ -124,6 +125,11 @@ class VisionPrescription_LensSpecificationSchema:
         my_nesting_list: List[str] = nesting_list + [
             "VisionPrescription_LensSpecification"
         ]
+        my_parent_path = (
+            parent_path + ".visionprescription_lensspecification"
+            if parent_path
+            else "visionprescription_lensspecification"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -147,7 +153,8 @@ class VisionPrescription_LensSpecificationSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -178,7 +185,8 @@ class VisionPrescription_LensSpecificationSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -197,7 +205,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -216,7 +225,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".sphere",
                     ),
                     True,
                 ),
@@ -233,7 +243,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".cylinder",
                     ),
                     True,
                 ),
@@ -250,7 +261,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".axis",
                     ),
                     True,
                 ),
@@ -268,7 +280,8 @@ class VisionPrescription_LensSpecificationSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -286,7 +299,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".add",
                     ),
                     True,
                 ),
@@ -303,7 +317,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".power",
                     ),
                     True,
                 ),
@@ -320,7 +335,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".backcurve",
                     ),
                     True,
                 ),
@@ -337,7 +353,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".diameter",
                     ),
                     True,
                 ),
@@ -354,7 +371,8 @@ class VisionPrescription_LensSpecificationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -376,7 +394,8 @@ class VisionPrescription_LensSpecificationSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,

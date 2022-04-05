@@ -24,7 +24,8 @@ class MetaSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         The metadata about a resource. This is content in the resource that is
@@ -95,6 +96,7 @@ class MetaSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["Meta"]
+        my_parent_path = parent_path + ".meta" if parent_path else "meta"
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -118,7 +120,8 @@ class MetaSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -137,7 +140,8 @@ class MetaSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".versionid",
                     ),
                     True,
                 ),
@@ -154,7 +158,8 @@ class MetaSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".lastupdated",
                     ),
                     True,
                 ),
@@ -174,7 +179,8 @@ class MetaSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".source",
                     ),
                     True,
                 ),
@@ -194,7 +200,8 @@ class MetaSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -214,7 +221,8 @@ class MetaSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -235,7 +243,8 @@ class MetaSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,

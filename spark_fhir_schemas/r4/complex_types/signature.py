@@ -26,7 +26,8 @@ class SignatureSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         A signature along with supporting context. The signature may be a digital
@@ -101,6 +102,7 @@ class SignatureSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["Signature"]
+        my_parent_path = parent_path + ".signature" if parent_path else "signature"
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -124,7 +126,8 @@ class SignatureSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -145,7 +148,8 @@ class SignatureSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -163,7 +167,8 @@ class SignatureSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".when",
                     ),
                     True,
                 ),
@@ -181,7 +186,8 @@ class SignatureSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -199,7 +205,8 @@ class SignatureSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -217,7 +224,8 @@ class SignatureSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".targetformat",
                     ),
                     True,
                 ),
@@ -236,7 +244,8 @@ class SignatureSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".sigformat",
                     ),
                     True,
                 ),
@@ -254,7 +263,8 @@ class SignatureSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".data",
                     ),
                     True,
                 ),

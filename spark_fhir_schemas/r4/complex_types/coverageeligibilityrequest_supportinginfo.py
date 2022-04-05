@@ -33,7 +33,8 @@ class CoverageEligibilityRequest_SupportingInfoSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         The CoverageEligibilityRequest provides patient and insurance coverage
@@ -108,6 +109,11 @@ class CoverageEligibilityRequest_SupportingInfoSchema:
         my_nesting_list: List[str] = nesting_list + [
             "CoverageEligibilityRequest_SupportingInfo"
         ]
+        my_parent_path = (
+            parent_path + ".coverageeligibilityrequest_supportinginfo"
+            if parent_path
+            else "coverageeligibilityrequest_supportinginfo"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -131,7 +137,8 @@ class CoverageEligibilityRequest_SupportingInfoSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -162,7 +169,8 @@ class CoverageEligibilityRequest_SupportingInfoSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -180,7 +188,8 @@ class CoverageEligibilityRequest_SupportingInfoSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".sequence",
                     ),
                     True,
                 ),
@@ -198,7 +207,8 @@ class CoverageEligibilityRequest_SupportingInfoSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),

@@ -26,7 +26,8 @@ class MedicationDispense_PerformerSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         Indicates that a medication product is to be or has been dispensed for a named
@@ -99,6 +100,11 @@ class MedicationDispense_PerformerSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["MedicationDispense_Performer"]
+        my_parent_path = (
+            parent_path + ".medicationdispense_performer"
+            if parent_path
+            else "medicationdispense_performer"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -122,7 +128,8 @@ class MedicationDispense_PerformerSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -153,7 +160,8 @@ class MedicationDispense_PerformerSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -172,7 +180,8 @@ class MedicationDispense_PerformerSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -190,7 +199,8 @@ class MedicationDispense_PerformerSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),

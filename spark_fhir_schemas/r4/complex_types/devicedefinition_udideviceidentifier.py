@@ -23,7 +23,8 @@ class DeviceDefinition_UdiDeviceIdentifierSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         The characteristics, operational status and capabilities of a medical-related
@@ -94,6 +95,11 @@ class DeviceDefinition_UdiDeviceIdentifierSchema:
         my_nesting_list: List[str] = nesting_list + [
             "DeviceDefinition_UdiDeviceIdentifier"
         ]
+        my_parent_path = (
+            parent_path + ".devicedefinition_udideviceidentifier"
+            if parent_path
+            else "devicedefinition_udideviceidentifier"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -117,7 +123,8 @@ class DeviceDefinition_UdiDeviceIdentifierSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -148,7 +155,8 @@ class DeviceDefinition_UdiDeviceIdentifierSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -170,7 +178,8 @@ class DeviceDefinition_UdiDeviceIdentifierSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".issuer",
                     ),
                     True,
                 ),
@@ -187,7 +196,8 @@ class DeviceDefinition_UdiDeviceIdentifierSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".jurisdiction",
                     ),
                     True,
                 ),

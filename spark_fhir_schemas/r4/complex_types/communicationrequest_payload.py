@@ -24,7 +24,8 @@ class CommunicationRequest_PayloadSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         A request to convey information; e.g. the CDS system proposes that an alert be
@@ -96,6 +97,11 @@ class CommunicationRequest_PayloadSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["CommunicationRequest_Payload"]
+        my_parent_path = (
+            parent_path + ".communicationrequest_payload"
+            if parent_path
+            else "communicationrequest_payload"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -119,7 +125,8 @@ class CommunicationRequest_PayloadSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -150,7 +157,8 @@ class CommunicationRequest_PayloadSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -172,7 +180,8 @@ class CommunicationRequest_PayloadSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -190,7 +199,8 @@ class CommunicationRequest_PayloadSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),

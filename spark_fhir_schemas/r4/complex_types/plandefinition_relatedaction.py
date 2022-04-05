@@ -25,7 +25,8 @@ class PlanDefinition_RelatedActionSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         This resource allows for the definition of various types of plans as a
@@ -100,6 +101,11 @@ class PlanDefinition_RelatedActionSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["PlanDefinition_RelatedAction"]
+        my_parent_path = (
+            parent_path + ".plandefinition_relatedaction"
+            if parent_path
+            else "plandefinition_relatedaction"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -123,7 +129,8 @@ class PlanDefinition_RelatedActionSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -154,7 +161,8 @@ class PlanDefinition_RelatedActionSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -172,7 +180,8 @@ class PlanDefinition_RelatedActionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".actionid",
                     ),
                     True,
                 ),
@@ -192,7 +201,8 @@ class PlanDefinition_RelatedActionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -210,7 +220,8 @@ class PlanDefinition_RelatedActionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
