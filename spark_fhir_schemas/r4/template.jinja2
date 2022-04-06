@@ -24,7 +24,8 @@ class {{resource.Name}}Schema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
 {%  if resource.Description %}
@@ -57,7 +58,7 @@ class {{resource.Name}}Schema:
 {% if not properties %}
 {#    if it is a simple property #}
     {% if resource.Name.lower() == "datetime" %}
-        if use_date:
+        if use_date_for and parent_path in use_date_for:
             return DateType()
         return TimestampType()
     {% elif resource.Type == "date" or resource.Name.lower() == "date" %}
@@ -92,6 +93,7 @@ class {{resource.Name}}Schema:
     {%  else %}
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list+["{{resource.Name}}"]
+        my_parent_path = parent_path + ".{{resource.Name.lower()}}" if parent_path else "{{resource.Name.lower()}}"
         schema = StructType(
             [
         {% for property in properties%}
@@ -113,7 +115,8 @@ class {{resource.Name}}Schema:
                             extension_depth=extension_depth+1,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path
                         )), True),
                     {% else %}
                 StructField("{{property.Name}}",ArrayType({{property.UnderlyingDataType}}Schema.get_schema(
@@ -126,7 +129,8 @@ class {{resource.Name}}Schema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path
                         )), True),
                     {% endif %}
                 {% elif property.Type == "date" or property.UnderlyingDataType == "date" %}
@@ -156,6 +160,20 @@ class {{resource.Name}}Schema:
                 StructField("{{property.Name}}", BooleanType(), True),
             {% elif property.Type == "number" or property.UnderlyingDataType == "number" %}
                 StructField("{{property.Name}}", IntegerType(), True),
+            {% elif property.IsSimpleType %}
+                StructField("{{property.Name}}", {{property.UnderlyingDataType}}Schema.get_schema(
+                    max_nesting_depth=max_nesting_depth,
+                    nesting_depth=nesting_depth+1,
+                    nesting_list=my_nesting_list,
+                    max_recursion_limit=max_recursion_limit,
+                    include_extension=include_extension,
+                    extension_fields=extension_fields,
+                    extension_depth=extension_depth+1,
+                    max_extension_depth=max_extension_depth,
+                    include_modifierExtension=include_modifierExtension,
+                    use_date_for=use_date_for,
+                    parent_path=my_parent_path + ".{{property.Name.lower()}}"
+                ), True),
             {% else %}
                 StructField("{{property.Name}}", {{property.UnderlyingDataType}}Schema.get_schema(
                     max_nesting_depth=max_nesting_depth,
@@ -167,7 +185,8 @@ class {{resource.Name}}Schema:
                     extension_depth=extension_depth+1,
                     max_extension_depth=max_extension_depth,
                     include_modifierExtension=include_modifierExtension,
-                    use_date=use_date
+                    use_date_for=use_date_for,
+                    parent_path=my_parent_path
                 ), True),
             {% endif%}
         {% endfor%}

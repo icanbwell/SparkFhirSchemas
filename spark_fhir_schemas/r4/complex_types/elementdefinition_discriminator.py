@@ -23,7 +23,8 @@ class ElementDefinition_DiscriminatorSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         Captures constraints on each element within the resource, profile, or
@@ -89,6 +90,11 @@ class ElementDefinition_DiscriminatorSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["ElementDefinition_Discriminator"]
+        my_parent_path = (
+            parent_path + ".elementdefinition_discriminator"
+            if parent_path
+            else "elementdefinition_discriminator"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -112,7 +118,8 @@ class ElementDefinition_DiscriminatorSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -143,7 +150,8 @@ class ElementDefinition_DiscriminatorSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,

@@ -23,7 +23,8 @@ class Immunization_EducationSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         Describes the event of a patient being administered a vaccine or a record of
@@ -93,6 +94,11 @@ class Immunization_EducationSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["Immunization_Education"]
+        my_parent_path = (
+            parent_path + ".immunization_education"
+            if parent_path
+            else "immunization_education"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -116,7 +122,8 @@ class Immunization_EducationSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -147,7 +154,8 @@ class Immunization_EducationSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -168,7 +176,8 @@ class Immunization_EducationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".reference",
                     ),
                     True,
                 ),
@@ -185,7 +194,8 @@ class Immunization_EducationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".publicationdate",
                     ),
                     True,
                 ),
@@ -202,7 +212,8 @@ class Immunization_EducationSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".presentationdate",
                     ),
                     True,
                 ),

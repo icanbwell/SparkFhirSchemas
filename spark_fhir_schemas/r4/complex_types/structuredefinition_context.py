@@ -24,7 +24,8 @@ class StructureDefinition_ContextSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         A definition of a FHIR structure. This resource is used to describe the
@@ -89,6 +90,11 @@ class StructureDefinition_ContextSchema:
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
         my_nesting_list: List[str] = nesting_list + ["StructureDefinition_Context"]
+        my_parent_path = (
+            parent_path + ".structuredefinition_context"
+            if parent_path
+            else "structuredefinition_context"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -112,7 +118,8 @@ class StructureDefinition_ContextSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -143,7 +150,8 @@ class StructureDefinition_ContextSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,

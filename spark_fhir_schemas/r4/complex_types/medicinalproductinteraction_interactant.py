@@ -23,7 +23,8 @@ class MedicinalProductInteraction_InteractantSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         The interactions of the medicinal product with other medicinal products, or
@@ -93,6 +94,11 @@ class MedicinalProductInteraction_InteractantSchema:
         my_nesting_list: List[str] = nesting_list + [
             "MedicinalProductInteraction_Interactant"
         ]
+        my_parent_path = (
+            parent_path + ".medicinalproductinteraction_interactant"
+            if parent_path
+            else "medicinalproductinteraction_interactant"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -116,7 +122,8 @@ class MedicinalProductInteraction_InteractantSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -147,7 +154,8 @@ class MedicinalProductInteraction_InteractantSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -165,7 +173,8 @@ class MedicinalProductInteraction_InteractantSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -182,7 +191,8 @@ class MedicinalProductInteraction_InteractantSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),

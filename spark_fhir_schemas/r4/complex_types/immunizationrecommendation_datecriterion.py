@@ -23,7 +23,8 @@ class ImmunizationRecommendation_DateCriterionSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         A patient's point-in-time set of recommendations (i.e. forecasting) according
@@ -94,6 +95,11 @@ class ImmunizationRecommendation_DateCriterionSchema:
         my_nesting_list: List[str] = nesting_list + [
             "ImmunizationRecommendation_DateCriterion"
         ]
+        my_parent_path = (
+            parent_path + ".immunizationrecommendation_datecriterion"
+            if parent_path
+            else "immunizationrecommendation_datecriterion"
+        )
         schema = StructType(
             [
                 # Unique id for the element within a resource (for internal references). This
@@ -117,7 +123,8 @@ class ImmunizationRecommendation_DateCriterionSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -148,7 +155,8 @@ class ImmunizationRecommendation_DateCriterionSchema:
                             extension_depth=extension_depth,
                             max_extension_depth=max_extension_depth,
                             include_modifierExtension=include_modifierExtension,
-                            use_date=use_date,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
                         )
                     ),
                     True,
@@ -167,7 +175,8 @@ class ImmunizationRecommendation_DateCriterionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
                     ),
                     True,
                 ),
@@ -184,7 +193,8 @@ class ImmunizationRecommendation_DateCriterionSchema:
                         extension_depth=extension_depth + 1,
                         max_extension_depth=max_extension_depth,
                         include_modifierExtension=include_modifierExtension,
-                        use_date=use_date,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".value",
                     ),
                     True,
                 ),

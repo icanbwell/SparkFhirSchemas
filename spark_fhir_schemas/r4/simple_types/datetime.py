@@ -26,7 +26,8 @@ class dateTimeSchema:
         extension_depth: int = 0,
         max_extension_depth: Optional[int] = 2,
         include_modifierExtension: Optional[bool] = False,
-        use_date: Optional[bool] = False,
+        use_date_for: Optional[List[str]] = None,
+        parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
         A date, date-time or partial date (e.g. just year or year + month).  If hours
@@ -56,6 +57,6 @@ class dateTimeSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        if use_date:
+        if use_date_for and parent_path in use_date_for:
             return DateType()
         return TimestampType()
