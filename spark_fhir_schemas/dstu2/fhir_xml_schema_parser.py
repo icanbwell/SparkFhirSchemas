@@ -693,6 +693,18 @@ class FhirXmlSchemaParser:
                 for c in fhir_properties
                 if c.fhir_name == "value" and c.cleaned_type
             ]
+            base_type = (
+                inner_complex_type.get("base")
+                if hasattr(inner_complex_type, "base")
+                else None
+            )
+            if hasattr(inner_complex_type, "attribute"):
+                if inner_complex_type["attribute"].get("name") == "value":
+                    base_type = (
+                        inner_complex_type["attribute"]
+                        .get("type")
+                        .replace("-primitive", "")
+                    )
             if entity_type != "Element" or not any(value_properties):
                 # now create the entity
                 fhir_entity: FhirEntity = FhirEntity(
@@ -703,13 +715,24 @@ class FhirXmlSchemaParser:
                     documentation=documentation_entries,
                     properties=fhir_properties,
                     is_back_bone_element="." in entity_type if entity_type else False,
-                    base_type=inner_complex_type.get("base")
-                    if hasattr(inner_complex_type, "base")
-                    else None,
-                    base_type_list=[inner_complex_type.get("base")]
-                    if hasattr(inner_complex_type, "base")
-                    else [],
+                    base_type=base_type,
+                    base_type_list=[base_type] if base_type else [],
                     source=str(resource_xsd_file.parts[-1]),
+                )
+                fhir_entities.append(fhir_entity)
+            elif entity_type == "Element":  # simple type
+                fhir_entity: FhirEntity = FhirEntity(
+                    fhir_name=complex_type_name,
+                    cleaned_name=cleaned_complex_type_name,
+                    name_snake_case=complex_type_name_snake_case,
+                    type_=entity_type.replace("-primitive", ""),
+                    documentation=documentation_entries,
+                    properties=[],
+                    is_back_bone_element="." in entity_type if entity_type else False,
+                    base_type=base_type,
+                    base_type_list=[base_type] if base_type else [],
+                    source=str(resource_xsd_file.parts[-1]),
+                    is_basic_type=True,
                 )
                 fhir_entities.append(fhir_entity)
         return fhir_entities
@@ -889,6 +912,7 @@ class FhirXmlSchemaParser:
                         optional=False,
                         reference_target_resources_names=[],
                         reference_target_resources=[],
+                        javascript_clean_name=name,
                     )
                 )
 

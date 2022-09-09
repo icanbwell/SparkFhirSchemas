@@ -57,6 +57,11 @@ def main() -> int:
         shutil.rmtree(classes_resources_folder)
     os.mkdir(classes_resources_folder)
 
+    classes_simple_types_folder = classes_dir.joinpath("simple_types")
+    if os.path.exists(classes_simple_types_folder):
+        shutil.rmtree(classes_simple_types_folder)
+    os.mkdir(classes_simple_types_folder)
+
     classes_complex_types_folder = classes_dir.joinpath("complex_types")
     if os.path.exists(classes_complex_types_folder):
         shutil.rmtree(classes_complex_types_folder)
@@ -98,7 +103,7 @@ def main() -> int:
                 template_contents = file.read()
                 from jinja2 import Template
 
-                file_path = classes_resources_folder.joinpath(f"{entity_file_name}.py")
+                file_path = classes_resources_folder.joinpath(f"{entity_file_name.lower()}.py")
                 print(f"Writing domain resource: {entity_file_name} to {file_path}...")
                 template = Template(
                     template_contents, trim_blocks=True, lstrip_blocks=True
@@ -113,7 +118,7 @@ def main() -> int:
                 from jinja2 import Template
 
                 file_path = classes_backbone_elements_folder.joinpath(
-                    f"{entity_file_name}.py"
+                    f"{entity_file_name.lower()}.py"
                 )
                 print(f"Writing back bone class: {entity_file_name} to {file_path}...")
                 template = Template(
@@ -132,7 +137,7 @@ def main() -> int:
                 from jinja2 import Template
 
                 file_path = classes_complex_types_folder.joinpath(
-                    f"{entity_file_name}.py"
+                    f"{entity_file_name.lower()}.py"
                 )
                 print(f"Writing complex type: {entity_file_name} to {file_path}...")
                 template = Template(
@@ -144,14 +149,16 @@ def main() -> int:
             if not path.exists(file_path):
                 with open(file_path, "w") as file2:
                     file2.write(result)
-        elif fhir_entity.type_ == "Element":  # valueset
+        elif (
+            fhir_entity.type_ == "Element" and not fhir_entity.is_basic_type
+        ):  # valueset
             # write Javascript classes
             with open(data_dir.joinpath("template.jinja2"), "r") as file:
                 template_contents = file.read()
                 from jinja2 import Template
 
                 file_path = classes_complex_types_folder.joinpath(
-                    f"{entity_file_name}.py"
+                    f"{entity_file_name.lower()}.py"
                 )
                 print(f"Writing complex type: {entity_file_name} to {file_path}...")
                 template = Template(
@@ -169,9 +176,28 @@ def main() -> int:
                 from jinja2 import Template
 
                 file_path = classes_complex_types_folder.joinpath(
-                    f"{entity_file_name}.py"
+                    f"{entity_file_name.lower()}.py"
                 )
                 print(f"Writing complex_type: {entity_file_name} to {file_path}...")
+                template = Template(
+                    template_contents, trim_blocks=True, lstrip_blocks=True
+                )
+                result = template.render(
+                    fhir_entity=fhir_entity,
+                )
+
+            if not path.exists(file_path):
+                with open(file_path, "w") as file2:
+                    file2.write(result)
+        elif fhir_entity.is_basic_type:  # basic type
+            with open(data_dir.joinpath("template.jinja2"), "r") as file:
+                template_contents = file.read()
+                from jinja2 import Template
+
+                file_path = classes_simple_types_folder.joinpath(
+                    f"{entity_file_name.lower()}.py"
+                )
+                print(f"Writing simple_type: {entity_file_name} to {file_path}...")
                 template = Template(
                     template_contents, trim_blocks=True, lstrip_blocks=True
                 )
