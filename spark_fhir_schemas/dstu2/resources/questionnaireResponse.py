@@ -159,7 +159,7 @@ class QuestionnaireResponseSchema:
                 # are being provided.
                 StructField("questionnaire", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The lifecycle status of the questionnaire response as a whole.
-                StructField("status", QuestionnaireResponseStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The subject of the questionnaire response.  This could be a patient,
                 # organization, practitioner, device, etc.  This is who/what the answers apply
                 # to, but is not necessarily the source of information.

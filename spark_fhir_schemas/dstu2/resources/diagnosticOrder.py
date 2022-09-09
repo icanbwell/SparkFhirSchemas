@@ -190,9 +190,9 @@ class DiagnosticOrderSchema:
                 # One or more specimens that the diagnostic investigation is about.
                 StructField("specimen", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the order.
-                StructField("status", DiagnosticOrderStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The clinical priority associated with this order.
-                StructField("priority", DiagnosticOrderPrioritySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("priority", StringType(), True),
                 # A summary of the events of interest that have occurred as the request is
                 # processed; e.g. when the order was made, various processing steps (specimens
                 # received), when it was completed.

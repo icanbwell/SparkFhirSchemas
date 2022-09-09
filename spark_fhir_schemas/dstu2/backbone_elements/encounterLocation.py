@@ -81,7 +81,7 @@ class EncounterLocationSchema:
                 # The status of the participants' presence at the specified location during the
                 # period specified. If the participant is is no longer at the location, then the
                 # period will have an end date/time.
-                StructField("status", EncounterLocationStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Time period during which the patient was present at the location.
                 StructField("period", PeriodSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
