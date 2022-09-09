@@ -66,23 +66,41 @@ class SpecimenSchema:
         container: The container holding the specimen.  The recursive nature of containers; i.e.
     blood in tube in tray in rack is not addressed here.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.specimenstatuscode import SpecimenStatusCodeSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # parent
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # accessionIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # receivedTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # collection
         Not mapped: SpecimenCollection
+            # treatment
         Not mapped: SpecimenTreatment
+            # container
         Not mapped: SpecimenContainer
         if (max_recursion_limit and nesting_list.count("Specimen") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -132,7 +150,7 @@ class SpecimenSchema:
                 # Id for specimen.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The availability of the specimen.
-                StructField("status", SpecimenStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The kind of material that forms the specimen.
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Reference to the parent (source) specimen which is used when the specimen was

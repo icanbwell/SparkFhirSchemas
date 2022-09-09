@@ -87,23 +87,41 @@ class ProvenanceSchema:
         signature: A digital signature on the target Reference(s). The signer should match a
     Provenance.agent. The purpose of the signature is indicated.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # recorded
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # activity
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # policy
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # agent
         Not mapped: ProvenanceAgent
+            # entity
         Not mapped: ProvenanceEntity
+            # signature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
         if (max_recursion_limit and nesting_list.count("Provenance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

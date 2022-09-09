@@ -37,11 +37,17 @@ class ElementDefinitionBindingSchema:
         valueSetUri: None
         valueSetReference: None
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # strength
         from spark_fhir_schemas.dstu2.complex_types.bindingstrengthcode import BindingStrengthCodeSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueSetUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueSetReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ElementDefinitionBinding") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -61,7 +67,7 @@ class ElementDefinitionBindingSchema:
                 # Indicates the degree of conformance expectations associated with this binding
                 # - that is, the degree to which the provided value set must be adhered to in
                 # the instances.
-                StructField("strength", BindingStrengthCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("strength", StringType(), True),
                 # Describes the intended use of this particular set of codes.
                 StructField("description", StringType(), True),
                 # None

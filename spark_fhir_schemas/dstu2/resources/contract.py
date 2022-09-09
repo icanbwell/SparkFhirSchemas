@@ -88,32 +88,59 @@ class ContractSchema:
         legal: List of Legal expressions or representations of this Contract.
         rule: List of Computable Policy Rule Language Representations of this Contract.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # issued
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # applies
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # authority
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # domain
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # subType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # action
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # actionReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # actor
         Not mapped: ContractActor
+            # valuedItem
         Not mapped: ContractValuedItem
+            # signer
         Not mapped: ContractSigner
+            # term
         Not mapped: ContractTerm
+            # bindingAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # bindingReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # friendly
         Not mapped: ContractFriendly
+            # legal
         Not mapped: ContractLegal
+            # rule
         Not mapped: ContractRule
         if (max_recursion_limit and nesting_list.count("Contract") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

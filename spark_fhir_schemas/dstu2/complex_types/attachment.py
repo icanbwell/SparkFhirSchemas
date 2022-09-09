@@ -41,15 +41,25 @@ class AttachmentSchema:
         title: A label or set of text to display in place of the data.
         creation: The date that the attachment was first created.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # contentType
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # data
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # size
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # hash
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # title
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # creation
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("Attachment") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

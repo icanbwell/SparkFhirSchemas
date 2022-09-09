@@ -35,14 +35,23 @@ class BundleSchema:
     about a resource (transactions and history only).
         signature: Digital Signature - base64 encoded. XML DigSIg or a JWT.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.bundletypecode import BundleTypeCodeSchema
+            # total
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # link
         Not mapped: BundleLink
+            # entry
         Not mapped: BundleEntry
+            # signature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
         if (max_recursion_limit and nesting_list.count("Bundle") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -63,7 +72,7 @@ class BundleSchema:
                 # The base language in which the resource is written.
                 StructField("language", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the purpose of this bundle- how it was intended to be used.
-                StructField("type", BundleTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # If a set of search matches, this is the total number of matches for the search
                 # (as opposed to the number of results in this bundle).
                 StructField("total", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -64,21 +64,37 @@ class FlagSchema:
         author: The person, organization or device that created the flag.
         code: The coded value or textual component of the flag to display to the user.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.flagstatuscode import FlagStatusCodeSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("Flag") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -133,7 +149,7 @@ class FlagSchema:
                 # are displayed to particular user or in a given context.
                 StructField("category", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Supports basic workflow.
-                StructField("status", FlagStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The period of time from the activation of the flag to inactivation of the
                 # flag. If the flag is active, the end of the period should be unspecified.
                 StructField("period", PeriodSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

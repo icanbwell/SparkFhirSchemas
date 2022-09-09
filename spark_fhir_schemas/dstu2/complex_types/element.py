@@ -29,6 +29,7 @@ class ElementSchema:
     there is a set of requirements that SHALL be met as part of the definition of
     the extension.
         """
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         if (max_recursion_limit and nesting_list.count("Element") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

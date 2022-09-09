@@ -84,25 +84,45 @@ class NutritionOrderSchema:
         enteralFormula: Feeding provided through the gastrointestinal tract via a tube, catheter, or
     stoma that delivers nutrition distal to the oral cavity.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # orderer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.nutritionorderstatuscode import NutritionOrderStatusCodeSchema
+            # allergyIntolerance
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # foodPreferenceModifier
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # excludeFoodModifier
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # oralDiet
         Not mapped: NutritionOrderOralDiet
+            # supplement
         Not mapped: NutritionOrderSupplement
+            # enteralFormula
         Not mapped: NutritionOrderEnteralFormula
         if (max_recursion_limit and nesting_list.count("NutritionOrder") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -164,7 +184,7 @@ class NutritionOrderSchema:
                 # The date and time that this nutrition order was requested.
                 StructField("dateTime", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The workflow status of the nutrition order/request.
-                StructField("status", NutritionOrderStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A link to a record of allergies or intolerances  which should be included in
                 # the nutrition order.
                 StructField("allergyIntolerance", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -73,22 +73,39 @@ class QuestionnaireResponseSchema:
         group: A group of questions to a possibly similarly grouped set of questions in the
     questionnaire response.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # questionnaire
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.questionnaireresponsestatuscode import QuestionnaireResponseStatusCodeSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # authored
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # source
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # group
         Not mapped: QuestionnaireResponseGroup
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -142,7 +159,7 @@ class QuestionnaireResponseSchema:
                 # are being provided.
                 StructField("questionnaire", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The lifecycle status of the questionnaire response as a whole.
-                StructField("status", QuestionnaireResponseStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The subject of the questionnaire response.  This could be a patient,
                 # organization, practitioner, device, etc.  This is who/what the answers apply
                 # to, but is not necessarily the source of information.

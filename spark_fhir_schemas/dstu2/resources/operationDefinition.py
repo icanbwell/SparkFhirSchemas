@@ -92,32 +92,59 @@ class OperationDefinitionSchema:
     one of the given types.
         parameter: The parameters for the operation/query.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # kind
         from spark_fhir_schemas.dstu2.complex_types.operationkindcode import OperationKindCodeSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: OperationDefinitionContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # idempotent
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # notes
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # base
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # system
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # instance
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # parameter
         Not mapped: OperationDefinitionParameter
         if (max_recursion_limit and nesting_list.count("OperationDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -179,7 +206,7 @@ class OperationDefinitionSchema:
                 # The status of the profile.
                 StructField("status", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether this is an operation or a named query.
-                StructField("kind", OperationKindCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("kind", StringType(), True),
                 # This profile was authored for testing purposes (or
                 # education/evaluation/marketing), and is not intended to be used for genuine
                 # usage.

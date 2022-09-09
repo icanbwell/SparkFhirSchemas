@@ -84,33 +84,61 @@ class FamilyMemberHistorySchema:
     resource, though there is nothing stopping multiple resources - one per
     condition.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.familyhistorystatuscode import FamilyHistoryStatusCodeSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # gender
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # bornPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # bornDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # bornString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # ageQuantity
         Not mapped: Age
+            # ageRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # ageString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # deceasedBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # deceasedQuantity
         Not mapped: Age
+            # deceasedRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # deceasedDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # deceasedString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # condition
         Not mapped: FamilyMemberHistoryCondition
         if (max_recursion_limit and nesting_list.count("FamilyMemberHistory") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -167,7 +195,7 @@ class FamilyMemberHistorySchema:
                 # The date (and possibly time) when the family member history was taken.
                 StructField("date", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code specifying a state of a Family Member History record.
-                StructField("status", FamilyHistoryStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # This will either be a name or a description; e.g. "Aunt Susan", "my cousin
                 # with the red hair".
                 StructField("name", StringType(), True),

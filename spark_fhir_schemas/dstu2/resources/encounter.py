@@ -91,32 +91,59 @@ class EncounterSchema:
         partOf: Another Encounter of which this encounter is a part of (administratively or in
     time).
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.encounterstatecode import EncounterStateCodeSchema
+            # statusHistory
         Not mapped: EncounterStatusHistory
+            # class
         from spark_fhir_schemas.dstu2.complex_types.encounterclasscode import EncounterClassCodeSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # priority
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # episodeOfCare
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # incomingReferral
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # participant
         Not mapped: EncounterParticipant
+            # appointment
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # length
         Not mapped: Duration
+            # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # indication
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # hospitalization
         Not mapped: EncounterHospitalization
+            # location
         Not mapped: EncounterLocation
+            # serviceProvider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # partOf
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("Encounter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -166,13 +193,13 @@ class EncounterSchema:
                 # Identifier(s) by which this encounter is known.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # planned | arrived | in-progress | onleave | finished | cancelled.
-                StructField("status", EncounterStateCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The status history permits the encounter resource to contain the status
                 # history without needing to read through the historical versions of the
                 # resource, or even have the server store them.
                 StructField("statusHistory", EncounterStatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # inpatient | outpatient | ambulatory | emergency +.
-                StructField("class", EncounterClassCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("class", StringType(), True),
                 # Specific type of encounter (e.g. e-mail consultation, surgical day-care,
                 # skilled nursing, rehabilitation).
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -87,30 +87,55 @@ class MedicationDispenseSchema:
     substitution is not expected but does happen.  This block explains what
     substitution did or did not happen and why.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.medicationdispensestatuscode import MedicationDispenseStatusCodeSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dispenser
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # authorizingPrescription
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # quantity
         Not mapped: SimpleQuantity
+            # daysSupply
         Not mapped: SimpleQuantity
+            # medicationCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # medicationReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # whenPrepared
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # whenHandedOver
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # destination
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # receiver
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # note
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # dosageInstruction
         Not mapped: MedicationDispenseDosageInstruction
+            # substitution
         Not mapped: MedicationDispenseSubstitution
         if (max_recursion_limit and nesting_list.count("MedicationDispense") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -161,7 +186,7 @@ class MedicationDispenseSchema:
                 # assigned outside FHIR.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code specifying the state of the set of dispense events.
-                StructField("status", MedicationDispenseStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A link to a resource representing the person to whom the medication will be
                 # given.
                 StructField("patient", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

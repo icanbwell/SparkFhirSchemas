@@ -66,26 +66,47 @@ class CarePlanDetailSchema:
     objectives, pre-conditions and end-conditions.  Finally, it may convey
     specifics about the activity such as body site, method, route, etc.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonCode
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # goal
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.careplanactivitystatuscode import CarePlanActivityStatusCodeSchema
+            # statusReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # prohibited
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # scheduledTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # scheduledString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # performer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # productCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # productReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dailyAmount
         Not mapped: SimpleQuantity
+            # quantity
         Not mapped: SimpleQuantity
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("CarePlanDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -126,7 +147,7 @@ class CarePlanDetailSchema:
                 # contribute towards meeting.
                 StructField("goal", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies what progress is being made for the specific activity.
-                StructField("status", CarePlanActivityStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Provides reason why the activity isn't yet started, is on hold, was cancelled,
                 # etc.
                 StructField("statusReason", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

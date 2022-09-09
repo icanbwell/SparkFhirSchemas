@@ -80,28 +80,51 @@ class SearchParameterSchema:
     the xpath query.
         target: Types of resource (if a resource is referenced).
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: SearchParameterContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # base
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # xpath
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # xpathUsage
         from spark_fhir_schemas.dstu2.complex_types.xpathusagetypecode import XPathUsageTypeCodeSchema
+            # target
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("SearchParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -187,7 +210,7 @@ class SearchParameterSchema:
                 StructField("xpath", StringType(), True),
                 # How the search parameter relates to the set of elements returned by evaluating
                 # the xpath query.
-                StructField("xpathUsage", XPathUsageTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("xpathUsage", StringType(), True),
                 # Types of resource (if a resource is referenced).
                 StructField("target", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

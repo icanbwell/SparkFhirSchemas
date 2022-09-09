@@ -38,10 +38,15 @@ class PersonLinkSchema:
         assurance: Level of assurance that this link is actually associated with the target
     resource.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # assurance
         from spark_fhir_schemas.dstu2.complex_types.identityassurancelevelcode import IdentityAssuranceLevelCodeSchema
         if (max_recursion_limit and nesting_list.count("PersonLink") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -71,7 +76,7 @@ class PersonLinkSchema:
                 StructField("target", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Level of assurance that this link is actually associated with the target
                 # resource.
-                StructField("assurance", IdentityAssuranceLevelCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("assurance", StringType(), True),
             ]
         )
         if not include_extension:

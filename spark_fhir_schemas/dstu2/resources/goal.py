@@ -79,29 +79,53 @@ class GoalSchema:
         outcome: Identifies the change (or lack of change) at the point where the goal was
     deepmed to be cancelled or achieved.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # startDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # startCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # targetDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # targetQuantity
         Not mapped: Duration
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.goalstatuscode import GoalStatusCodeSchema
+            # statusDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # statusReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # priority
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # addresses
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # outcome
         Not mapped: GoalOutcome
         if (max_recursion_limit and nesting_list.count("Goal") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -169,7 +193,7 @@ class GoalSchema:
                 # Human-readable description of a specific desired objective of care.
                 StructField("description", StringType(), True),
                 # Indicates whether the goal has been reached and is still considered relevant.
-                StructField("status", GoalStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Identifies when the current status.  I.e. When initially created, when
                 # achieved, when cancelled, etc.
                 StructField("statusDate", DateType(), True),

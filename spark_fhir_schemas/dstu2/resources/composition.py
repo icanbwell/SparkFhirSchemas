@@ -91,27 +91,49 @@ class CompositionSchema:
     associated with.
         section: The root of the sections that make up the composition.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # class
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # title
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.compositionstatuscode import CompositionStatusCodeSchema
+            # confidentiality
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # attester
         Not mapped: CompositionAttester
+            # custodian
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # event
         Not mapped: CompositionEvent
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # section
         Not mapped: CompositionSection
         if (max_recursion_limit and nesting_list.count("Composition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -176,7 +198,7 @@ class CompositionSchema:
                 StructField("title", StringType(), True),
                 # The workflow/clinical status of this composition. The status is a marker for
                 # the clinical standing of the document.
-                StructField("status", CompositionStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The code specifying the level of confidentiality of the Composition.
                 StructField("confidentiality", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Who or what the composition is about. The composition can be about a person,

@@ -33,9 +33,13 @@ class NarrativeSchema:
     contain additional data.
         div: The actual narrative content, a stripped down version of XHTML.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.narrativestatuscode import NarrativeStatusCodeSchema
+            # div
         Not mapped: xhtml
         if (max_recursion_limit and nesting_list.count("Narrative") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -55,7 +59,7 @@ class NarrativeSchema:
                 # The status of the narrative - whether it's entirely generated (from just the
                 # defined data or the extensions too), or whether a human authored it and it may
                 # contain additional data.
-                StructField("status", NarrativeStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The actual narrative content, a stripped down version of XHTML.
                 StructField("div", xhtmlSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

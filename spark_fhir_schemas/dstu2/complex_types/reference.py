@@ -37,9 +37,13 @@ class ReferenceSchema:
         display: Plain text narrative that identifies the resource in addition to the resource
     reference.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # reference
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # display
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("Reference") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

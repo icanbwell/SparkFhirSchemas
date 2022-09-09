@@ -72,23 +72,41 @@ class DetectedIssueSchema:
     manifesting.  Can also reflect an observation of known mitigating factors that
     may reduce/eliminate the need for any action.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # severity
         from spark_fhir_schemas.dstu2.complex_types.detectedissueseveritycode import DetectedIssueSeverityCodeSchema
+            # implicated
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # detail
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # reference
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # mitigation
         Not mapped: DetectedIssueMitigation
         if (max_recursion_limit and nesting_list.count("DetectedIssue") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -141,7 +159,7 @@ class DetectedIssueSchema:
                 StructField("category", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the degree of importance associated with the identified issue based
                 # on the potential impact on the patient.
-                StructField("severity", DetectedIssueSeverityCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("severity", StringType(), True),
                 # Indicates the resource representing the current activity or proposed activity
                 # that is potentially problematic.
                 StructField("implicated", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

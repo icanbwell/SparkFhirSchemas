@@ -86,27 +86,49 @@ class DataElementSchema:
         element: Defines the structure, type, allowed values and other constraining
     characteristics of the data element.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: DataElementContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # stringency
         from spark_fhir_schemas.dstu2.complex_types.dataelementstringencycode import DataElementStringencyCodeSchema
+            # mapping
         Not mapped: DataElementMapping
+            # element
         from spark_fhir_schemas.dstu2.complex_types.elementdefinition import ElementDefinitionSchema
         if (max_recursion_limit and nesting_list.count("DataElement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -193,7 +215,7 @@ class DataElementSchema:
                 # publishing of the details of the definition of the data element.
                 StructField("copyright", StringType(), True),
                 # Identifies how precise the data element is in its definition.
-                StructField("stringency", DataElementStringencyCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("stringency", StringType(), True),
                 # Identifies a specification (other than a terminology) that the elements which
                 # make up the DataElement have some correspondence with.
                 StructField("mapping", DataElementMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

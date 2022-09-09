@@ -41,12 +41,19 @@ class QuantitySchema:
         system: The identification of the system that provides the coded form of the unit.
         code: A computer processable form of the unit in some unit representation system.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # value
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # comparator
         from spark_fhir_schemas.dstu2.complex_types.quantitycomparatorcode import QuantityComparatorCodeSchema
+            # unit
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # system
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("Quantity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -69,7 +76,7 @@ class QuantitySchema:
                 # How the value should be understood and represented - whether the actual value
                 # is greater or less than the stated value due to measurement issues; e.g. if
                 # the comparator is "<" , then the real value is < stated value.
-                StructField("comparator", QuantityComparatorCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("comparator", StringType(), True),
                 # A human-readable form of the unit.
                 StructField("unit", StringType(), True),
                 # The identification of the system that provides the coded form of the unit.

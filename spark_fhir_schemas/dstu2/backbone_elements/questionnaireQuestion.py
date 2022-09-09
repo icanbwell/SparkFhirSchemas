@@ -54,17 +54,29 @@ class QuestionnaireQuestionSchema:
         group: Nested group, containing nested question for this question. The order of
     groups within the question is relevant.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # linkId
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # concept
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.answerformatcode import AnswerFormatCodeSchema
+            # required
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # repeats
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # options
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # option
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # group
         Not mapped: QuestionnaireGroup
         if (max_recursion_limit and nesting_list.count("QuestionnaireQuestion") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -100,7 +112,7 @@ class QuestionnaireQuestionSchema:
                 StructField("text", StringType(), True),
                 # The expected format of the answer, e.g. the type of input (string, integer) or
                 # whether a (multiple) choice is expected.
-                StructField("type", AnswerFormatCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # If true, indicates that the question must be answered and have required groups
                 # within it also present.  If false, the question and any contained groups may
                 # be skipped when answering the questionnaire.

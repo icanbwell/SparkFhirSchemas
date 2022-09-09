@@ -79,28 +79,51 @@ class CommunicationRequestSchema:
         priority: Characterizes how quickly the proposed act must be initiated. Includes
     concepts such as stat, urgent, routine.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # sender
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # recipient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # payload
         Not mapped: CommunicationRequestPayload
+            # medium
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # requester
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.communicationrequeststatuscode import CommunicationRequestStatusCodeSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # scheduledDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # requestedOn
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # priority
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("CommunicationRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -170,7 +193,7 @@ class CommunicationRequestSchema:
                 # entered the statement into the order entry application.
                 StructField("requester", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the proposal or order.
-                StructField("status", CommunicationRequestStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The encounter within which the communication request was created.
                 StructField("encounter", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

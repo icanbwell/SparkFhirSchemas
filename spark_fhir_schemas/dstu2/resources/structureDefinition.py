@@ -114,38 +114,71 @@ class StructureDefinitionSchema:
         differential: A differential view is expressed relative to the base StructureDefinition - a
     statement of differences that it applies.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # display
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: StructureDefinitionContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # fhirVersion
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # mapping
         Not mapped: StructureDefinitionMapping
+            # kind
         from spark_fhir_schemas.dstu2.complex_types.structuredefinitionkindcode import StructureDefinitionKindCodeSchema
+            # constrainedType
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # abstract
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contextType
         from spark_fhir_schemas.dstu2.complex_types.extensioncontextcode import ExtensionContextCodeSchema
+            # context
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # base
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # snapshot
         Not mapped: StructureDefinitionSnapshot
+            # differential
         Not mapped: StructureDefinitionDifferential
         if (max_recursion_limit and nesting_list.count("StructureDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -252,7 +285,7 @@ class StructureDefinitionSchema:
                 # An external specification that the content is mapped to.
                 StructField("mapping", StructureDefinitionMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Defines the kind of structure that this definition is describing.
-                StructField("kind", StructureDefinitionKindCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("kind", StringType(), True),
                 # The type of type that is being constrained - a data type, an extension, a
                 # resource, including abstract ones. If this field is present, it indicates that
                 # the structure definition is a constraint. If it is not present, then the
@@ -263,7 +296,7 @@ class StructureDefinitionSchema:
                 StructField("abstract", BooleanType(), True),
                 # If this is an extension, Identifies the context within FHIR resources where
                 # the extension can be used.
-                StructField("contextType", ExtensionContextCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contextType", StringType(), True),
                 # Identifies the types of resource or data type elements to which the extension
                 # can be applied.
                 StructField("context", StringType(), True),

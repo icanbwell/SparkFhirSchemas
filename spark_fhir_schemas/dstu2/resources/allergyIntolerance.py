@@ -77,27 +77,49 @@ class AllergyIntoleranceSchema:
         reaction: Details about each adverse reaction event linked to exposure to the identified
     Substance.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # onset
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # recordedDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # recorder
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # reporter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.allergyintolerancestatuscode import AllergyIntoleranceStatusCodeSchema
+            # criticality
         from spark_fhir_schemas.dstu2.complex_types.allergyintolerancecriticalitycode import AllergyIntoleranceCriticalityCodeSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.allergyintolerancetypecode import AllergyIntoleranceTypeCodeSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.allergyintolerancecategorycode import AllergyIntoleranceCategoryCodeSchema
+            # lastOccurence
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # reaction
         Not mapped: AllergyIntoleranceReaction
         if (max_recursion_limit and nesting_list.count("AllergyIntolerance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -164,15 +186,15 @@ class AllergyIntoleranceSchema:
                 StructField("substance", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Assertion about certainty associated with the propensity, or potential risk,
                 # of a reaction to the identified Substance.
-                StructField("status", AllergyIntoleranceStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Estimate of the potential clinical harm, or seriousness, of the reaction to
                 # the identified Substance.
-                StructField("criticality", AllergyIntoleranceCriticalityCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("criticality", StringType(), True),
                 # Identification of the underlying physiological mechanism for the reaction
                 # risk.
-                StructField("type", AllergyIntoleranceTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # Category of the identified Substance.
-                StructField("category", AllergyIntoleranceCategoryCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("category", StringType(), True),
                 # Represents the date and/or time of the last known occurrence of a reaction
                 # event.
                 StructField("lastOccurence", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

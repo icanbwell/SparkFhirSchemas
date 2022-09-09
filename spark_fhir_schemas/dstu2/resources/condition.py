@@ -89,38 +89,71 @@ class ConditionSchema:
         notes: Additional information about the Condition. This is a general notes/comments
     entry  for description of the Condition, its diagnosis and prognosis.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # asserter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dateRecorded
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # clinicalStatus
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # verificationStatus
         from spark_fhir_schemas.dstu2.complex_types.conditionverificationstatuscode import ConditionVerificationStatusCodeSchema
+            # severity
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # onsetDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # onsetQuantity
         Not mapped: Age
+            # onsetPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # onsetString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # abatementDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # abatementQuantity
         Not mapped: Age
+            # abatementBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # abatementPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # abatementRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # abatementString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # stage
         Not mapped: ConditionStage
+            # evidence
         Not mapped: ConditionEvidence
+            # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # notes
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("Condition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -187,7 +220,7 @@ class ConditionSchema:
                 # The clinical status of the condition.
                 StructField("clinicalStatus", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The verification status to support the clinical status of the condition.
-                StructField("verificationStatus", ConditionVerificationStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("verificationStatus", StringType(), True),
                 # A subjective assessment of the severity of the condition as evaluated by the
                 # clinician.
                 StructField("severity", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

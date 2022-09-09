@@ -94,42 +94,79 @@ class ClaimSchema:
         missingTeeth: A list of teeth which would be expected but are not found due to having been
     previously  extracted or for other reasons.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.claimtypecode import ClaimTypeCodeSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # originalRuleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # created
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # provider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # organization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # use
         from spark_fhir_schemas.dstu2.complex_types.usecode import UseCodeSchema
+            # priority
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # fundsReserve
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # enterer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # facility
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # prescription
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # originalPrescription
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # payee
         Not mapped: ClaimPayee
+            # referral
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # diagnosis
         Not mapped: ClaimDiagnosis
+            # condition
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # coverage
         Not mapped: ClaimCoverage
+            # exception
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # school
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # accident
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # accidentType
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # interventionException
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # item
         Not mapped: ClaimItem
+            # additionalMaterials
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # missingTeeth
         Not mapped: ClaimMissingTeeth
         if (max_recursion_limit and nesting_list.count("Claim") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -177,7 +214,7 @@ class ClaimSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The category of claim this is.
-                StructField("type", ClaimTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # The business identifier for the instance: invoice number, claim number, pre-
                 # determination or pre-authorization number.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -197,7 +234,7 @@ class ClaimSchema:
                 StructField("organization", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Complete (Bill or Claim), Proposed (Pre-Authorization), Exploratory (Pre-
                 # determination).
-                StructField("use", UseCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("use", StringType(), True),
                 # Immediate (stat), best effort (normal), deferred (deferred).
                 StructField("priority", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # In the case of a Pre-Determination/Pre-Authorization the provider may request

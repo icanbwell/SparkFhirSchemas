@@ -33,9 +33,13 @@ class RatioSchema:
         numerator: The value of the numerator.
         denominator: The value of the denominator.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # numerator
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # denominator
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
         if (max_recursion_limit and nesting_list.count("Ratio") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

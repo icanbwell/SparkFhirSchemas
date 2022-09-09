@@ -39,10 +39,15 @@ class TimingSchema:
         code: A code for the timing pattern. Some codes such as BID are ubiquitous, but many
     institutions define their own additional codes.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # event
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # repeat
         from spark_fhir_schemas.dstu2.complex_types.timingrepeat import TimingRepeatSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("Timing") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -73,23 +73,41 @@ class DeviceComponentSchema:
         languageCode: Describes the language code for the human-readable text string produced by the
     device. This language code will follow the IETF language tag. Example: en-US.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # lastSystemChange
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # source
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # parent
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # operationalStatus
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # parameterGroup
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # measurementPrinciple
         from spark_fhir_schemas.dstu2.complex_types.measmnt_principlecode import Measmnt_PrincipleCodeSchema
+            # productionSpecification
         Not mapped: DeviceComponentProductionSpecification
+            # languageCode
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("DeviceComponent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -159,7 +177,7 @@ class DeviceComponentSchema:
                 StructField("parameterGroup", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the physical principle of the measurement. For example: thermal,
                 # chemical, acoustical, etc.
-                StructField("measurementPrinciple", Measmnt_PrincipleCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("measurementPrinciple", StringType(), True),
                 # Describes the production specification such as component revision, serial
                 # number, etc.
                 StructField("productionSpecification", DeviceComponentProductionSpecificationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

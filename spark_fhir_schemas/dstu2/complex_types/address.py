@@ -48,17 +48,29 @@ class AddressSchema:
         country: Country - a nation as commonly understood or generally accepted.
         period: Time period when address was/is in use.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # use
         from spark_fhir_schemas.dstu2.complex_types.addressusecode import AddressUseCodeSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.addresstypecode import AddressTypeCodeSchema
+            # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # line
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # city
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # district
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # state
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # postalCode
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # country
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("Address") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -76,10 +88,10 @@ class AddressSchema:
                 # the extension.
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The purpose of this address.
-                StructField("use", AddressUseCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("use", StringType(), True),
                 # Distinguishes between physical addresses (those you can visit) and mailing
                 # addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.
-                StructField("type", AddressTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # A full text representation of the address.
                 StructField("text", StringType(), True),
                 # This component contains the house number, apartment number, street name,

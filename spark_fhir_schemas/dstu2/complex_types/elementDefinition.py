@@ -302,236 +302,467 @@ class ElementDefinitionSchema:
         mapping: Identifies a concept from an external specification that roughly corresponds
     to this element.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # path
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # representation
         from spark_fhir_schemas.dstu2.complex_types.propertyrepresentationcode import PropertyRepresentationCodeSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # label
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # slicing
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionslicing import ElementDefinitionSlicingSchema
+            # short
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # definition
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # comments
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # requirements
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # alias
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # min
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # max
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # base
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionbase import ElementDefinitionBaseSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitiontype import ElementDefinitionTypeSchema
+            # nameReference
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # defaultValueBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # defaultValueInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # defaultValueDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # defaultValueUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # defaultValueMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # defaultValueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # defaultValueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # defaultValueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # defaultValueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # defaultValueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # defaultValueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # defaultValueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # defaultValuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # defaultValueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # defaultValueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # defaultValueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # defaultValueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # defaultValueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # defaultValueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # defaultValueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # defaultValueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # defaultValueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # meaningWhenMissing
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # fixedInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # fixedDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # fixedUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedPositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # fixedMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # fixedAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # fixedAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # fixedIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # fixedCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # fixedCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # fixedQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # fixedRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # fixedPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # fixedRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # fixedReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # fixedSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # fixedSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # fixedHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # fixedAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # fixedContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # fixedTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # fixedMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # patternBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # patternInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # patternDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # patternUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternPositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # patternMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patternAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # patternAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # patternIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # patternCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # patternCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # patternQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # patternRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # patternPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # patternRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # patternReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # patternSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # patternSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # patternHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # patternAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # patternContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # patternTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # patternMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # exampleBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # exampleInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # exampleDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # exampleUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # examplePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # exampleMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # exampleAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # exampleAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # exampleIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # exampleCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # exampleCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # exampleQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # exampleRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # examplePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # exampleRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # exampleReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # exampleSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # exampleSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # exampleHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # exampleAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # exampleContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # exampleTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # exampleMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # minValueBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # minValueInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # minValueDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # minValueUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # minValueMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # minValueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # minValueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # minValueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # minValueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # minValueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # minValueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # minValueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # minValuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # minValueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # minValueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # minValueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # minValueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # minValueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # minValueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # minValueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # minValueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # minValueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # maxValueBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # maxValueInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # maxValueDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # maxValueUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # maxValueMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # maxValueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # maxValueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # maxValueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # maxValueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # maxValueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # maxValueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # maxValueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # maxValuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # maxValueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # maxValueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # maxValueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # maxValueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # maxValueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # maxValueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # maxValueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # maxValueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # maxValueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # maxLength
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # condition
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # constraint
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionconstraint import ElementDefinitionConstraintSchema
+            # mustSupport
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # isModifier
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # isSummary
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # binding
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionbinding import ElementDefinitionBindingSchema
+            # mapping
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionmapping import ElementDefinitionMappingSchema
         if (max_recursion_limit and nesting_list.count("ElementDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -553,7 +784,7 @@ class ElementDefinitionSchema:
                 StructField("path", StringType(), True),
                 # Codes that define how this element is represented in instances, when the
                 # deviation varies from the normal case.
-                StructField("representation", PropertyRepresentationCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("representation", StringType(), True),
                 # The name of this element definition (to refer to it from other element
                 # definitions using ElementDefinition.nameReference). This is a unique name
                 # referring to a specific set of constraints applied to this element. One use of

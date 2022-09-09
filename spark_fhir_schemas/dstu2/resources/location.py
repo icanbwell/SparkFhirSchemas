@@ -71,25 +71,45 @@ class LocationSchema:
         managingOrganization: The organization responsible for the provisioning and upkeep of the location.
         partOf: Another Location which this Location is physically part of.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.locationstatuscode import LocationStatusCodeSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # mode
         from spark_fhir_schemas.dstu2.complex_types.locationmodecode import LocationModeCodeSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # physicalType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # position
         Not mapped: LocationPosition
+            # managingOrganization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # partOf
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("Location") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -139,14 +159,14 @@ class LocationSchema:
                 # Unique code or number identifying the location to its users.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # active | suspended | inactive.
-                StructField("status", LocationStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Name of the location as used by humans. Does not need to be unique.
                 StructField("name", StringType(), True),
                 # Description of the Location, which helps in finding or referencing the place.
                 StructField("description", StringType(), True),
                 # Indicates whether a resource instance represents a specific location or a
                 # class of locations.
-                StructField("mode", LocationModeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mode", StringType(), True),
                 # Indicates the type of function performed at the location.
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The contact details of communication devices available at the location. This

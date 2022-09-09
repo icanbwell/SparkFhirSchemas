@@ -56,22 +56,39 @@ class TestScriptOperationSchema:
     requests.
         url: Complete request URL.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # resource
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # label
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # accept
         from spark_fhir_schemas.dstu2.complex_types.contenttypecode import ContentTypeCodeSchema
+            # contentType
         from spark_fhir_schemas.dstu2.complex_types.contenttypecode import ContentTypeCodeSchema
+            # destination
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # encodeRequestUrl
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # params
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # requestHeader
         Not mapped: TestScriptRequestHeader
+            # responseId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # sourceId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # targetId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # url
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("TestScriptOperation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -108,10 +125,10 @@ class TestScriptOperationSchema:
                 StructField("description", StringType(), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Accept'
                 # header.
-                StructField("accept", ContentTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("accept", StringType(), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Content-
                 # Type' header.
-                StructField("contentType", ContentTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contentType", StringType(), True),
                 # Which server to perform the operation on.
                 StructField("destination", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether or not to implicitly send the request url in encoded format. The

@@ -43,12 +43,19 @@ class MetaSchema:
     relate resources to process and workflow, and applications are not required to
     consider the tags when interpreting the meaning of a resource.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # versionId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # lastUpdated
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # profile
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # security
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # tag
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("Meta") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

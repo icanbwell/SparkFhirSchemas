@@ -119,29 +119,53 @@ class MedicationStatementSchema:
         medicationReference: None
         dosage: Indicates how the medication is/was used by the patient.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # informationSource
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dateAsserted
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.medicationstatementstatuscode import MedicationStatementStatusCodeSchema
+            # wasNotTaken
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # reasonNotTaken
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonForUseCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonForUseReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # effectiveDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # effectivePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # note
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # supportingInformation
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # medicationCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # medicationReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dosage
         Not mapped: MedicationStatementDosage
         if (max_recursion_limit and nesting_list.count("MedicationStatement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -205,7 +229,7 @@ class MedicationStatementSchema:
                 # A code representing the patient or other source's judgment about the state of
                 # the medication used that this statement is about.  Generally this will be
                 # active or completed.
-                StructField("status", MedicationStatementStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Set this to true if the record is saying that the medication was NOT taken.
                 StructField("wasNotTaken", BooleanType(), True),
                 # A code indicating why the medication was not taken.

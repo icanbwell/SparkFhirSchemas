@@ -54,16 +54,27 @@ class AllergyIntoleranceReactionSchema:
         exposureRoute: Identification of the route by which the subject was exposed to the substance.
         note: Additional text about the adverse reaction event not captured in other fields.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # certainty
         from spark_fhir_schemas.dstu2.complex_types.allergyintolerancecertaintycode import AllergyIntoleranceCertaintyCodeSchema
+            # manifestation
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # onset
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # severity
         from spark_fhir_schemas.dstu2.complex_types.allergyintoleranceseveritycode import AllergyIntoleranceSeverityCodeSchema
+            # exposureRoute
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("AllergyIntoleranceReaction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -100,7 +111,7 @@ class AllergyIntoleranceReactionSchema:
                 StructField("substance", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Statement about the degree of clinical certainty that the specific substance
                 # was the cause of the manifestation in this reaction event.
-                StructField("certainty", AllergyIntoleranceCertaintyCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("certainty", StringType(), True),
                 # Clinical symptoms and/or signs that are observed or associated with the
                 # adverse reaction event.
                 StructField("manifestation", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -111,7 +122,7 @@ class AllergyIntoleranceReactionSchema:
                 StructField("onset", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Clinical assessment of the severity of the reaction event as a whole,
                 # potentially considering multiple different manifestations.
-                StructField("severity", AllergyIntoleranceSeverityCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("severity", StringType(), True),
                 # Identification of the route by which the subject was exposed to the substance.
                 StructField("exposureRoute", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Additional text about the adverse reaction event not captured in other fields.

@@ -64,41 +64,77 @@ class ExtensionSchema:
         valueTiming: None
         valueMeta: None
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueBase64Binary
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueCode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueOid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueUuid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueUnsignedInt
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueMarkdown
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # valueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # valueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # valueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # valueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # valueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # valueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
+            # valueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
+            # valueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
+            # valueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # valueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # valueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
         if (max_recursion_limit and nesting_list.count("Extension") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

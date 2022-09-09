@@ -28,6 +28,7 @@ class {{fhir_entity.cleaned_name}}Schema:
 {% for property in fhir_entity.properties %}
     {% if property.cleaned_type and property.cleaned_type not in ["string","boolean","date","number"] %}
         {%  if property.cleaned_type != fhir_entity.cleaned_name %}
+            # {{ property.name }}
             {% if property.is_resource %}
         from spark_fhir_schemas.dstu2.resources.{{property.cleaned_type.lower()}} import {{property.cleaned_type}}Schema
             {% elif property.is_basic_type %}
@@ -105,6 +106,8 @@ class {{fhir_entity.cleaned_name}}Schema:
                 StructField("{{property.name}}",ArrayType(IntegerType()), True),
                 {% endif %}
             {% elif not property.base_type and not property.type_ %}
+                StructField("{{property.name}}", StringType(), True),
+            {% elif property.is_code %}
                 StructField("{{property.name}}", StringType(), True),
             {% elif property.base_type == "date" or property.type_ == "date" %}
                 StructField("{{property.name}}", DateType(), True),

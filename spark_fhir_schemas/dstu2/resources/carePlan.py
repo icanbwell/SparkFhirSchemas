@@ -84,29 +84,53 @@ class CarePlanSchema:
     medication to be used, lab tests to perform, self-monitoring, education, etc.
         note: General notes about the care plan not covered elsewhere.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.careplanstatuscode import CarePlanStatusCodeSchema
+            # context
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # modified
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # addresses
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # support
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # relatedPlan
         Not mapped: CarePlanRelatedPlan
+            # participant
         Not mapped: CarePlanParticipant
+            # goal
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # activity
         Not mapped: CarePlanActivity
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("CarePlan") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -162,7 +186,7 @@ class CarePlanSchema:
                 StructField("subject", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates whether the plan is currently being acted upon, represents future
                 # intentions or is now a historical record.
-                StructField("status", CarePlanStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Identifies the context in which this particular CarePlan is defined.
                 StructField("context", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates when the plan did (or is intended to) come into effect and end.

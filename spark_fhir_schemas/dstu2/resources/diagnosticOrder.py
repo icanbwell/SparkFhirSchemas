@@ -79,25 +79,45 @@ class DiagnosticOrderSchema:
         note: Any other notes associated with this patient, specimen or order (e.g. "patient
     hates needles").
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # orderer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # supportingInformation
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # specimen
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.diagnosticorderstatuscode import DiagnosticOrderStatusCodeSchema
+            # priority
         from spark_fhir_schemas.dstu2.complex_types.diagnosticorderprioritycode import DiagnosticOrderPriorityCodeSchema
+            # event
         Not mapped: DiagnosticOrderEvent
+            # item
         Not mapped: DiagnosticOrderItem
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("DiagnosticOrder") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -170,9 +190,9 @@ class DiagnosticOrderSchema:
                 # One or more specimens that the diagnostic investigation is about.
                 StructField("specimen", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the order.
-                StructField("status", DiagnosticOrderStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The clinical priority associated with this order.
-                StructField("priority", DiagnosticOrderPriorityCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("priority", StringType(), True),
                 # A summary of the events of interest that have occurred as the request is
                 # processed; e.g. when the order was made, various processing steps (specimens
                 # received), when it was completed.

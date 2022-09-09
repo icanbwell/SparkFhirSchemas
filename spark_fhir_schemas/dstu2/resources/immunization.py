@@ -82,34 +82,63 @@ class ImmunizationSchema:
         vaccinationProtocol: Contains information about the protocol(s) under which the vaccine was
     administered.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # vaccineCode
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # wasNotGiven
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # reported
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # performer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # requester
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # manufacturer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # lotNumber
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # expirationDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # site
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # route
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # doseQuantity
         Not mapped: SimpleQuantity
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # explanation
         Not mapped: ImmunizationExplanation
+            # reaction
         Not mapped: ImmunizationReaction
+            # vaccinationProtocol
         Not mapped: ImmunizationVaccinationProtocol
         if (max_recursion_limit and nesting_list.count("Immunization") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

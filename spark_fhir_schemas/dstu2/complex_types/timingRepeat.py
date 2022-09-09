@@ -53,20 +53,35 @@ class TimingRepeatSchema:
         periodUnits: The units of time for the period in UCUM units.
         when: A real world event that the occurrence of the event should be tied to.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # boundsQuantity
         Not mapped: Duration
+            # boundsRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # boundsPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # count
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # duration
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # durationMax
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # durationUnits
         from spark_fhir_schemas.dstu2.complex_types.unitsoftimecode import UnitsOfTimeCodeSchema
+            # frequency
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # frequencyMax
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # periodMax
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # periodUnits
         from spark_fhir_schemas.dstu2.complex_types.unitsoftimecode import UnitsOfTimeCodeSchema
+            # when
         from spark_fhir_schemas.dstu2.complex_types.eventtimingcode import EventTimingCodeSchema
         if (max_recursion_limit and nesting_list.count("TimingRepeat") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -96,7 +111,7 @@ class TimingRepeatSchema:
                 # The upper limit of how long this thing happens for when it happens.
                 StructField("durationMax", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The units of time for the duration, in UCUM units.
-                StructField("durationUnits", UnitsOfTimeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("durationUnits", StringType(), True),
                 # The number of times to repeat the action within the specified period / period
                 # range (i.e. both period and periodMax provided).
                 StructField("frequency", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -111,9 +126,9 @@ class TimingRepeatSchema:
                 # allowing expressing concepts such as "do this once every 3-5 days.
                 StructField("periodMax", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The units of time for the period in UCUM units.
-                StructField("periodUnits", UnitsOfTimeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("periodUnits", StringType(), True),
                 # A real world event that the occurrence of the event should be tied to.
-                StructField("when", EventTimingCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("when", StringType(), True),
             ]
         )
         if not include_extension:

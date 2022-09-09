@@ -109,34 +109,63 @@ class ConformanceSchema:
         messaging: A description of the messaging capabilities of the solution.
         document: A document definition.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: ConformanceContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # kind
         from spark_fhir_schemas.dstu2.complex_types.conformancestatementkindcode import ConformanceStatementKindCodeSchema
+            # software
         Not mapped: ConformanceSoftware
+            # implementation
         Not mapped: ConformanceImplementation
+            # fhirVersion
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # acceptUnknown
         from spark_fhir_schemas.dstu2.complex_types.unknowncontentcodecode import UnknownContentCodeCodeSchema
+            # format
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # rest
         Not mapped: ConformanceRest
+            # messaging
         Not mapped: ConformanceMessaging
+            # document
         Not mapped: ConformanceDocument
         if (max_recursion_limit and nesting_list.count("Conformance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -226,7 +255,7 @@ class ConformanceSchema:
                 # The way that this statement is intended to be used, to describe an actual
                 # running instance of software, a particular product (kind not instance of
                 # software) or a class of implementation (e.g. a desired purchase).
-                StructField("kind", ConformanceStatementKindCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("kind", StringType(), True),
                 # Software that is covered by this conformance statement.  It is used when the
                 # conformance statement describes the capabilities of a particular software
                 # version, independent of an installation.
@@ -240,7 +269,7 @@ class ConformanceSchema:
                 StructField("fhirVersion", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code that indicates whether the application accepts unknown elements or
                 # extensions when reading resources.
-                StructField("acceptUnknown", UnknownContentCodeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("acceptUnknown", StringType(), True),
                 # A list of the formats supported by this implementation using their content
                 # types.
                 StructField("format", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

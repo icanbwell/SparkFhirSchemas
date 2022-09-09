@@ -48,15 +48,25 @@ class ImplementationGuideResourceSchema:
         exampleFor: Another resource that this resource is an example for. This is mostly used for
     resources that are included as examples of StructureDefinitions.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # purpose
         from spark_fhir_schemas.dstu2.complex_types.guideresourcepurposecode import GuideResourcePurposeCodeSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # acronym
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # sourceUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # sourceReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # exampleFor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ImplementationGuideResource") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -83,7 +93,7 @@ class ImplementationGuideResourceSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Why the resource is included in the guide.
-                StructField("purpose", GuideResourcePurposeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("purpose", StringType(), True),
                 # A human assigned name for the resource. All resources SHOULD have a name, but
                 # the name may be extracted from the resource (e.g. ValueSet.name).
                 StructField("name", StringType(), True),

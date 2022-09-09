@@ -69,21 +69,37 @@ class QuestionnaireSchema:
         subjectType: Identifies the types of subjects that can be the subject of the questionnaire.
         group: A collection of related questions (or further groupings of questions).
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.questionnairestatuscode import QuestionnaireStatusCodeSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # subjectType
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # group
         Not mapped: QuestionnaireGroup
         if (max_recursion_limit and nesting_list.count("Questionnaire") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -139,7 +155,7 @@ class QuestionnaireSchema:
                 # remain the same when the resource is updated.
                 StructField("version", StringType(), True),
                 # The lifecycle status of the questionnaire as a whole.
-                StructField("status", QuestionnaireStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The date that this questionnaire was last changed.
                 StructField("date", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Organization or person responsible for developing and maintaining the

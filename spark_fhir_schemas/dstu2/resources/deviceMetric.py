@@ -88,23 +88,41 @@ class DeviceMetricSchema:
         calibration: Describes the calibrations that have been performed or that are required to be
     performed.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # unit
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # source
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # parent
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # operationalStatus
         from spark_fhir_schemas.dstu2.complex_types.devicemetricoperationalstatuscode import DeviceMetricOperationalStatusCodeSchema
+            # color
         from spark_fhir_schemas.dstu2.complex_types.devicemetriccolorcode import DeviceMetricColorCodeSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.devicemetriccategorycode import DeviceMetricCategoryCodeSchema
+            # measurementPeriod
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # calibration
         Not mapped: DeviceMetricCalibration
         if (max_recursion_limit and nesting_list.count("DeviceMetric") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -174,16 +192,16 @@ class DeviceMetricSchema:
                 StructField("parent", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates current operational state of the device. For example: On, Off,
                 # Standby, etc.
-                StructField("operationalStatus", DeviceMetricOperationalStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("operationalStatus", StringType(), True),
                 # Describes the color representation for the metric. This is often used to aid
                 # clinicians to track and identify parameter types by color. In practice,
                 # consider a Patient Monitor that has ECG/HR and Pleth for example; the
                 # parameters are displayed in different characteristic colors, such as HR-blue,
                 # BP-green, and PR and SpO2- magenta.
-                StructField("color", DeviceMetricColorCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("color", StringType(), True),
                 # Indicates the category of the observation generation process. A DeviceMetric
                 # can be for example a setting, measurement, or calculation.
-                StructField("category", DeviceMetricCategoryCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("category", StringType(), True),
                 # Describes the measurement repetition time. This is not necessarily the same as
                 # the update period. The measurement repetition time can range from milliseconds
                 # up to hours. An example for a measurement repetition time in the range of

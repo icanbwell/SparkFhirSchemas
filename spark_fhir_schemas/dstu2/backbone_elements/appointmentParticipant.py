@@ -44,12 +44,19 @@ class AppointmentParticipantSchema:
     patient, and the patient is not required to be present.
         status: Participation status of the Patient.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # actor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # required
         from spark_fhir_schemas.dstu2.complex_types.participantrequiredcode import ParticipantRequiredCodeSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.participationstatuscode import ParticipationStatusCodeSchema
         if (max_recursion_limit and nesting_list.count("AppointmentParticipant") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -83,9 +90,9 @@ class AppointmentParticipantSchema:
                 # Is this participant required to be present at the meeting. This covers a use-
                 # case where 2 doctors need to meet to discuss the results for a specific
                 # patient, and the patient is not required to be present.
-                StructField("required", ParticipantRequiredCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("required", StringType(), True),
                 # Participation status of the Patient.
-                StructField("status", ParticipationStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
             ]
         )
         if not include_extension:

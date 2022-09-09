@@ -47,12 +47,19 @@ class SubscriptionChannelSchema:
     the notification, just a notification.
         header: Additional headers / information to send as part of the notification.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.subscriptionchanneltypecode import SubscriptionChannelTypeCodeSchema
+            # endpoint
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # payload
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # header
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("SubscriptionChannel") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -79,7 +86,7 @@ class SubscriptionChannelSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of channel to send notifications on.
-                StructField("type", SubscriptionChannelTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # The uri that describes the actual end-point to send messages to.
                 StructField("endpoint", StringType(), True),
                 # The mime type to send the payload in - either application/xml+fhir, or

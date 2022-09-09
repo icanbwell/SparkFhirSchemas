@@ -39,12 +39,19 @@ class ContactPointSchema:
     ranked with lower values coming before higher values.
         period: Time period when the contact point was/is in use.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # system
         from spark_fhir_schemas.dstu2.complex_types.contactpointsystemcode import ContactPointSystemCodeSchema
+            # value
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # use
         from spark_fhir_schemas.dstu2.complex_types.contactpointusecode import ContactPointUseCodeSchema
+            # rank
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("ContactPoint") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -63,12 +70,12 @@ class ContactPointSchema:
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Telecommunications form for contact point - what communications system is
                 # required to make use of the contact.
-                StructField("system", ContactPointSystemCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("system", StringType(), True),
                 # The actual contact point details, in a form that is meaningful to the
                 # designated communication system (i.e. phone number or email address).
                 StructField("value", StringType(), True),
                 # Identifies the purpose for the contact point.
-                StructField("use", ContactPointUseCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("use", StringType(), True),
                 # Specifies a preferred order in which to use a set of contacts. Contacts are
                 # ranked with lower values coming before higher values.
                 StructField("rank", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

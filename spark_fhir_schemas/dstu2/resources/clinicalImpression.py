@@ -92,31 +92,57 @@ class ClinicalImpressionSchema:
         plan: Plan of action after assessment.
         action: Actions taken during assessment.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # assessor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.clinicalimpressionstatuscode import ClinicalImpressionStatusCodeSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # previous
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # problem
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # triggerCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # triggerReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # investigations
         Not mapped: ClinicalImpressionInvestigations
+            # protocol
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # summary
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # finding
         Not mapped: ClinicalImpressionFinding
+            # resolved
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # ruledOut
         Not mapped: ClinicalImpressionRuledOut
+            # prognosis
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # plan
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # action
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ClinicalImpression") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -168,7 +194,7 @@ class ClinicalImpressionSchema:
                 # The clinician performing the assessment.
                 StructField("assessor", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the workflow status of the assessment.
-                StructField("status", ClinicalImpressionStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The point in time at which the assessment was concluded (not when it was
                 # recorded).
                 StructField("date", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

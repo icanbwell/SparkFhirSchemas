@@ -62,18 +62,31 @@ class MedicationSchema:
         product: Information that only applies to products (not packages).
         package: Information that only applies to packages (not products).
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # isBrand
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # manufacturer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # product
         Not mapped: MedicationProduct
+            # package
         Not mapped: MedicationPackage
         if (max_recursion_limit and nesting_list.count("Medication") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

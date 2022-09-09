@@ -55,17 +55,29 @@ class ConformanceRestSchema:
         compartment: An absolute URI which is a reference to the definition of a compartment hosted
     by the system.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # mode
         from spark_fhir_schemas.dstu2.complex_types.restfulconformancemodecode import RestfulConformanceModeCodeSchema
+            # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # security
         Not mapped: ConformanceSecurity
+            # resource
         Not mapped: ConformanceResource
+            # interaction
         Not mapped: ConformanceInteraction1
+            # transactionMode
         from spark_fhir_schemas.dstu2.complex_types.transactionmodecode import TransactionModeCodeSchema
+            # searchParam
         Not mapped: ConformanceSearchParam
+            # operation
         Not mapped: ConformanceOperation
+            # compartment
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ConformanceRest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -93,7 +105,7 @@ class ConformanceRestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies whether this portion of the statement is describing ability to
                 # initiate or receive restful operations.
-                StructField("mode", RestfulConformanceModeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mode", StringType(), True),
                 # Information about the system's restful capabilities that apply across all
                 # applications, such as security.
                 StructField("documentation", StringType(), True),
@@ -106,7 +118,7 @@ class ConformanceRestSchema:
                 # A specification of restful operations supported by the system.
                 StructField("interaction", ConformanceInteraction1Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code that indicates how transactions are supported.
-                StructField("transactionMode", TransactionModeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("transactionMode", StringType(), True),
                 # Search parameters that are supported for searching all resources for
                 # implementations to support and/or make use of - either references to ones
                 # defined in the specification, or additional ones defined for/by the

@@ -47,14 +47,23 @@ class BundleRequestSchema:
     Create"](http.html#ccreate). This is just the query portion of the URL - what
     follows the "?" (not including the "?").
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # method
         from spark_fhir_schemas.dstu2.complex_types.httpverbcode import HTTPVerbCodeSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # ifNoneMatch
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # ifModifiedSince
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # ifMatch
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # ifNoneExist
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("BundleRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -82,7 +91,7 @@ class BundleRequestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The HTTP verb for this entry in either a update history, or a transaction/
                 # transaction response.
-                StructField("method", HTTPVerbCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("method", StringType(), True),
                 # The URL for this entry, relative to the root (the address to which the request
                 # is posted).
                 StructField("url", StringType(), True),

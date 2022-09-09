@@ -54,19 +54,33 @@ class ImagingStudySeriesSchema:
         started: The date and time the series was started.
         instance: A single SOP Instance within the series, e.g. an image, or presentation state.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # number
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # modality
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # uid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # numberOfInstances
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # availability
         from spark_fhir_schemas.dstu2.complex_types.instanceavailabilitycode import InstanceAvailabilityCodeSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # bodySite
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # laterality
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # started
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # instance
         Not mapped: ImagingStudyInstance
         if (max_recursion_limit and nesting_list.count("ImagingStudySeries") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -103,7 +117,7 @@ class ImagingStudySeriesSchema:
                 # Number of SOP Instances in Series.
                 StructField("numberOfInstances", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Availability of series (online, offline or nearline).
-                StructField("availability", InstanceAvailabilityCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("availability", StringType(), True),
                 # URI/URL specifying the location of the referenced series using WADO-RS.
                 StructField("url", StringType(), True),
                 # Body part examined. See  DICOM Part 16 Annex L for the mapping from DICOM to

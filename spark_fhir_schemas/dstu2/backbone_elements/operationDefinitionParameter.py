@@ -47,16 +47,27 @@ class OperationDefinitionParameterSchema:
     CodeableConcept).
         part: The parts of a Tuple Parameter.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # name
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # use
         from spark_fhir_schemas.dstu2.complex_types.operationparameterusecode import OperationParameterUseCodeSchema
+            # min
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # max
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # binding
         Not mapped: OperationDefinitionBinding
         if (max_recursion_limit and nesting_list.count("OperationDefinitionParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -85,7 +96,7 @@ class OperationDefinitionParameterSchema:
                 # The name of used to identify the parameter.
                 StructField("name", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether this is an input or an output parameter.
-                StructField("use", OperationParameterUseCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("use", StringType(), True),
                 # The minimum number of times this parameter SHALL appear in the request or
                 # response.
                 StructField("min", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

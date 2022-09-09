@@ -39,14 +39,23 @@ class HumanNameSchema:
     employment or nobility status, etc. and that appears at the end of the name.
         period: Indicates the period of time when this name was valid for the named person.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # use
         from spark_fhir_schemas.dstu2.complex_types.nameusecode import NameUseCodeSchema
+            # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # family
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # given
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # prefix
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # suffix
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("HumanName") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -64,7 +73,7 @@ class HumanNameSchema:
                 # the extension.
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the purpose for this name.
-                StructField("use", NameUseCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("use", StringType(), True),
                 # A full text representation of the name.
                 StructField("text", StringType(), True),
                 # The part of a name that links to the genealogy. In some cultures (e.g.

@@ -89,29 +89,53 @@ class MedicationAdministrationSchema:
         dosage: Describes the medication dosage information details e.g. dose, rate, site,
     route, etc.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.medicationadministrationstatuscode import MedicationAdministrationStatusCodeSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # practitioner
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # prescription
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # wasNotGiven
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # reasonNotGiven
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonGiven
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # effectiveTimeDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # effectiveTimePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # medicationCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # medicationReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # device
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # note
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # dosage
         Not mapped: MedicationAdministrationDosage
         if (max_recursion_limit and nesting_list.count("MedicationAdministration") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -170,7 +194,7 @@ class MedicationAdministrationSchema:
                 # some long running administrations such as infusions it is possible for an
                 # administration to be started but not completed or it may be paused while some
                 # other process is under way.
-                StructField("status", MedicationAdministrationStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The person or animal receiving the medication.
                 StructField("patient", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The individual who was responsible for giving the medication to the patient.

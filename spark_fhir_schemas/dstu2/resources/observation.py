@@ -104,43 +104,81 @@ class ObservationSchema:
     for blood pressure measurement and multiple component observations for
     genetics observations.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.observationstatuscode import ObservationStatusCodeSchema
+            # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # effectiveDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # effectivePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # issued
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # performer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # valueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # valueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # valueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # valueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # dataAbsentReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # interpretation
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # comments
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # method
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # specimen
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # device
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # referenceRange
         Not mapped: ObservationReferenceRange
+            # related
         Not mapped: ObservationRelated
+            # component
         Not mapped: ObservationComponent
         if (max_recursion_limit and nesting_list.count("Observation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -190,7 +228,7 @@ class ObservationSchema:
                 # A unique identifier for the simple observation instance.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the result value.
-                StructField("status", ObservationStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A code that classifies the general type of observation being made.  This is
                 # used  for searching, sorting and display purposes.
                 StructField("category", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

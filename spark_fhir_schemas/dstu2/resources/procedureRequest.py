@@ -73,31 +73,57 @@ class ProcedureRequestSchema:
     procedure.
         priority: The clinical priority associated with this order.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # scheduledDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # scheduledTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # performer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.procedurerequeststatuscode import ProcedureRequestStatusCodeSchema
+            # notes
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # asNeededBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # asNeededCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # orderedOn
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # orderer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # priority
         from spark_fhir_schemas.dstu2.complex_types.procedurerequestprioritycode import ProcedureRequestPriorityCodeSchema
         if (max_recursion_limit and nesting_list.count("ProcedureRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -169,7 +195,7 @@ class ProcedureRequestSchema:
                 # For example, the surgeon, anaethetist, endoscopist, etc.
                 StructField("performer", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the order.
-                StructField("status", ProcedureRequestStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Any other notes associated with this proposal or order - e.g. provider
                 # instructions.
                 StructField("notes", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -183,7 +209,7 @@ class ProcedureRequestSchema:
                 # procedure.
                 StructField("orderer", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The clinical priority associated with this order.
-                StructField("priority", ProcedureRequestPriorityCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("priority", StringType(), True),
             ]
         )
         if not include_extension:

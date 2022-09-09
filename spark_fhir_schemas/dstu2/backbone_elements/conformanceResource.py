@@ -63,20 +63,35 @@ class ConformanceResourceSchema:
     references to ones defined in the specification, or additional ones defined
     for/by the implementation.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # interaction
         Not mapped: ConformanceInteraction
+            # versioning
         from spark_fhir_schemas.dstu2.complex_types.resourceversionpolicycode import ResourceVersionPolicyCodeSchema
+            # readHistory
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # updateCreate
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # conditionalCreate
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # conditionalUpdate
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # conditionalDelete
         from spark_fhir_schemas.dstu2.complex_types.conditionaldeletestatuscode import ConditionalDeleteStatusCodeSchema
+            # searchInclude
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # searchRevInclude
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # searchParam
         Not mapped: ConformanceSearchParam
         if (max_recursion_limit and nesting_list.count("ConformanceResource") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -117,7 +132,7 @@ class ConformanceResourceSchema:
                 # versionId meta-property on resources. If the value is 'versioned-update', then
                 # the server supports all the versioning features, including using e-tags for
                 # version integrity in the API.
-                StructField("versioning", ResourceVersionPolicyCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("versioning", StringType(), True),
                 # A flag for whether the server is able to return past versions as part of the
                 # vRead operation.
                 StructField("readHistory", BooleanType(), True),
@@ -131,7 +146,7 @@ class ConformanceResourceSchema:
                 # A flag that indicates that the server supports conditional update.
                 StructField("conditionalUpdate", BooleanType(), True),
                 # A code that indicates how the server supports conditional delete.
-                StructField("conditionalDelete", ConditionalDeleteStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("conditionalDelete", StringType(), True),
                 # A list of _include values supported by the server.
                 StructField("searchInclude", StringType(), True),
                 # A list of _revinclude (reverse include) values supported by the server.
