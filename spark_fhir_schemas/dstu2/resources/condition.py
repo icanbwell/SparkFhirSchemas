@@ -122,7 +122,7 @@ class ConditionSchema:
         # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
         # onsetString
-             # type = string
+        # type = string
         # abatementBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # stage

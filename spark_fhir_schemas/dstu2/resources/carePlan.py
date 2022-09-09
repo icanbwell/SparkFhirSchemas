@@ -111,7 +111,7 @@ class CarePlanSchema:
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # description
-             # type = string
+        # type = string
         # relatedPlan
         from spark_fhir_schemas.dstu2.complex_types.careplan.relatedplan import CarePlan.RelatedPlanSchema
         # participant

@@ -107,7 +107,7 @@ class ImmunizationSchema:
         # wasNotGiven
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # lotNumber
-             # type = string
+        # type = string
         # expirationDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # doseQuantity

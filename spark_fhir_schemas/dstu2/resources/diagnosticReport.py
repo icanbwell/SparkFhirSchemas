@@ -125,7 +125,7 @@ class DiagnosticReportSchema:
         # image
         from spark_fhir_schemas.dstu2.complex_types.diagnosticreport.image import DiagnosticReport.ImageSchema
         # conclusion
-             # type = string
+        # type = string
         # presentedForm
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         if (max_recursion_limit and nesting_list.count("DiagnosticReport") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

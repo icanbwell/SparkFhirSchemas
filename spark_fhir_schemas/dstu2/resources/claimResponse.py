@@ -108,7 +108,7 @@ class ClaimResponseSchema:
         # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # disposition
-             # type = string
+        # type = string
         # item
         from spark_fhir_schemas.dstu2.complex_types.claimresponse.item import ClaimResponse.ItemSchema
         # addItem

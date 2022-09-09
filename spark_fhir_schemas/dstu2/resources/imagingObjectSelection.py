@@ -110,7 +110,7 @@ class ImagingObjectSelectionSchema:
         # title
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # description
-             # type = string
+        # type = string
         # authoringTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # study

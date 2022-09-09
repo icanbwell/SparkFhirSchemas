@@ -54,7 +54,7 @@ class AttachmentSchema:
         # size
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # title
-             # type = string
+        # type = string
         # creation
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         if (max_recursion_limit and nesting_list.count("Attachment") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

@@ -79,7 +79,7 @@ class SubstanceSchema:
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # description
-             # type = string
+        # type = string
         # instance
         from spark_fhir_schemas.dstu2.complex_types.substance.instance import Substance.InstanceSchema
         # ingredient

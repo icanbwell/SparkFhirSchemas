@@ -115,7 +115,7 @@ class DeviceSchema:
         # status
         # type = code
         # manufacturer
-             # type = string
+        # type = string
         # manufactureDate
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # owner

@@ -111,7 +111,7 @@ class ImagingStudySchema:
         # numberOfSeries
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # description
-             # type = string
+        # type = string
         # series
         from spark_fhir_schemas.dstu2.complex_types.imagingstudy.series import ImagingStudy.SeriesSchema
         if (max_recursion_limit and nesting_list.count("ImagingStudy") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

@@ -104,7 +104,7 @@ class GoalSchema:
         # targetQuantity
         from spark_fhir_schemas.dstu2.complex_types.duration import DurationSchema
         # description
-             # type = string
+        # type = string
         # status
         # type = code
         # note

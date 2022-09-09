@@ -46,7 +46,7 @@ class HumanNameSchema:
         # use
         # type = code
         # text
-             # type = string
+        # type = string
         # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("HumanName") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

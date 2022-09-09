@@ -85,7 +85,7 @@ class EligibilityResponseSchema:
         # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # disposition
-             # type = string
+        # type = string
         # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # created

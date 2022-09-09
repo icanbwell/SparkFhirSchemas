@@ -99,7 +99,7 @@ class MediaSchema:
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # deviceName
-             # type = string
+        # type = string
         # height
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
         # duration

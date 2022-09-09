@@ -115,7 +115,7 @@ class MedicationOrderSchema:
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # note
-             # type = string
+        # type = string
         # dosageInstruction
         from spark_fhir_schemas.dstu2.complex_types.medicationorder.dosageinstruction import MedicationOrder.DosageInstructionSchema
         # dispenseRequest

@@ -95,7 +95,7 @@ class SearchParameterSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # name
-             # type = string
+        # type = string
         # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact

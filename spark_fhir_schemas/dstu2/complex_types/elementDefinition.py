@@ -307,7 +307,7 @@ class ElementDefinitionSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # path
-             # type = string
+        # type = string
         # representation
         # type = code
         # code

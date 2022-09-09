@@ -103,7 +103,7 @@ class ProcessRequestSchema:
         # nullify
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # reference
-             # type = string
+        # type = string
         # item
         from spark_fhir_schemas.dstu2.complex_types.processrequest.item import ProcessRequest.ItemSchema
         # period

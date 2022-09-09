@@ -95,7 +95,7 @@ class NamingSystemSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # name
-             # type = string
+        # type = string
         # kind
         # type = code
         # contact

@@ -125,7 +125,7 @@ class ClaimSchema:
         # coverage
         from spark_fhir_schemas.dstu2.complex_types.claim.coverage import Claim.CoverageSchema
         # school
-             # type = string
+        # type = string
         # accident
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # item

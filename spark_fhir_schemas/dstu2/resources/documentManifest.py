@@ -101,7 +101,7 @@ class DocumentManifestSchema:
         # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # description
-             # type = string
+        # type = string
         # content
         from spark_fhir_schemas.dstu2.complex_types.documentmanifest.content import DocumentManifest.ContentSchema
         # related

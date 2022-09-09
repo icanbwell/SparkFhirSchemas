@@ -113,7 +113,7 @@ class DocumentReferenceSchema:
         # relatesTo
         from spark_fhir_schemas.dstu2.complex_types.documentreference.relatesto import DocumentReference.RelatesToSchema
         # description
-             # type = string
+        # type = string
         # content
         from spark_fhir_schemas.dstu2.complex_types.documentreference.content import DocumentReference.ContentSchema
         # context

@@ -87,7 +87,7 @@ class ListSchema:
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # title
-             # type = string
+        # type = string
         # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # subject

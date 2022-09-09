@@ -48,7 +48,7 @@ class SimpleQuantitySchema:
         # comparator
         # type = code
         # unit
-             # type = string
+        # type = string
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # code

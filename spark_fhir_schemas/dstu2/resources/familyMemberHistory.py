@@ -107,7 +107,7 @@ class FamilyMemberHistorySchema:
         # status
         # type = code
         # name
-             # type = string
+        # type = string
         # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # bornPeriod

@@ -111,7 +111,7 @@ class HealthcareServiceSchema:
         # serviceType
         from spark_fhir_schemas.dstu2.complex_types.healthcareservice.servicetype import HealthcareService.ServiceTypeSchema
         # serviceName
-             # type = string
+        # type = string
         # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         # telecom

@@ -93,7 +93,7 @@ class DetectedIssueSchema:
         # severity
         # type = code
         # detail
-             # type = string
+        # type = string
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # identifier

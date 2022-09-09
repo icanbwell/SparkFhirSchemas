@@ -107,7 +107,7 @@ class OperationDefinitionSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # version
-             # type = string
+        # type = string
         # kind
         # type = code
         # experimental

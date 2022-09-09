@@ -114,7 +114,7 @@ class MedicationDispenseSchema:
         # whenPrepared
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # note
-             # type = string
+        # type = string
         # dosageInstruction
         from spark_fhir_schemas.dstu2.complex_types.medicationdispense.dosageinstruction import MedicationDispense.DosageInstructionSchema
         # substitution

@@ -112,7 +112,7 @@ class CompositionSchema:
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # title
-             # type = string
+        # type = string
         # status
         # type = code
         # subject

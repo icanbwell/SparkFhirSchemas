@@ -91,7 +91,7 @@ class GroupSchema:
         # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # name
-             # type = string
+        # type = string
         # quantity
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # characteristic

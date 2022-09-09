@@ -50,7 +50,7 @@ class CodingSchema:
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # version
-             # type = string
+        # type = string
         # code
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
         # userSelected

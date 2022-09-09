@@ -105,7 +105,7 @@ class AppointmentSchema:
         # priority
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # description
-             # type = string
+        # type = string
         # start
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # minutesDuration

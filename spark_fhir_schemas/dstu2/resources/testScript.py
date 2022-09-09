@@ -109,7 +109,7 @@ class TestScriptSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # version
-             # type = string
+        # type = string
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # experimental

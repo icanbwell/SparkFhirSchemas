@@ -86,7 +86,7 @@ class QuestionnaireSchema:
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # version
-             # type = string
+        # type = string
         # status
         # type = code
         # date

@@ -88,7 +88,7 @@ class SubscriptionSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # criteria
-             # type = string
+        # type = string
         # contact
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
         # status

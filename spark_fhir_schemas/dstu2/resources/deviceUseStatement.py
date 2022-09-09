@@ -91,7 +91,7 @@ class DeviceUseStatementSchema:
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # notes
-             # type = string
+        # type = string
         # recordedOn
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # timingTiming

@@ -57,7 +57,7 @@ class SampledDataSchema:
         # dimensions
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
         # data
-             # type = string
+        # type = string
         if (max_recursion_limit and nesting_list.count("SampledData") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

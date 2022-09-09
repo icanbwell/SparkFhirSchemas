@@ -46,7 +46,7 @@ class ContactPointSchema:
         # system
         # type = code
         # value
-             # type = string
+        # type = string
         # rank
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
         # period

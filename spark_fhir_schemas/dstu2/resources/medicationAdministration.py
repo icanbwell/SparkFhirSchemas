@@ -118,7 +118,7 @@ class MedicationAdministrationSchema:
         # effectiveTimePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # note
-             # type = string
+        # type = string
         # dosage
         from spark_fhir_schemas.dstu2.complex_types.medicationadministration.dosage import MedicationAdministration.DosageSchema
         if (max_recursion_limit and nesting_list.count("MedicationAdministration") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
