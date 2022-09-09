@@ -241,7 +241,7 @@ class FhirXmlSchemaParser:
                         "BackboneElement",
                     ]:
                         # fhir_property.is_complex = True
-                        fhir_property.cleaned_type = fhir_property.fhir_type
+                        # fhir_property.cleaned_type = fhir_property.fhir_type
                         fhir_property.type_snake_case = (
                             FhirXmlSchemaParser.camel_to_snake(fhir_property.fhir_type)
                         )
@@ -700,7 +700,7 @@ class FhirXmlSchemaParser:
                         fhir_name="id",
                         javascript_clean_name="id",
                         type_="id",
-                        cleaned_type="Element",
+                        cleaned_type="id",
                         type_snake_case="element",
                         optional=True,
                         is_list=False,

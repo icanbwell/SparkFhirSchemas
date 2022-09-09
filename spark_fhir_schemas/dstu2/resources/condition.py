@@ -96,7 +96,7 @@ class ConditionSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -107,12 +107,8 @@ class ConditionSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # dateRecorded
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # verificationStatus
-        # type = code
         # onsetDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # onsetQuantity
@@ -126,9 +122,9 @@ class ConditionSchema:
         # abatementBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # stage
-        from spark_fhir_schemas.dstu2.complex_types.condition.stage import Condition.StageSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conditionstage import ConditionStageSchema
         # evidence
-        from spark_fhir_schemas.dstu2.complex_types.condition.evidence import Condition.EvidenceSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conditionevidence import ConditionEvidenceSchema
         if (max_recursion_limit and nesting_list.count("Condition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -146,7 +142,7 @@ class ConditionSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -192,7 +188,7 @@ class ConditionSchema:
                 # A category assigned to the condition.
                 StructField("category", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The clinical status of the condition.
-                StructField("clinicalStatus", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("clinicalStatus", StringType(), True),
                 # The verification status to support the clinical status of the condition.
                 StructField("verificationStatus", StringType(), True),
                 # A subjective assessment of the severity of the condition as evaluated by the
@@ -222,10 +218,10 @@ class ConditionSchema:
                 StructField("abatementString", StringType(), True),
                 # Clinical stage or grade of a condition. May include formal severity
                 # assessments.
-                StructField("stage", Condition.StageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("stage", ConditionStageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Supporting Evidence / manifestations that are the basis on which this
                 # condition is suspected or confirmed.
-                StructField("evidence", Condition.EvidenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("evidence", ConditionEvidenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The anatomical location where this condition manifests itself.
                 StructField("bodySite", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Additional information about the Condition. This is a general notes/comments

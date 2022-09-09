@@ -116,7 +116,7 @@ class ConformanceSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -128,23 +128,21 @@ class ConformanceSchema:
         # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.conformance.contact import Conformance.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conformancecontact import ConformanceContactSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # kind
-        # type = code
         # software
-        from spark_fhir_schemas.dstu2.complex_types.conformance.software import Conformance.SoftwareSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conformancesoftware import ConformanceSoftwareSchema
         # implementation
-        from spark_fhir_schemas.dstu2.complex_types.conformance.implementation import Conformance.ImplementationSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conformanceimplementation import ConformanceImplementationSchema
         # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # rest
-        from spark_fhir_schemas.dstu2.complex_types.conformance.rest import Conformance.RestSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conformancerest import ConformanceRestSchema
         # messaging
-        from spark_fhir_schemas.dstu2.complex_types.conformance.messaging import Conformance.MessagingSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conformancemessaging import ConformanceMessagingSchema
         # document
-        from spark_fhir_schemas.dstu2.complex_types.conformance.document import Conformance.DocumentSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.conformancedocument import ConformanceDocumentSchema
         if (max_recursion_limit and nesting_list.count("Conformance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -162,7 +160,7 @@ class ConformanceSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -203,7 +201,7 @@ class ConformanceSchema:
                 # A free text natural language name identifying the conformance statement.
                 StructField("name", StringType(), True),
                 # The status of this conformance statement.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A flag to indicate that this conformance statement is authored for testing
                 # purposes (or education/evaluation/marketing), and is not intended to be used
                 # for genuine usage.
@@ -211,7 +209,7 @@ class ConformanceSchema:
                 # The name of the individual or organization that published the conformance.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", Conformance.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", ConformanceContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date  (and optionally time) when the conformance statement was published.
                 # The date must change when the business version changes, if it does, and it
                 # must change if the status code changes. In addition, it should change when the
@@ -237,11 +235,11 @@ class ConformanceSchema:
                 # Software that is covered by this conformance statement.  It is used when the
                 # conformance statement describes the capabilities of a particular software
                 # version, independent of an installation.
-                StructField("software", Conformance.SoftwareSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("software", ConformanceSoftwareSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies a specific implementation instance that is described by the
                 # conformance statement - i.e. a particular installation, rather than the
                 # capabilities of a software program.
-                StructField("implementation", Conformance.ImplementationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("implementation", ConformanceImplementationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The version of the FHIR specification on which this conformance statement is
                 # based.
                 StructField("fhirVersion", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -250,7 +248,7 @@ class ConformanceSchema:
                 StructField("acceptUnknown", StringType(), True),
                 # A list of the formats supported by this implementation using their content
                 # types.
-                StructField("format", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("format", StringType(), True),
                 # A list of profiles that represent different use cases supported by the system.
                 # For a server, "supported by the system" means the system hosts/produces a set
                 # of resources that are conformant to a particular profile, and allows clients
@@ -260,11 +258,11 @@ class ConformanceSchema:
                 # discussion in [Using Profiles]{profiling.html#profile-uses}.
                 StructField("profile", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A definition of the restful capabilities of the solution, if any.
-                StructField("rest", Conformance.RestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("rest", ConformanceRestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A description of the messaging capabilities of the solution.
-                StructField("messaging", Conformance.MessagingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("messaging", ConformanceMessagingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A document definition.
-                StructField("document", Conformance.DocumentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("document", ConformanceDocumentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -78,7 +78,7 @@ class LocationSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -87,8 +87,6 @@ class LocationSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # status
-        # type = code
         # name
         # type = string
         # type
@@ -98,7 +96,7 @@ class LocationSchema:
         # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
         # position
-        from spark_fhir_schemas.dstu2.complex_types.location.position import Location.PositionSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.locationposition import LocationPositionSchema
         # managingOrganization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("Location") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -118,7 +116,7 @@ class LocationSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -169,7 +167,7 @@ class LocationSchema:
                 StructField("physicalType", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The absolute geographic location of the Location, expressed using the WGS84
                 # datum (This is the same co-ordinate system used in KML).
-                StructField("position", Location.PositionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("position", LocationPositionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The organization responsible for the provisioning and upkeep of the location.
                 StructField("managingOrganization", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Another Location which this Location is physically part of.

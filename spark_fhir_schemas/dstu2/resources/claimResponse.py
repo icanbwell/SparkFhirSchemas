@@ -92,7 +92,7 @@ class ClaimResponseSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -110,19 +110,17 @@ class ClaimResponseSchema:
         # disposition
         # type = string
         # item
-        from spark_fhir_schemas.dstu2.complex_types.claimresponse.item import ClaimResponse.ItemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimresponseitem import ClaimResponseItemSchema
         # addItem
-        from spark_fhir_schemas.dstu2.complex_types.claimresponse.additem import ClaimResponse.AddItemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimresponseadditem import ClaimResponseAddItemSchema
         # error
-        from spark_fhir_schemas.dstu2.complex_types.claimresponse.error import ClaimResponse.ErrorSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimresponseerror import ClaimResponseErrorSchema
         # totalCost
         from spark_fhir_schemas.dstu2.complex_types.money import MoneySchema
-        # paymentDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # note
-        from spark_fhir_schemas.dstu2.complex_types.claimresponse.note import ClaimResponse.NoteSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimresponsenote import ClaimResponseNoteSchema
         # coverage
-        from spark_fhir_schemas.dstu2.complex_types.claimresponse.coverage import ClaimResponse.CoverageSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimresponsecoverage import ClaimResponseCoverageSchema
         if (max_recursion_limit and nesting_list.count("ClaimResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -140,7 +138,7 @@ class ClaimResponseSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -188,17 +186,17 @@ class ClaimResponseSchema:
                 # patient.
                 StructField("requestOrganization", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Transaction status: error, complete.
-                StructField("outcome", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("outcome", StringType(), True),
                 # A description of the status of the adjudication.
                 StructField("disposition", StringType(), True),
                 # Party to be reimbursed: Subscriber, provider, other.
                 StructField("payeeType", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The first tier service adjudications for submitted services.
-                StructField("item", ClaimResponse.ItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("item", ClaimResponseItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The first tier service adjudications for payor added services.
-                StructField("addItem", ClaimResponse.AddItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("addItem", ClaimResponseAddItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Mutually exclusive with Services Provided (Item).
-                StructField("error", ClaimResponse.ErrorSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("error", ClaimResponseErrorSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The total cost of the services reported.
                 StructField("totalCost", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The amount of deductible applied which was not allocated to any particular
@@ -223,9 +221,9 @@ class ClaimResponseSchema:
                 # The form to be used for printing the content.
                 StructField("form", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Note text.
-                StructField("note", ClaimResponse.NoteSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("note", ClaimResponseNoteSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Financial instrument by which payment information for health care.
-                StructField("coverage", ClaimResponse.CoverageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("coverage", ClaimResponseCoverageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

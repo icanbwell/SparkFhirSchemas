@@ -91,7 +91,7 @@ class CarePlanSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -102,8 +102,6 @@ class CarePlanSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # status
-        # type = code
         # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # modified
@@ -113,11 +111,11 @@ class CarePlanSchema:
         # description
         # type = string
         # relatedPlan
-        from spark_fhir_schemas.dstu2.complex_types.careplan.relatedplan import CarePlan.RelatedPlanSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.careplanrelatedplan import CarePlanRelatedPlanSchema
         # participant
-        from spark_fhir_schemas.dstu2.complex_types.careplan.participant import CarePlan.ParticipantSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.careplanparticipant import CarePlanParticipantSchema
         # activity
-        from spark_fhir_schemas.dstu2.complex_types.careplan.activity import CarePlan.ActivitySchema
+        from spark_fhir_schemas.dstu2.backbone_elements.careplanactivity import CarePlanActivitySchema
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("CarePlan") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -137,7 +135,7 @@ class CarePlanSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -199,15 +197,15 @@ class CarePlanSchema:
                 StructField("support", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies CarePlans with some sort of formal relationship to the current
                 # plan.
-                StructField("relatedPlan", CarePlan.RelatedPlanSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("relatedPlan", CarePlanRelatedPlanSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies all people and organizations who are expected to be involved in the
                 # care envisioned by this plan.
-                StructField("participant", CarePlan.ParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("participant", CarePlanParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the intended objective(s) of carrying out the care plan.
                 StructField("goal", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies a planned action to occur as part of the plan.  For example, a
                 # medication to be used, lab tests to perform, self-monitoring, education, etc.
-                StructField("activity", CarePlan.ActivitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("activity", CarePlanActivitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # General notes about the care plan not covered elsewhere.
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

@@ -75,7 +75,7 @@ class GroupSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -84,8 +84,6 @@ class GroupSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # type
-        # type = code
         # actual
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # code
@@ -95,9 +93,9 @@ class GroupSchema:
         # quantity
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # characteristic
-        from spark_fhir_schemas.dstu2.complex_types.group.characteristic import Group.CharacteristicSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.groupcharacteristic import GroupCharacteristicSchema
         # member
-        from spark_fhir_schemas.dstu2.complex_types.group.member import Group.MemberSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.groupmember import GroupMemberSchema
         if (max_recursion_limit and nesting_list.count("Group") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -115,7 +113,7 @@ class GroupSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -159,9 +157,9 @@ class GroupSchema:
                 # A count of the number of resource instances that are part of the group.
                 StructField("quantity", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the traits shared by members of the group.
-                StructField("characteristic", Group.CharacteristicSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("characteristic", GroupCharacteristicSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the resource instances that are members of the group.
-                StructField("member", Group.MemberSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("member", GroupMemberSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

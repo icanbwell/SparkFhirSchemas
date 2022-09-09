@@ -80,7 +80,7 @@ class EpisodeOfCareSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -89,10 +89,8 @@ class EpisodeOfCareSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # status
-        # type = code
         # statusHistory
-        from spark_fhir_schemas.dstu2.complex_types.episodeofcare.statushistory import EpisodeOfCare.StatusHistorySchema
+        from spark_fhir_schemas.dstu2.backbone_elements.episodeofcarestatushistory import EpisodeOfCareStatusHistorySchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # condition
@@ -100,7 +98,7 @@ class EpisodeOfCareSchema:
         # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # careTeam
-        from spark_fhir_schemas.dstu2.complex_types.episodeofcare.careteam import EpisodeOfCare.CareTeamSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.episodeofcarecareteam import EpisodeOfCareCareTeamSchema
         if (max_recursion_limit and nesting_list.count("EpisodeOfCare") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -118,7 +116,7 @@ class EpisodeOfCareSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -152,7 +150,7 @@ class EpisodeOfCareSchema:
                 StructField("status", StringType(), True),
                 # The history of statuses that the EpisodeOfCare has been through (without
                 # requiring processing the history of the resource).
-                StructField("statusHistory", EpisodeOfCare.StatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("statusHistory", EpisodeOfCareStatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A classification of the type of encounter; e.g. specialist referral, disease
                 # management, type of funded care.
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -174,7 +172,7 @@ class EpisodeOfCareSchema:
                 StructField("careManager", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The list of practitioners that may be facilitating this episode of care for
                 # specific purposes.
-                StructField("careTeam", EpisodeOfCare.CareTeamSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("careTeam", EpisodeOfCareCareTeamSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

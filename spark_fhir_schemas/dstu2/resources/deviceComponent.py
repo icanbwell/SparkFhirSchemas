@@ -80,7 +80,7 @@ class DeviceComponentSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -95,10 +95,8 @@ class DeviceComponentSchema:
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # source
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # measurementPrinciple
-        # type = code
         # productionSpecification
-        from spark_fhir_schemas.dstu2.complex_types.devicecomponent.productionspecification import DeviceComponent.ProductionSpecificationSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.devicecomponentproductionspecification import DeviceComponentProductionSpecificationSchema
         if (max_recursion_limit and nesting_list.count("DeviceComponent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -116,7 +114,7 @@ class DeviceComponentSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -170,7 +168,7 @@ class DeviceComponentSchema:
                 StructField("measurementPrinciple", StringType(), True),
                 # Describes the production specification such as component revision, serial
                 # number, etc.
-                StructField("productionSpecification", DeviceComponent.ProductionSpecificationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("productionSpecification", DeviceComponentProductionSpecificationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the language code for the human-readable text string produced by the
                 # device. This language code will follow the IETF language tag. Example: en-US.
                 StructField("languageCode", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -95,7 +95,7 @@ class HealthcareServiceSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -109,7 +109,7 @@ class HealthcareServiceSchema:
         # serviceCategory
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # serviceType
-        from spark_fhir_schemas.dstu2.complex_types.healthcareservice.servicetype import HealthcareService.ServiceTypeSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.healthcareserviceservicetype import HealthcareServiceServiceTypeSchema
         # serviceName
         # type = string
         # photo
@@ -119,9 +119,9 @@ class HealthcareServiceSchema:
         # appointmentRequired
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # availableTime
-        from spark_fhir_schemas.dstu2.complex_types.healthcareservice.availabletime import HealthcareService.AvailableTimeSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.healthcareserviceavailabletime import HealthcareServiceAvailableTimeSchema
         # notAvailable
-        from spark_fhir_schemas.dstu2.complex_types.healthcareservice.notavailable import HealthcareService.NotAvailableSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.healthcareservicenotavailable import HealthcareServiceNotAvailableSchema
         if (max_recursion_limit and nesting_list.count("HealthcareService") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -139,7 +139,7 @@ class HealthcareServiceSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -174,7 +174,7 @@ class HealthcareServiceSchema:
                 # Identifies the broad category of service being performed or delivered.
                 StructField("serviceCategory", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A specific type of service that may be delivered or performed.
-                StructField("serviceType", HealthcareService.ServiceTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("serviceType", HealthcareServiceServiceTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The location where this healthcare service may be provided.
                 StructField("location", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Further description of the service as it would be presented to a consumer
@@ -218,10 +218,10 @@ class HealthcareServiceSchema:
                 # Indicates if an appointment is required for access to this service.
                 StructField("appointmentRequired", BooleanType(), True),
                 # A collection of times that the Service Site is available.
-                StructField("availableTime", HealthcareService.AvailableTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("availableTime", HealthcareServiceAvailableTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The HealthcareService is not available during this period of time due to the
                 # provided reason.
-                StructField("notAvailable", HealthcareService.NotAvailableSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("notAvailable", HealthcareServiceNotAvailableSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A description of site availability exceptions, e.g. public holiday
                 # availability. Succinctly describing all possible exceptions to normal site
                 # availability as details in the available Times and not available Times.

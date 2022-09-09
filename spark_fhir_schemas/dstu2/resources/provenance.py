@@ -94,7 +94,7 @@ class ProvenanceSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -110,9 +110,9 @@ class ProvenanceSchema:
         # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # agent
-        from spark_fhir_schemas.dstu2.complex_types.provenance.agent import Provenance.AgentSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.provenanceagent import ProvenanceAgentSchema
         # entity
-        from spark_fhir_schemas.dstu2.complex_types.provenance.entity import Provenance.EntitySchema
+        from spark_fhir_schemas.dstu2.backbone_elements.provenanceentity import ProvenanceEntitySchema
         # signature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
         if (max_recursion_limit and nesting_list.count("Provenance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -132,7 +132,7 @@ class ProvenanceSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -184,9 +184,9 @@ class ProvenanceSchema:
                 # degree of responsibility for the activity taking place. An agent can be a
                 # person, an organization, software, or other entities that may be ascribed
                 # responsibility.
-                StructField("agent", Provenance.AgentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("agent", ProvenanceAgentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An entity used in this activity.
-                StructField("entity", Provenance.EntitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("entity", ProvenanceEntitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A digital signature on the target Reference(s). The signer should match a
                 # Provenance.agent. The purpose of the signature is indicated.
                 StructField("signature", SignatureSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

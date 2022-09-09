@@ -89,7 +89,7 @@ class ImagingStudySchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -106,14 +106,12 @@ class ImagingStudySchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # modalityList
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-        # availability
-        # type = code
         # numberOfSeries
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # description
         # type = string
         # series
-        from spark_fhir_schemas.dstu2.complex_types.imagingstudy.series import ImagingStudy.SeriesSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.imagingstudyseries import ImagingStudySeriesSchema
         if (max_recursion_limit and nesting_list.count("ImagingStudy") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -131,7 +129,7 @@ class ImagingStudySchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -197,7 +195,7 @@ class ImagingStudySchema:
                 # Institution-generated description or classification of the Study performed.
                 StructField("description", StringType(), True),
                 # Each study has one or more series of images or other content.
-                StructField("series", ImagingStudy.SeriesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("series", ImagingStudySeriesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -89,7 +89,7 @@ class AppointmentSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -98,8 +98,6 @@ class AppointmentSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # status
-        # type = code
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # priority
@@ -113,7 +111,7 @@ class AppointmentSchema:
         # slot
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # participant
-        from spark_fhir_schemas.dstu2.complex_types.appointment.participant import Appointment.ParticipantSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.appointmentparticipant import AppointmentParticipantSchema
         if (max_recursion_limit and nesting_list.count("Appointment") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -131,7 +129,7 @@ class AppointmentSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -189,7 +187,7 @@ class AppointmentSchema:
                 # Number of minutes that the appointment is to take. This can be less than the
                 # duration between the start and end times (where actual time of appointment is
                 # only an estimate or is a planned appointment request).
-                StructField("minutesDuration", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("minutesDuration", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The slot that this appointment is filling. If provided then the schedule will
                 # not be provided as slots are not recursive, and the start/end values MUST be
                 # the same as from the slot.
@@ -197,7 +195,7 @@ class AppointmentSchema:
                 # Additional comments about the appointment.
                 StructField("comment", StringType(), True),
                 # List of participants involved in the appointment.
-                StructField("participant", Appointment.ParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("participant", AppointmentParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

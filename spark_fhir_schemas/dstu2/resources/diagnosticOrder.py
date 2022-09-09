@@ -86,7 +86,7 @@ class DiagnosticOrderSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -99,12 +99,10 @@ class DiagnosticOrderSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # status
-        # type = code
         # event
-        from spark_fhir_schemas.dstu2.complex_types.diagnosticorder.event import DiagnosticOrder.EventSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.diagnosticorderevent import DiagnosticOrderEventSchema
         # item
-        from spark_fhir_schemas.dstu2.complex_types.diagnosticorder.item import DiagnosticOrder.ItemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.diagnosticorderitem import DiagnosticOrderItemSchema
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("DiagnosticOrder") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -124,7 +122,7 @@ class DiagnosticOrderSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -184,11 +182,11 @@ class DiagnosticOrderSchema:
                 # A summary of the events of interest that have occurred as the request is
                 # processed; e.g. when the order was made, various processing steps (specimens
                 # received), when it was completed.
-                StructField("event", DiagnosticOrder.EventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("event", DiagnosticOrderEventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The specific diagnostic investigations that are requested as part of this
                 # request. Sometimes, there can only be one item per request, but in most
                 # contexts, more than one investigation can be requested.
-                StructField("item", DiagnosticOrder.ItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("item", DiagnosticOrderItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Any other notes associated with this patient, specimen or order (e.g. "patient
                 # hates needles").
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

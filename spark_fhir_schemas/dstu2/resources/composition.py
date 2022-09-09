@@ -98,7 +98,7 @@ class CompositionSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -113,16 +113,14 @@ class CompositionSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # title
         # type = string
-        # status
-        # type = code
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # attester
-        from spark_fhir_schemas.dstu2.complex_types.composition.attester import Composition.AttesterSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.compositionattester import CompositionAttesterSchema
         # event
-        from spark_fhir_schemas.dstu2.complex_types.composition.event import Composition.EventSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.compositionevent import CompositionEventSchema
         # section
-        from spark_fhir_schemas.dstu2.complex_types.composition.section import Composition.SectionSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.compositionsection import CompositionSectionSchema
         if (max_recursion_limit and nesting_list.count("Composition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -140,7 +138,7 @@ class CompositionSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -188,7 +186,7 @@ class CompositionSchema:
                 # the clinical standing of the document.
                 StructField("status", StringType(), True),
                 # The code specifying the level of confidentiality of the Composition.
-                StructField("confidentiality", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("confidentiality", StringType(), True),
                 # Who or what the composition is about. The composition can be about a person,
                 # (patient or healthcare practitioner), a device (e.g. a machine) or even a
                 # group of subjects (such as a document about a herd of livestock, or a set of
@@ -198,18 +196,18 @@ class CompositionSchema:
                 # necessarily who typed it in.
                 StructField("author", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A participant who has attested to the accuracy of the composition/document.
-                StructField("attester", Composition.AttesterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("attester", CompositionAttesterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the organization or group who is responsible for ongoing
                 # maintenance of and access to the composition/document information.
                 StructField("custodian", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The clinical service, such as a colonoscopy or an appendectomy, being
                 # documented.
-                StructField("event", Composition.EventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("event", CompositionEventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the clinical encounter or type of care this documentation is
                 # associated with.
                 StructField("encounter", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The root of the sections that make up the composition.
-                StructField("section", Composition.SectionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("section", CompositionSectionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

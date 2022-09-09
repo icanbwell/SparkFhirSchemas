@@ -89,7 +89,7 @@ class ImmunizationSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -108,18 +108,16 @@ class ImmunizationSchema:
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # lotNumber
         # type = string
-        # expirationDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # doseQuantity
         from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         # explanation
-        from spark_fhir_schemas.dstu2.complex_types.immunization.explanation import Immunization.ExplanationSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.immunizationexplanation import ImmunizationExplanationSchema
         # reaction
-        from spark_fhir_schemas.dstu2.complex_types.immunization.reaction import Immunization.ReactionSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.immunizationreaction import ImmunizationReactionSchema
         # vaccinationProtocol
-        from spark_fhir_schemas.dstu2.complex_types.immunization.vaccinationprotocol import Immunization.VaccinationProtocolSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.immunizationvaccinationprotocol import ImmunizationVaccinationProtocolSchema
         if (max_recursion_limit and nesting_list.count("Immunization") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -137,7 +135,7 @@ class ImmunizationSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -168,7 +166,7 @@ class ImmunizationSchema:
                 # A unique identifier assigned to this immunization record.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the current status of the vaccination event.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Date vaccine administered or was to be administered.
                 StructField("date", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Vaccine that was administered or was to be administered.
@@ -204,13 +202,13 @@ class ImmunizationSchema:
                 # attributes.
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Reasons why a vaccine was or was not administered.
-                StructField("explanation", Immunization.ExplanationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("explanation", ImmunizationExplanationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Categorical data indicating that an adverse event is associated in time to an
                 # immunization.
-                StructField("reaction", Immunization.ReactionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("reaction", ImmunizationReactionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Contains information about the protocol(s) under which the vaccine was
                 # administered.
-                StructField("vaccinationProtocol", Immunization.VaccinationProtocolSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("vaccinationProtocol", ImmunizationVaccinationProtocolSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -53,8 +53,6 @@ class MoneySchema:
         # type = string
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # code
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
         if (max_recursion_limit and nesting_list.count("Money") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -82,7 +80,7 @@ class MoneySchema:
                 # The identification of the system that provides the coded form of the unit.
                 StructField("system", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A computer processable form of the unit in some unit representation system.
-                StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", StringType(), True),
                 # None
                 StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Exception as inherited from Element
@@ -99,7 +97,7 @@ class MoneySchema:
                 # The identification of the system that provides the coded form of the unit.
                 StructField("system", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A computer processable form of the unit in some unit representation system.
-                StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", StringType(), True),
             ]
         )
         if not include_extension:

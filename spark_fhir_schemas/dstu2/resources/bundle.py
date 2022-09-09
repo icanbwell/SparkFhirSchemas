@@ -42,15 +42,13 @@ class BundleSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-        # type
         # type = code
         # total
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # link
-        from spark_fhir_schemas.dstu2.complex_types.bundle.link import Bundle.LinkSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.bundlelink import BundleLinkSchema
         # entry
-        from spark_fhir_schemas.dstu2.complex_types.bundle.entry import Bundle.EntrySchema
+        from spark_fhir_schemas.dstu2.backbone_elements.bundleentry import BundleEntrySchema
         # signature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
         if (max_recursion_limit and nesting_list.count("Bundle") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -70,17 +68,17 @@ class BundleSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # Indicates the purpose of this bundle- how it was intended to be used.
                 StructField("type", StringType(), True),
                 # If a set of search matches, this is the total number of matches for the search
                 # (as opposed to the number of results in this bundle).
                 StructField("total", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A series of links that provide context to this bundle.
-                StructField("link", Bundle.LinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("link", BundleLinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An entry in a bundle resource - will either contain a resource, or information
                 # about a resource (transactions and history only).
-                StructField("entry", Bundle.EntrySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("entry", BundleEntrySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Digital Signature - base64 encoded. XML DigSIg or a JWT.
                 StructField("signature", SignatureSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

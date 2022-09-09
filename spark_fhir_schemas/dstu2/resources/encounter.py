@@ -98,7 +98,7 @@ class EncounterSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -107,24 +107,22 @@ class EncounterSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # status
-        # type = code
         # statusHistory
-        from spark_fhir_schemas.dstu2.complex_types.encounter.statushistory import Encounter.StatusHistorySchema
+        from spark_fhir_schemas.dstu2.backbone_elements.encounterstatushistory import EncounterStatusHistorySchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # participant
-        from spark_fhir_schemas.dstu2.complex_types.encounter.participant import Encounter.ParticipantSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.encounterparticipant import EncounterParticipantSchema
         # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # length
         from spark_fhir_schemas.dstu2.complex_types.duration import DurationSchema
         # hospitalization
-        from spark_fhir_schemas.dstu2.complex_types.encounter.hospitalization import Encounter.HospitalizationSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.encounterhospitalization import EncounterHospitalizationSchema
         # location
-        from spark_fhir_schemas.dstu2.complex_types.encounter.location import Encounter.LocationSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.encounterlocation import EncounterLocationSchema
         if (max_recursion_limit and nesting_list.count("Encounter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -142,7 +140,7 @@ class EncounterSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -177,7 +175,7 @@ class EncounterSchema:
                 # The status history permits the encounter resource to contain the status
                 # history without needing to read through the historical versions of the
                 # resource, or even have the server store them.
-                StructField("statusHistory", Encounter.StatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("statusHistory", EncounterStatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # inpatient | outpatient | ambulatory | emergency +.
                 StructField("class", StringType(), True),
                 # Specific type of encounter (e.g. e-mail consultation, surgical day-care,
@@ -198,7 +196,7 @@ class EncounterSchema:
                 # The referral request this encounter satisfies (incoming referral).
                 StructField("incomingReferral", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The list of people responsible for providing the service.
-                StructField("participant", Encounter.ParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("participant", EncounterParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The appointment that scheduled this encounter.
                 StructField("appointment", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The start and end time of the encounter.
@@ -215,9 +213,9 @@ class EncounterSchema:
                 # evidence.detail), or a Procedure.
                 StructField("indication", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Details about the admission to a healthcare service.
-                StructField("hospitalization", Encounter.HospitalizationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("hospitalization", EncounterHospitalizationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of locations where  the patient has been during this encounter.
-                StructField("location", Encounter.LocationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("location", EncounterLocationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An organization that is in charge of maintaining the information of this
                 # Encounter (e.g. who maintains the report or the master service catalog item,
                 # etc.). This MAY be the same as the organization on the Patient record, however

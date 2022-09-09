@@ -99,7 +99,7 @@ class ClinicalImpressionSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -108,8 +108,6 @@ class ClinicalImpressionSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # status
-        # type = code
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # description
@@ -117,11 +115,11 @@ class ClinicalImpressionSchema:
         # triggerCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # investigations
-        from spark_fhir_schemas.dstu2.complex_types.clinicalimpression.investigations import ClinicalImpression.InvestigationsSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.clinicalimpressioninvestigations import ClinicalImpressionInvestigationsSchema
         # finding
-        from spark_fhir_schemas.dstu2.complex_types.clinicalimpression.finding import ClinicalImpression.FindingSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.clinicalimpressionfinding import ClinicalImpressionFindingSchema
         # ruledOut
-        from spark_fhir_schemas.dstu2.complex_types.clinicalimpression.ruledout import ClinicalImpression.RuledOutSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.clinicalimpressionruledout import ClinicalImpressionRuledOutSchema
         if (max_recursion_limit and nesting_list.count("ClinicalImpression") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -139,7 +137,7 @@ class ClinicalImpressionSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -195,7 +193,7 @@ class ClinicalImpressionSchema:
                 # the assessment. These investigations may include data generated during the
                 # assessment process, or data previously generated and recorded that is
                 # pertinent to the outcomes.
-                StructField("investigations", ClinicalImpression.InvestigationsSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("investigations", ClinicalImpressionInvestigationsSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Reference to a specific published clinical protocol that was followed during
                 # this assessment, and/or that provides evidence in support of the diagnosis.
                 StructField("protocol", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -203,11 +201,11 @@ class ClinicalImpressionSchema:
                 StructField("summary", StringType(), True),
                 # Specific findings or diagnoses that was considered likely or relevant to
                 # ongoing treatment.
-                StructField("finding", ClinicalImpression.FindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("finding", ClinicalImpressionFindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diagnoses/conditions resolved since the last assessment.
                 StructField("resolved", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diagnosis considered not possible.
-                StructField("ruledOut", ClinicalImpression.RuledOutSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ruledOut", ClinicalImpressionRuledOutSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Estimate of likely outcome.
                 StructField("prognosis", StringType(), True),
                 # Plan of action after assessment.

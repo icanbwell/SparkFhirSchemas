@@ -101,15 +101,13 @@ class ClaimSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
         from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # type
-        # type = code
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # ruleset
@@ -119,19 +117,17 @@ class ClaimSchema:
         # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # payee
-        from spark_fhir_schemas.dstu2.complex_types.claim.payee import Claim.PayeeSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimpayee import ClaimPayeeSchema
         # diagnosis
-        from spark_fhir_schemas.dstu2.complex_types.claim.diagnosis import Claim.DiagnosisSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimdiagnosis import ClaimDiagnosisSchema
         # coverage
-        from spark_fhir_schemas.dstu2.complex_types.claim.coverage import Claim.CoverageSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimcoverage import ClaimCoverageSchema
         # school
         # type = string
-        # accident
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # item
-        from spark_fhir_schemas.dstu2.complex_types.claim.item import Claim.ItemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimitem import ClaimItemSchema
         # missingTeeth
-        from spark_fhir_schemas.dstu2.complex_types.claim.missingteeth import Claim.MissingTeethSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.claimmissingteeth import ClaimMissingTeethSchema
         if (max_recursion_limit and nesting_list.count("Claim") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -149,7 +145,7 @@ class ClaimSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -216,18 +212,18 @@ class ClaimSchema:
                 # medications or products.
                 StructField("originalPrescription", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The party to be reimbursed for the services.
-                StructField("payee", Claim.PayeeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("payee", ClaimPayeeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The referral resource which lists the date, practitioner, reason and other
                 # supporting information.
                 StructField("referral", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Ordered list of patient diagnosis for which care is sought.
-                StructField("diagnosis", Claim.DiagnosisSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("diagnosis", ClaimDiagnosisSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of patient conditions for which care is sought.
                 StructField("condition", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Patient Resource.
                 StructField("patient", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Financial instrument by which payment information for health care.
-                StructField("coverage", Claim.CoverageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("coverage", ClaimCoverageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Factors which may influence the applicability of coverage.
                 StructField("exception", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Name of school for over-aged dependents.
@@ -240,13 +236,13 @@ class ClaimSchema:
                 # adjudication of the claim.
                 StructField("interventionException", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # First tier of goods and services.
-                StructField("item", Claim.ItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("item", ClaimItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Code to indicate that Xrays, images, emails, documents, models or attachments
                 # are being sent in support of this submission.
                 StructField("additionalMaterials", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A list of teeth which would be expected but are not found due to having been
                 # previously  extracted or for other reasons.
-                StructField("missingTeeth", Claim.MissingTeethSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("missingTeeth", ClaimMissingTeethSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

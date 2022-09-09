@@ -103,7 +103,7 @@ class ProcedureSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -114,14 +114,12 @@ class ProcedureSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # status
-        # type = code
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # notPerformed
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # performer
-        from spark_fhir_schemas.dstu2.complex_types.procedure.performer import Procedure.PerformerSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.procedureperformer import ProcedurePerformerSchema
         # performedDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # performedPeriod
@@ -129,7 +127,7 @@ class ProcedureSchema:
         # notes
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         # focalDevice
-        from spark_fhir_schemas.dstu2.complex_types.procedure.focaldevice import Procedure.FocalDeviceSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.procedurefocaldevice import ProcedureFocalDeviceSchema
         if (max_recursion_limit and nesting_list.count("Procedure") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -147,7 +145,7 @@ class ProcedureSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -203,7 +201,7 @@ class ProcedureSchema:
                 # None
                 StructField("reasonReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Limited to 'real' people rather than equipment.
-                StructField("performer", Procedure.PerformerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("performer", ProcedurePerformerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("performedDateTime", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -235,7 +233,7 @@ class ProcedureSchema:
                 # A device that is implanted, removed or otherwise manipulated (calibration,
                 # battery replacement, fitting a prosthesis, attaching a wound-vac, etc.) as a
                 # focal portion of the Procedure.
-                StructField("focalDevice", Procedure.FocalDeviceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("focalDevice", ProcedureFocalDeviceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies medications, devices and any other substance used as part of the
                 # procedure.
                 StructField("used", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

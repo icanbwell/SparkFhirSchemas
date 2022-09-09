@@ -83,15 +83,13 @@ class ProcessRequestSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
         from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # action
-        # type = code
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # ruleset
@@ -105,7 +103,7 @@ class ProcessRequestSchema:
         # reference
         # type = string
         # item
-        from spark_fhir_schemas.dstu2.complex_types.processrequest.item import ProcessRequest.ItemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.processrequestitem import ProcessRequestItemSchema
         # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("ProcessRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -125,7 +123,7 @@ class ProcessRequestSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -184,7 +182,7 @@ class ProcessRequestSchema:
                 StructField("reference", StringType(), True),
                 # List of top level items to be re-adjudicated, if none specified then the
                 # entire submission is re-adjudicated.
-                StructField("item", ProcessRequest.ItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("item", ProcessRequestItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Names of resource types to include.
                 StructField("include", StringType(), True),
                 # Names of resource types to exclude.

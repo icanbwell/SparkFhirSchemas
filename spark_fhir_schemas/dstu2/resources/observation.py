@@ -111,7 +111,7 @@ class ObservationSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -120,8 +120,6 @@ class ObservationSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # status
-        # type = code
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # subject
@@ -147,11 +145,11 @@ class ObservationSchema:
         # valueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
         # referenceRange
-        from spark_fhir_schemas.dstu2.complex_types.observation.referencerange import Observation.ReferenceRangeSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.observationreferencerange import ObservationReferenceRangeSchema
         # related
-        from spark_fhir_schemas.dstu2.complex_types.observation.related import Observation.RelatedSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.observationrelated import ObservationRelatedSchema
         # component
-        from spark_fhir_schemas.dstu2.complex_types.observation.component import Observation.ComponentSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.observationcomponent import ObservationComponentSchema
         if (max_recursion_limit and nesting_list.count("Observation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -169,7 +167,7 @@ class ObservationSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -267,17 +265,17 @@ class ObservationSchema:
                 StructField("device", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Guidance on how to interpret the value by comparison to a normal or
                 # recommended range.
-                StructField("referenceRange", Observation.ReferenceRangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("referenceRange", ObservationReferenceRangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A  reference to another resource (usually another Observation but could  also
                 # be a QuestionnaireAnswer) whose relationship is defined by the relationship
                 # type code.
-                StructField("related", Observation.RelatedSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("related", ObservationRelatedSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Some observations have multiple component observations.  These component
                 # observations are expressed as separate code value pairs that share the same
                 # attributes.  Examples include systolic and diastolic component observations
                 # for blood pressure measurement and multiple component observations for
                 # genetics observations.
-                StructField("component", Observation.ComponentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("component", ObservationComponentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -86,7 +86,7 @@ class GoalSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -97,20 +97,16 @@ class GoalSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # startDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # startCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # targetQuantity
         from spark_fhir_schemas.dstu2.complex_types.duration import DurationSchema
         # description
         # type = string
-        # status
-        # type = code
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         # outcome
-        from spark_fhir_schemas.dstu2.complex_types.goal.outcome import Goal.OutcomeSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.goaloutcome import GoalOutcomeSchema
         if (max_recursion_limit and nesting_list.count("Goal") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -128,7 +124,7 @@ class GoalSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -195,7 +191,7 @@ class GoalSchema:
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the change (or lack of change) at the point where the goal was
                 # deepmed to be cancelled or achieved.
-                StructField("outcome", Goal.OutcomeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("outcome", GoalOutcomeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

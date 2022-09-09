@@ -91,7 +91,7 @@ class FamilyMemberHistorySchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -104,16 +104,12 @@ class FamilyMemberHistorySchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # status
-        # type = code
         # name
         # type = string
         # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # bornPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-        # bornDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # ageQuantity
         from spark_fhir_schemas.dstu2.complex_types.age import AgeSchema
         # ageRange
@@ -123,7 +119,7 @@ class FamilyMemberHistorySchema:
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         # condition
-        from spark_fhir_schemas.dstu2.complex_types.familymemberhistory.condition import FamilyMemberHistory.ConditionSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.familymemberhistorycondition import FamilyMemberHistoryConditionSchema
         if (max_recursion_limit and nesting_list.count("FamilyMemberHistory") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -141,7 +137,7 @@ class FamilyMemberHistorySchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -188,7 +184,7 @@ class FamilyMemberHistorySchema:
                 StructField("relationship", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Administrative Gender - the gender that the relative is considered to have for
                 # administration and record keeping purposes.
-                StructField("gender", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("gender", StringType(), True),
                 # None
                 StructField("bornPeriod", PeriodSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -219,7 +215,7 @@ class FamilyMemberHistorySchema:
                 # a repeating section to allow a system to represent more than one condition per
                 # resource, though there is nothing stopping multiple resources - one per
                 # condition.
-                StructField("condition", FamilyMemberHistory.ConditionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("condition", FamilyMemberHistoryConditionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

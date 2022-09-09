@@ -121,7 +121,7 @@ class StructureDefinitionSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -135,7 +135,7 @@ class StructureDefinitionSchema:
         # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.contact import StructureDefinition.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.structuredefinitioncontact import StructureDefinitionContactSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # useContext
@@ -143,13 +143,11 @@ class StructureDefinitionSchema:
         # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # mapping
-        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.mapping import StructureDefinition.MappingSchema
-        # kind
-        # type = code
+        from spark_fhir_schemas.dstu2.backbone_elements.structuredefinitionmapping import StructureDefinitionMappingSchema
         # snapshot
-        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.snapshot import StructureDefinition.SnapshotSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.structuredefinitionsnapshot import StructureDefinitionSnapshotSchema
         # differential
-        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.differential import StructureDefinition.DifferentialSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.structuredefinitiondifferential import StructureDefinitionDifferentialSchema
         if (max_recursion_limit and nesting_list.count("StructureDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -167,7 +165,7 @@ class StructureDefinitionSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -216,7 +214,7 @@ class StructureDefinitionSchema:
                 # the extension to the user.
                 StructField("display", StringType(), True),
                 # The status of the StructureDefinition.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # This StructureDefinition was authored for testing purposes (or
                 # education/evaluation/marketing), and is not intended to be used for genuine
                 # usage.
@@ -225,7 +223,7 @@ class StructureDefinitionSchema:
                 # definition.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", StructureDefinition.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", StructureDefinitionContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date this version of the structure definition was published. The date must
                 # change when the business version changes, if it does, and it must change if
                 # the status code changes. In addition, it should change when the substantive
@@ -253,14 +251,14 @@ class StructureDefinitionSchema:
                 # number, e.g. [publication].[major].[minor], which is 1.0.2 for this version.
                 StructField("fhirVersion", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An external specification that the content is mapped to.
-                StructField("mapping", StructureDefinition.MappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mapping", StructureDefinitionMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Defines the kind of structure that this definition is describing.
                 StructField("kind", StringType(), True),
                 # The type of type that is being constrained - a data type, an extension, a
                 # resource, including abstract ones. If this field is present, it indicates that
                 # the structure definition is a constraint. If it is not present, then the
                 # structure definition is the definition of a base structure.
-                StructField("constrainedType", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("constrainedType", StringType(), True),
                 # Whether structure this definition describes is abstract or not  - that is,
                 # whether an actual exchanged item can ever be of this type.
                 StructField("abstract", BooleanType(), True),
@@ -275,10 +273,10 @@ class StructureDefinitionSchema:
                 StructField("base", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A snapshot view is expressed in a stand alone form that can be used and
                 # interpreted without considering the base StructureDefinition.
-                StructField("snapshot", StructureDefinition.SnapshotSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("snapshot", StructureDefinitionSnapshotSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A differential view is expressed relative to the base StructureDefinition - a
                 # statement of differences that it applies.
-                StructField("differential", StructureDefinition.DifferentialSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("differential", StructureDefinitionDifferentialSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

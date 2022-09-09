@@ -82,7 +82,7 @@ class PatientSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -97,8 +97,6 @@ class PatientSchema:
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
         # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-        # birthDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # deceasedDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # address
@@ -110,15 +108,15 @@ class PatientSchema:
         # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.patient.contact import Patient.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.patientcontact import PatientContactSchema
         # animal
-        from spark_fhir_schemas.dstu2.complex_types.patient.animal import Patient.AnimalSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.patientanimal import PatientAnimalSchema
         # communication
-        from spark_fhir_schemas.dstu2.complex_types.patient.communication import Patient.CommunicationSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.patientcommunication import PatientCommunicationSchema
         # careProvider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # link
-        from spark_fhir_schemas.dstu2.complex_types.patient.link import Patient.LinkSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.patientlink import PatientLinkSchema
         if (max_recursion_limit and nesting_list.count("Patient") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -136,7 +134,7 @@ class PatientSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -175,7 +173,7 @@ class PatientSchema:
                 StructField("telecom", ContactPointSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Administrative Gender - the gender that the patient is considered to have for
                 # administration and record keeping purposes.
-                StructField("gender", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("gender", StringType(), True),
                 # The date of birth for the individual.
                 StructField("birthDate", DateType(), True),
                 # None
@@ -189,22 +187,22 @@ class PatientSchema:
                 # None
                 StructField("multipleBirthBoolean", BooleanType(), True),
                 # None
-                StructField("multipleBirthInteger", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("multipleBirthInteger", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Image of the patient.
                 StructField("photo", AttachmentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A contact party (e.g. guardian, partner, friend) for the patient.
-                StructField("contact", Patient.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", PatientContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # This patient is known to be an animal.
-                StructField("animal", Patient.AnimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("animal", PatientAnimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Languages which may be used to communicate with the patient about his or her
                 # health.
-                StructField("communication", Patient.CommunicationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("communication", PatientCommunicationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Patient's nominated care provider.
                 StructField("careProvider", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Organization that is the custodian of the patient record.
                 StructField("managingOrganization", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Link to another patient resource that concerns the same actual patient.
-                StructField("link", Patient.LinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("link", PatientLinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

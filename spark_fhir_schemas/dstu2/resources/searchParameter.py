@@ -87,7 +87,7 @@ class SearchParameterSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -99,11 +99,9 @@ class SearchParameterSchema:
         # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.searchparameter.contact import SearchParameter.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.searchparametercontact import SearchParameterContactSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # xpathUsage
-        # type = code
         if (max_recursion_limit and nesting_list.count("SearchParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -121,7 +119,7 @@ class SearchParameterSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -157,7 +155,7 @@ class SearchParameterSchema:
                 # A free text natural language name identifying the search parameter.
                 StructField("name", StringType(), True),
                 # The status of this search parameter definition.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A flag to indicate that this search parameter definition is authored for
                 # testing purposes (or education/evaluation/marketing), and is not intended to
                 # be used for genuine usage.
@@ -166,7 +164,7 @@ class SearchParameterSchema:
                 # parameter.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", SearchParameter.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", SearchParameterContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date  (and optionally time) when the search parameter definition was
                 # published. The date must change when the business version changes, if it does,
                 # and it must change if the status code changes. In addition, it should change
@@ -176,12 +174,12 @@ class SearchParameterSchema:
                 StructField("requirements", StringType(), True),
                 # The code used in the URL or the parameter name in a parameters resource for
                 # this search parameter.
-                StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", StringType(), True),
                 # The base resource type that this search parameter refers to.
-                StructField("base", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("base", StringType(), True),
                 # The type of value a search parameter refers to, and how the content is
                 # interpreted.
-                StructField("type", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # A description of the search parameters and how it used.
                 StructField("description", StringType(), True),
                 # An XPath expression that returns a set of elements for the search parameter.
@@ -190,7 +188,7 @@ class SearchParameterSchema:
                 # the xpath query.
                 StructField("xpathUsage", StringType(), True),
                 # Types of resource (if a resource is referenced).
-                StructField("target", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("target", StringType(), True),
             ]
         )
         if not include_extension:

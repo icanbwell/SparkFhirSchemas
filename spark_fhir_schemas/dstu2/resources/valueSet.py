@@ -106,7 +106,7 @@ class ValueSetSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -120,19 +120,17 @@ class ValueSetSchema:
         # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.valueset.contact import ValueSet.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.valuesetcontact import ValueSetContactSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # lockedDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # codeSystem
-        from spark_fhir_schemas.dstu2.complex_types.valueset.codesystem import ValueSet.CodeSystemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.valuesetcodesystem import ValueSetCodeSystemSchema
         # compose
-        from spark_fhir_schemas.dstu2.complex_types.valueset.compose import ValueSet.ComposeSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.valuesetcompose import ValueSetComposeSchema
         # expansion
-        from spark_fhir_schemas.dstu2.complex_types.valueset.expansion import ValueSet.ExpansionSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.valuesetexpansion import ValueSetExpansionSchema
         if (max_recursion_limit and nesting_list.count("ValueSet") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -150,7 +148,7 @@ class ValueSetSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -194,7 +192,7 @@ class ValueSetSchema:
                 # A free text natural language name describing the value set.
                 StructField("name", StringType(), True),
                 # The status of the value set.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # This valueset was authored for testing purposes (or
                 # education/evaluation/marketing), and is not intended to be used for genuine
                 # usage.
@@ -202,7 +200,7 @@ class ValueSetSchema:
                 # The name of the individual or organization that published the value set.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", ValueSet.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", ValueSetContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date that the value set status was last changed. The date must change when
                 # the business version changes, if it does, and it must change if the status
                 # code changes. In addition, it should change when the substantive content of
@@ -237,14 +235,14 @@ class ValueSetSchema:
                 # A definition of a code system, inlined into the value set (as a packaging
                 # convenience). Note that the inline code system may be used from other value
                 # sets by referring to its (codeSystem.system) directly.
-                StructField("codeSystem", ValueSet.CodeSystemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("codeSystem", ValueSetCodeSystemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A set of criteria that provide the content logical definition of the value set
                 # by including or excluding codes from outside this value set.
-                StructField("compose", ValueSet.ComposeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("compose", ValueSetComposeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A value set can also be "expanded", where the value set is turned into a
                 # simple collection of enumerated codes. This element holds the expansion, if it
                 # has been performed.
-                StructField("expansion", ValueSet.ExpansionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("expansion", ValueSetExpansionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

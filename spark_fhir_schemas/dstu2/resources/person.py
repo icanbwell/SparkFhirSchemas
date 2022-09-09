@@ -71,7 +71,7 @@ class PersonSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -84,8 +84,6 @@ class PersonSchema:
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
         # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-        # birthDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
         # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
         # photo
@@ -95,7 +93,7 @@ class PersonSchema:
         # active
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # link
-        from spark_fhir_schemas.dstu2.complex_types.person.link import Person.LinkSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.personlink import PersonLinkSchema
         if (max_recursion_limit and nesting_list.count("Person") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -113,7 +111,7 @@ class PersonSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -148,7 +146,7 @@ class PersonSchema:
                 # A contact detail for the person, e.g. a telephone number or an email address.
                 StructField("telecom", ContactPointSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Administrative Gender.
-                StructField("gender", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("gender", StringType(), True),
                 # The birth date for the person.
                 StructField("birthDate", DateType(), True),
                 # One or more addresses for the person.
@@ -161,7 +159,7 @@ class PersonSchema:
                 # Whether this person's record is in active use.
                 StructField("active", BooleanType(), True),
                 # Link to a resource that concerns the same actual person.
-                StructField("link", Person.LinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("link", PersonLinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

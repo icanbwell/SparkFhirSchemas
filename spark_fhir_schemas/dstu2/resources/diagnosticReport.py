@@ -101,7 +101,7 @@ class DiagnosticReportSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -110,8 +110,6 @@ class DiagnosticReportSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # status
-        # type = code
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # subject
@@ -123,7 +121,7 @@ class DiagnosticReportSchema:
         # issued
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # image
-        from spark_fhir_schemas.dstu2.complex_types.diagnosticreport.image import DiagnosticReport.ImageSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.diagnosticreportimage import DiagnosticReportImageSchema
         # conclusion
         # type = string
         # presentedForm
@@ -145,7 +143,7 @@ class DiagnosticReportSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -216,7 +214,7 @@ class DiagnosticReportSchema:
                 # A list of key images associated with this report. The images are generally
                 # created during the diagnostic process, and may be directly of the patient, or
                 # of treated specimens (i.e. slides of interest).
-                StructField("image", DiagnosticReport.ImageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("image", DiagnosticReportImageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Concise and clinically contextualized narrative interpretation of the
                 # diagnostic report.
                 StructField("conclusion", StringType(), True),

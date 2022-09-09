@@ -80,7 +80,7 @@ class SubscriptionSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -91,10 +91,8 @@ class SubscriptionSchema:
         # type = string
         # contact
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-        # status
-        # type = code
         # channel
-        from spark_fhir_schemas.dstu2.complex_types.subscription.channel import Subscription.ChannelSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.subscriptionchannel import SubscriptionChannelSchema
         # end
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # tag
@@ -116,7 +114,7 @@ class SubscriptionSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -160,7 +158,7 @@ class SubscriptionSchema:
                 StructField("error", StringType(), True),
                 # Details where to send notifications when resources are received that meet the
                 # criteria.
-                StructField("channel", Subscription.ChannelSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("channel", SubscriptionChannelSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The time for the server to turn the subscription off.
                 StructField("end", instantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A tag to add to any resource that matches the criteria, after the subscription

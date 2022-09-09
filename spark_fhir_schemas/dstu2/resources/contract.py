@@ -95,7 +95,7 @@ class ContractSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -113,21 +113,21 @@ class ContractSchema:
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # actor
-        from spark_fhir_schemas.dstu2.complex_types.contract.actor import Contract.ActorSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractactor import ContractActorSchema
         # valuedItem
-        from spark_fhir_schemas.dstu2.complex_types.contract.valueditem import Contract.ValuedItemSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractvalueditem import ContractValuedItemSchema
         # signer
-        from spark_fhir_schemas.dstu2.complex_types.contract.signer import Contract.SignerSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractsigner import ContractSignerSchema
         # term
-        from spark_fhir_schemas.dstu2.complex_types.contract.term import Contract.TermSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractterm import ContractTermSchema
         # bindingAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         # friendly
-        from spark_fhir_schemas.dstu2.complex_types.contract.friendly import Contract.FriendlySchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractfriendly import ContractFriendlySchema
         # legal
-        from spark_fhir_schemas.dstu2.complex_types.contract.legal import Contract.LegalSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractlegal import ContractLegalSchema
         # rule
-        from spark_fhir_schemas.dstu2.complex_types.contract.rule import Contract.RuleSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.contractrule import ContractRuleSchema
         if (max_recursion_limit and nesting_list.count("Contract") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -145,7 +145,7 @@ class ContractSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -204,14 +204,14 @@ class ContractSchema:
                 # Reason for action stipulated by this Contract.
                 StructField("actionReason", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of Contract actors.
-                StructField("actor", Contract.ActorSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("actor", ContractActorSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Contract Valued Item List.
-                StructField("valuedItem", Contract.ValuedItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("valuedItem", ContractValuedItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Party signing this Contract.
-                StructField("signer", Contract.SignerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("signer", ContractSignerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # One or more Contract Provisions, which may be related and conveyed as a group,
                 # and may contain nested groups.
-                StructField("term", Contract.TermSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("term", ContractTermSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("bindingAttachment", AttachmentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -222,11 +222,11 @@ class ContractSchema:
                 # by a layperson in accordance with best practices for communication styles that
                 # ensure that those agreeing to or signing the Contract understand the roles,
                 # actions, obligations, responsibilities, and implication of the agreement.
-                StructField("friendly", Contract.FriendlySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("friendly", ContractFriendlySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of Legal expressions or representations of this Contract.
-                StructField("legal", Contract.LegalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("legal", ContractLegalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of Computable Policy Rule Language Representations of this Contract.
-                StructField("rule", Contract.RuleSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("rule", ContractRuleSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

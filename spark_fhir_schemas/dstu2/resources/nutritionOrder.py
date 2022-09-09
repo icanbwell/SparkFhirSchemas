@@ -91,7 +91,7 @@ class NutritionOrderSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -104,16 +104,14 @@ class NutritionOrderSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # dateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # status
-        # type = code
         # foodPreferenceModifier
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # oralDiet
-        from spark_fhir_schemas.dstu2.complex_types.nutritionorder.oraldiet import NutritionOrder.OralDietSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.nutritionorderoraldiet import NutritionOrderOralDietSchema
         # supplement
-        from spark_fhir_schemas.dstu2.complex_types.nutritionorder.supplement import NutritionOrder.SupplementSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.nutritionordersupplement import NutritionOrderSupplementSchema
         # enteralFormula
-        from spark_fhir_schemas.dstu2.complex_types.nutritionorder.enteralformula import NutritionOrder.EnteralFormulaSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.nutritionorderenteralformula import NutritionOrderEnteralFormulaSchema
         if (max_recursion_limit and nesting_list.count("NutritionOrder") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -131,7 +129,7 @@ class NutritionOrderSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -195,13 +193,13 @@ class NutritionOrderSchema:
                 # of the oral diet, nutritional supplements and enteral formula feedings.
                 StructField("excludeFoodModifier", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diet given orally in contrast to enteral (tube) feeding.
-                StructField("oralDiet", NutritionOrder.OralDietSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("oralDiet", NutritionOrderOralDietSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Oral nutritional products given in order to add further nutritional value to
                 # the patient's diet.
-                StructField("supplement", NutritionOrder.SupplementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("supplement", NutritionOrderSupplementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Feeding provided through the gastrointestinal tract via a tube, catheter, or
                 # stoma that delivers nutrition distal to the oral cavity.
-                StructField("enteralFormula", NutritionOrder.EnteralFormulaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("enteralFormula", NutritionOrderEnteralFormulaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

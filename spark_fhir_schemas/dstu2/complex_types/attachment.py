@@ -46,7 +46,7 @@ class AttachmentSchema:
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # contentType
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # data
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
         # url
@@ -75,10 +75,10 @@ class AttachmentSchema:
                 # Identifies the type of the data in the attachment and allows a method to be
                 # chosen to interpret or render the data. Includes mime type parameters such as
                 # charset where appropriate.
-                StructField("contentType", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contentType", StringType(), True),
                 # The human language of the content. The value can be any valid value according
                 # to BCP 47.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # The actual data of the attachment - a sequence of bytes. In XML, represented
                 # using base64.
                 StructField("data", base64BinarySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -99,7 +99,7 @@ class OperationDefinitionSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -108,18 +108,16 @@ class OperationDefinitionSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # version
         # type = string
-        # kind
-        # type = code
         # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.operationdefinition.contact import OperationDefinition.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.operationdefinitioncontact import OperationDefinitionContactSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # base
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # parameter
-        from spark_fhir_schemas.dstu2.complex_types.operationdefinition.parameter import OperationDefinition.ParameterSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.operationdefinitionparameter import OperationDefinitionParameterSchema
         if (max_recursion_limit and nesting_list.count("OperationDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -137,7 +135,7 @@ class OperationDefinitionSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -178,7 +176,7 @@ class OperationDefinitionSchema:
                 # A free text natural language name identifying the operation.
                 StructField("name", StringType(), True),
                 # The status of the profile.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Whether this is an operation or a named query.
                 StructField("kind", StringType(), True),
                 # This profile was authored for testing purposes (or
@@ -189,7 +187,7 @@ class OperationDefinitionSchema:
                 # definition.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", OperationDefinition.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", OperationDefinitionContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date this version of the operation definition was published. The date must
                 # change when the business version changes, if it does, and it must change if
                 # the status code changes. In addition, it should change when the substantive
@@ -205,7 +203,7 @@ class OperationDefinitionSchema:
                 # invoked by performing an HTTP GET operation instead of a POST.
                 StructField("idempotent", BooleanType(), True),
                 # The name used to invoke the operation.
-                StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", StringType(), True),
                 # Additional information about how to use this operation or named query.
                 StructField("notes", StringType(), True),
                 # Indicates that this operation definition is a constraining profile on the
@@ -217,12 +215,12 @@ class OperationDefinitionSchema:
                 # Indicates whether this operation or named query can be invoked at the resource
                 # type level for any given resource type level (e.g. without needing to choose a
                 # resource type for the context).
-                StructField("type", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # Indicates whether this operation can be invoked on a particular instance of
                 # one of the given types.
                 StructField("instance", BooleanType(), True),
                 # The parameters for the operation/query.
-                StructField("parameter", OperationDefinition.ParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("parameter", OperationDefinitionParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

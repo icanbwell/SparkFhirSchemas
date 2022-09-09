@@ -87,7 +87,7 @@ class NamingSystemSchema:
         # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # language
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # type = code
         # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
         # contained
@@ -96,16 +96,14 @@ class NamingSystemSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # name
         # type = string
-        # kind
-        # type = code
         # contact
-        from spark_fhir_schemas.dstu2.complex_types.namingsystem.contact import NamingSystem.ContactSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.namingsystemcontact import NamingSystemContactSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # uniqueId
-        from spark_fhir_schemas.dstu2.complex_types.namingsystem.uniqueid import NamingSystem.UniqueIdSchema
+        from spark_fhir_schemas.dstu2.backbone_elements.namingsystemuniqueid import NamingSystemUniqueIdSchema
         # replacedBy
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("NamingSystem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -125,7 +123,7 @@ class NamingSystemSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
-                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", StringType(), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -156,14 +154,14 @@ class NamingSystemSchema:
                 # The descriptive name of this particular identifier type or code system.
                 StructField("name", StringType(), True),
                 # Indicates whether the naming system is "ready for use" or not.
-                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Indicates the purpose for the naming system - what kinds of things does it
                 # make unique?
                 StructField("kind", StringType(), True),
                 # The name of the individual or organization that published the naming system.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", NamingSystem.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", NamingSystemContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The name of the organization that is responsible for issuing identifiers or
                 # codes for this namespace and ensuring their non-collision.
                 StructField("responsible", StringType(), True),
@@ -187,7 +185,7 @@ class NamingSystemSchema:
                 StructField("usage", StringType(), True),
                 # Indicates how the system may be identified when referenced in electronic
                 # exchange.
-                StructField("uniqueId", NamingSystem.UniqueIdSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("uniqueId", NamingSystemUniqueIdSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # For naming systems that are retired, indicates the naming system that should
                 # be used in their place (if any).
                 StructField("replacedBy", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
