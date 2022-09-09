@@ -1,282 +1,192 @@
-import json
+# type: ignore
+# This file implements the code generator for generating schema and resolvers for FHIR
+# It reads the FHIR XML schema and generates resolvers in the resolvers folder and schema in the schema folder
+
 import os
-from pathlib import Path
 import shutil
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from os import path
+from pathlib import Path
+from typing import List, Union
 
-from attr import dataclass
-
-
-@dataclass
-class PropertyInfo:
-    Name: str
-    Type: Optional[str]
-    Pattern: Optional[str]
-    UnderlyingDataType: Optional[str]
-    IsUniqueUnderlyingDataType: bool
-    Description: Optional[str]
-    IsResourceType: bool
-    IsSimpleType: bool
-    IsComplexType: bool
-    HideExtension: bool
-
-    def __str__(self) -> str:
-        return f"property_name:{self.Name}, type={self.Type}, underlying_type={self.UnderlyingDataType}"
+from fhir_xml_schema_parser import FhirXmlSchemaParser
+from fhir_xml_schema_parser import FhirEntity
 
 
-@dataclass
-class ResourceInfo:
-    Name: str
-    Type: Optional[str]
-    Description: Optional[str]
+def my_copytree(
+    src: Union[Path, str],
+    dst: Union[Path, str],
+    symlinks: bool = False,
+    # ignore: Union[
+    #     None,
+    #     Callable[[str, List[str]], Iterable[str]],
+    #     Callable[[Union[str, os.PathLike[str]], List[str]], Iterable[str]],
+    # ] = None,
+) -> None:
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks)
+        else:
+            shutil.copy2(s, d)
 
 
-def get_parent_properties(
-    definitions: Dict[str, Any], parent_resource_reference: Dict[str, Any]
-) -> Dict[str, Any]:
-    parent_ref: str = parent_resource_reference["$ref"]
-    parent_resource_name: str = parent_ref.split("/")[-1]
-    parent_resource = definitions[parent_resource_name]
-    parent_resource_references1 = [r for r in parent_resource["allOf"] if "$ref" in r]
-    parent_properties1: Dict[str, Any] = {}
-    for parent_resource_reference1 in parent_resource_references1:
-        parent_properties1.update(
-            get_parent_properties(
-                definitions=definitions,
-                parent_resource_reference=parent_resource_reference1,
-            )
-        )
-    # now add in any properties
-    propertyContainer: Dict[str, Any]
-    for propertyContainer in [r for r in parent_resource["allOf"] if "properties" in r]:
-        parent_properties1.update(propertyContainer["properties"])
-    return parent_properties1
+def clean_duplicate_lines(file_path: Union[Path, str]) -> None:
+    print(f"Removing duplicate lines from {file_path}")
+    with open(file_path, "r") as file:
+        lines: List[str] = file.readlines()
+    new_lines: List[str] = []
+    for line in lines:
+        if not line.strip() or not line.lstrip().startswith("from"):
+            new_lines.append(line)
+        elif line not in new_lines and line.lstrip() not in [
+            c.lstrip() for c in new_lines
+        ]:
+            new_lines.append(line)
+    with open(file_path, "w") as file:
+        file.writelines(new_lines)
 
 
 def main() -> int:
     data_dir: Path = Path(__file__).parent.joinpath("./")
-
-    with open(data_dir.joinpath("fhir.schema.json"), "r+") as file:
-        contents = file.read()
+    classes_dir: Path = data_dir.joinpath("./")
 
     # clean out old stuff
-    resources_folder = data_dir.joinpath("resources")
-    if os.path.exists(resources_folder):
-        shutil.rmtree(resources_folder)
-    os.mkdir(resources_folder)
-    resources_folder.joinpath("__init__.py").touch()
+    classes_resources_folder = classes_dir.joinpath("resources")
+    if os.path.exists(classes_resources_folder):
+        shutil.rmtree(classes_resources_folder)
+    os.mkdir(classes_resources_folder)
 
-    complex_types_folder = data_dir.joinpath("complex_types")
-    if os.path.exists(complex_types_folder):
-        shutil.rmtree(complex_types_folder)
-    os.mkdir(complex_types_folder)
-    complex_types_folder.joinpath("__init__.py").touch()
+    classes_complex_types_folder = classes_dir.joinpath("complex_types")
+    if os.path.exists(classes_complex_types_folder):
+        shutil.rmtree(classes_complex_types_folder)
+    os.mkdir(classes_complex_types_folder)
 
-    simple_types_folder = data_dir.joinpath("simple_types")
-    if os.path.exists(simple_types_folder):
-        shutil.rmtree(simple_types_folder)
-    os.mkdir(simple_types_folder)
-    simple_types_folder.joinpath("__init__.py").touch()
+    classes_backbone_elements_folder = classes_dir.joinpath("backbone_elements")
+    if os.path.exists(classes_backbone_elements_folder):
+        shutil.rmtree(classes_backbone_elements_folder)
+    os.mkdir(classes_backbone_elements_folder)
 
-    fhir_schema = json.loads(contents)
-    resources_dict: Dict[str, str] = {}
-    definitions = fhir_schema["definitions"]
-    # print(definitions)
-    # print(type(definitions))
-    # for key, value in definitions.items():
-    #     print(f"{key}:{value}")
-    # print(definitions["Patient"])
-    simple_types: List[str] = [
-        "number",
-        "array",
-    ]  # number is not defined in fhir schema
-    # extensions_allowed_for_resources: List[str] = ["Patient", "Identifier"]
-    extensions_blocked_for_resources: List[str] = []
-    properties_blocked: List[str] = ["modifierExtension"]
-    complex_types: List[str] = []
-    resource_types: List[str] = []
+    fhir_entities: List[FhirEntity] = FhirXmlSchemaParser.generate_classes()
 
-    # first pass, decide which items are resources or simple_types or complex_types
-    # have to do two passes since an item at the beginning of the file may refer to an item at the end
-    for resource_name, resource in definitions.items():
-        # resource_name: str = "Patient"
-        # resource = definitions[resource_name]
-        if resource_name in []:
-            continue
-
-        if resource_name in resources_dict:
-            print(f"Added Resource: {resource_name}")
-            resource_types.append(resource_name.lower())
-        elif "properties" not in resource and "allOf" not in resource:
-            print(f"Added Simple Type: {resource_name}")
-            simple_types.append(resource_name.lower())
-        else:
-            print(f"Added Complex Type: {resource_name}")
-            complex_types.append(resource_name.lower())
-
-    # 2nd Pass
-    # Create the entities
-    for resource_name, resource in definitions.items():
-        # resource_name: str = "Patient"
-        # resource = definitions[resource_name]
-        if resource_name in []:
-            continue
-        print(f"Processing {resource_name}")
-        # concat properties from allOf
-        parent_resource_references = (
-            [r for r in resource["allOf"] if "$ref" in r] if "allOf" in resource else []
-        )
-        parent_properties: Dict[str, Any] = {}
-
-        # find the properties from parent resources and include those
-        for parent_resource_reference in parent_resource_references:
-            parent_properties.update(
-                get_parent_properties(
-                    definitions=definitions,
-                    parent_resource_reference=parent_resource_reference,
-                )
-            )
-        resource = (
-            [r for r in resource["allOf"] if "properties" in r][0]
-            if "allOf" in resource
-            else {}
-        )
-        resource_type: Optional[str] = resource["type"] if "type" in resource else None
-        resource_description: Optional[str] = (
-            resource["description"] if "description" in resource else None
-        )
-        properties: Dict[str, Any] = parent_properties
-        properties.update(resource["properties"] if "properties" in resource else {})
-        properties_info: List[PropertyInfo] = []
-        # print("---- Properties ----")
-        for key, value in {
-            k: v for k, v in properties.items() if not k.startswith("_")
-        }.items():
-            property_name = key
-            description: str = value["description"]
-            # items: Optional[Dict[str, str]
-            #                 ] = value["items"] if "items" in value else None
-            type_: Optional[str] = value["type"] if "type" in value else None
-            ref_: Optional[str] = (
-                value["$ref"]
-                if "$ref" in value and type_ != "array"
-                else value["items"]["$ref"]
-                if "items" in value and "$ref" in value["items"]
-                else value["items"]["type"]
-                if "items" in value and "type" in value["items"]
-                else None
-            )
-            pattern = value["pattern"] if "pattern" in value else None
-            # print(f"{key}:{value}")
-            # type_ == None means string
-            reference_type: Optional[str] = (
-                ref_[ref_.rfind("/") + 1 :] if ref_ else None
-            )
-
-            if not type_ and not reference_type:
-                type_ = "string"  # typically an enum
-            # print(f"property_name:{property_name}, type={type_}, ref={ref_}, reference_type={reference_type}")
-            property_info = PropertyInfo(
-                Name=property_name,
-                Type=type_,
-                Pattern=pattern,
-                UnderlyingDataType=reference_type,
-                IsUniqueUnderlyingDataType=not any(
-                    [pi.UnderlyingDataType == reference_type for pi in properties_info]
-                ),
-                Description=description,
-                IsResourceType=reference_type.lower() in resources_dict
-                if reference_type
-                else False,
-                IsSimpleType=reference_type.lower() in simple_types
-                if reference_type
-                else (type_.lower() in simple_types if type_ else False),
-                IsComplexType=reference_type.lower() in complex_types
-                if reference_type
-                else False,
-                HideExtension=reference_type.lower() == "extension"
-                and resource_name in extensions_blocked_for_resources
-                if reference_type
-                else False,
-            )
-            if resource_name.lower() == "extension":
-                # have to skip a few properties or Spark runs out of memory
-                allowed_properties = [
-                    "id",
-                    "url",
-                    "extension",
-                    "valueBoolean",
-                    "valueCode",
-                    "valueDate",
-                    "valueDateTime",
-                    "valueDecimal",
-                    "valueId",
-                    "valueInteger",
-                    "valuePositiveInt",
-                    "valueString",
-                    "valueTime",
-                    "valueUnsignedInt",
-                    "valueUri",
-                    "valueUrl",
-                    "valueCodeableConcept",
-                    "valueCoding",
-                    "valueCount",
-                    "valueIdentifier",
-                    "valueMoney",
-                    "valuePeriod",
-                    "valueQuantity",
-                    "valueRange",
-                    "valueReference",
-                ]
-                if property_name in allowed_properties:
-                    properties_info.append(property_info)
-            elif property_name not in properties_blocked:
-                properties_info.append(property_info)
-            # assert property_info.IsResourceType or property_info.IsSimpleType or property_info.IsComplexType, \
-            #     f"{resource_name}.{property_name}[{type_}] reference_type:{reference_type}"
-            # print(properties_info[-1])
-            # print("")
-
+    # now print the result
+    for fhir_entity in fhir_entities:
         # use template to generate new code files
-        with open(data_dir.joinpath("template.jinja2"), "r") as file:
-            template_contents: str = file.read()
-            from jinja2 import Template
+        resource_name: str = fhir_entity.cleaned_name
+        entity_file_name = fhir_entity.name_snake_case
+        if fhir_entity.is_value_set:  # valueset
+            pass
+            # with open(data_dir.joinpath("template.value_set.jinja2"), "r") as file:
+            #     template_contents = file.read()
+            #     from jinja2 import Template
+            #
+            #     file_path = value_sets_folder.joinpath(f"{entity_file_name}.graphql")
+            #     print(f"Writing value_set: {entity_file_name} to {file_path}...")
+            #     template = Template(
+            #         template_contents, trim_blocks=True, lstrip_blocks=True
+            #     )
+            #     result = template.render(
+            #         fhir_entity=fhir_entity,
+            #     )
+            #
+            # if not path.exists(file_path):
+            #     with open(file_path, "w") as file2:
+            #         file2.write(result)
+        elif fhir_entity.is_resource:
+            # write Javascript classes
+            with open(data_dir.joinpath("template.jinja2"), "r") as file:
+                template_contents = file.read()
+                from jinja2 import Template
 
-            template = Template(template_contents, trim_blocks=True, lstrip_blocks=True)
-            result: str = template.render(
-                resource=ResourceInfo(
-                    Name=resource_name,
-                    Type=resource_type,
-                    Description=resource_description,
-                ),
-                properties=properties_info,
-            )
-
-            if resource_name in resources_dict:
-                file_path = resources_folder.joinpath(f"{resource_name.lower()}.py")
-                print(f"Writing resource: {resource_name.lower()} to {file_path}...")
-                # print(result)
-                with open(file_path, "w") as file2:
-                    file2.write(result)
-            elif "properties" not in resource and "oneOf" not in resource:
-                file_path = simple_types_folder.joinpath(f"{resource_name.lower()}.py")
-                print(
-                    f"Writing simple_types_folder: {resource_name.lower()} to {file_path}..."
+                file_path = classes_resources_folder.joinpath(f"{entity_file_name}.py")
+                print(f"Writing domain resource: {entity_file_name} to {file_path}...")
+                template = Template(
+                    template_contents, trim_blocks=True, lstrip_blocks=True
                 )
+                result = template.render(fhir_entity=fhir_entity)
+            if not path.exists(file_path):
                 with open(file_path, "w") as file2:
                     file2.write(result)
-            else:
-                file_path = complex_types_folder.joinpath(f"{resource_name.lower()}.py")
-                print(
-                    f"Writing complex_type: {resource_name.lower()} to {file_path}..."
-                )
-                with open(file_path, "w") as file2:
-                    file2.write(result)
+        elif fhir_entity.type_ == "BackboneElement" or fhir_entity.is_back_bone_element:
+            with open(data_dir.joinpath("template.jinja2"), "r") as file:
+                template_contents = file.read()
+                from jinja2 import Template
 
-            # print(result)
+                file_path = classes_backbone_elements_folder.joinpath(
+                    f"{entity_file_name}.py"
+                )
+                print(f"Writing back bone class: {entity_file_name} to {file_path}...")
+                template = Template(
+                    template_contents, trim_blocks=True, lstrip_blocks=True
+                )
+                result = template.render(
+                    fhir_entity=fhir_entity,
+                )
+            if not path.exists(file_path):
+                with open(file_path, "w") as file2:
+                    file2.write(result)
+        elif fhir_entity.is_extension:  # valueset
+            # write Javascript classes
+            with open(data_dir.joinpath("template.jinja2"), "r") as file:
+                template_contents = file.read()
+                from jinja2 import Template
+
+                file_path = classes_complex_types_folder.joinpath(
+                    f"{entity_file_name}.py"
+                )
+                print(f"Writing complex type: {entity_file_name} to {file_path}...")
+                template = Template(
+                    template_contents, trim_blocks=True, lstrip_blocks=True
+                )
+                result = template.render(
+                    fhir_entity=fhir_entity,
+                )
+            if not path.exists(file_path):
+                with open(file_path, "w") as file2:
+                    file2.write(result)
+        elif fhir_entity.type_ == "Element":  # valueset
+            # write Javascript classes
+            with open(data_dir.joinpath("template.jinja2"), "r") as file:
+                template_contents = file.read()
+                from jinja2 import Template
+
+                file_path = classes_complex_types_folder.joinpath(
+                    f"{entity_file_name}.py"
+                )
+                print(f"Writing complex type: {entity_file_name} to {file_path}...")
+                template = Template(
+                    template_contents, trim_blocks=True, lstrip_blocks=True
+                )
+                result = template.render(
+                    fhir_entity=fhir_entity,
+                )
+            if not path.exists(file_path):
+                with open(file_path, "w") as file2:
+                    file2.write(result)
+        elif fhir_entity.type_ in ["Quantity"]:  # valueset
+            with open(data_dir.joinpath("template.jinja2"), "r") as file:
+                template_contents = file.read()
+                from jinja2 import Template
+
+                file_path = classes_complex_types_folder.joinpath(
+                    f"{entity_file_name}.py"
+                )
+                print(f"Writing complex_type: {entity_file_name} to {file_path}...")
+                template = Template(
+                    template_contents, trim_blocks=True, lstrip_blocks=True
+                )
+                result = template.render(
+                    fhir_entity=fhir_entity,
+                )
+
+            if not path.exists(file_path):
+                with open(file_path, "w") as file2:
+                    file2.write(result)
+        else:
+            # assert False, f"{resource_name}: {fhir_entity.type_} is not supported"
+            print(f"{resource_name}: {fhir_entity.type_} is not supported")
+        # print(result)
+
     return 0
 
 

@@ -72,6 +72,6 @@ schema-stu3:
 
 .PHONY:schema-dstu2
 schema-dstu2:
-	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/dstu2/generate_classes.py && \
+	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/dstu2/generate_schema.py && \
 	make run-pre-commit
 	make run-pre-commit
