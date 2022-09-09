@@ -81,13 +81,13 @@ class SearchParameterSchema:
         target: Types of resource (if a resource is referenced).
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # language
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -97,35 +97,35 @@ class SearchParameterSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # url
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # status
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # experimental
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # contact
         Not mapped: SearchParameterContact
             # date
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # requirements
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # code
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # base
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # type
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # xpath
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # xpathUsage
-        from spark_fhir_schemas.dstu2.simple_types.xpathusagetypecode import XPathUsageTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.xpathusagetype import XPathUsageTypeSchema
             # target
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
         if (max_recursion_limit and nesting_list.count("SearchParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -134,7 +134,7 @@ class SearchParameterSchema:
             [
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content may not always be associated with
                 # version changes to the resource.
@@ -143,7 +143,7 @@ class SearchParameterSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", StringType(), True),
                 # The base language in which the resource is written.
-                StructField("language", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
                 # used to represent the content of the resource to a human. The narrative need
                 # not encode all the structured data, but is required to contain sufficient
@@ -179,7 +179,7 @@ class SearchParameterSchema:
                 # A free text natural language name identifying the search parameter.
                 StructField("name", StringType(), True),
                 # The status of this search parameter definition.
-                StructField("status", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A flag to indicate that this search parameter definition is authored for
                 # testing purposes (or education/evaluation/marketing), and is not intended to
                 # be used for genuine usage.
@@ -193,17 +193,17 @@ class SearchParameterSchema:
                 # published. The date must change when the business version changes, if it does,
                 # and it must change if the status code changes. In addition, it should change
                 # when the substantive content of the search parameter changes.
-                StructField("date", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("date", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The Scope and Usage that this search parameter was created to meet.
                 StructField("requirements", StringType(), True),
                 # The code used in the URL or the parameter name in a parameters resource for
                 # this search parameter.
-                StructField("code", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base resource type that this search parameter refers to.
-                StructField("base", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("base", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of value a search parameter refers to, and how the content is
                 # interpreted.
-                StructField("type", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A description of the search parameters and how it used.
                 StructField("description", StringType(), True),
                 # An XPath expression that returns a set of elements for the search parameter.
@@ -212,7 +212,7 @@ class SearchParameterSchema:
                 # the xpath query.
                 StructField("xpathUsage", StringType(), True),
                 # Types of resource (if a resource is referenced).
-                StructField("target", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("target", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

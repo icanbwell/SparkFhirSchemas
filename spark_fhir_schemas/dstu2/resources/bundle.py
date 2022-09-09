@@ -36,17 +36,17 @@ class BundleSchema:
         signature: Digital Signature - base64 encoded. XML DigSIg or a JWT.
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # language
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # type
-        from spark_fhir_schemas.dstu2.simple_types.bundletypecode import BundleTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.bundletype import BundleTypeSchema
             # total
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
             # link
         Not mapped: BundleLink
             # entry
@@ -61,7 +61,7 @@ class BundleSchema:
             [
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content may not always be associated with
                 # version changes to the resource.
@@ -70,12 +70,12 @@ class BundleSchema:
                 # constructed, and which must be understood when processing the content.
                 StructField("implicitRules", StringType(), True),
                 # The base language in which the resource is written.
-                StructField("language", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the purpose of this bundle- how it was intended to be used.
                 StructField("type", StringType(), True),
                 # If a set of search matches, this is the total number of matches for the search
                 # (as opposed to the number of results in this bundle).
-                StructField("total", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("total", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A series of links that provide context to this bundle.
                 StructField("link", BundleLinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An entry in a bundle resource - will either contain a resource, or information

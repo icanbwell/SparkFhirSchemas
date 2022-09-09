@@ -65,31 +65,31 @@ class ClaimItemSchema:
         prosthesis: The materials and placement date of prior fixed prosthesis.
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # sequence
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # provider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # diagnosisLinkId
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # service
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # serviceDate
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
             # quantity
         Not mapped: SimpleQuantity
             # unitPrice
         Not mapped: Money
             # factor
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # points
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # net
         Not mapped: Money
             # udi
@@ -111,7 +111,7 @@ class ClaimItemSchema:
         schema = StructType(
             [
                 # None
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and
@@ -129,13 +129,13 @@ class ClaimItemSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A service line number.
-                StructField("sequence", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("sequence", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of product or service.
                 StructField("type", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The practitioner who is responsible for the services rendered to the patient.
                 StructField("provider", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diagnosis applicable for this service or product line.
-                StructField("diagnosisLinkId", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("diagnosisLinkId", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If a grouping item then 'GROUP' otherwise it is a node therefore a code to
                 # indicate the Professional Service or Product supplied.
                 StructField("service", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -150,12 +150,12 @@ class ClaimItemSchema:
                 # value of services delivered and/or goods received. The concept of a Factor
                 # allows for a discount or surcharge multiplier to be applied to a monetary
                 # amount.
-                StructField("factor", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("factor", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An amount that expresses the weighting (based on difficulty, cost and/or
                 # resource intensiveness) associated with the good or service delivered. The
                 # concept of Points allows for assignment of point values for services and/or
                 # goods, such that a monetary amount can be assigned to each point.
-                StructField("points", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("points", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The quantity times the unit price for an additional  service or product or
                 # charge. For example, the formula: unit Quantity * unit Price (Cost per Point)
                 # * factor Number  * points = net Amount. Quantity, factor and points are

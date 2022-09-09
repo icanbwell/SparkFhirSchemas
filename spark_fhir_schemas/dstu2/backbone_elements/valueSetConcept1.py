@@ -41,15 +41,15 @@ class ValueSetConcept1Schema:
     etc.
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # code
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # display
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # designation
         Not mapped: ValueSetDesignation
         if (max_recursion_limit and nesting_list.count("ValueSetConcept1") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -59,7 +59,7 @@ class ValueSetConcept1Schema:
         schema = StructType(
             [
                 # None
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and
@@ -77,7 +77,7 @@ class ValueSetConcept1Schema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Specifies a code for the concept to be included or excluded.
-                StructField("code", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The text to display to the user for this concept in the context of this
                 # valueset. If no display is provided, then applications using the value set use
                 # the display specified for the code by the system.

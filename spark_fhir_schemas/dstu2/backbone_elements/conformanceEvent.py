@@ -48,7 +48,7 @@ class ConformanceEventSchema:
     business rules, etc.
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -56,17 +56,17 @@ class ConformanceEventSchema:
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # category
-        from spark_fhir_schemas.dstu2.simple_types.messagesignificancecategorycode import MessageSignificanceCategoryCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.messagesignificancecategory import MessageSignificanceCategorySchema
             # mode
-        from spark_fhir_schemas.dstu2.simple_types.conformanceeventmodecode import ConformanceEventModeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.conformanceeventmode import ConformanceEventModeSchema
             # focus
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # response
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # documentation
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
         if (max_recursion_limit and nesting_list.count("ConformanceEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -74,7 +74,7 @@ class ConformanceEventSchema:
         schema = StructType(
             [
                 # None
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and
@@ -100,7 +100,7 @@ class ConformanceEventSchema:
                 StructField("mode", StringType(), True),
                 # A resource associated with the event.  This is the resource that defines the
                 # event.
-                StructField("focus", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("focus", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Information about the request for this event.
                 StructField("request", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Information about the response for this event.

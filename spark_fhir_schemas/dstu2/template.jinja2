@@ -127,7 +127,8 @@ class {{fhir_entity.cleaned_name}}Schema:
                 StructField("{{property.name}}", BooleanType(), True),
             {% elif property.base_type == "number" or property.type_ == "number" %}
                 StructField("{{property.name}}", IntegerType(), True),
-
+            {% elif property.is_basic_type %}
+                StructField("{{property.name}}", {{property.type_}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             {% else %}
                 StructField("{{property.name}}", {{property.cleaned_type}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             {% endif%}

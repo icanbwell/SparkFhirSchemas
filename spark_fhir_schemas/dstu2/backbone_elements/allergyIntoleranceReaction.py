@@ -55,7 +55,7 @@ class AllergyIntoleranceReactionSchema:
         note: Additional text about the adverse reaction event not captured in other fields.
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -63,15 +63,15 @@ class AllergyIntoleranceReactionSchema:
             # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # certainty
-        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecertaintycode import AllergyIntoleranceCertaintyCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecertainty import AllergyIntoleranceCertaintySchema
             # manifestation
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # onset
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # severity
-        from spark_fhir_schemas.dstu2.simple_types.allergyintoleranceseveritycode import AllergyIntoleranceSeverityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintoleranceseverity import AllergyIntoleranceSeveritySchema
             # exposureRoute
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # note
@@ -83,7 +83,7 @@ class AllergyIntoleranceReactionSchema:
         schema = StructType(
             [
                 # None
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and
@@ -119,7 +119,7 @@ class AllergyIntoleranceReactionSchema:
                 # manifestation if required.
                 StructField("description", StringType(), True),
                 # Record of the date and/or time of the onset of the Reaction.
-                StructField("onset", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("onset", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Clinical assessment of the severity of the reaction event as a whole,
                 # potentially considering multiple different manifestations.
                 StructField("severity", StringType(), True),

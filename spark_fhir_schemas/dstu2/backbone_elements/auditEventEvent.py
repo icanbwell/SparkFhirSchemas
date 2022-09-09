@@ -48,7 +48,7 @@ class AuditEventEventSchema:
         purposeOfEvent: The purposeOfUse (reason) that was used during the event being recorded.
         """
             # id
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -58,13 +58,13 @@ class AuditEventEventSchema:
             # subtype
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # action
-        from spark_fhir_schemas.dstu2.simple_types.auditeventactioncode import AuditEventActionCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.auditeventaction import AuditEventActionSchema
             # dateTime
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # outcome
-        from spark_fhir_schemas.dstu2.simple_types.auditeventoutcomecode import AuditEventOutcomeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.auditeventoutcome import AuditEventOutcomeSchema
             # outcomeDesc
-        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # purposeOfEvent
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("AuditEventEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -74,7 +74,7 @@ class AuditEventEventSchema:
         schema = StructType(
             [
                 # None
-                StructField("id", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("id", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the element. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and
@@ -101,7 +101,7 @@ class AuditEventEventSchema:
                 # audit.
                 StructField("action", StringType(), True),
                 # The time when the event occurred on the source.
-                StructField("dateTime", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dateTime", instantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates whether the event succeeded or failed.
                 StructField("outcome", StringType(), True),
                 # A free text description of the outcome of the event.
