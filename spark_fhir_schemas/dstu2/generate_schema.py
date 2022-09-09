@@ -1,7 +1,6 @@
 # type: ignore
 # This file implements the code generator for generating schema and resolvers for FHIR
 # It reads the FHIR XML schema and generates resolvers in the resolvers folder and schema in the schema folder
-
 import os
 import shutil
 from os import path
@@ -72,6 +71,14 @@ def main() -> int:
         shutil.rmtree(classes_backbone_elements_folder)
     os.mkdir(classes_backbone_elements_folder)
 
+    schema_file_path = classes_dir.joinpath("myschema.json")
+    if os.path.exists(schema_file_path):
+        os.remove(schema_file_path)
+
+    schema_pickle_file_path = classes_dir.joinpath("myschema_pickle.json")
+    if os.path.exists(schema_pickle_file_path):
+        os.remove(schema_pickle_file_path)
+
     fhir_entities: List[FhirEntity] = FhirXmlSchemaParser.generate_classes()
 
     # now print the result
@@ -103,7 +110,9 @@ def main() -> int:
                 template_contents = file.read()
                 from jinja2 import Template
 
-                file_path = classes_resources_folder.joinpath(f"{entity_file_name.lower()}.py")
+                file_path = classes_resources_folder.joinpath(
+                    f"{entity_file_name.lower()}.py"
+                )
                 print(f"Writing domain resource: {entity_file_name} to {file_path}...")
                 template = Template(
                     template_contents, trim_blocks=True, lstrip_blocks=True
