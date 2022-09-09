@@ -157,9 +157,7 @@ def main() -> int:
             if not path.exists(file_path):
                 with open(file_path, "w") as file2:
                     file2.write(result)
-        elif (
-            fhir_entity.type_ == "Element" and not fhir_entity.is_basic_type
-        ):  # valueset
+        elif not fhir_entity.is_basic_type:
             # write Javascript classes
             with open(data_dir.joinpath("template.jinja2"), "r") as file:
                 template_contents = file.read()
