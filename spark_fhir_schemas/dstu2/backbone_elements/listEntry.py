@@ -44,8 +44,6 @@ class ListEntrySchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # flag
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # deleted
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # item

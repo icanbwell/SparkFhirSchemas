@@ -122,8 +122,6 @@ class ClaimSchema:
         from spark_fhir_schemas.dstu2.backbone_elements.claimdiagnosis import ClaimDiagnosisSchema
         # coverage
         from spark_fhir_schemas.dstu2.backbone_elements.claimcoverage import ClaimCoverageSchema
-        # school
-        # type = string
         # item
         from spark_fhir_schemas.dstu2.backbone_elements.claimitem import ClaimItemSchema
         # missingTeeth

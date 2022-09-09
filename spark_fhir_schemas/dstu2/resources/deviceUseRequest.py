@@ -93,8 +93,6 @@ class DeviceUseRequestSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # notes
-        # type = string
         # orderedOn
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # timingTiming

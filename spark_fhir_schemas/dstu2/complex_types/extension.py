@@ -68,8 +68,6 @@ class ExtensionSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # valueBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
         # valueDecimal
@@ -78,8 +76,6 @@ class ExtensionSchema:
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
         # valueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-        # valueString
-        # type = string
         # valueDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # valueTime
@@ -152,7 +148,7 @@ class ExtensionSchema:
                 # None
                 StructField("valueBoolean", BooleanType(), True),
                 # None
-                StructField("valueInteger", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("valueInteger", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("valueDecimal", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -180,7 +176,7 @@ class ExtensionSchema:
                 # None
                 StructField("valueUnsignedInt", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("valuePositiveInt", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("valuePositiveInt", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("valueMarkdown", markdownSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

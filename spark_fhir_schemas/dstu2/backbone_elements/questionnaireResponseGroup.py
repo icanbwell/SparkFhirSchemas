@@ -51,8 +51,6 @@ class QuestionnaireResponseGroupSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # linkId
-        # type = string
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # question

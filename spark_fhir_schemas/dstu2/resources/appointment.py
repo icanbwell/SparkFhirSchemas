@@ -102,8 +102,6 @@ class AppointmentSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # priority
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-        # description
-        # type = string
         # start
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # minutesDuration
@@ -187,7 +185,7 @@ class AppointmentSchema:
                 # Number of minutes that the appointment is to take. This can be less than the
                 # duration between the start and end times (where actual time of appointment is
                 # only an estimate or is a planned appointment request).
-                StructField("minutesDuration", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("minutesDuration", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The slot that this appointment is filling. If provided then the schedule will
                 # not be provided as slots are not recursive, and the start/end values MUST be
                 # the same as from the slot.

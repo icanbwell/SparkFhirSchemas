@@ -53,8 +53,6 @@ class ClinicalImpressionRuledOutSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # item
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # reason
-        # type = string
         if (max_recursion_limit and nesting_list.count("ClinicalImpressionRuledOut") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

@@ -47,8 +47,6 @@ class IdentifierSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # value
-        # type = string
         # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # assigner

@@ -45,8 +45,6 @@ class TestScriptTestSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # name
-        # type = string
         # metadata
         from spark_fhir_schemas.dstu2.backbone_elements.testscriptmetadata import TestScriptMetadataSchema
         # action

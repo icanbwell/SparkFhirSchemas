@@ -52,12 +52,8 @@ class ClaimCoverageSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # sequence
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-        # focal
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # coverage
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # businessArrangement
-        # type = string
         # relationship
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("ClaimCoverage") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -85,7 +81,7 @@ class ClaimCoverageSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A service line item.
-                StructField("sequence", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("sequence", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The instance number of the Coverage which is the focus for adjudication. The
                 # Coverage against which the claim is to be adjudicated.
                 StructField("focal", BooleanType(), True),

@@ -64,8 +64,6 @@ class ImagingStudySeriesSchema:
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # uid
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-        # description
-        # type = string
         # availability
         # type = code
         # url

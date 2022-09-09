@@ -55,8 +55,6 @@ class OperationDefinitionParameterSchema:
         # type = code
         # min
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-        # max
-        # type = string
         # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # binding
@@ -91,7 +89,7 @@ class OperationDefinitionParameterSchema:
                 StructField("use", StringType(), True),
                 # The minimum number of times this parameter SHALL appear in the request or
                 # response.
-                StructField("min", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("min", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The maximum number of times this element is permitted to appear in the request
                 # or response.
                 StructField("max", StringType(), True),

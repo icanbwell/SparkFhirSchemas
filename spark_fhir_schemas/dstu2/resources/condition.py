@@ -117,10 +117,6 @@ class ConditionSchema:
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-        # onsetString
-        # type = string
-        # abatementBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # stage
         from spark_fhir_schemas.dstu2.backbone_elements.conditionstage import ConditionStageSchema
         # evidence

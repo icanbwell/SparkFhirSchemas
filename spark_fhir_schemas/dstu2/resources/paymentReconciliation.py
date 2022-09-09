@@ -90,8 +90,6 @@ class PaymentReconciliationSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # disposition
-        # type = string
         # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # created

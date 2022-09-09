@@ -96,8 +96,6 @@ class MediaSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # deviceName
-        # type = string
         # height
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
         # duration
@@ -170,15 +168,15 @@ class MediaSchema:
                 # recording.
                 StructField("deviceName", StringType(), True),
                 # Height of the image in pixels (photo/video).
-                StructField("height", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("height", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Width of the image in pixels (photo/video).
-                StructField("width", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("width", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The number of frames in a photo. This is used with a multi-page fax, or an
                 # imaging acquisition context that takes multiple slices in a single image, or
                 # an animated gif. If there is more than one frame, this SHALL have a value in
                 # order to alert interface software that a multi-frame capable rendering widget
                 # is required.
-                StructField("frames", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("frames", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The duration of the recording in seconds - for audio and video.
                 StructField("duration", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The actual content of the media - inline or by direct reference to the media

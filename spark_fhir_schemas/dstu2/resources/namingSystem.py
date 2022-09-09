@@ -94,8 +94,6 @@ class NamingSystemSchema:
         from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # name
-        # type = string
         # contact
         from spark_fhir_schemas.dstu2.backbone_elements.namingsystemcontact import NamingSystemContactSchema
         # date

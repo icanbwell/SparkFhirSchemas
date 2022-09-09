@@ -57,8 +57,6 @@ class ConformanceEventSchema:
         # type = code
         # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # documentation
-        # type = string
         if (max_recursion_limit and nesting_list.count("ConformanceEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

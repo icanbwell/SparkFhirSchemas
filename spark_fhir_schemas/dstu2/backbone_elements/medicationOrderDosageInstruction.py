@@ -71,14 +71,10 @@ class MedicationOrderDosageInstructionSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # text
-        # type = string
         # additionalInstructions
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # timing
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-        # asNeededBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # siteReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # doseRange

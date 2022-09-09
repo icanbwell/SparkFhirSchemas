@@ -104,8 +104,6 @@ class CoverageSchema:
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-        # group
-        # type = string
         # dependent
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
         if (max_recursion_limit and nesting_list.count("Coverage") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -185,10 +183,10 @@ class CoverageSchema:
                 # within a class of employers. May be referred to as a Section or Division ID.
                 StructField("subPlan", StringType(), True),
                 # A unique identifier for a dependent under the coverage.
-                StructField("dependent", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dependent", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An optional counter for a particular instance of the identified coverage which
                 # increments upon each renewal.
-                StructField("sequence", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("sequence", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The party who 'owns' the insurance contractual relationship to the policy or
                 # to whom the benefit of the policy is due.
                 StructField("subscriber", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -87,10 +87,6 @@ class SlotSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # start
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-        # overbooked
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # comment
-        # type = string
         if (max_recursion_limit and nesting_list.count("Slot") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

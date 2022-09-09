@@ -98,10 +98,6 @@ class ProcessRequestSchema:
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # nullify
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # reference
-        # type = string
         # item
         from spark_fhir_schemas.dstu2.backbone_elements.processrequestitem import ProcessRequestItemSchema
         # period

@@ -53,10 +53,6 @@ class ValueSetConceptSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # code
         # type = code
-        # abstract
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # display
-        # type = string
         # designation
         from spark_fhir_schemas.dstu2.backbone_elements.valuesetdesignation import ValueSetDesignationSchema
         if (max_recursion_limit and nesting_list.count("ValueSetConcept") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

@@ -49,8 +49,6 @@ class NutritionOrderSupplementSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # productName
-        # type = string
         # schedule
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
         # quantity

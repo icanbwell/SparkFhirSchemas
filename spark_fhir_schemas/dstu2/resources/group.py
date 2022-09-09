@@ -84,12 +84,8 @@ class GroupSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # actual
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # name
-        # type = string
         # quantity
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
         # characteristic

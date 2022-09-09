@@ -63,8 +63,6 @@ class VisionPrescriptionDispenseSchema:
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
         # duration
         from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
-        # color
-        # type = string
         if (max_recursion_limit and nesting_list.count("VisionPrescriptionDispense") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -99,7 +97,7 @@ class VisionPrescriptionDispenseSchema:
                 # Power adjustment for astigmatism measured in diopters (0.25 units).
                 StructField("cylinder", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Adjustment for astigmatism measured in integer degrees.
-                StructField("axis", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("axis", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Amount of prism to compensate for eye alignment in fractional units.
                 StructField("prism", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The relative base, or reference lens edge, for the prism.

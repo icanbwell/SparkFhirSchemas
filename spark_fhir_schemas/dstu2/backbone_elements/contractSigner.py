@@ -46,8 +46,6 @@ class ContractSignerSchema:
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # party
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # signature
-        # type = string
         if (max_recursion_limit and nesting_list.count("ContractSigner") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

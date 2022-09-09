@@ -42,8 +42,6 @@ class BundleResponseSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # status
-        # type = string
         # location
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # lastModified

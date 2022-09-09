@@ -40,8 +40,6 @@ class SpecimenTreatmentSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # description
-        # type = string
         # procedure
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # additive

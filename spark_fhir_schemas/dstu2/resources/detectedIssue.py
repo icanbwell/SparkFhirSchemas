@@ -90,8 +90,6 @@ class DetectedIssueSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # detail
-        # type = string
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # identifier

@@ -73,10 +73,6 @@ class ConformanceResourceSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # interaction
         from spark_fhir_schemas.dstu2.backbone_elements.conformanceinteraction import ConformanceInteractionSchema
-        # readHistory
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # searchInclude
-        # type = string
         # searchParam
         from spark_fhir_schemas.dstu2.backbone_elements.conformancesearchparam import ConformanceSearchParamSchema
         if (max_recursion_limit and nesting_list.count("ConformanceResource") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

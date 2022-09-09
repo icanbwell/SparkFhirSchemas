@@ -104,8 +104,6 @@ class FamilyMemberHistorySchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # name
-        # type = string
         # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # bornPeriod
@@ -114,8 +112,6 @@ class FamilyMemberHistorySchema:
         from spark_fhir_schemas.dstu2.complex_types.age import AgeSchema
         # ageRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-        # deceasedBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         # condition

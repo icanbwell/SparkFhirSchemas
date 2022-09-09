@@ -87,8 +87,6 @@ class SubscriptionSchema:
         from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # criteria
-        # type = string
         # contact
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
         # channel

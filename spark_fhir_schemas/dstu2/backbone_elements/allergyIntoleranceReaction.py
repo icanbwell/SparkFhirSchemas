@@ -62,8 +62,6 @@ class AllergyIntoleranceReactionSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # certainty
         # type = code
-        # description
-        # type = string
         # onset
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # note

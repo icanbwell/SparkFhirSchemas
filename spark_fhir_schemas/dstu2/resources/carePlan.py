@@ -108,8 +108,6 @@ class CarePlanSchema:
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # description
-        # type = string
         # relatedPlan
         from spark_fhir_schemas.dstu2.backbone_elements.careplanrelatedplan import CarePlanRelatedPlanSchema
         # participant

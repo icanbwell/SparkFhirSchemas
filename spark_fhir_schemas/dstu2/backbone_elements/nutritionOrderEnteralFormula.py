@@ -64,8 +64,6 @@ class NutritionOrderEnteralFormulaSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # baseFormulaType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # baseFormulaProductName
-        # type = string
         # caloricDensity
         from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
         # administration

@@ -55,8 +55,6 @@ class BundleRequestSchema:
         # type = code
         # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # ifNoneMatch
-        # type = string
         # ifModifiedSince
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         if (max_recursion_limit and nesting_list.count("BundleRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

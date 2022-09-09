@@ -70,10 +70,6 @@ class AuditEventParticipantSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # userId
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # altId
-        # type = string
-        # requestor
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # policy
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # media

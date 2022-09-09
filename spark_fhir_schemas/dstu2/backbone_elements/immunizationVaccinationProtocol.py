@@ -56,8 +56,6 @@ class ImmunizationVaccinationProtocolSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # doseSequence
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-        # description
-        # type = string
         # authority
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # targetDisease
@@ -87,7 +85,7 @@ class ImmunizationVaccinationProtocolSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Nominal position in a series.
-                StructField("doseSequence", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("doseSequence", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Contains the description about the protocol under which the vaccine was
                 # administered.
                 StructField("description", StringType(), True),
@@ -97,7 +95,7 @@ class ImmunizationVaccinationProtocolSchema:
                 # context of an authority.
                 StructField("series", StringType(), True),
                 # The recommended number of doses to achieve immunity.
-                StructField("seriesDoses", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("seriesDoses", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The targeted disease.
                 StructField("targetDisease", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates if the immunization event should "count" against  the protocol.

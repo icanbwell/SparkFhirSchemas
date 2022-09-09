@@ -114,8 +114,6 @@ class ReferralRequestSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # description
-        # type = string
         # fulfillmentTime
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("ReferralRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

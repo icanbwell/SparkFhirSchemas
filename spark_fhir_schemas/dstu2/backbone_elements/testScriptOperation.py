@@ -64,12 +64,8 @@ class TestScriptOperationSchema:
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # resource
         # type = code
-        # label
-        # type = string
         # destination
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-        # encodeRequestUrl
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # requestHeader
         from spark_fhir_schemas.dstu2.backbone_elements.testscriptrequestheader import TestScriptRequestHeaderSchema
         if (max_recursion_limit and nesting_list.count("TestScriptOperation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -112,7 +108,7 @@ class TestScriptOperationSchema:
                 # Type' header.
                 StructField("contentType", StringType(), True),
                 # Which server to perform the operation on.
-                StructField("destination", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("destination", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether or not to implicitly send the request url in encoded format. The
                 # default is true to match the standard RESTful client behavior. Set to false
                 # when communicating with a server that does not support encoded url paths.

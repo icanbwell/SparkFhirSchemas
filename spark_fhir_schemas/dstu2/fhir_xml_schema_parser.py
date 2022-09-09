@@ -114,15 +114,15 @@ logger = logging.getLogger(__name__)
 
 class FhirXmlSchemaParser:
     cleaned_type_mapping: Dict[str, str] = {
-        "boolean": "Boolean",
+        # "boolean": "Boolean",
         # "date": "date",
         # "dateTime": "dateTime",
         # "time": "time",
         # "instant": "instant",
-        "integer": "Int",
-        "positiveInt": "Int",
+        # "integer": "Int",
+        # "positiveInt": "Int",
         # "decimal": "decimal",
-        "string": "String",
+        # "string": "String",
         # "DataType": "FhirDataType",
         # "markdown": "FhirMarkdown",
         # "canonical": "FhirCanonical",

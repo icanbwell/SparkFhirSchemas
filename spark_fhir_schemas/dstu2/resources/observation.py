@@ -132,8 +132,6 @@ class ObservationSchema:
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-        # valueString
-        # type = string
         # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
         # valueRatio

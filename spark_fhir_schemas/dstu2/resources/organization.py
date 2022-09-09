@@ -82,12 +82,8 @@ class OrganizationSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # active
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # name
-        # type = string
         # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
         # address

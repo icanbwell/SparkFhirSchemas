@@ -51,10 +51,6 @@ class TestScriptCapabilitySchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # required
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # description
-        # type = string
         # destination
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
         # link
@@ -95,7 +91,7 @@ class TestScriptCapabilitySchema:
                 # to support.
                 StructField("description", StringType(), True),
                 # Which server these requirements apply to.
-                StructField("destination", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("destination", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Links to the FHIR specification that describes this interaction and the
                 # resources involved in more detail.
                 StructField("link", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

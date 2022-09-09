@@ -61,8 +61,6 @@ class AuditEventObjectSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-        # name
-        # type = string
         # query
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
         # detail

@@ -69,8 +69,6 @@ class ProvenanceEntitySchema:
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         # reference
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # display
-        # type = string
         # agent
         from spark_fhir_schemas.dstu2.backbone_elements.provenanceagent import ProvenanceAgentSchema
         if (max_recursion_limit and nesting_list.count("ProvenanceEntity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

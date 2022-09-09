@@ -59,8 +59,6 @@ class ConceptMapTargetSchema:
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # code
         # type = code
-        # comments
-        # type = string
         # dependsOn
         from spark_fhir_schemas.dstu2.backbone_elements.conceptmapdependson import ConceptMapDependsOnSchema
         if (max_recursion_limit and nesting_list.count("ConceptMapTarget") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

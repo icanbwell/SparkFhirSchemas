@@ -112,8 +112,6 @@ class MedicationOrderSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # note
-        # type = string
         # dosageInstruction
         from spark_fhir_schemas.dstu2.backbone_elements.medicationorderdosageinstruction import MedicationOrderDosageInstructionSchema
         # dispenseRequest

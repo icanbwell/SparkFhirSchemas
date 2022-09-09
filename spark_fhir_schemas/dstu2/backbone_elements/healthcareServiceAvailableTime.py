@@ -46,8 +46,6 @@ class HealthcareServiceAvailableTimeSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # daysOfWeek
         # type = code
-        # allDay
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # availableStartTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
         if (max_recursion_limit and nesting_list.count("HealthcareServiceAvailableTime") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

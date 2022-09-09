@@ -54,8 +54,6 @@ class ImplementationGuideResourceSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # purpose
         # type = code
-        # name
-        # type = string
         # sourceUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # sourceReference

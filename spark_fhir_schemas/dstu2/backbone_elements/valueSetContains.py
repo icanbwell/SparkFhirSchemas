@@ -50,10 +50,6 @@ class ValueSetContainsSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # abstract
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # version
-        # type = string
         # code
         # type = code
         if (max_recursion_limit and nesting_list.count("ValueSetContains") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

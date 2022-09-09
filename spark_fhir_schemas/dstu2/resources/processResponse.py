@@ -90,8 +90,6 @@ class ProcessResponseSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # outcome
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-        # disposition
-        # type = string
         # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # notes

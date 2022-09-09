@@ -76,14 +76,10 @@ class CarePlanDetailSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # status
         # type = code
-        # prohibited
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # scheduledTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
         # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-        # scheduledString
-        # type = string
         # dailyAmount
         from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
         if (max_recursion_limit and nesting_list.count("CarePlanDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

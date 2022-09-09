@@ -46,8 +46,6 @@ class ValueSetIncludeSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # version
-        # type = string
         # concept
         from spark_fhir_schemas.dstu2.backbone_elements.valuesetconcept1 import ValueSetConcept1Schema
         # filter

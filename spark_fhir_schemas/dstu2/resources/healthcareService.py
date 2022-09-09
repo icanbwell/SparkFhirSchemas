@@ -110,14 +110,10 @@ class HealthcareServiceSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # serviceType
         from spark_fhir_schemas.dstu2.backbone_elements.healthcareserviceservicetype import HealthcareServiceServiceTypeSchema
-        # serviceName
-        # type = string
         # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-        # appointmentRequired
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # availableTime
         from spark_fhir_schemas.dstu2.backbone_elements.healthcareserviceavailabletime import HealthcareServiceAvailableTimeSchema
         # notAvailable

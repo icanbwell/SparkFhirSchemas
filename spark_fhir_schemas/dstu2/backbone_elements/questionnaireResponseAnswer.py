@@ -56,8 +56,6 @@ class QuestionnaireResponseAnswerSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # valueBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # valueDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
         # valueInteger
@@ -68,8 +66,6 @@ class QuestionnaireResponseAnswerSchema:
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # valueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-        # valueString
-        # type = string
         # valueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # valueAttachment
@@ -111,7 +107,7 @@ class QuestionnaireResponseAnswerSchema:
                 # None
                 StructField("valueDecimal", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("valueInteger", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("valueInteger", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("valueDate", DateType(), True),
                 # None

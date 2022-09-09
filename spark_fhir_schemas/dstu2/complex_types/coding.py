@@ -49,12 +49,8 @@ class CodingSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # version
-        # type = string
         # code
         # type = code
-        # userSelected
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         if (max_recursion_limit and nesting_list.count("Coding") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

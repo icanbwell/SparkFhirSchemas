@@ -104,10 +104,6 @@ class ImmunizationSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # wasNotGiven
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-        # lotNumber
-        # type = string
         # doseQuantity
         from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
         # note

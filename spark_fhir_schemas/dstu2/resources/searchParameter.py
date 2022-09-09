@@ -94,10 +94,6 @@ class SearchParameterSchema:
         from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # name
-        # type = string
-        # experimental
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # contact
         from spark_fhir_schemas.dstu2.backbone_elements.searchparametercontact import SearchParameterContactSchema
         # date

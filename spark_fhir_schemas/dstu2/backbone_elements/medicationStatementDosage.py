@@ -102,12 +102,8 @@ class MedicationStatementDosageSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # text
-        # type = string
         # timing
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-        # asNeededBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # asNeededCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # siteReference

@@ -100,8 +100,6 @@ class DocumentManifestSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # description
-        # type = string
         # content
         from spark_fhir_schemas.dstu2.backbone_elements.documentmanifestcontent import DocumentManifestContentSchema
         # related

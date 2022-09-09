@@ -91,8 +91,6 @@ class PatientSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-        # active
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # name
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
         # telecom
@@ -187,7 +185,7 @@ class PatientSchema:
                 # None
                 StructField("multipleBirthBoolean", BooleanType(), True),
                 # None
-                StructField("multipleBirthInteger", IntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("multipleBirthInteger", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Image of the patient.
                 StructField("photo", AttachmentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A contact party (e.g. guardian, partner, friend) for the patient.

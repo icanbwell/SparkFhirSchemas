@@ -112,8 +112,6 @@ class DocumentReferenceSchema:
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         # relatesTo
         from spark_fhir_schemas.dstu2.backbone_elements.documentreferencerelatesto import DocumentReferenceRelatesToSchema
-        # description
-        # type = string
         # content
         from spark_fhir_schemas.dstu2.backbone_elements.documentreferencecontent import DocumentReferenceContentSchema
         # context

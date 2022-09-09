@@ -107,16 +107,12 @@ class MedicationAdministrationSchema:
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
         # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # wasNotGiven
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # reasonNotGiven
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # effectiveTimeDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # effectiveTimePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-        # note
-        # type = string
         # dosage
         from spark_fhir_schemas.dstu2.backbone_elements.medicationadministrationdosage import MedicationAdministrationDosageSchema
         if (max_recursion_limit and nesting_list.count("MedicationAdministration") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

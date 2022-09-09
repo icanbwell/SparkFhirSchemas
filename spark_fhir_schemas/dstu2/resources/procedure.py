@@ -116,8 +116,6 @@ class ProcedureSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # notPerformed
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # performer
         from spark_fhir_schemas.dstu2.backbone_elements.procedureperformer import ProcedurePerformerSchema
         # performedDateTime

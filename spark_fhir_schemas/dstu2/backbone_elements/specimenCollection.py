@@ -50,8 +50,6 @@ class SpecimenCollectionSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # collector
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-        # comment
-        # type = string
         # collectedDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # collectedPeriod

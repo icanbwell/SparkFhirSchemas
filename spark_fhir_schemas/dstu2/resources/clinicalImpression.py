@@ -110,8 +110,6 @@ class ClinicalImpressionSchema:
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-        # description
-        # type = string
         # triggerCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # investigations

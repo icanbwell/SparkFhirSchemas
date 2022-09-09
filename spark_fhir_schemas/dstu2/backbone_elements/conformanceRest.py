@@ -61,8 +61,6 @@ class ConformanceRestSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # mode
         # type = code
-        # documentation
-        # type = string
         # security
         from spark_fhir_schemas.dstu2.backbone_elements.conformancesecurity import ConformanceSecuritySchema
         # resource

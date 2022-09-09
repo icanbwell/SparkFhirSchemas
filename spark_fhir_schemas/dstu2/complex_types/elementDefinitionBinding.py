@@ -43,8 +43,6 @@ class ElementDefinitionBindingSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # strength
         # type = code
-        # description
-        # type = string
         # valueSetUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         # valueSetReference

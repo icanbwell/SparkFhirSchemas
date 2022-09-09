@@ -45,8 +45,6 @@ class QuestionnaireResponseQuestionSchema:
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
         # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-        # linkId
-        # type = string
         # answer
         from spark_fhir_schemas.dstu2.backbone_elements.questionnaireresponseanswer import QuestionnaireResponseAnswerSchema
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponseQuestion") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

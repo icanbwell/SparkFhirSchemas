@@ -54,8 +54,6 @@ class GroupCharacteristicSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-        # valueBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
         # valueRange

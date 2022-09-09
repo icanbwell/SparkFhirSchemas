@@ -59,8 +59,6 @@ class RiskAssessmentPredictionSchema:
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
         # whenPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-        # rationale
-        # type = string
         if (max_recursion_limit and nesting_list.count("RiskAssessmentPrediction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

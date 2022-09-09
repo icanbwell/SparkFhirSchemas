@@ -51,10 +51,6 @@ class ValueSetCodeSystemSchema:
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
         # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-        # version
-        # type = string
-        # caseSensitive
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         # concept
         from spark_fhir_schemas.dstu2.backbone_elements.valuesetconcept import ValueSetConceptSchema
         if (max_recursion_limit and nesting_list.count("ValueSetCodeSystem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

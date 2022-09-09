@@ -101,8 +101,6 @@ class GoalSchema:
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         # targetQuantity
         from spark_fhir_schemas.dstu2.complex_types.duration import DurationSchema
-        # description
-        # type = string
         # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         # outcome
