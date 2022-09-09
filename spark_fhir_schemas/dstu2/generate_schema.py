@@ -71,15 +71,14 @@ def main() -> int:
         shutil.rmtree(classes_backbone_elements_folder)
     os.mkdir(classes_backbone_elements_folder)
 
-    schema_file_path = classes_dir.joinpath("myschema.json")
-    if os.path.exists(schema_file_path):
-        os.remove(schema_file_path)
+    # schema_file_path = classes_dir.joinpath("myschema.json")
 
     schema_pickle_file_path = classes_dir.joinpath("myschema_pickle.json")
-    if os.path.exists(schema_pickle_file_path):
-        os.remove(schema_pickle_file_path)
 
-    fhir_entities: List[FhirEntity] = FhirXmlSchemaParser.generate_classes()
+    import jsonpickle
+    with open(schema_pickle_file_path, "r") as file2:
+        contents = file2.read()
+    fhir_entities: List[FhirEntity] = jsonpickle.decode(contents)
 
     # now print the result
     for fhir_entity in fhir_entities:
