@@ -7,7 +7,6 @@ from os import path
 from pathlib import Path
 from typing import List, Union
 
-from fhir_xml_schema_parser import FhirXmlSchemaParser
 from fhir_xml_schema_parser import FhirEntity
 
 
@@ -76,6 +75,7 @@ def main() -> int:
     schema_pickle_file_path = classes_dir.joinpath("myschema_pickle.json")
 
     import jsonpickle
+
     with open(schema_pickle_file_path, "r") as file2:
         contents = file2.read()
     fhir_entities: List[FhirEntity] = jsonpickle.decode(contents)
