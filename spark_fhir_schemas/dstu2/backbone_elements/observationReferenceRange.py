@@ -49,13 +49,21 @@ class ObservationReferenceRangeSchema:
     quantitative range is not appropriate for an observation.  An example would be
     a reference value of "Negative" or a list or table of 'normals'.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # low
         Not mapped: SimpleQuantity
+            # high
         Not mapped: SimpleQuantity
+            # meaning
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # age
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ObservationReferenceRange") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

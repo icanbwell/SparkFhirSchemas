@@ -66,23 +66,41 @@ class RiskAssessmentSchema:
         mitigation: A description of the steps that might be taken to reduce the identified
     risk(s).
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # condition
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # performer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # method
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # basis
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # prediction
         Not mapped: RiskAssessmentPrediction
+            # mitigation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("RiskAssessment") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

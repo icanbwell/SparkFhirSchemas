@@ -42,12 +42,19 @@ class TestScriptVariableSchema:
         sourceId: Fixture to evaluate the XPath/JSONPath expression or the headerField  against
     within this variable.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # headerField
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # path
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # sourceId
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("TestScriptVariable") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -39,11 +39,17 @@ class EncounterParticipantSchema:
     encounter. These can overlap or be sub-sets of the overall encounters period.
         individual: Persons involved in the encounter other than the patient.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # individual
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("EncounterParticipant") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

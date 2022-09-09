@@ -52,22 +52,39 @@ class QuestionnaireResponseAnswerSchema:
         group: Nested group, containing nested question for this question. The order of
     groups within the question is relevant.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueDecimal
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueInstant
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # valueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # valueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # group
         Not mapped: QuestionnaireResponseGroup
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponseAnswer") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

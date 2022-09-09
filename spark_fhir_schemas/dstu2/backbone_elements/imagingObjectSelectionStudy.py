@@ -57,12 +57,19 @@ class ImagingObjectSelectionStudySchema:
         series: Series identity and locating information of the DICOM SOP instances in the
     selection.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # uid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # imagingStudy
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # series
         Not mapped: ImagingObjectSelectionSeries
         if (max_recursion_limit and nesting_list.count("ImagingObjectSelectionStudy") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

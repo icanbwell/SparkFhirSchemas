@@ -47,13 +47,21 @@ class ValueSetConceptSchema:
     of the relationships is variable (is-a/contains/categorizes) and can only be
     determined by examining the definitions of the concepts.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # abstract
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # display
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # definition
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # designation
         Not mapped: ValueSetDesignation
         if (max_recursion_limit and nesting_list.count("ValueSetConcept") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

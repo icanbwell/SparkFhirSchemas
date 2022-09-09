@@ -53,17 +53,29 @@ class ClaimSubDetailSchema:
     assumed to be 1 if not supplied.
         udi: List of Unique Device Identifiers associated with this line item.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # sequence
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # service
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # quantity
         Not mapped: SimpleQuantity
+            # unitPrice
         Not mapped: Money
+            # factor
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # points
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # net
         Not mapped: Money
+            # udi
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("ClaimSubDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -37,10 +37,15 @@ class DocumentReferenceContentSchema:
         format: An identifier of the document encoding, structure, and template that the
     document conforms to beyond the base format indicated in the mimeType.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # attachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # format
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("DocumentReferenceContent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

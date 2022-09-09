@@ -37,10 +37,15 @@ class NutritionOrderNutrientSchema:
         modifier: The nutrient that is being modified such as carbohydrate or sodium.
         amount: The quantity of the specified nutrient to include in diet.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifier
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # amount
         Not mapped: SimpleQuantity
         if (max_recursion_limit and nesting_list.count("NutritionOrderNutrient") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

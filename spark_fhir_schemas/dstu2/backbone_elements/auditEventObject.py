@@ -51,18 +51,31 @@ class AuditEventObjectSchema:
         query: The actual query for a query-type participant object.
         detail: Additional Information about the Object.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # reference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # role
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # lifecycle
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # securityLabel
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # query
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # detail
         Not mapped: AuditEventDetail
         if (max_recursion_limit and nesting_list.count("AuditEventObject") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

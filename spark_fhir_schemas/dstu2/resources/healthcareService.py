@@ -88,35 +88,65 @@ class HealthcareServiceSchema:
     availability. Succinctly describing all possible exceptions to normal site
     availability as details in the available Times and not available Times.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # providedBy
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # serviceCategory
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # serviceType
         Not mapped: HealthcareServiceServiceType
+            # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # serviceName
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # comment
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # extraDetails
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
+            # coverageArea
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # serviceProvisionCode
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # eligibility
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # eligibilityNote
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # programName
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # characteristic
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # referralMethod
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # publicKey
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # appointmentRequired
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # availableTime
         Not mapped: HealthcareServiceAvailableTime
+            # notAvailable
         Not mapped: HealthcareServiceNotAvailable
+            # availabilityExceptions
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("HealthcareService") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

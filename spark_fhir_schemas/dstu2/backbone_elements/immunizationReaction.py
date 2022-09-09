@@ -42,11 +42,17 @@ class ImmunizationReactionSchema:
         detail: Details of the reaction.
         reported: Self-reported indicator.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # detail
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # reported
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ImmunizationReaction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

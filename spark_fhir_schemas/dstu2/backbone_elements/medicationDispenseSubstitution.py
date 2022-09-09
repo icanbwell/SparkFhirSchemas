@@ -47,11 +47,17 @@ class MedicationDispenseSubstitutionSchema:
         responsibleParty: The person or organization that has primary responsibility for the
     substitution.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # responsibleParty
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("MedicationDispenseSubstitution") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

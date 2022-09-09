@@ -45,15 +45,25 @@ class FamilyMemberHistoryConditionSchema:
         onsetString: None
         note: An area where general notes can be placed about this specific condition.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # outcome
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # onsetQuantity
         Not mapped: Age
+            # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # onsetPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # onsetString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("FamilyMemberHistoryCondition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

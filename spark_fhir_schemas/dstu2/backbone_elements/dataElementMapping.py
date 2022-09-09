@@ -42,12 +42,19 @@ class DataElementMappingSchema:
         comments: Comments about this mapping, including version notes, issues, scope
     limitations, and other important notes for usage.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identity
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # uri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # comments
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("DataElementMapping") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

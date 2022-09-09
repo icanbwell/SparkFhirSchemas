@@ -43,10 +43,15 @@ class ConditionStageSchema:
         assessment: Reference to a formal record of the evidence on which the staging assessment
     is based.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # summary
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # assessment
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ConditionStage") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

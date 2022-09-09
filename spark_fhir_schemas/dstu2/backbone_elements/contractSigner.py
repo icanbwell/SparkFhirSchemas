@@ -38,11 +38,17 @@ class ContractSignerSchema:
         party: Party which is a signator to this Contract.
         signature: Legally binding Contract DSIG signature contents in Base64.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # party
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # signature
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ContractSigner") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -49,19 +49,33 @@ class ContractTermSchema:
         valuedItem: Contract Provision Valued Item List.
         group: Nested group of Contract Provisions.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # issued
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # applies
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # subType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # action
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # actionReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # actor
         Not mapped: ContractActor1
+            # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valuedItem
         Not mapped: ContractValuedItem1
         if (max_recursion_limit and nesting_list.count("ContractTerm") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

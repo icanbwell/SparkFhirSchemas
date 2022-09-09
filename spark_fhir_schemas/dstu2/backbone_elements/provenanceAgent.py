@@ -56,12 +56,19 @@ class ProvenanceAgentSchema:
     For example, this human author used this device, or one person acted on
     another's behest.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # role
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # actor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # userId
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # relatedAgent
         Not mapped: ProvenanceRelatedAgent
         if (max_recursion_limit and nesting_list.count("ProvenanceAgent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

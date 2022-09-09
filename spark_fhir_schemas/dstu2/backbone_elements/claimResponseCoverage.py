@@ -46,16 +46,27 @@ class ClaimResponseCoverageSchema:
         originalRuleset: The style (standard) and version of the original material which was converted
     into this resource.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # sequence
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # focal
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # coverage
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # businessArrangement
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # relationship
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # preAuthRef
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # claimResponse
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # originalRuleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("ClaimResponseCoverage") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

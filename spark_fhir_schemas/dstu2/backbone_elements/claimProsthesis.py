@@ -38,11 +38,17 @@ class ClaimProsthesisSchema:
         priorDate: Date of the initial placement.
         priorMaterial: Material of the prior denture or bridge prosthesis. (Oral).
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # initial
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # priorDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # priorMaterial
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("ClaimProsthesis") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

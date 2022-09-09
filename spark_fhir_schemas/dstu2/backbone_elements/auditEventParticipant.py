@@ -60,19 +60,33 @@ class AuditEventParticipantSchema:
         purposeOfUse: The reason (purpose of use), specific to this participant, that was used
     during the event being recorded.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # role
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # userId
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # altId
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # requestor
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # policy
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # media
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # network
         Not mapped: AuditEventNetwork
+            # purposeOfUse
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("AuditEventParticipant") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

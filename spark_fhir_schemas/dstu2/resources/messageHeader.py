@@ -83,24 +83,43 @@ class MessageHeaderSchema:
         data: The actual data of the message - a reference to the root/focus class of the
     event.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # timestamp
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # event
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # response
         Not mapped: MessageHeaderResponse
+            # source
         Not mapped: MessageHeaderSource
+            # destination
         Not mapped: MessageHeaderDestination
+            # enterer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # receiver
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # responsible
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # data
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("MessageHeader") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

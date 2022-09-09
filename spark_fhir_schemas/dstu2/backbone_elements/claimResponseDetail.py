@@ -38,11 +38,17 @@ class ClaimResponseDetailSchema:
         adjudication: The adjudications results.
         subDetail: The third tier service adjudications for submitted services.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # sequenceLinkId
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # adjudication
         Not mapped: ClaimResponseAdjudication1
+            # subDetail
         Not mapped: ClaimResponseSubDetail
         if (max_recursion_limit and nesting_list.count("ClaimResponseDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

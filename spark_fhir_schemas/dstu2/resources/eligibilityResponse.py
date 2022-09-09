@@ -66,23 +66,41 @@ class EligibilityResponseSchema:
         requestOrganization: The organization which is responsible for the services rendered to the
     patient.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # outcome
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # disposition
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # originalRuleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # created
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # organization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # requestProvider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # requestOrganization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("EligibilityResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

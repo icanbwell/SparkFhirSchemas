@@ -37,10 +37,15 @@ class TestScriptRequestHeaderSchema:
         field: The HTTP header field e.g. "Accept".
         value: The value of the header e.g. "application/xml".
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # field
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # value
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("TestScriptRequestHeader") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

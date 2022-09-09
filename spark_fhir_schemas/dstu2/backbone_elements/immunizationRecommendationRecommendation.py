@@ -50,16 +50,27 @@ class ImmunizationRecommendationRecommendationSchema:
     includes patient observations, adverse reactions and allergy/intolerance
     information.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # vaccineCode
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # doseNumber
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # forecastStatus
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # dateCriterion
         Not mapped: ImmunizationRecommendationDateCriterion
+            # protocol
         Not mapped: ImmunizationRecommendationProtocol
+            # supportingImmunization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # supportingPatientInformation
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ImmunizationRecommendationRecommendation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

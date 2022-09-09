@@ -99,32 +99,59 @@ class ValueSetSchema:
     simple collection of enumerated codes. This element holds the expansion, if it
     has been performed.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: ValueSetContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # lockedDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # immutable
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # extensible
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # codeSystem
         Not mapped: ValueSetCodeSystem
+            # compose
         Not mapped: ValueSetCompose
+            # expansion
         Not mapped: ValueSetExpansion
         if (max_recursion_limit and nesting_list.count("ValueSet") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

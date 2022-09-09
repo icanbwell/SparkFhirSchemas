@@ -38,11 +38,17 @@ class PatientAnimalSchema:
         breed: Identifies the detailed categorization of the kind of animal.
         genderStatus: Indicates the current state of the animal's reproductive organs.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # species
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # breed
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # genderStatus
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("PatientAnimal") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -59,17 +59,29 @@ class AuditEventSchema:
         source: Application systems and processes.
         object: Specific instances of data or objects that have been accessed.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # event
         Not mapped: AuditEventEvent
+            # participant
         Not mapped: AuditEventParticipant
+            # source
         Not mapped: AuditEventSource
+            # object
         Not mapped: AuditEventObject
         if (max_recursion_limit and nesting_list.count("AuditEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

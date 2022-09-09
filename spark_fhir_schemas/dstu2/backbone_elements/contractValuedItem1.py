@@ -57,17 +57,29 @@ class ContractValuedItem1Schema:
     per Point) * factor Number  * points = net Amount. Quantity, factor and points
     are assumed to be 1 if not supplied.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # entityCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # entityReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # effectiveTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # quantity
         Not mapped: SimpleQuantity
+            # unitPrice
         Not mapped: Money
+            # factor
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # points
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # net
         Not mapped: Money
         if (max_recursion_limit and nesting_list.count("ContractValuedItem1") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

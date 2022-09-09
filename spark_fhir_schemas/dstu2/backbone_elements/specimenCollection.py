@@ -44,15 +44,25 @@ class SpecimenCollectionSchema:
     patient). This is the target site.  This element is not used for environmental
     specimens.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # collector
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # comment
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # collectedDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # collectedPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # quantity
         Not mapped: SimpleQuantity
+            # method
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("SpecimenCollection") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

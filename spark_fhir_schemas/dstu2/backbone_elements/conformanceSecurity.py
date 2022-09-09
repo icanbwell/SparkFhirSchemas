@@ -42,12 +42,19 @@ class ConformanceSecuritySchema:
         description: General description of how security works.
         certificate: Certificates associated with security profiles.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # cors
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # service
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # certificate
         Not mapped: ConformanceCertificate
         if (max_recursion_limit and nesting_list.count("ConformanceSecurity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

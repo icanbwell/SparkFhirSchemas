@@ -89,31 +89,57 @@ class ConceptMapSchema:
         element: Mappings for an individual concept in the source to one or more concepts in
     the target.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # url
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # status
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # contact
         Not mapped: ConceptMapContact
+            # date
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # sourceUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # sourceReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # targetUri
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # targetReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # element
         Not mapped: ConceptMapElement
         if (max_recursion_limit and nesting_list.count("ConceptMap") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

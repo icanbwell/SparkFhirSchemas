@@ -38,9 +38,13 @@ class StructureDefinitionDifferentialSchema:
     processing a resource are required to check for modifier extensions.
         element: Captures constraints on each element within the resource.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # element
         from spark_fhir_schemas.dstu2.complex_types.elementdefinition import ElementDefinitionSchema
         if (max_recursion_limit and nesting_list.count("StructureDefinitionDifferential") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

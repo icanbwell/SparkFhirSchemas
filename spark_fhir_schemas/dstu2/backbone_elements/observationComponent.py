@@ -50,21 +50,37 @@ class ObservationComponentSchema:
         referenceRange: Guidance on how to interpret the value by comparison to a normal or
     recommended range.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
+            # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # valueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
+            # valueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
+            # valueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
+            # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
+            # valueTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valueDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # dataAbsentReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # referenceRange
         Not mapped: ObservationReferenceRange
         if (max_recursion_limit and nesting_list.count("ObservationComponent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -51,14 +51,23 @@ class ConceptMapTargetSchema:
     a place for the additional data elements, but the equivalence cannot be relied
     on.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # codeSystem
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # equivalence
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # comments
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # dependsOn
         Not mapped: ConceptMapDependsOn
+            # product
         Not mapped: ConceptMapDependsOn
         if (max_recursion_limit and nesting_list.count("ConceptMapTarget") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

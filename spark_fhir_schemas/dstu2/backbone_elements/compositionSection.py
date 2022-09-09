@@ -63,15 +63,25 @@ class CompositionSectionSchema:
     some text explaining the empty reason.
         section: A nested sub-section within this section.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # title
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # mode
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # orderedBy
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # entry
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # emptyReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("CompositionSection") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

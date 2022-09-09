@@ -68,25 +68,45 @@ class DeviceUseStatementSchema:
         timingPeriod: None
         timingDateTime: None
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # bodySiteCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # bodySiteReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # whenUsed
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # device
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # indication
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # notes
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # recordedOn
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # timingTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # timingPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
+            # timingDateTime
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("DeviceUseStatement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

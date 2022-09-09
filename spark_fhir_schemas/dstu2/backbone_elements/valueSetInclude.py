@@ -40,12 +40,19 @@ class ValueSetIncludeSchema:
     (including relationships) defined by the system. If multiple filters are
     specified, they SHALL all be true.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # system
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # concept
         Not mapped: ValueSetConcept1
+            # filter
         Not mapped: ValueSetFilter
         if (max_recursion_limit and nesting_list.count("ValueSetInclude") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

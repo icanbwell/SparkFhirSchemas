@@ -39,11 +39,17 @@ class ClaimResponseAdjudication3Schema:
         value: A non-monetary value for example a percentage. Mutually exclusive to the
     amount element above.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # amount
         Not mapped: Money
+            # value
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ClaimResponseAdjudication3") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

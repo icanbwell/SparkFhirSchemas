@@ -44,12 +44,19 @@ class CarePlanActivitySchema:
     (e.g. form driven) that doesn't know about specific resources such as
     procedure etc.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # actionResulting
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # progress
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
+            # reference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # detail
         Not mapped: CarePlanDetail
         if (max_recursion_limit and nesting_list.count("CarePlanActivity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

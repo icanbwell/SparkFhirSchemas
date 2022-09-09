@@ -39,10 +39,15 @@ class MedicationIngredientSchema:
         amount: Specifies how many (or how much) of the items there are in this Medication.
     For example, 250 mg per tablet.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # item
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # amount
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
         if (max_recursion_limit and nesting_list.count("MedicationIngredient") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -43,13 +43,21 @@ class NutritionOrderSupplementSchema:
         instruction: Free text or additional instructions or information pertaining to the oral
     supplement.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # productName
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # schedule
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
+            # quantity
         Not mapped: SimpleQuantity
+            # instruction
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("NutritionOrderSupplement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

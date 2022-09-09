@@ -62,21 +62,37 @@ class VisionPrescriptionSchema:
         reasonReference: None
         dispense: Deals with details of the dispense part of the supply specification.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # dateWritten
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # prescriber
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # reasonCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # reasonReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # dispense
         Not mapped: VisionPrescriptionDispense
         if (max_recursion_limit and nesting_list.count("VisionPrescription") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

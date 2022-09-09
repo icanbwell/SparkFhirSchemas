@@ -85,39 +85,73 @@ class ClaimResponseSchema:
         note: Note text.
         coverage: Financial instrument by which payment information for health care.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
+            # implicitRules
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # language
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
+            # contained
         Not mapped: ResourceContainer
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # originalRuleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # created
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # organization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # requestProvider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # requestOrganization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+            # outcome
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # disposition
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # payeeType
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # item
         Not mapped: ClaimResponseItem
+            # addItem
         Not mapped: ClaimResponseAddItem
+            # error
         Not mapped: ClaimResponseError
+            # totalCost
         Not mapped: Money
+            # unallocDeductable
         Not mapped: Money
+            # totalBenefit
         Not mapped: Money
+            # paymentAdjustment
         Not mapped: Money
+            # paymentAdjustmentReason
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # paymentDate
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # paymentAmount
         Not mapped: Money
+            # paymentRef
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
+            # reserved
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # form
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+            # note
         Not mapped: ClaimResponseNote
+            # coverage
         Not mapped: ClaimResponseCoverage
         if (max_recursion_limit and nesting_list.count("ClaimResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

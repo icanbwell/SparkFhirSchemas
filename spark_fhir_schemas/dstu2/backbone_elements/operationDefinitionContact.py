@@ -37,10 +37,15 @@ class OperationDefinitionContactSchema:
         name: The name of an individual to contact regarding the operation definition.
         telecom: Contact details for individual (if a name was provided) or the publisher.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
         if (max_recursion_limit and nesting_list.count("OperationDefinitionContact") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

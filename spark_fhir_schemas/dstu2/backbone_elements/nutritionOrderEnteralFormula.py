@@ -58,17 +58,29 @@ class NutritionOrderEnteralFormulaSchema:
         administrationInstruction: Free text formula administration, feeding instructions or additional
     instructions or information.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # baseFormulaType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # baseFormulaProductName
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # additiveType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # additiveProductName
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # caloricDensity
         Not mapped: SimpleQuantity
+            # routeofAdministration
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
+            # administration
         Not mapped: NutritionOrderAdministration
+            # maxVolumeToDeliver
         Not mapped: SimpleQuantity
+            # administrationInstruction
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("NutritionOrderEnteralFormula") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -51,14 +51,23 @@ class ImagingStudyInstanceSchema:
     available; or to a FHIR Resource (e.g. Media, Document, etc.). Multiple
     content attachments may be used for alternate representations of the instance.
         """
+            # id
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
+            # number
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # uid
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # sopClass
         from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+            # type
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # title
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
+            # content
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         if (max_recursion_limit and nesting_list.count("ImagingStudyInstance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
