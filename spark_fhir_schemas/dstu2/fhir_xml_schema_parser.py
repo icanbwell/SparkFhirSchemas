@@ -192,9 +192,9 @@ class FhirXmlSchemaParser:
         resource_xsd_file_name: str
         for resource_xsd_file_name in resources:
             if (
-                filter_to_resource
-                and not resource_xsd_file_name.startswith(filter_to_resource)
-                and not resource_xsd_file_name == "fhir-base.xsd"
+                    filter_to_resource
+                    and not resource_xsd_file_name.startswith(filter_to_resource)
+                    and not resource_xsd_file_name == "fhir-base.xsd"
             ):
                 continue
             resource_xsd_file: Path = (
@@ -207,6 +207,34 @@ class FhirXmlSchemaParser:
                 FhirXmlSchemaParser._generate_classes_for_resource(resource_xsd_file)
             )
 
+        # In DSTU2, xhtml type is missing
+        if not any([f for f in fhir_entities if f.fhir_name == "xhtml"]):
+            fhir_entities.extend([
+                FhirEntity(
+                    fhir_name="xhtml",
+                    cleaned_name="xhtml",
+                    name_snake_case="xhtml",
+                    properties=[],
+                    documentation=[
+                        "Limited xhtml content"
+                    ],
+                    type_="Element",
+                    is_back_bone_element=False,
+                    base_type="xhtml",
+                    base_type_list=[
+                        "xhtml"
+                    ],
+                    source="fhir-base.xsd",
+                    is_value_set=False,
+                    value_set_concepts=None,
+                    value_set_url=None,
+                    is_basic_type=True,
+                    value_set_url_list=None,
+                    is_resource=False,
+                    is_extension=False,
+                    properties_unique=[]
+                )
+            ])
         for fhir_entity in fhir_entities:
             logger.info(f"2nd pass: setting flags on {fhir_entity.fhir_name}")
             if fhir_entity.fhir_name == "Resource":
@@ -265,7 +293,7 @@ class FhirXmlSchemaParser:
                     )
                 else:
                     fhir_entity.properties = (
-                        fhir_base_entity[0].properties + fhir_entity.properties
+                            fhir_base_entity[0].properties + fhir_entity.properties
                     )
                     # add the base class
                     fhir_entity.base_type_list.append(fhir_base_entity[0].fhir_name)
@@ -297,7 +325,7 @@ class FhirXmlSchemaParser:
             c
             for c in fhir_entities
             if c.fhir_name not in [b.name for b in value_sets]
-            or c.cleaned_name in ["PractitionerRole", "ElementDefinition"]
+               or c.cleaned_name in ["PractitionerRole", "ElementDefinition"]
         ]
         fhir_entities.extend(
             [
@@ -373,11 +401,11 @@ class FhirXmlSchemaParser:
                         has_code = True
 
                     if not any(
-                        [
-                            p
-                            for p in fhir_entity.properties_unique
-                            if p.type_ == fhir_property.type_
-                        ]
+                            [
+                                p
+                                for p in fhir_entity.properties_unique
+                                if p.type_ == fhir_property.type_
+                            ]
                     ):
                         fhir_entity.properties_unique.append(fhir_property)
 
@@ -385,7 +413,7 @@ class FhirXmlSchemaParser:
 
     @staticmethod
     def process_types_for_codeable_concepts(
-        fhir_entities: List[FhirEntity], value_sets: List[FhirValueSet]
+            fhir_entities: List[FhirEntity], value_sets: List[FhirValueSet]
     ) -> None:
         codeable_types: List[
             FhirCodeableType
@@ -416,14 +444,14 @@ class FhirXmlSchemaParser:
                         p
                         for p in parent_fhir_entity.properties
                         if p.name
-                        == FhirXmlSchemaParser.fix_graphql_keywords(entity_name_part)
-                        or (
-                            entity_name_part.endswith("[x]")
-                            and p.name
-                            == FhirXmlSchemaParser.fix_graphql_keywords(
-                                entity_name_part.replace("[x]", "") + "CodeableConcept"
-                            )
-                        )
+                           == FhirXmlSchemaParser.fix_graphql_keywords(entity_name_part)
+                           or (
+                                   entity_name_part.endswith("[x]")
+                                   and p.name
+                                   == FhirXmlSchemaParser.fix_graphql_keywords(
+                               entity_name_part.replace("[x]", "") + "CodeableConcept"
+                           )
+                           )
                     ]
                     if not fhir_property_list:
                         logger.warning(
@@ -451,13 +479,13 @@ class FhirXmlSchemaParser:
                     p
                     for p in fhir_entity.properties
                     if p.name == FhirXmlSchemaParser.fix_graphql_keywords(property_name)
-                    or (
-                        property_name.endswith("[x]")
-                        and p.name
-                        == FhirXmlSchemaParser.fix_graphql_keywords(
-                            property_name.replace("[x]", "") + "CodeableConcept"
-                        )
-                    )
+                       or (
+                               property_name.endswith("[x]")
+                               and p.name
+                               == FhirXmlSchemaParser.fix_graphql_keywords(
+                           property_name.replace("[x]", "") + "CodeableConcept"
+                       )
+                       )
                 ]
 
                 if not fhir_property_list:
@@ -470,19 +498,19 @@ class FhirXmlSchemaParser:
                         c
                         for c in value_sets
                         if (
-                            c.url
-                            and codeable_type.codeable_type_url
-                            and c.url.split("|")[0]
-                            == codeable_type.codeable_type_url.split("|")[0]
-                        )
-                        or (
-                            c.value_set_url
-                            and codeable_type.codeable_type_url
-                            and (
-                                c.value_set_url.split("|")[0]
-                                == codeable_type.codeable_type_url.split("|")[0]
-                            )
-                        )
+                                   c.url
+                                   and codeable_type.codeable_type_url
+                                   and c.url.split("|")[0]
+                                   == codeable_type.codeable_type_url.split("|")[0]
+                           )
+                           or (
+                                   c.value_set_url
+                                   and codeable_type.codeable_type_url
+                                   and (
+                                           c.value_set_url.split("|")[0]
+                                           == codeable_type.codeable_type_url.split("|")[0]
+                                   )
+                           )
                     ]
                     if value_set_matching:
                         value_set = value_set_matching[0]
@@ -509,8 +537,8 @@ class FhirXmlSchemaParser:
         for fhir_entity in fhir_entities:
             for property_ in fhir_entity.properties:
                 if (
-                    property_.cleaned_type.lower() in ["codeableconcept", "coding"]
-                    and not property_.codeable_type
+                        property_.cleaned_type.lower() in ["codeableconcept", "coding"]
+                        and not property_.codeable_type
                 ):
                     property_.codeable_type = SmartName(
                         name="generic_type",
@@ -584,14 +612,14 @@ class FhirXmlSchemaParser:
                         p
                         for p in fhir_entity.properties
                         if p.name.startswith(property_name_prefix)
-                        and p.type_ == "Reference"
+                           and p.type_ == "Reference"
                     ]
                 else:
                     fhir_property_list = [
                         p
                         for p in fhir_entity.properties
                         if p.name
-                        == FhirXmlSchemaParser.fix_graphql_keywords(property_name)
+                           == FhirXmlSchemaParser.fix_graphql_keywords(property_name)
                     ]
                 if fhir_property_list:
                     fhir_property = fhir_property_list[0]
@@ -616,8 +644,8 @@ class FhirXmlSchemaParser:
         for fhir_entity in fhir_entities:
             for property_ in fhir_entity.properties:
                 if (
-                    property_.cleaned_type in ["Reference"]
-                    and not property_.reference_target_resources
+                        property_.cleaned_type in ["Reference"]
+                        and not property_.reference_target_resources
                 ):
                     property_.reference_target_resources = [
                         SmartName(
@@ -670,14 +698,14 @@ class FhirXmlSchemaParser:
             inner_complex_type: Optional[ObjectifiedElement] = (
                 complex_type["complexContent"]["extension"]
                 if hasattr(complex_type, "complexContent")
-                and hasattr(complex_type["complexContent"], "extension")
+                   and hasattr(complex_type["complexContent"], "extension")
                 else None
             )
             if inner_complex_type is None:
                 inner_complex_type = (
                     complex_type["complexContent"]["restriction"]
                     if hasattr(complex_type, "complexContent")
-                    and hasattr(complex_type["complexContent"], "restriction")
+                       and hasattr(complex_type["complexContent"], "restriction")
                     else None
                 )
             entity_type: Optional[str] = None
@@ -798,9 +826,9 @@ class FhirXmlSchemaParser:
 
     @staticmethod
     def generate_properties_for_class(
-        *,
-        entity_name: str,
-        inner_complex_type: ObjectifiedElement,
+            *,
+            entity_name: str,
+            inner_complex_type: ObjectifiedElement,
     ) -> List[FhirProperty]:
         logger.debug(f"Processing properties for {entity_name}")
         properties: List[ObjectifiedElement] = []
@@ -895,7 +923,7 @@ class FhirXmlSchemaParser:
                         reference_target_resources_names=[],
                         is_back_bone_element="." in property_type,
                         is_basic_type=cleaned_type
-                        in FhirXmlSchemaParser.cleaned_type_mapping,
+                                      in FhirXmlSchemaParser.cleaned_type_mapping,
                         codeable_type=None,
                     )
                 )
@@ -1102,7 +1130,7 @@ class FhirXmlSchemaParser:
                                             is_codeable_concept=type_["code"].get(
                                                 "value"
                                             )
-                                            in ["Coding", "CodeableConcept"],
+                                                                in ["Coding", "CodeableConcept"],
                                         )
                                     )
             return fhir_codeable_types
@@ -1275,7 +1303,7 @@ class FhirXmlSchemaParser:
 
     @staticmethod
     def create_concept(
-        concept: ObjectifiedElement, source: str, value_set_url: str
+            concept: ObjectifiedElement, source: str, value_set_url: str
     ) -> FhirValueSetConcept:
         code: str = concept["code"].get("value")
         display: str = (
