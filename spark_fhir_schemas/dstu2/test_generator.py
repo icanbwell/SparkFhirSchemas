@@ -1,3 +1,4 @@
+# type: ignore
 from pprint import pprint
 
 from fhir_xml_schema_parser import FhirXmlSchemaParser
