@@ -90,13 +90,13 @@ class ConditionSchema:
     entry  for description of the Condition, its diagnosis and prognosis.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -114,19 +114,19 @@ class ConditionSchema:
             # asserter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # dateRecorded
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # clinicalStatus
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # verificationStatus
-        from spark_fhir_schemas.dstu2.complex_types.conditionverificationstatuscode import ConditionVerificationStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.conditionverificationstatuscode import ConditionVerificationStatusCodeSchema
             # severity
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # onsetDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # onsetQuantity
         Not mapped: Age
             # onsetPeriod
@@ -136,7 +136,7 @@ class ConditionSchema:
             # onsetString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # abatementDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # abatementQuantity
         Not mapped: Age
             # abatementBoolean

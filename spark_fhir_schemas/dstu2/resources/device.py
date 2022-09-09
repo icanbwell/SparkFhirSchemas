@@ -93,13 +93,13 @@ class DeviceSchema:
         url: A network address on which the device may be contacted directly.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -115,7 +115,7 @@ class DeviceSchema:
             # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.devicestatuscode import DeviceStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.devicestatuscode import DeviceStatusCodeSchema
             # manufacturer
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # model
@@ -123,9 +123,9 @@ class DeviceSchema:
             # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # manufactureDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # expiry
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # udi
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # lotNumber
@@ -139,7 +139,7 @@ class DeviceSchema:
             # contact
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("Device") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

@@ -240,13 +240,15 @@ class FhirXmlSchemaParser:
                         "Reference",
                         "BackboneElement",
                     ]:
-                        fhir_property.is_complex = True
+                        # fhir_property.is_complex = True
                         fhir_property.cleaned_type = fhir_property.fhir_type
                         fhir_property.type_snake_case = (
                             FhirXmlSchemaParser.camel_to_snake(fhir_property.fhir_type)
                         )
                     fhir_property.is_resource = property_fhir_entity.is_resource
                     fhir_property.is_extension = property_fhir_entity.is_extension
+                    # fhir_property.is_complex = property_fhir_entity.is_complex
+                    fhir_property.is_basic_type = property_fhir_entity.is_basic_type
 
         for fhir_entity in fhir_entities:
             logger.info(

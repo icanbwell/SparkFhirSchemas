@@ -88,13 +88,13 @@ class ProvenanceSchema:
     Provenance.agent. The purpose of the signature is indicated.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -108,7 +108,7 @@ class ProvenanceSchema:
             # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # recorded
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # activity
@@ -116,7 +116,7 @@ class ProvenanceSchema:
             # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # policy
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # agent
         Not mapped: ProvenanceAgent
             # entity

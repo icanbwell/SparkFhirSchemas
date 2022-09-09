@@ -67,13 +67,13 @@ class SpecimenSchema:
     blood in tube in tray in rack is not addressed here.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -85,7 +85,7 @@ class SpecimenSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.specimenstatuscode import SpecimenStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.specimenstatuscode import SpecimenStatusCodeSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # parent
@@ -95,7 +95,7 @@ class SpecimenSchema:
             # accessionIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # receivedTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # collection
         Not mapped: SpecimenCollection
             # treatment

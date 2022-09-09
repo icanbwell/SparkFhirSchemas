@@ -77,13 +77,13 @@ class MediaSchema:
     source file.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -93,7 +93,7 @@ class MediaSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.digitalmediatypecode import DigitalMediaTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.digitalmediatypecode import DigitalMediaTypeCodeSchema
             # subtype
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # identifier
@@ -113,7 +113,7 @@ class MediaSchema:
             # frames
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # duration
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # content
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         if (max_recursion_limit and nesting_list.count("Media") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

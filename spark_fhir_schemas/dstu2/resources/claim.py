@@ -95,13 +95,13 @@ class ClaimSchema:
     previously  extracted or for other reasons.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -111,7 +111,7 @@ class ClaimSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.claimtypecode import ClaimTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.claimtypecode import ClaimTypeCodeSchema
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # ruleset
@@ -119,7 +119,7 @@ class ClaimSchema:
             # originalRuleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # created
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # provider
@@ -127,7 +127,7 @@ class ClaimSchema:
             # organization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # use
-        from spark_fhir_schemas.dstu2.complex_types.usecode import UseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.usecode import UseCodeSchema
             # priority
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # fundsReserve
@@ -157,7 +157,7 @@ class ClaimSchema:
             # school
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # accident
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # accidentType
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # interventionException

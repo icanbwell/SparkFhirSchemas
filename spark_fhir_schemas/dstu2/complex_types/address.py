@@ -49,13 +49,13 @@ class AddressSchema:
         period: Time period when address was/is in use.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # use
-        from spark_fhir_schemas.dstu2.complex_types.addressusecode import AddressUseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.addressusecode import AddressUseCodeSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.addresstypecode import AddressTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.addresstypecode import AddressTypeCodeSchema
             # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # line

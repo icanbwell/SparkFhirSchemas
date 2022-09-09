@@ -97,13 +97,13 @@ class ProcedureSchema:
     procedure.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -117,7 +117,7 @@ class ProcedureSchema:
             # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.procedurestatuscode import ProcedureStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.procedurestatuscode import ProcedureStatusCodeSchema
             # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # code
@@ -135,7 +135,7 @@ class ProcedureSchema:
             # performer
         Not mapped: ProcedurePerformer
             # performedDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # performedPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # encounter

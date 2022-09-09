@@ -80,13 +80,13 @@ class CommunicationSchema:
     communication.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -108,13 +108,13 @@ class CommunicationSchema:
             # medium
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.communicationstatuscode import CommunicationStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.communicationstatuscode import CommunicationStatusCodeSchema
             # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # sent
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # received
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # subject

@@ -69,13 +69,13 @@ class GroupSchema:
         member: Identifies the resource instances that are members of the group.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -87,7 +87,7 @@ class GroupSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.grouptypecode import GroupTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.grouptypecode import GroupTypeCodeSchema
             # actual
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # code
@@ -95,7 +95,7 @@ class GroupSchema:
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # quantity
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # characteristic
         Not mapped: GroupCharacteristic
             # member

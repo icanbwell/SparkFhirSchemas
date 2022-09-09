@@ -44,15 +44,15 @@ class CodingSchema:
     list of available items (codes or displays).
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # system
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # code
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # display
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # userSelected

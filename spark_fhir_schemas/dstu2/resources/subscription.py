@@ -74,13 +74,13 @@ class SubscriptionSchema:
     is processed.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -96,13 +96,13 @@ class SubscriptionSchema:
             # reason
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.subscriptionstatuscode import SubscriptionStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.subscriptionstatuscode import SubscriptionStatusCodeSchema
             # error
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # channel
         Not mapped: SubscriptionChannel
             # end
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # tag
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("Subscription") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

@@ -40,11 +40,11 @@ class TimingSchema:
     institutions define their own additional codes.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # event
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # repeat
         from spark_fhir_schemas.dstu2.complex_types.timingrepeat import TimingRepeatSchema
             # code

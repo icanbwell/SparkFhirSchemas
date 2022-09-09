@@ -110,13 +110,13 @@ class ConformanceSchema:
         document: A document definition.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -126,13 +126,13 @@ class ConformanceSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # publisher
@@ -140,7 +140,7 @@ class ConformanceSchema:
             # contact
         Not mapped: ConformanceContact
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # requirements
@@ -148,17 +148,17 @@ class ConformanceSchema:
             # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # kind
-        from spark_fhir_schemas.dstu2.complex_types.conformancestatementkindcode import ConformanceStatementKindCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.conformancestatementkindcode import ConformanceStatementKindCodeSchema
             # software
         Not mapped: ConformanceSoftware
             # implementation
         Not mapped: ConformanceImplementation
             # fhirVersion
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # acceptUnknown
-        from spark_fhir_schemas.dstu2.complex_types.unknowncontentcodecode import UnknownContentCodeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.unknowncontentcodecode import UnknownContentCodeCodeSchema
             # format
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # rest

@@ -66,13 +66,13 @@ class SlotSchema:
     constraints on the slot.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -88,11 +88,11 @@ class SlotSchema:
             # schedule
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # freeBusyType
-        from spark_fhir_schemas.dstu2.complex_types.slotstatuscode import SlotStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.slotstatuscode import SlotStatusCodeSchema
             # start
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # end
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # overbooked
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # comment

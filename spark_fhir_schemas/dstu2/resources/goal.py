@@ -80,13 +80,13 @@ class GoalSchema:
     deepmed to be cancelled or achieved.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -100,11 +100,11 @@ class GoalSchema:
             # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # startDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # startCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # targetDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # targetQuantity
         Not mapped: Duration
             # category
@@ -112,9 +112,9 @@ class GoalSchema:
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.goalstatuscode import GoalStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.goalstatuscode import GoalStatusCodeSchema
             # statusDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # statusReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # author

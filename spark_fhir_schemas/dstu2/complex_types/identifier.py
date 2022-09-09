@@ -38,15 +38,15 @@ class IdentifierSchema:
         assigner: Organization that issued/manages the identifier.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # use
-        from spark_fhir_schemas.dstu2.complex_types.identifierusecode import IdentifierUseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.identifierusecode import IdentifierUseCodeSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # system
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # value
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # period

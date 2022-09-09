@@ -32,7 +32,7 @@ class {{fhir_entity.cleaned_name}}Schema:
             {% if property.is_resource %}
         from spark_fhir_schemas.dstu2.resources.{{property.cleaned_type.lower()}} import {{property.cleaned_type}}Schema
             {% elif property.is_basic_type %}
-        from spark_fhir_schemas.dstu2.simple_types.{{property.cleaned_type.lower()}} import {{property.cleaned_type}}Schema
+        from spark_fhir_schemas.dstu2.simple_types.{{property.type_.lower()}} import {{property.type_}}Schema
             {% elif property.is_complex or property.fhir_type == "Element" %}
         from spark_fhir_schemas.dstu2.complex_types.{{property.cleaned_type.lower()}} import {{property.cleaned_type}}Schema
             {% else %}

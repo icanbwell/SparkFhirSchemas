@@ -72,13 +72,13 @@ class LocationSchema:
         partOf: Another Location which this Location is physically part of.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -90,13 +90,13 @@ class LocationSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.locationstatuscode import LocationStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.locationstatuscode import LocationStatusCodeSchema
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # mode
-        from spark_fhir_schemas.dstu2.complex_types.locationmodecode import LocationModeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.locationmodecode import LocationModeCodeSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # telecom

@@ -34,11 +34,11 @@ class NarrativeSchema:
         div: The actual narrative content, a stripped down version of XHTML.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.narrativestatuscode import NarrativeStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.narrativestatuscode import NarrativeStatusCodeSchema
             # div
         Not mapped: xhtml
         if (max_recursion_limit and nesting_list.count("Narrative") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
