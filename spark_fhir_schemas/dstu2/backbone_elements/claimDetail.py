@@ -57,7 +57,7 @@ class ClaimDetailSchema:
         subDetail: Third tier of goods and services.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -73,9 +73,9 @@ class ClaimDetailSchema:
             # unitPrice
         Not mapped: Money
             # factor
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # points
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # net
         Not mapped: Money
             # udi

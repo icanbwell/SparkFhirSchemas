@@ -40,11 +40,11 @@ class HumanNameSchema:
         period: Indicates the period of time when this name was valid for the named person.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # use
-        from spark_fhir_schemas.dstu2.complex_types.nameusecode import NameUseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.nameusecode import NameUseCodeSchema
             # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # family

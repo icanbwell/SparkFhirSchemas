@@ -50,7 +50,7 @@ class ContractTermSchema:
         group: Nested group of Contract Provisions.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -58,7 +58,7 @@ class ContractTermSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # issued
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # applies
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # type

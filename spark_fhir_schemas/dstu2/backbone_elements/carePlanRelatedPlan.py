@@ -40,13 +40,13 @@ class CarePlanRelatedPlanSchema:
         plan: A reference to the plan to which a relationship is asserted.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # code
-        from spark_fhir_schemas.dstu2.complex_types.careplanrelationshipcode import CarePlanRelationshipCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.careplanrelationshipcode import CarePlanRelationshipCodeSchema
             # plan
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("CarePlanRelatedPlan") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

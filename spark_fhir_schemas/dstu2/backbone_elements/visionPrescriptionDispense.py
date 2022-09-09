@@ -50,7 +50,7 @@ class VisionPrescriptionDispenseSchema:
         notes: Notes for special requirements such as coatings and lens materials.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -58,25 +58,25 @@ class VisionPrescriptionDispenseSchema:
             # product
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # eye
-        from spark_fhir_schemas.dstu2.complex_types.visioneyescode import VisionEyesCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.visioneyescode import VisionEyesCodeSchema
             # sphere
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # cylinder
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # axis
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # prism
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # base
-        from spark_fhir_schemas.dstu2.complex_types.visionbasecode import VisionBaseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.visionbasecode import VisionBaseCodeSchema
             # add
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # power
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # backCurve
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # diameter
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # duration
         Not mapped: SimpleQuantity
             # color

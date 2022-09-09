@@ -83,13 +83,13 @@ class ImagingStudySchema:
         series: Each study has one or more series of images or other content.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -99,11 +99,11 @@ class ImagingStudySchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # started
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # uid
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # accession
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # identifier
@@ -115,13 +115,13 @@ class ImagingStudySchema:
             # referrer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # availability
-        from spark_fhir_schemas.dstu2.complex_types.instanceavailabilitycode import InstanceAvailabilityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.instanceavailabilitycode import InstanceAvailabilityCodeSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # numberOfSeries
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # numberOfInstances
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # procedure
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # interpreter

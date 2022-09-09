@@ -57,7 +57,7 @@ class TestScriptOperationSchema:
         url: Complete request URL.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -65,15 +65,15 @@ class TestScriptOperationSchema:
             # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # resource
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # label
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # accept
-        from spark_fhir_schemas.dstu2.complex_types.contenttypecode import ContentTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.contenttypecode import ContentTypeCodeSchema
             # contentType
-        from spark_fhir_schemas.dstu2.complex_types.contenttypecode import ContentTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.contenttypecode import ContentTypeCodeSchema
             # destination
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # encodeRequestUrl
@@ -83,11 +83,11 @@ class TestScriptOperationSchema:
             # requestHeader
         Not mapped: TestScriptRequestHeader
             # responseId
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # sourceId
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # targetId
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # url
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("TestScriptOperation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

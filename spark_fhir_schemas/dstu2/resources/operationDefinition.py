@@ -93,13 +93,13 @@ class OperationDefinitionSchema:
         parameter: The parameters for the operation/query.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -109,15 +109,15 @@ class OperationDefinitionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # version
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # kind
-        from spark_fhir_schemas.dstu2.complex_types.operationkindcode import OperationKindCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.operationkindcode import OperationKindCodeSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # publisher
@@ -125,7 +125,7 @@ class OperationDefinitionSchema:
             # contact
         Not mapped: OperationDefinitionContact
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # requirements
@@ -133,7 +133,7 @@ class OperationDefinitionSchema:
             # idempotent
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # code
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # notes
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # base
@@ -141,7 +141,7 @@ class OperationDefinitionSchema:
             # system
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # instance
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # parameter

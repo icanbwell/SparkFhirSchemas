@@ -93,13 +93,13 @@ class ClinicalImpressionSchema:
         action: Actions taken during assessment.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -113,9 +113,9 @@ class ClinicalImpressionSchema:
             # assessor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.clinicalimpressionstatuscode import ClinicalImpressionStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.clinicalimpressionstatuscode import ClinicalImpressionStatusCodeSchema
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # previous
@@ -129,7 +129,7 @@ class ClinicalImpressionSchema:
             # investigations
         Not mapped: ClinicalImpressionInvestigations
             # protocol
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # summary
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # finding

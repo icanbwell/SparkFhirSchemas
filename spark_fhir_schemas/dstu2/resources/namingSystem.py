@@ -81,13 +81,13 @@ class NamingSystemSchema:
     be used in their place (if any).
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -99,9 +99,9 @@ class NamingSystemSchema:
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # kind
-        from spark_fhir_schemas.dstu2.complex_types.namingsystemtypecode import NamingSystemTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.namingsystemtypecode import NamingSystemTypeCodeSchema
             # publisher
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # contact
@@ -109,7 +109,7 @@ class NamingSystemSchema:
             # responsible
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # description

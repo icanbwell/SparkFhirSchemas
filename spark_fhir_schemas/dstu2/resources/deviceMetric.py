@@ -89,13 +89,13 @@ class DeviceMetricSchema:
     performed.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -115,11 +115,11 @@ class DeviceMetricSchema:
             # parent
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # operationalStatus
-        from spark_fhir_schemas.dstu2.complex_types.devicemetricoperationalstatuscode import DeviceMetricOperationalStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.devicemetricoperationalstatuscode import DeviceMetricOperationalStatusCodeSchema
             # color
-        from spark_fhir_schemas.dstu2.complex_types.devicemetriccolorcode import DeviceMetricColorCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.devicemetriccolorcode import DeviceMetricColorCodeSchema
             # category
-        from spark_fhir_schemas.dstu2.complex_types.devicemetriccategorycode import DeviceMetricCategoryCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.devicemetriccategorycode import DeviceMetricCategoryCodeSchema
             # measurementPeriod
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
             # calibration

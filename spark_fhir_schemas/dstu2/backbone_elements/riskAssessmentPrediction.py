@@ -48,7 +48,7 @@ class RiskAssessmentPredictionSchema:
         rationale: Additional information explaining the basis for the prediction.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -56,13 +56,13 @@ class RiskAssessmentPredictionSchema:
             # outcome
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # probabilityDecimal
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # probabilityRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # probabilityCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # relativeRisk
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # whenPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # whenRange

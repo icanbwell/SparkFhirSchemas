@@ -55,7 +55,7 @@ class AllergyIntoleranceReactionSchema:
         note: Additional text about the adverse reaction event not captured in other fields.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -63,15 +63,15 @@ class AllergyIntoleranceReactionSchema:
             # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # certainty
-        from spark_fhir_schemas.dstu2.complex_types.allergyintolerancecertaintycode import AllergyIntoleranceCertaintyCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecertaintycode import AllergyIntoleranceCertaintyCodeSchema
             # manifestation
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # onset
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # severity
-        from spark_fhir_schemas.dstu2.complex_types.allergyintoleranceseveritycode import AllergyIntoleranceSeverityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintoleranceseveritycode import AllergyIntoleranceSeverityCodeSchema
             # exposureRoute
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # note

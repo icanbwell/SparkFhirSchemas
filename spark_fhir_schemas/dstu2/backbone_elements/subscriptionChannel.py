@@ -48,15 +48,15 @@ class SubscriptionChannelSchema:
         header: Additional headers / information to send as part of the notification.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.subscriptionchanneltypecode import SubscriptionChannelTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.subscriptionchanneltypecode import SubscriptionChannelTypeCodeSchema
             # endpoint
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # payload
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # header

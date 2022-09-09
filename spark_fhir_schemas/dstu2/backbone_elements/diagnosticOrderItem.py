@@ -42,7 +42,7 @@ class DiagnosticOrderItemSchema:
     request is processed.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -54,7 +54,7 @@ class DiagnosticOrderItemSchema:
             # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.diagnosticorderstatuscode import DiagnosticOrderStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.diagnosticorderstatuscode import DiagnosticOrderStatusCodeSchema
             # event
         Not mapped: DiagnosticOrderEvent
         if (max_recursion_limit and nesting_list.count("DiagnosticOrderItem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

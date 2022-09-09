@@ -45,7 +45,7 @@ class SpecimenCollectionSchema:
     specimens.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -55,7 +55,7 @@ class SpecimenCollectionSchema:
             # comment
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # collectedDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # collectedPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # quantity

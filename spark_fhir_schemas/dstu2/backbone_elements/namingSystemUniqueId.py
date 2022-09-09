@@ -45,13 +45,13 @@ class NamingSystemUniqueIdSchema:
     identifier might be non-deterministic.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.namingsystemidentifiertypecode import NamingSystemIdentifierTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.namingsystemidentifiertypecode import NamingSystemIdentifierTypeCodeSchema
             # value
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # preferred

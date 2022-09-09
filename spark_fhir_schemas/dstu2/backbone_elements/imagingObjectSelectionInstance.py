@@ -56,17 +56,17 @@ class ImagingObjectSelectionInstanceSchema:
         frames: Identity and location information of the frames in the selected instance.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # sopClass
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # uid
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # frames
         Not mapped: ImagingObjectSelectionFrames
         if (max_recursion_limit and nesting_list.count("ImagingObjectSelectionInstance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

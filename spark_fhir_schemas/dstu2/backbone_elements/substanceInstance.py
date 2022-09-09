@@ -39,7 +39,7 @@ class SubstanceInstanceSchema:
         quantity: The amount of the substance.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -47,7 +47,7 @@ class SubstanceInstanceSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # expiry
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # quantity
         Not mapped: SimpleQuantity
         if (max_recursion_limit and nesting_list.count("SubstanceInstance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

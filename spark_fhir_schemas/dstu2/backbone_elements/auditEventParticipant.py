@@ -61,7 +61,7 @@ class AuditEventParticipantSchema:
     during the event being recorded.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -81,7 +81,7 @@ class AuditEventParticipantSchema:
             # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # policy
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # media
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # network

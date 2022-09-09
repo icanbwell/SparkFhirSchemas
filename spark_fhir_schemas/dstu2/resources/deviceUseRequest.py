@@ -74,13 +74,13 @@ class DeviceUseRequestSchema:
     concepts such as stat, urgent, routine.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -94,7 +94,7 @@ class DeviceUseRequestSchema:
             # bodySiteReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.deviceuserequeststatuscode import DeviceUseRequestStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.deviceuserequeststatuscode import DeviceUseRequestStatusCodeSchema
             # device
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # encounter
@@ -108,9 +108,9 @@ class DeviceUseRequestSchema:
             # prnReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # orderedOn
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # recordedOn
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # timingTiming
@@ -118,9 +118,9 @@ class DeviceUseRequestSchema:
             # timingPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # timingDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # priority
-        from spark_fhir_schemas.dstu2.complex_types.deviceuserequestprioritycode import DeviceUseRequestPriorityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.deviceuserequestprioritycode import DeviceUseRequestPriorityCodeSchema
         if (max_recursion_limit and nesting_list.count("DeviceUseRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

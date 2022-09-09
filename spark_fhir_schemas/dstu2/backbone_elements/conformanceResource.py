@@ -64,19 +64,19 @@ class ConformanceResourceSchema:
     for/by the implementation.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # interaction
         Not mapped: ConformanceInteraction
             # versioning
-        from spark_fhir_schemas.dstu2.complex_types.resourceversionpolicycode import ResourceVersionPolicyCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.resourceversionpolicycode import ResourceVersionPolicyCodeSchema
             # readHistory
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # updateCreate
@@ -86,7 +86,7 @@ class ConformanceResourceSchema:
             # conditionalUpdate
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # conditionalDelete
-        from spark_fhir_schemas.dstu2.complex_types.conditionaldeletestatuscode import ConditionalDeleteStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.conditionaldeletestatuscode import ConditionalDeleteStatusCodeSchema
             # searchInclude
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # searchRevInclude

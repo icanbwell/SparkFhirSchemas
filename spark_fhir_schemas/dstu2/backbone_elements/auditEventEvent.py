@@ -48,7 +48,7 @@ class AuditEventEventSchema:
         purposeOfEvent: The purposeOfUse (reason) that was used during the event being recorded.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -58,11 +58,11 @@ class AuditEventEventSchema:
             # subtype
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # action
-        from spark_fhir_schemas.dstu2.complex_types.auditeventactioncode import AuditEventActionCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.auditeventactioncode import AuditEventActionCodeSchema
             # dateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # outcome
-        from spark_fhir_schemas.dstu2.complex_types.auditeventoutcomecode import AuditEventOutcomeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.auditeventoutcomecode import AuditEventOutcomeCodeSchema
             # outcomeDesc
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # purposeOfEvent

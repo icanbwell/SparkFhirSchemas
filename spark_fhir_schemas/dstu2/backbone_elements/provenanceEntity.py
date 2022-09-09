@@ -60,17 +60,17 @@ class ProvenanceEntitySchema:
     activity which generated the entity.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # role
-        from spark_fhir_schemas.dstu2.complex_types.provenanceentityrolecode import ProvenanceEntityRoleCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.provenanceentityrolecode import ProvenanceEntityRoleCodeSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # reference
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # display
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # agent

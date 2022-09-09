@@ -52,7 +52,7 @@ class AuditEventObjectSchema:
         detail: Additional Information about the Object.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -74,7 +74,7 @@ class AuditEventObjectSchema:
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # query
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # detail
         Not mapped: AuditEventDetail
         if (max_recursion_limit and nesting_list.count("AuditEventObject") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

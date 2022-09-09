@@ -53,7 +53,7 @@ class QuestionnaireResponseAnswerSchema:
     groups within the question is relevant.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -61,21 +61,21 @@ class QuestionnaireResponseAnswerSchema:
             # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueDecimal
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueInstant
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueUri
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
             # valueCoding

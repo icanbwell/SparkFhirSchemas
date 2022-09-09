@@ -67,13 +67,13 @@ class PaymentNoticeSchema:
         paymentStatus: The payment status, typically paid: payment sent, cleared: payment received.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -89,7 +89,7 @@ class PaymentNoticeSchema:
             # originalRuleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # created
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # provider

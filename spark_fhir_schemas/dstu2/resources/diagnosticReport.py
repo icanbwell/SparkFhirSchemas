@@ -95,13 +95,13 @@ class DiagnosticReportSchema:
     equivalent.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -113,7 +113,7 @@ class DiagnosticReportSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.diagnosticreportstatuscode import DiagnosticReportStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.diagnosticreportstatuscode import DiagnosticReportStatusCodeSchema
             # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # code
@@ -123,11 +123,11 @@ class DiagnosticReportSchema:
             # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # effectiveDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # effectivePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # issued
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # performer
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # request

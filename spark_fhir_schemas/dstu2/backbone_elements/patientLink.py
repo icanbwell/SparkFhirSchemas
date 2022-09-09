@@ -38,7 +38,7 @@ class PatientLinkSchema:
         type: The type of link between this patient resource and another patient resource.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -46,7 +46,7 @@ class PatientLinkSchema:
             # other
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.linktypecode import LinkTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.linktypecode import LinkTypeCodeSchema
         if (max_recursion_limit and nesting_list.count("PatientLink") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

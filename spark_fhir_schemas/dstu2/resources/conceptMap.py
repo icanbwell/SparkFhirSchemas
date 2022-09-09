@@ -90,13 +90,13 @@ class ConceptMapSchema:
     the target.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -106,7 +106,7 @@ class ConceptMapSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # version
@@ -114,7 +114,7 @@ class ConceptMapSchema:
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # publisher
@@ -122,7 +122,7 @@ class ConceptMapSchema:
             # contact
         Not mapped: ConceptMapContact
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # useContext
@@ -132,11 +132,11 @@ class ConceptMapSchema:
             # copyright
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # sourceUri
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # sourceReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # targetUri
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # targetReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # element

@@ -73,13 +73,13 @@ class DetectedIssueSchema:
     may reduce/eliminate the need for any action.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -93,19 +93,19 @@ class DetectedIssueSchema:
             # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # severity
-        from spark_fhir_schemas.dstu2.complex_types.detectedissueseveritycode import DetectedIssueSeverityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.detectedissueseveritycode import DetectedIssueSeverityCodeSchema
             # implicated
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # detail
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # reference
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # mitigation
         Not mapped: DetectedIssueMitigation
         if (max_recursion_limit and nesting_list.count("DetectedIssue") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

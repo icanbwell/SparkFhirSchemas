@@ -85,13 +85,13 @@ class CarePlanSchema:
         note: General notes about the care plan not covered elsewhere.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -105,7 +105,7 @@ class CarePlanSchema:
             # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.careplanstatuscode import CarePlanStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.careplanstatuscode import CarePlanStatusCodeSchema
             # context
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # period
@@ -113,7 +113,7 @@ class CarePlanSchema:
             # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # modified
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # description

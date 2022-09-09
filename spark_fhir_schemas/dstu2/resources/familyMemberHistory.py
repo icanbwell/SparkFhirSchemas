@@ -85,13 +85,13 @@ class FamilyMemberHistorySchema:
     condition.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -105,19 +105,19 @@ class FamilyMemberHistorySchema:
             # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.familyhistorystatuscode import FamilyHistoryStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.familyhistorystatuscode import FamilyHistoryStatusCodeSchema
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # gender
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # bornPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # bornDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # bornString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # ageQuantity
@@ -133,7 +133,7 @@ class FamilyMemberHistorySchema:
             # deceasedRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # deceasedDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # deceasedString
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # note

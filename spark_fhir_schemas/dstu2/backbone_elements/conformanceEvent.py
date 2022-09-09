@@ -48,7 +48,7 @@ class ConformanceEventSchema:
     business rules, etc.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -56,11 +56,11 @@ class ConformanceEventSchema:
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # category
-        from spark_fhir_schemas.dstu2.complex_types.messagesignificancecategorycode import MessageSignificanceCategoryCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.messagesignificancecategorycode import MessageSignificanceCategoryCodeSchema
             # mode
-        from spark_fhir_schemas.dstu2.complex_types.conformanceeventmodecode import ConformanceEventModeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.conformanceeventmodecode import ConformanceEventModeCodeSchema
             # focus
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # response

@@ -49,13 +49,13 @@ class ImplementationGuideResourceSchema:
     resources that are included as examples of StructureDefinitions.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # purpose
-        from spark_fhir_schemas.dstu2.complex_types.guideresourcepurposecode import GuideResourcePurposeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.guideresourcepurposecode import GuideResourcePurposeCodeSchema
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
@@ -63,7 +63,7 @@ class ImplementationGuideResourceSchema:
             # acronym
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # sourceUri
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # sourceReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # exampleFor

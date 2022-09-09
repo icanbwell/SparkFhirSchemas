@@ -38,13 +38,13 @@ class EncounterStatusHistorySchema:
         period: The time that the episode was in the specified status.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.encounterstatecode import EncounterStateCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.encounterstatecode import EncounterStateCodeSchema
             # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("EncounterStatusHistory") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

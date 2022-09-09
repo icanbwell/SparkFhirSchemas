@@ -45,7 +45,7 @@ class ElementDefinitionSlicingSchema:
     end.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # discriminator
@@ -55,7 +55,7 @@ class ElementDefinitionSlicingSchema:
             # ordered
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # rules
-        from spark_fhir_schemas.dstu2.complex_types.slicingrulescode import SlicingRulesCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.slicingrulescode import SlicingRulesCodeSchema
         if (max_recursion_limit and nesting_list.count("ElementDefinitionSlicing") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

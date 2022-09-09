@@ -48,19 +48,19 @@ class BundleRequestSchema:
     follows the "?" (not including the "?").
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # method
-        from spark_fhir_schemas.dstu2.complex_types.httpverbcode import HTTPVerbCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.httpverbcode import HTTPVerbCodeSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # ifNoneMatch
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # ifModifiedSince
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # ifMatch
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # ifNoneExist

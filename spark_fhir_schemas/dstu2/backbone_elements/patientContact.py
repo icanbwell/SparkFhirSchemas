@@ -46,7 +46,7 @@ class PatientContactSchema:
     contacted relating to this patient.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -60,7 +60,7 @@ class PatientContactSchema:
             # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
             # gender
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # organization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # period

@@ -120,13 +120,13 @@ class MedicationStatementSchema:
         dosage: Indicates how the medication is/was used by the patient.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -142,9 +142,9 @@ class MedicationStatementSchema:
             # informationSource
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # dateAsserted
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.medicationstatementstatuscode import MedicationStatementStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.medicationstatementstatuscode import MedicationStatementStatusCodeSchema
             # wasNotTaken
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # reasonNotTaken
@@ -154,7 +154,7 @@ class MedicationStatementSchema:
             # reasonForUseReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # effectiveDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # effectivePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # note

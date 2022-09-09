@@ -55,31 +55,31 @@ class ImagingStudySeriesSchema:
         instance: A single SOP Instance within the series, e.g. an image, or presentation state.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # number
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # modality
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # uid
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # numberOfInstances
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # availability
-        from spark_fhir_schemas.dstu2.complex_types.instanceavailabilitycode import InstanceAvailabilityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.instanceavailabilitycode import InstanceAvailabilityCodeSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # bodySite
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # laterality
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # started
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # instance
         Not mapped: ImagingStudyInstance
         if (max_recursion_limit and nesting_list.count("ImagingStudySeries") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

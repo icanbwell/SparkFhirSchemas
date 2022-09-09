@@ -64,13 +64,13 @@ class OrderResponseSchema:
     referenced a diagnostic order.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -84,11 +84,11 @@ class OrderResponseSchema:
             # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # who
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # orderStatus
-        from spark_fhir_schemas.dstu2.complex_types.orderstatuscode import OrderStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.orderstatuscode import OrderStatusCodeSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # fulfillment

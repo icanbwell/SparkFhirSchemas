@@ -48,15 +48,15 @@ class OperationOutcomeIssueSchema:
     this issue to be raised.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # severity
-        from spark_fhir_schemas.dstu2.complex_types.issueseveritycode import IssueSeverityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.issueseveritycode import IssueSeverityCodeSchema
             # code
-        from spark_fhir_schemas.dstu2.complex_types.issuetypecode import IssueTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.issuetypecode import IssueTypeCodeSchema
             # details
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # diagnostics

@@ -78,13 +78,13 @@ class AllergyIntoleranceSchema:
     Substance.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -96,9 +96,9 @@ class AllergyIntoleranceSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # onset
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # recordedDate
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # recorder
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # patient
@@ -108,15 +108,15 @@ class AllergyIntoleranceSchema:
             # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.allergyintolerancestatuscode import AllergyIntoleranceStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancestatuscode import AllergyIntoleranceStatusCodeSchema
             # criticality
-        from spark_fhir_schemas.dstu2.complex_types.allergyintolerancecriticalitycode import AllergyIntoleranceCriticalityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecriticalitycode import AllergyIntoleranceCriticalityCodeSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.allergyintolerancetypecode import AllergyIntoleranceTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancetypecode import AllergyIntoleranceTypeCodeSchema
             # category
-        from spark_fhir_schemas.dstu2.complex_types.allergyintolerancecategorycode import AllergyIntoleranceCategoryCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecategorycode import AllergyIntoleranceCategoryCodeSchema
             # lastOccurence
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
             # reaction

@@ -51,7 +51,7 @@ class ObservationComponentSchema:
     recommended range.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -73,9 +73,9 @@ class ObservationComponentSchema:
             # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
             # valueTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valueDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # dataAbsentReason

@@ -93,13 +93,13 @@ class ReferralRequestSchema:
     referral/transfer of care is specified or required to occur.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -109,11 +109,11 @@ class ReferralRequestSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.referralstatuscode import ReferralStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.referralstatuscode import ReferralStatusCodeSchema
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # specialty
@@ -129,7 +129,7 @@ class ReferralRequestSchema:
             # encounter
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # dateSent
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # description

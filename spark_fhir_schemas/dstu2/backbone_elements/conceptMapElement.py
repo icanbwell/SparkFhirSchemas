@@ -40,15 +40,15 @@ class ConceptMapElementSchema:
         target: A concept from the target value set that this concept maps to.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # codeSystem
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # code
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # target
         Not mapped: ConceptMapTarget
         if (max_recursion_limit and nesting_list.count("ConceptMapElement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

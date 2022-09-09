@@ -88,13 +88,13 @@ class MedicationDispenseSchema:
     substitution did or did not happen and why.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -106,7 +106,7 @@ class MedicationDispenseSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.medicationdispensestatuscode import MedicationDispenseStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.medicationdispensestatuscode import MedicationDispenseStatusCodeSchema
             # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # dispenser
@@ -124,9 +124,9 @@ class MedicationDispenseSchema:
             # medicationReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # whenPrepared
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # whenHandedOver
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # destination
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # receiver

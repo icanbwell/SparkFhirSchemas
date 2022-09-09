@@ -74,13 +74,13 @@ class DeviceComponentSchema:
     device. This language code will follow the IETF language tag. Example: en-US.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -94,7 +94,7 @@ class DeviceComponentSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # lastSystemChange
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # source
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # parent
@@ -104,7 +104,7 @@ class DeviceComponentSchema:
             # parameterGroup
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # measurementPrinciple
-        from spark_fhir_schemas.dstu2.complex_types.measmnt_principlecode import Measmnt_PrincipleCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.measmnt_principlecode import Measmnt_PrincipleCodeSchema
             # productionSpecification
         Not mapped: DeviceComponentProductionSpecification
             # languageCode

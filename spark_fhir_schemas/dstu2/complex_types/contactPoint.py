@@ -40,15 +40,15 @@ class ContactPointSchema:
         period: Time period when the contact point was/is in use.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # system
-        from spark_fhir_schemas.dstu2.complex_types.contactpointsystemcode import ContactPointSystemCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.contactpointsystemcode import ContactPointSystemCodeSchema
             # value
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # use
-        from spark_fhir_schemas.dstu2.complex_types.contactpointusecode import ContactPointUseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.contactpointusecode import ContactPointUseCodeSchema
             # rank
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # period

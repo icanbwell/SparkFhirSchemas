@@ -48,15 +48,15 @@ class OperationDefinitionParameterSchema:
         part: The parts of a Tuple Parameter.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # name
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # use
-        from spark_fhir_schemas.dstu2.complex_types.operationparameterusecode import OperationParameterUseCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.operationparameterusecode import OperationParameterUseCodeSchema
             # min
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # max
@@ -64,7 +64,7 @@ class OperationDefinitionParameterSchema:
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # binding

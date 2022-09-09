@@ -46,7 +46,7 @@ class ConformanceMessagingSchema:
         event: A description of the solution's support for an event at this end-point.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -54,7 +54,7 @@ class ConformanceMessagingSchema:
             # endpoint
         Not mapped: ConformanceEndpoint
             # reliableCache
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # event

@@ -54,7 +54,7 @@ class ConformanceSearchParamSchema:
     Conformance.rest.resource.searchParam.name on the target resource type.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -62,15 +62,15 @@ class ConformanceSearchParamSchema:
             # name
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # definition
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # target
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # modifier
-        from spark_fhir_schemas.dstu2.complex_types.searchmodifiercodecode import SearchModifierCodeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.searchmodifiercodecode import SearchModifierCodeCodeSchema
             # chain
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ConformanceSearchParam") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

@@ -53,7 +53,7 @@ class MedicationOrderDispenseRequestSchema:
     used, or the length of time the dispense is expected to last.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension

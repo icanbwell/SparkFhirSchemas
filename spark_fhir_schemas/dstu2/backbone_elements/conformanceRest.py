@@ -56,13 +56,13 @@ class ConformanceRestSchema:
     by the system.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # mode
-        from spark_fhir_schemas.dstu2.complex_types.restfulconformancemodecode import RestfulConformanceModeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.restfulconformancemodecode import RestfulConformanceModeCodeSchema
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # security
@@ -72,13 +72,13 @@ class ConformanceRestSchema:
             # interaction
         Not mapped: ConformanceInteraction1
             # transactionMode
-        from spark_fhir_schemas.dstu2.complex_types.transactionmodecode import TransactionModeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.transactionmodecode import TransactionModeCodeSchema
             # searchParam
         Not mapped: ConformanceSearchParam
             # operation
         Not mapped: ConformanceOperation
             # compartment
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ConformanceRest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

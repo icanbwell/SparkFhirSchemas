@@ -90,13 +90,13 @@ class MedicationAdministrationSchema:
     route, etc.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -108,7 +108,7 @@ class MedicationAdministrationSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.medicationadministrationstatuscode import MedicationAdministrationStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.medicationadministrationstatuscode import MedicationAdministrationStatusCodeSchema
             # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # practitioner
@@ -124,7 +124,7 @@ class MedicationAdministrationSchema:
             # reasonGiven
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # effectiveTimeDateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # effectiveTimePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # medicationCodeableConcept

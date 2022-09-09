@@ -55,7 +55,7 @@ class QuestionnaireQuestionSchema:
     groups within the question is relevant.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -67,7 +67,7 @@ class QuestionnaireQuestionSchema:
             # text
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.answerformatcode import AnswerFormatCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.answerformatcode import AnswerFormatCodeSchema
             # required
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # repeats

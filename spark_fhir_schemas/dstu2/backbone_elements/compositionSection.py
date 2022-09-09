@@ -64,7 +64,7 @@ class CompositionSectionSchema:
         section: A nested sub-section within this section.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -76,7 +76,7 @@ class CompositionSectionSchema:
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # mode
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # orderedBy
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # entry

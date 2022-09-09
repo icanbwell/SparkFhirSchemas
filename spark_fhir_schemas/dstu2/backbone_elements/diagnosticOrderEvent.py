@@ -39,17 +39,17 @@ class DiagnosticOrderEventSchema:
         actor: The person responsible for performing or recording the action.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.diagnosticorderstatuscode import DiagnosticOrderStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.diagnosticorderstatuscode import DiagnosticOrderStatusCodeSchema
             # description
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # dateTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # actor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("DiagnosticOrderEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

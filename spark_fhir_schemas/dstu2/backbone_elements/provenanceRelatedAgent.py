@@ -53,7 +53,7 @@ class ProvenanceRelatedAgentSchema:
     identifier.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -61,7 +61,7 @@ class ProvenanceRelatedAgentSchema:
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # target
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
         if (max_recursion_limit and nesting_list.count("ProvenanceRelatedAgent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

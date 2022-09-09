@@ -115,13 +115,13 @@ class StructureDefinitionSchema:
     statement of differences that it applies.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -131,7 +131,7 @@ class StructureDefinitionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # url
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # version
@@ -141,7 +141,7 @@ class StructureDefinitionSchema:
             # display
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # publisher
@@ -149,7 +149,7 @@ class StructureDefinitionSchema:
             # contact
         Not mapped: StructureDefinitionContact
             # date
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # useContext
@@ -161,21 +161,21 @@ class StructureDefinitionSchema:
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # fhirVersion
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # mapping
         Not mapped: StructureDefinitionMapping
             # kind
-        from spark_fhir_schemas.dstu2.complex_types.structuredefinitionkindcode import StructureDefinitionKindCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.structuredefinitionkindcode import StructureDefinitionKindCodeSchema
             # constrainedType
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # abstract
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # contextType
-        from spark_fhir_schemas.dstu2.complex_types.extensioncontextcode import ExtensionContextCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.extensioncontextcode import ExtensionContextCodeSchema
             # context
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # base
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # snapshot
         Not mapped: StructureDefinitionSnapshot
             # differential

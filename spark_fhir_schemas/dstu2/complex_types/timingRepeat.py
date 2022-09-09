@@ -54,7 +54,7 @@ class TimingRepeatSchema:
         when: A real world event that the occurrence of the event should be tied to.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # boundsQuantity
@@ -66,23 +66,23 @@ class TimingRepeatSchema:
             # count
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # duration
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # durationMax
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # durationUnits
-        from spark_fhir_schemas.dstu2.complex_types.unitsoftimecode import UnitsOfTimeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.unitsoftimecode import UnitsOfTimeCodeSchema
             # frequency
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # frequencyMax
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # period
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # periodMax
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # periodUnits
-        from spark_fhir_schemas.dstu2.complex_types.unitsoftimecode import UnitsOfTimeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.unitsoftimecode import UnitsOfTimeCodeSchema
             # when
-        from spark_fhir_schemas.dstu2.complex_types.eventtimingcode import EventTimingCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.eventtimingcode import EventTimingCodeSchema
         if (max_recursion_limit and nesting_list.count("TimingRepeat") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

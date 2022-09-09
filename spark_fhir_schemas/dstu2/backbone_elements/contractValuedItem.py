@@ -55,7 +55,7 @@ class ContractValuedItemSchema:
     assumed to be 1 if not supplied.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -67,15 +67,15 @@ class ContractValuedItemSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # effectiveTime
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # quantity
         Not mapped: SimpleQuantity
             # unitPrice
         Not mapped: Money
             # factor
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # points
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # net
         Not mapped: Money
         if (max_recursion_limit and nesting_list.count("ContractValuedItem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

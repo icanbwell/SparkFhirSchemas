@@ -74,13 +74,13 @@ class QuestionnaireResponseSchema:
     questionnaire response.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
             # implicitRules
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # language
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
             # contained
@@ -94,13 +94,13 @@ class QuestionnaireResponseSchema:
             # questionnaire
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # status
-        from spark_fhir_schemas.dstu2.complex_types.questionnaireresponsestatuscode import QuestionnaireResponseStatusCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.questionnaireresponsestatuscode import QuestionnaireResponseStatusCodeSchema
             # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # author
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # authored
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # source
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # encounter

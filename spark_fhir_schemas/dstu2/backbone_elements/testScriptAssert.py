@@ -62,7 +62,7 @@ class TestScriptAssertSchema:
     this assert.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
@@ -72,13 +72,13 @@ class TestScriptAssertSchema:
             # description
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # direction
-        from spark_fhir_schemas.dstu2.complex_types.assertiondirectiontypecode import AssertionDirectionTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.assertiondirectiontypecode import AssertionDirectionTypeCodeSchema
             # compareToSourceId
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # compareToSourcePath
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # contentType
-        from spark_fhir_schemas.dstu2.complex_types.contenttypecode import ContentTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.contenttypecode import ContentTypeCodeSchema
             # headerField
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # minimumId
@@ -86,19 +86,19 @@ class TestScriptAssertSchema:
             # navigationLinks
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # operator
-        from spark_fhir_schemas.dstu2.complex_types.assertionoperatortypecode import AssertionOperatorTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.assertionoperatortypecode import AssertionOperatorTypeCodeSchema
             # path
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # resource
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # response
-        from spark_fhir_schemas.dstu2.complex_types.assertionresponsetypescode import AssertionResponseTypesCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.assertionresponsetypescode import AssertionResponseTypesCodeSchema
             # responseCode
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # sourceId
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # validateProfileId
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # value
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # warningOnly

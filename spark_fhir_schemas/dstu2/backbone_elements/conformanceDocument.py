@@ -44,13 +44,13 @@ class ConformanceDocumentSchema:
         profile: A constraint on a resource used in the document.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # mode
-        from spark_fhir_schemas.dstu2.complex_types.documentmodecode import DocumentModeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.documentmodecode import DocumentModeCodeSchema
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # profile

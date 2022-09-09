@@ -42,15 +42,15 @@ class ElementDefinitionConstraintSchema:
     constraint is met.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # key
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # requirements
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # severity
-        from spark_fhir_schemas.dstu2.complex_types.constraintseveritycode import ConstraintSeverityCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.constraintseveritycode import ConstraintSeverityCodeSchema
             # human
         from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # xpath

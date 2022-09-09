@@ -40,13 +40,13 @@ class ObservationRelatedSchema:
     related to this observation.
         """
             # id
-        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        from spark_fhir_schemas.dstu2.simple_types.element import ElementSchema
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.complex_types.observationrelationshiptypecode import ObservationRelationshipTypeCodeSchema
+        from spark_fhir_schemas.dstu2.simple_types.observationrelationshiptypecode import ObservationRelationshipTypeCodeSchema
             # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ObservationRelated") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
