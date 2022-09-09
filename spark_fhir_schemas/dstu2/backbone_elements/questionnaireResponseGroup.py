@@ -47,22 +47,16 @@ class QuestionnaireResponseGroupSchema:
         question: Set of questions within this group. The order of questions within the group is
     relevant.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # linkId
+        # linkId
              # type = string
-            # title
-             # type = string
-            # text
-             # type = string
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # question
-        Not mapped: QuestionnaireResponseQuestion
+        # question
+        from spark_fhir_schemas.dstu2.complex_types.questionnaireresponse.question import QuestionnaireResponse.QuestionSchema
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponseGroup") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -99,10 +93,10 @@ class QuestionnaireResponseGroupSchema:
                 StructField("subject", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A sub-group within a group. The ordering of groups within this group is
                 # relevant.
-                StructField("group", QuestionnaireResponseGroupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("group", QuestionnaireResponse.GroupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Set of questions within this group. The order of questions within the group is
                 # relevant.
-                StructField("question", QuestionnaireResponseQuestionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("question", QuestionnaireResponse.QuestionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

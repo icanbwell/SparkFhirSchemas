@@ -39,15 +39,13 @@ class CarePlanRelatedPlanSchema:
         code: Identifies the type of relationship this plan has to the target plan.
         plan: A reference to the plan to which a relationship is asserted.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # code
-             # type = code
-            # plan
+        # code
+        # type = code
+        # plan
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("CarePlanRelatedPlan") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

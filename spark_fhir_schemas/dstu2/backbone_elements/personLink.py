@@ -38,16 +38,14 @@ class PersonLinkSchema:
         assurance: Level of assurance that this link is actually associated with the target
     resource.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # target
+        # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # assurance
-             # type = code
+        # assurance
+        # type = code
         if (max_recursion_limit and nesting_list.count("PersonLink") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

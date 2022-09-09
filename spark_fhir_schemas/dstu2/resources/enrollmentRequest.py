@@ -66,42 +66,28 @@ class EnrollmentRequestSchema:
         coverage: Reference to the program or plan identification, underwriter or payor.
         relationship: The relationship of the patient to the subscriber.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # ruleset
+        # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # originalRuleset
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # created
+        # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # target
+        # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # provider
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # organization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # subject
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # coverage
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # relationship
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("EnrollmentRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

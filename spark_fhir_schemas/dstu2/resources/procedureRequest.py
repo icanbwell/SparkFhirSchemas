@@ -73,58 +73,38 @@ class ProcedureRequestSchema:
     procedure.
         priority: The clinical priority associated with this order.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # bodySite
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # reasonCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # reasonReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # scheduledDateTime
+        # scheduledDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # scheduledPeriod
+        # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # scheduledTiming
+        # scheduledTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # performer
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # status
-             # type = code
-            # notes
+        # status
+        # type = code
+        # notes
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # asNeededBoolean
+        # asNeededBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # asNeededCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # orderedOn
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # orderer
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # priority
-             # type = code
         if (max_recursion_limit and nesting_list.count("ProcedureRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

@@ -84,53 +84,41 @@ class CarePlanSchema:
     medication to be used, lab tests to perform, self-monitoring, education, etc.
         note: General notes about the care plan not covered elsewhere.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # status
-             # type = code
-            # context
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # period
+        # status
+        # type = code
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # author
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # modified
+        # modified
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # category
+        # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # description
+        # description
              # type = string
-            # addresses
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # support
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # relatedPlan
-        Not mapped: CarePlanRelatedPlan
-            # participant
-        Not mapped: CarePlanParticipant
-            # goal
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # activity
-        Not mapped: CarePlanActivity
-            # note
+        # relatedPlan
+        from spark_fhir_schemas.dstu2.complex_types.careplan.relatedplan import CarePlan.RelatedPlanSchema
+        # participant
+        from spark_fhir_schemas.dstu2.complex_types.careplan.participant import CarePlan.ParticipantSchema
+        # activity
+        from spark_fhir_schemas.dstu2.complex_types.careplan.activity import CarePlan.ActivitySchema
+        # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("CarePlan") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -211,15 +199,15 @@ class CarePlanSchema:
                 StructField("support", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies CarePlans with some sort of formal relationship to the current
                 # plan.
-                StructField("relatedPlan", CarePlanRelatedPlanSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("relatedPlan", CarePlan.RelatedPlanSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies all people and organizations who are expected to be involved in the
                 # care envisioned by this plan.
-                StructField("participant", CarePlanParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("participant", CarePlan.ParticipantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the intended objective(s) of carrying out the care plan.
                 StructField("goal", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies a planned action to occur as part of the plan.  For example, a
                 # medication to be used, lab tests to perform, self-monitoring, education, etc.
-                StructField("activity", CarePlanActivitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("activity", CarePlan.ActivitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # General notes about the care plan not covered elsewhere.
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

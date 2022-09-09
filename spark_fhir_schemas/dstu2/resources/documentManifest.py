@@ -78,46 +78,34 @@ class DocumentManifestSchema:
         content: The list of Documents included in the manifest.
         related: Related identifiers or resources associated with the DocumentManifest.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # masterIdentifier
+        # masterIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # identifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # recipient
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # author
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # created
+        # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # source
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # description
+        # description
              # type = string
-            # content
-        Not mapped: DocumentManifestContent
-            # related
-        Not mapped: DocumentManifestRelated
+        # content
+        from spark_fhir_schemas.dstu2.complex_types.documentmanifest.content import DocumentManifest.ContentSchema
+        # related
+        from spark_fhir_schemas.dstu2.complex_types.documentmanifest.related import DocumentManifest.RelatedSchema
         if (max_recursion_limit and nesting_list.count("DocumentManifest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -199,9 +187,9 @@ class DocumentManifestSchema:
                 # the "title".
                 StructField("description", StringType(), True),
                 # The list of Documents included in the manifest.
-                StructField("content", DocumentManifestContentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("content", DocumentManifest.ContentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Related identifiers or resources associated with the DocumentManifest.
-                StructField("related", DocumentManifestRelatedSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("related", DocumentManifest.RelatedSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

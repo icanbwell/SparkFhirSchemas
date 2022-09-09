@@ -63,36 +63,24 @@ class ConformanceResourceSchema:
     references to ones defined in the specification, or additional ones defined
     for/by the implementation.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # profile
+        # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # interaction
-        Not mapped: ConformanceInteraction
-            # versioning
-             # type = code
-            # readHistory
+        # interaction
+        from spark_fhir_schemas.dstu2.complex_types.conformance.interaction import Conformance.InteractionSchema
+        # versioning
+        # type = code
+        # readHistory
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # updateCreate
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # conditionalCreate
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # conditionalUpdate
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # conditionalDelete
-             # type = code
-            # searchInclude
+        # searchInclude
              # type = string
-            # searchRevInclude
-             # type = string
-            # searchParam
-        Not mapped: ConformanceSearchParam
+        # searchParam
+        from spark_fhir_schemas.dstu2.complex_types.conformance.searchparam import Conformance.SearchParamSchema
         if (max_recursion_limit and nesting_list.count("ConformanceResource") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -125,7 +113,7 @@ class ConformanceResourceSchema:
                 # Profiles]{profiling.html#profile-uses}.
                 StructField("profile", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies a restful operation supported by the solution.
-                StructField("interaction", ConformanceInteractionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("interaction", Conformance.InteractionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # This field is set to no-version to specify that the system does not support
                 # (server) or use (client) versioning for this resource type. If this has some
                 # other value, the server must at least correctly track and populate the
@@ -154,7 +142,7 @@ class ConformanceResourceSchema:
                 # Search parameters for implementations to support and/or make use of - either
                 # references to ones defined in the specification, or additional ones defined
                 # for/by the implementation.
-                StructField("searchParam", ConformanceSearchParamSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("searchParam", Conformance.SearchParamSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

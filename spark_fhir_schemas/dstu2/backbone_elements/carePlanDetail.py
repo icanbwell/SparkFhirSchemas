@@ -66,48 +66,26 @@ class CarePlanDetailSchema:
     objectives, pre-conditions and end-conditions.  Finally, it may convey
     specifics about the activity such as body site, method, route, etc.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # category
+        # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # code
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # reasonCode
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # reasonReference
+        # reasonReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # goal
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # status
-             # type = code
-            # statusReason
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # prohibited
+        # status
+        # type = code
+        # prohibited
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # scheduledTiming
+        # scheduledTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # scheduledPeriod
+        # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # scheduledString
+        # scheduledString
              # type = string
-            # location
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # performer
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # productCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # productReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # dailyAmount
-        Not mapped: Quantity
-            # quantity
-        Not mapped: Quantity
-            # description
-             # type = string
+        # dailyAmount
+        from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
         if (max_recursion_limit and nesting_list.count("CarePlanDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -170,10 +148,10 @@ class CarePlanDetailSchema:
                 # None
                 StructField("productReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the quantity expected to be consumed in a given day.
-                StructField("dailyAmount", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dailyAmount", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the quantity expected to be supplied, administered or consumed by
                 # the subject.
-                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # This provides a textual description of constraints on the intended activity
                 # occurrence, including relation to other activities.  It may also include
                 # objectives, pre-conditions and end-conditions.  Finally, it may convey

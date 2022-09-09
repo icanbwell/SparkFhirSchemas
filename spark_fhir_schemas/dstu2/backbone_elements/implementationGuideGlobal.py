@@ -39,15 +39,13 @@ class ImplementationGuideGlobalSchema:
         type: The type of resource that all instances must conform to.
         profile: A reference to the profile that all instances must conform to.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # profile
+        # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ImplementationGuideGlobal") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

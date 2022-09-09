@@ -76,86 +76,80 @@ class ParametersParameterSchema:
         part: A named part of a parameter. In many implementation context, a set of named
     parts is known as a "Tuple".
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # name
+        # name
              # type = string
-            # valueBoolean
+        # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # valueInteger
+        # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # valueDecimal
+        # valueDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # valueBase64Binary
+        # valueBase64Binary
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # valueInstant
+        # valueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # valueString
-             # type = string
-            # valueUri
+        # valueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # valueDate
+        # valueDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # valueDateTime
+        # valueDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # valueTime
+        # valueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # valueCode
+        # valueCode
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # valueOid
+        # valueOid
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # valueUuid
+        # valueUuid
         from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # valueId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # valueUnsignedInt
+        # valueUnsignedInt
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # valuePositiveInt
+        # valuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # valueMarkdown
+        # valueMarkdown
         from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # valueAnnotation
+        # valueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # valueAttachment
+        # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # valueIdentifier
+        # valueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # valueCodeableConcept
+        # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # valueCoding
+        # valueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # valueQuantity
+        # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # valueRange
+        # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # valuePeriod
+        # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # valueRatio
+        # valueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # valueReference
+        # valueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # valueSampledData
+        # valueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # valueSignature
+        # valueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # valueHumanName
+        # valueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # valueAddress
+        # valueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # valueContactPoint
+        # valueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # valueTiming
+        # valueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # valueMeta
+        # valueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # valueElementDefinition
+        # valueElementDefinition
         from spark_fhir_schemas.dstu2.complex_types.elementdefinition import ElementDefinitionSchema
-            # resource
-        Not mapped: ResourceContainer
+        # resource
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
         if (max_recursion_limit and nesting_list.count("ParametersParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -256,7 +250,7 @@ class ParametersParameterSchema:
                 StructField("resource", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A named part of a parameter. In many implementation context, a set of named
                 # parts is known as a "Tuple".
-                StructField("part", ParametersParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("part", Parameters.ParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -36,15 +36,13 @@ class BundleSearchSchema:
     because of an _include requirement.
         score: When searching, the server's search ranking score for the entry.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # mode
-             # type = code
-            # score
+        # mode
+        # type = code
+        # score
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
         if (max_recursion_limit and nesting_list.count("BundleSearch") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

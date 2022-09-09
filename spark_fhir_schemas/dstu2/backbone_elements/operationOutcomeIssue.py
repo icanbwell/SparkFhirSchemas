@@ -47,21 +47,15 @@ class OperationOutcomeIssueSchema:
     child access that identifies one of the elements in the resource that caused
     this issue to be raised.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # severity
-             # type = code
-            # code
-             # type = code
-            # details
+        # severity
+        # type = code
+        # details
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # diagnostics
-             # type = string
-            # location
+        # diagnostics
              # type = string
         if (max_recursion_limit and nesting_list.count("OperationOutcomeIssue") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

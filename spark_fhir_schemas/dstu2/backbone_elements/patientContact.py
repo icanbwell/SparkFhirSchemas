@@ -45,25 +45,23 @@ class PatientContactSchema:
         period: The period during which this contact person or organization is valid to be
     contacted relating to this patient.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # relationship
+        # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # name
+        # name
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # telecom
+        # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # address
+        # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # gender
+        # gender
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # organization
+        # organization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("PatientContact") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -50,27 +50,21 @@ class ImmunizationRecommendationRecommendationSchema:
     includes patient observations, adverse reactions and allergy/intolerance
     information.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # date
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # vaccineCode
+        # vaccineCode
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # doseNumber
+        # doseNumber
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # forecastStatus
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # dateCriterion
-        Not mapped: ImmunizationRecommendationDateCriterion
-            # protocol
-        Not mapped: ImmunizationRecommendationProtocol
-            # supportingImmunization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # supportingPatientInformation
+        # dateCriterion
+        from spark_fhir_schemas.dstu2.complex_types.immunizationrecommendation.datecriterion import ImmunizationRecommendation.DateCriterionSchema
+        # protocol
+        from spark_fhir_schemas.dstu2.complex_types.immunizationrecommendation.protocol import ImmunizationRecommendation.ProtocolSchema
+        # supportingImmunization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ImmunizationRecommendationRecommendation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -107,10 +101,10 @@ class ImmunizationRecommendationRecommendationSchema:
                 StructField("forecastStatus", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Vaccine date recommendations.  For example, earliest date to administer,
                 # latest date to administer, etc.
-                StructField("dateCriterion", ImmunizationRecommendationDateCriterionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dateCriterion", ImmunizationRecommendation.DateCriterionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Contains information about the protocol under which the vaccine was
                 # administered.
-                StructField("protocol", ImmunizationRecommendationProtocolSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("protocol", ImmunizationRecommendation.ProtocolSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Immunization event history that supports the status and recommendation.
                 StructField("supportingImmunization", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Patient Information that supports the status and recommendation.  This

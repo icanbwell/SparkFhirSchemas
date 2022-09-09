@@ -54,34 +54,26 @@ class ImagingStudySeriesSchema:
         started: The date and time the series was started.
         instance: A single SOP Instance within the series, e.g. an image, or presentation state.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # number
+        # number
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # modality
+        # modality
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # uid
+        # uid
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # description
+        # description
              # type = string
-            # numberOfInstances
-        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # availability
-             # type = code
-            # url
+        # availability
+        # type = code
+        # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # bodySite
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # laterality
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # started
+        # started
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # instance
-        Not mapped: ImagingStudyInstance
+        # instance
+        from spark_fhir_schemas.dstu2.complex_types.imagingstudy.instance import ImagingStudy.InstanceSchema
         if (max_recursion_limit and nesting_list.count("ImagingStudySeries") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -129,7 +121,7 @@ class ImagingStudySeriesSchema:
                 # The date and time the series was started.
                 StructField("started", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A single SOP Instance within the series, e.g. an image, or presentation state.
-                StructField("instance", ImagingStudyInstanceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("instance", ImagingStudy.InstanceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

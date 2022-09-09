@@ -40,17 +40,13 @@ class ConformanceSoftwareSchema:
         version: The version identifier for the software covered by this statement.
         releaseDate: Date this version of the software released.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # name
+        # name
              # type = string
-            # version
-             # type = string
-            # releaseDate
+        # releaseDate
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         if (max_recursion_limit and nesting_list.count("ConformanceSoftware") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

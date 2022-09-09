@@ -89,58 +89,36 @@ class ConceptMapSchema:
         element: Mappings for an individual concept in the source to one or more concepts in
     the target.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # url
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # version
+        # version
              # type = string
-            # name
-             # type = string
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # experimental
+        # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # publisher
-             # type = string
-            # contact
-        Not mapped: ConceptMapContact
-            # date
+        # contact
+        from spark_fhir_schemas.dstu2.complex_types.conceptmap.contact import ConceptMap.ContactSchema
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # description
-             # type = string
-            # useContext
+        # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # requirements
-             # type = string
-            # copyright
-             # type = string
-            # sourceUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # sourceReference
+        # sourceReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # targetUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # targetReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # element
-        Not mapped: ConceptMapElement
+        # element
+        from spark_fhir_schemas.dstu2.complex_types.conceptmap.element import ConceptMap.ElementSchema
         if (max_recursion_limit and nesting_list.count("ConceptMap") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -211,7 +189,7 @@ class ConceptMapSchema:
                 # The name of the individual or organization that published the concept map.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", ConceptMapContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", ConceptMap.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date this version of the concept map was published. The date must change
                 # when the business version changes, if it does, and it must change if the
                 # status code changes. In addition, it should change when the substantive
@@ -239,7 +217,7 @@ class ConceptMapSchema:
                 StructField("targetReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Mappings for an individual concept in the source to one or more concepts in
                 # the target.
-                StructField("element", ConceptMapElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("element", ConceptMap.ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -47,28 +47,22 @@ class OperationDefinitionParameterSchema:
     CodeableConcept).
         part: The parts of a Tuple Parameter.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # name
+        # name
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # use
-             # type = code
-            # min
+        # use
+        # type = code
+        # min
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # max
+        # max
              # type = string
-            # documentation
-             # type = string
-            # type
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # profile
+        # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # binding
-        Not mapped: OperationDefinitionBinding
+        # binding
+        from spark_fhir_schemas.dstu2.complex_types.operationdefinition.binding import OperationDefinition.BindingSchema
         if (max_recursion_limit and nesting_list.count("OperationDefinitionParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -111,9 +105,9 @@ class OperationDefinitionParameterSchema:
                 StructField("profile", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Binds to a value set if this parameter is coded (code, Coding,
                 # CodeableConcept).
-                StructField("binding", OperationDefinitionBindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("binding", OperationDefinition.BindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The parts of a Tuple Parameter.
-                StructField("part", OperationDefinitionParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("part", OperationDefinition.ParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

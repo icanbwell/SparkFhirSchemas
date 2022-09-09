@@ -54,27 +54,19 @@ class AllergyIntoleranceReactionSchema:
         exposureRoute: Identification of the route by which the subject was exposed to the substance.
         note: Additional text about the adverse reaction event not captured in other fields.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # substance
+        # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # certainty
-             # type = code
-            # manifestation
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # description
+        # certainty
+        # type = code
+        # description
              # type = string
-            # onset
+        # onset
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # severity
-             # type = code
-            # exposureRoute
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # note
+        # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("AllergyIntoleranceReaction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

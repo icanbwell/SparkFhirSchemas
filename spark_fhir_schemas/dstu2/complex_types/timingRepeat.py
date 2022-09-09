@@ -53,36 +53,22 @@ class TimingRepeatSchema:
         periodUnits: The units of time for the period in UCUM units.
         when: A real world event that the occurrence of the event should be tied to.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # boundsQuantity
-        Not mapped: Quantity
-            # boundsRange
+        # boundsQuantity
+        from spark_fhir_schemas.dstu2.complex_types.duration import DurationSchema
+        # boundsRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # boundsPeriod
+        # boundsPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # count
+        # count
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # duration
+        # duration
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # durationMax
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # durationUnits
-             # type = code
-            # frequency
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # frequencyMax
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # period
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # periodMax
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # periodUnits
-             # type = code
-            # when
-             # type = code
+        # durationUnits
+        # type = code
         if (max_recursion_limit and nesting_list.count("TimingRepeat") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -99,7 +85,7 @@ class TimingRepeatSchema:
                 # the extension.
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("boundsQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("boundsQuantity", DurationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("boundsRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

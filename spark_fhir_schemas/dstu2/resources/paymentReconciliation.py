@@ -72,52 +72,38 @@ class PaymentReconciliationSchema:
         total: Total payment amount.
         note: Suite of notes.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # request
+        # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # outcome
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # disposition
+        # disposition
              # type = string
-            # ruleset
+        # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # originalRuleset
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # created
+        # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # organization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # requestProvider
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # requestOrganization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # detail
-        Not mapped: PaymentReconciliationDetail
-            # form
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # total
-        Not mapped: Quantity
-            # note
-        Not mapped: PaymentReconciliationNote
+        # detail
+        from spark_fhir_schemas.dstu2.complex_types.paymentreconciliation.detail import PaymentReconciliation.DetailSchema
+        # total
+        from spark_fhir_schemas.dstu2.complex_types.money import MoneySchema
+        # note
+        from spark_fhir_schemas.dstu2.complex_types.paymentreconciliation.note import PaymentReconciliation.NoteSchema
         if (max_recursion_limit and nesting_list.count("PaymentReconciliation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -190,13 +176,13 @@ class PaymentReconciliationSchema:
                 # patient.
                 StructField("requestOrganization", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of individual settlement amounts and the corresponding transaction.
-                StructField("detail", PaymentReconciliationDetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("detail", PaymentReconciliation.DetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The form to be used for printing the content.
                 StructField("form", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Total payment amount.
-                StructField("total", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("total", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Suite of notes.
-                StructField("note", PaymentReconciliationNoteSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("note", PaymentReconciliation.NoteSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

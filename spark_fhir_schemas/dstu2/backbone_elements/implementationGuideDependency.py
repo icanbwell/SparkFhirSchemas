@@ -39,15 +39,13 @@ class ImplementationGuideDependencySchema:
         type: How the dependency is represented when the guide is published.
         uri: Where the dependency is located.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
-             # type = code
-            # uri
+        # type
+        # type = code
+        # uri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
         if (max_recursion_limit and nesting_list.count("ImplementationGuideDependency") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

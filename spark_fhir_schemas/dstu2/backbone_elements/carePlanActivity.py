@@ -44,20 +44,16 @@ class CarePlanActivitySchema:
     (e.g. form driven) that doesn't know about specific resources such as
     procedure etc.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # actionResulting
+        # actionResulting
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # progress
+        # progress
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # reference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # detail
-        Not mapped: CarePlanDetail
+        # detail
+        from spark_fhir_schemas.dstu2.complex_types.careplan.detail import CarePlan.DetailSchema
         if (max_recursion_limit and nesting_list.count("CarePlanActivity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -92,7 +88,7 @@ class CarePlanActivitySchema:
                 # A simple summary of a planned activity suitable for a general care plan system
                 # (e.g. form driven) that doesn't know about specific resources such as
                 # procedure etc.
-                StructField("detail", CarePlanDetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("detail", CarePlan.DetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

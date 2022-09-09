@@ -43,18 +43,14 @@ class ImplementationGuidePackageSchema:
     candidates for inclusion, but any kind of resource can be included as an
     example resource.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # name
+        # name
              # type = string
-            # description
-             # type = string
-            # resource
-        Not mapped: ImplementationGuideResource
+        # resource
+        from spark_fhir_schemas.dstu2.complex_types.implementationguide.resource import ImplementationGuide.ResourceSchema
         if (max_recursion_limit and nesting_list.count("ImplementationGuidePackage") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -87,7 +83,7 @@ class ImplementationGuidePackageSchema:
                 # (value set, structure definition, conformance statements etc.) are obvious
                 # candidates for inclusion, but any kind of resource can be included as an
                 # example resource.
-                StructField("resource", ImplementationGuideResourceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("resource", ImplementationGuide.ResourceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

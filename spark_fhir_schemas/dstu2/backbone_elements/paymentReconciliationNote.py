@@ -37,15 +37,13 @@ class PaymentReconciliationNoteSchema:
         type: The note purpose: Print/Display.
         text: The note text.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # text
+        # text
              # type = string
         if (max_recursion_limit and nesting_list.count("PaymentReconciliationNote") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

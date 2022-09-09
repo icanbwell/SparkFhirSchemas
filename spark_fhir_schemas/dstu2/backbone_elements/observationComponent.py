@@ -50,38 +50,32 @@ class ObservationComponentSchema:
         referenceRange: Guidance on how to interpret the value by comparison to a normal or
     recommended range.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # valueQuantity
+        # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # valueCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # valueString
+        # valueString
              # type = string
-            # valueRange
+        # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # valueRatio
+        # valueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # valueSampledData
+        # valueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # valueAttachment
+        # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # valueTime
+        # valueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # valueDateTime
+        # valueDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # valuePeriod
+        # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # dataAbsentReason
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # referenceRange
-        Not mapped: ObservationReferenceRange
+        # referenceRange
+        from spark_fhir_schemas.dstu2.complex_types.observation.referencerange import Observation.ReferenceRangeSchema
         if (max_recursion_limit and nesting_list.count("ObservationComponent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -133,7 +127,7 @@ class ObservationComponentSchema:
                 StructField("dataAbsentReason", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Guidance on how to interpret the value by comparison to a normal or
                 # recommended range.
-                StructField("referenceRange", ObservationReferenceRangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("referenceRange", Observation.ReferenceRangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

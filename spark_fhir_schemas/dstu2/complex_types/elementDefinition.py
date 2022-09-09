@@ -302,468 +302,90 @@ class ElementDefinitionSchema:
         mapping: Identifies a concept from an external specification that roughly corresponds
     to this element.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # path
+        # path
              # type = string
-            # representation
-             # type = code
-            # name
-             # type = string
-            # label
-             # type = string
-            # code
+        # representation
+        # type = code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # slicing
-        from spark_fhir_schemas.dstu2.complex_types.elementdefinitionslicing import ElementDefinitionSlicingSchema
-            # short
-             # type = string
-            # definition
+        # slicing
+        from spark_fhir_schemas.dstu2.complex_types.elementdefinition.slicing import ElementDefinition.SlicingSchema
+        # definition
         from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # comments
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # requirements
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # alias
-             # type = string
-            # min
+        # min
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # max
-             # type = string
-            # base
-        from spark_fhir_schemas.dstu2.complex_types.elementdefinitionbase import ElementDefinitionBaseSchema
-            # type
-        from spark_fhir_schemas.dstu2.complex_types.elementdefinitiontype import ElementDefinitionTypeSchema
-            # nameReference
-             # type = string
-            # defaultValueBoolean
+        # base
+        from spark_fhir_schemas.dstu2.complex_types.elementdefinition.base import ElementDefinition.BaseSchema
+        # type
+        from spark_fhir_schemas.dstu2.complex_types.elementdefinition.type import ElementDefinition.TypeSchema
+        # defaultValueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # defaultValueInteger
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # defaultValueDecimal
+        # defaultValueDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # defaultValueBase64Binary
+        # defaultValueBase64Binary
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # defaultValueInstant
+        # defaultValueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # defaultValueString
-             # type = string
-            # defaultValueUri
+        # defaultValueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # defaultValueDate
+        # defaultValueDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # defaultValueDateTime
+        # defaultValueDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # defaultValueTime
+        # defaultValueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # defaultValueCode
+        # defaultValueCode
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # defaultValueOid
+        # defaultValueOid
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # defaultValueUuid
+        # defaultValueUuid
         from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # defaultValueId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # defaultValueUnsignedInt
+        # defaultValueUnsignedInt
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # defaultValuePositiveInt
+        # defaultValuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # defaultValueMarkdown
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # defaultValueAnnotation
+        # defaultValueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # defaultValueAttachment
+        # defaultValueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # defaultValueIdentifier
+        # defaultValueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # defaultValueCodeableConcept
+        # defaultValueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # defaultValueCoding
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # defaultValueQuantity
+        # defaultValueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # defaultValueRange
+        # defaultValueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # defaultValuePeriod
+        # defaultValuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # defaultValueRatio
+        # defaultValueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # defaultValueReference
+        # defaultValueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # defaultValueSampledData
+        # defaultValueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # defaultValueSignature
+        # defaultValueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # defaultValueHumanName
+        # defaultValueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # defaultValueAddress
+        # defaultValueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # defaultValueContactPoint
+        # defaultValueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # defaultValueTiming
+        # defaultValueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # defaultValueMeta
+        # defaultValueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # meaningWhenMissing
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # fixedBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # fixedInteger
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # fixedDecimal
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # fixedBase64Binary
-        from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # fixedInstant
-        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # fixedString
-             # type = string
-            # fixedUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # fixedDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # fixedDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # fixedTime
-        from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # fixedCode
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # fixedOid
-        from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # fixedUuid
-        from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # fixedId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # fixedUnsignedInt
-        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # fixedPositiveInt
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # fixedMarkdown
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # fixedAnnotation
-        from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # fixedAttachment
-        from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # fixedIdentifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # fixedCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # fixedCoding
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # fixedQuantity
-        from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # fixedRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # fixedPeriod
-        from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # fixedRatio
-        from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # fixedReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # fixedSampledData
-        from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # fixedSignature
-        from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # fixedHumanName
-        from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # fixedAddress
-        from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # fixedContactPoint
-        from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # fixedTiming
-        from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # fixedMeta
-        from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # patternBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # patternInteger
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # patternDecimal
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # patternBase64Binary
-        from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # patternInstant
-        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # patternString
-             # type = string
-            # patternUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # patternDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # patternDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # patternTime
-        from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # patternCode
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # patternOid
-        from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # patternUuid
-        from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # patternId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # patternUnsignedInt
-        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # patternPositiveInt
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # patternMarkdown
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # patternAnnotation
-        from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # patternAttachment
-        from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # patternIdentifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # patternCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # patternCoding
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # patternQuantity
-        from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # patternRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # patternPeriod
-        from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # patternRatio
-        from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # patternReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # patternSampledData
-        from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # patternSignature
-        from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # patternHumanName
-        from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # patternAddress
-        from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # patternContactPoint
-        from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # patternTiming
-        from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # patternMeta
-        from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # exampleBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # exampleInteger
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # exampleDecimal
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # exampleBase64Binary
-        from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # exampleInstant
-        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # exampleString
-             # type = string
-            # exampleUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # exampleDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # exampleDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # exampleTime
-        from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # exampleCode
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # exampleOid
-        from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # exampleUuid
-        from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # exampleId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # exampleUnsignedInt
-        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # examplePositiveInt
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # exampleMarkdown
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # exampleAnnotation
-        from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # exampleAttachment
-        from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # exampleIdentifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # exampleCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # exampleCoding
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # exampleQuantity
-        from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # exampleRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # examplePeriod
-        from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # exampleRatio
-        from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # exampleReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # exampleSampledData
-        from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # exampleSignature
-        from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # exampleHumanName
-        from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # exampleAddress
-        from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # exampleContactPoint
-        from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # exampleTiming
-        from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # exampleMeta
-        from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # minValueBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # minValueInteger
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # minValueDecimal
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # minValueBase64Binary
-        from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # minValueInstant
-        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # minValueString
-             # type = string
-            # minValueUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # minValueDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # minValueDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # minValueTime
-        from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # minValueCode
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # minValueOid
-        from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # minValueUuid
-        from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # minValueId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # minValueUnsignedInt
-        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # minValuePositiveInt
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # minValueMarkdown
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # minValueAnnotation
-        from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # minValueAttachment
-        from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # minValueIdentifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # minValueCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # minValueCoding
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # minValueQuantity
-        from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # minValueRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # minValuePeriod
-        from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # minValueRatio
-        from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # minValueReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # minValueSampledData
-        from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # minValueSignature
-        from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # minValueHumanName
-        from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # minValueAddress
-        from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # minValueContactPoint
-        from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # minValueTiming
-        from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # minValueMeta
-        from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # maxValueBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # maxValueInteger
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # maxValueDecimal
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # maxValueBase64Binary
-        from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # maxValueInstant
-        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # maxValueString
-             # type = string
-            # maxValueUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # maxValueDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # maxValueDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # maxValueTime
-        from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # maxValueCode
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # maxValueOid
-        from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # maxValueUuid
-        from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # maxValueId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # maxValueUnsignedInt
-        from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # maxValuePositiveInt
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # maxValueMarkdown
-        from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # maxValueAnnotation
-        from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # maxValueAttachment
-        from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # maxValueIdentifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # maxValueCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # maxValueCoding
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # maxValueQuantity
-        from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # maxValueRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # maxValuePeriod
-        from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # maxValueRatio
-        from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # maxValueReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # maxValueSampledData
-        from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # maxValueSignature
-        from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # maxValueHumanName
-        from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # maxValueAddress
-        from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # maxValueContactPoint
-        from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # maxValueTiming
-        from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # maxValueMeta
-        from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # maxLength
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # condition
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # constraint
-        from spark_fhir_schemas.dstu2.complex_types.elementdefinitionconstraint import ElementDefinitionConstraintSchema
-            # mustSupport
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # isModifier
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # isSummary
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # binding
-        from spark_fhir_schemas.dstu2.complex_types.elementdefinitionbinding import ElementDefinitionBindingSchema
-            # mapping
-        from spark_fhir_schemas.dstu2.complex_types.elementdefinitionmapping import ElementDefinitionMappingSchema
+        # constraint
+        from spark_fhir_schemas.dstu2.complex_types.elementdefinition.constraint import ElementDefinition.ConstraintSchema
+        # binding
+        from spark_fhir_schemas.dstu2.complex_types.elementdefinition.binding import ElementDefinition.BindingSchema
+        # mapping
+        from spark_fhir_schemas.dstu2.complex_types.elementdefinition.mapping import ElementDefinition.MappingSchema
         if (max_recursion_limit and nesting_list.count("ElementDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -803,7 +425,7 @@ class ElementDefinitionSchema:
                 # types. The set of slices is any elements that come after this in the element
                 # sequence that have the same path, until a shorter path occurs (the shorter
                 # path terminates the set).
-                StructField("slicing", ElementDefinitionSlicingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("slicing", ElementDefinition.SlicingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A concise description of what this element means (e.g. for use in
                 # autogenerated summaries).
                 StructField("short", StringType(), True),
@@ -833,9 +455,9 @@ class ElementDefinitionSchema:
                 # and related profiles. This information is only provided where the element
                 # definition represents a constraint on another element definition, and must be
                 # present if there is a base element definition.
-                StructField("base", ElementDefinitionBaseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("base", ElementDefinition.BaseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The data type or resource that the value of this element is permitted to be.
-                StructField("type", ElementDefinitionTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", ElementDefinition.TypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the name of a slice defined elsewhere in the profile whose
                 # constraints should be applied to the current element.
                 StructField("nameReference", StringType(), True),
@@ -1259,7 +881,7 @@ class ElementDefinitionSchema:
                 StructField("condition", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Formal constraints such as co-occurrence and other constraints that can be
                 # computationally evaluated within the context of the instance.
-                StructField("constraint", ElementDefinitionConstraintSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("constraint", ElementDefinition.ConstraintSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If true, implementations that produce or consume resources SHALL provide
                 # "support" for the element in some meaningful way.  If false, the element may
                 # be ignored and not supported.
@@ -1275,10 +897,10 @@ class ElementDefinitionSchema:
                 # parameter _summary=true.
                 StructField("isSummary", BooleanType(), True),
                 # Binds to a value set if this element is coded (code, Coding, CodeableConcept).
-                StructField("binding", ElementDefinitionBindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("binding", ElementDefinition.BindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies a concept from an external specification that roughly corresponds
                 # to this element.
-                StructField("mapping", ElementDefinitionMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mapping", ElementDefinition.MappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

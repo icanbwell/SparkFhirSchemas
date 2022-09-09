@@ -37,16 +37,14 @@ class ClaimResponseSubDetailSchema:
         sequenceLinkId: A service line number.
         adjudication: The adjudications results.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # sequenceLinkId
+        # sequenceLinkId
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # adjudication
-        Not mapped: ClaimResponseAdjudication2
+        # adjudication
+        from spark_fhir_schemas.dstu2.complex_types.claimresponse.adjudication2 import ClaimResponse.Adjudication2Schema
         if (max_recursion_limit and nesting_list.count("ClaimResponseSubDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -74,7 +72,7 @@ class ClaimResponseSubDetailSchema:
                 # A service line number.
                 StructField("sequenceLinkId", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The adjudications results.
-                StructField("adjudication", ClaimResponseAdjudication2Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("adjudication", ClaimResponse.Adjudication2Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

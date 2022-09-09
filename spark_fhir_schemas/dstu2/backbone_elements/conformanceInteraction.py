@@ -41,15 +41,13 @@ class ConformanceInteractionSchema:
     a logical delete' or 'updates are only allowed with version id' or 'creates
     permitted from pre-authorized certificates only'.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # code
-             # type = code
-            # documentation
+        # code
+        # type = code
+        # documentation
              # type = string
         if (max_recursion_limit and nesting_list.count("ConformanceInteraction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

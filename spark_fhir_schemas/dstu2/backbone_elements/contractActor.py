@@ -37,15 +37,13 @@ class ContractActorSchema:
         entity: Who or what actors are assigned roles in this Contract.
         role: Role type of actors assigned roles in this Contract.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # entity
+        # entity
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # role
+        # role
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("ContractActor") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

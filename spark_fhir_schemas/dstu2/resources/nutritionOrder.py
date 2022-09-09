@@ -84,46 +84,36 @@ class NutritionOrderSchema:
         enteralFormula: Feeding provided through the gastrointestinal tract via a tube, catheter, or
     stoma that delivers nutrition distal to the oral cavity.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # patient
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # orderer
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # dateTime
+        # dateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # status
-             # type = code
-            # allergyIntolerance
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # foodPreferenceModifier
+        # status
+        # type = code
+        # foodPreferenceModifier
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # excludeFoodModifier
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # oralDiet
-        Not mapped: NutritionOrderOralDiet
-            # supplement
-        Not mapped: NutritionOrderSupplement
-            # enteralFormula
-        Not mapped: NutritionOrderEnteralFormula
+        # oralDiet
+        from spark_fhir_schemas.dstu2.complex_types.nutritionorder.oraldiet import NutritionOrder.OralDietSchema
+        # supplement
+        from spark_fhir_schemas.dstu2.complex_types.nutritionorder.supplement import NutritionOrder.SupplementSchema
+        # enteralFormula
+        from spark_fhir_schemas.dstu2.complex_types.nutritionorder.enteralformula import NutritionOrder.EnteralFormulaSchema
         if (max_recursion_limit and nesting_list.count("NutritionOrder") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -205,13 +195,13 @@ class NutritionOrderSchema:
                 # of the oral diet, nutritional supplements and enteral formula feedings.
                 StructField("excludeFoodModifier", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diet given orally in contrast to enteral (tube) feeding.
-                StructField("oralDiet", NutritionOrderOralDietSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("oralDiet", NutritionOrder.OralDietSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Oral nutritional products given in order to add further nutritional value to
                 # the patient's diet.
-                StructField("supplement", NutritionOrderSupplementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("supplement", NutritionOrder.SupplementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Feeding provided through the gastrointestinal tract via a tube, catheter, or
                 # stoma that delivers nutrition distal to the oral cavity.
-                StructField("enteralFormula", NutritionOrderEnteralFormulaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("enteralFormula", NutritionOrder.EnteralFormulaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

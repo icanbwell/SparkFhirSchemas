@@ -42,26 +42,18 @@ class PaymentReconciliationDetailSchema:
         date: The date of the invoice or financial resource.
         amount: Amount paid for this detail.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # request
+        # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # responce
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # submitter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # payee
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # date
+        # date
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # amount
-        Not mapped: Quantity
+        # amount
+        from spark_fhir_schemas.dstu2.complex_types.money import MoneySchema
         if (max_recursion_limit and nesting_list.count("PaymentReconciliationDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -99,7 +91,7 @@ class PaymentReconciliationDetailSchema:
                 # The date of the invoice or financial resource.
                 StructField("date", DateType(), True),
                 # Amount paid for this detail.
-                StructField("amount", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("amount", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

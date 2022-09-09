@@ -70,48 +70,32 @@ class ProcessResponseSchema:
     held.
         error: Processing errors.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # request
+        # request
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # outcome
+        # outcome
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # disposition
+        # disposition
              # type = string
-            # ruleset
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # originalRuleset
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # created
+        # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # organization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # requestProvider
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # requestOrganization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # form
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # notes
-        Not mapped: ProcessResponseNotes
-            # error
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
+        # notes
+        from spark_fhir_schemas.dstu2.complex_types.processresponse.notes import ProcessResponse.NotesSchema
         if (max_recursion_limit and nesting_list.count("ProcessResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -184,7 +168,7 @@ class ProcessResponseSchema:
                 StructField("form", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Suite of processing note or additional requirements is the processing has been
                 # held.
-                StructField("notes", ProcessResponseNotesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("notes", ProcessResponse.NotesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Processing errors.
                 StructField("error", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

@@ -47,27 +47,19 @@ class RiskAssessmentPredictionSchema:
         whenRange: None
         rationale: Additional information explaining the basis for the prediction.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # outcome
+        # outcome
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # probabilityDecimal
+        # probabilityDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # probabilityRange
+        # probabilityRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # probabilityCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # relativeRisk
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # whenPeriod
+        # whenPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # whenRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # rationale
+        # rationale
              # type = string
         if (max_recursion_limit and nesting_list.count("RiskAssessmentPrediction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

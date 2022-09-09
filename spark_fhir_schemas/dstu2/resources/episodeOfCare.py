@@ -73,44 +73,34 @@ class EpisodeOfCareSchema:
         careTeam: The list of practitioners that may be facilitating this episode of care for
     specific purposes.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # status
-             # type = code
-            # statusHistory
-        Not mapped: EpisodeOfCareStatusHistory
-            # type
+        # status
+        # type = code
+        # statusHistory
+        from spark_fhir_schemas.dstu2.complex_types.episodeofcare.statushistory import EpisodeOfCare.StatusHistorySchema
+        # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # condition
+        # condition
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # patient
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # managingOrganization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # referralRequest
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # careManager
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # careTeam
-        Not mapped: EpisodeOfCareCareTeam
+        # careTeam
+        from spark_fhir_schemas.dstu2.complex_types.episodeofcare.careteam import EpisodeOfCare.CareTeamSchema
         if (max_recursion_limit and nesting_list.count("EpisodeOfCare") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -162,7 +152,7 @@ class EpisodeOfCareSchema:
                 StructField("status", StringType(), True),
                 # The history of statuses that the EpisodeOfCare has been through (without
                 # requiring processing the history of the resource).
-                StructField("statusHistory", EpisodeOfCareStatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("statusHistory", EpisodeOfCare.StatusHistorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A classification of the type of encounter; e.g. specialist referral, disease
                 # management, type of funded care.
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -184,7 +174,7 @@ class EpisodeOfCareSchema:
                 StructField("careManager", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The list of practitioners that may be facilitating this episode of care for
                 # specific purposes.
-                StructField("careTeam", EpisodeOfCareCareTeamSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("careTeam", EpisodeOfCare.CareTeamSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

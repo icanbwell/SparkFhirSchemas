@@ -86,56 +86,38 @@ class DocumentReferenceSchema:
     repetitions, each with a different format.
         context: The clinical context in which the document was prepared.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # masterIdentifier
+        # masterIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # identifier
-        from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # class
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # author
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # custodian
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # authenticator
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # created
+        # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # indexed
+        # indexed
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # docStatus
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # relatesTo
-        Not mapped: DocumentReferenceRelatesTo
-            # description
+        # relatesTo
+        from spark_fhir_schemas.dstu2.complex_types.documentreference.relatesto import DocumentReference.RelatesToSchema
+        # description
              # type = string
-            # securityLabel
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # content
-        Not mapped: DocumentReferenceContent
-            # context
-        Not mapped: DocumentReferenceContext
+        # content
+        from spark_fhir_schemas.dstu2.complex_types.documentreference.content import DocumentReference.ContentSchema
+        # context
+        from spark_fhir_schemas.dstu2.complex_types.documentreference.context import DocumentReference.ContextSchema
         if (max_recursion_limit and nesting_list.count("DocumentReference") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -218,7 +200,7 @@ class DocumentReferenceSchema:
                 StructField("docStatus", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Relationships that this document has with other document references that
                 # already exist.
-                StructField("relatesTo", DocumentReferenceRelatesToSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("relatesTo", DocumentReference.RelatesToSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Human-readable description of the source document. This is sometimes known as
                 # the "title".
                 StructField("description", StringType(), True),
@@ -230,9 +212,9 @@ class DocumentReferenceSchema:
                 StructField("securityLabel", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The document and format referenced. There may be multiple content element
                 # repetitions, each with a different format.
-                StructField("content", DocumentReferenceContentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("content", DocumentReference.ContentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The clinical context in which the document was prepared.
-                StructField("context", DocumentReferenceContextSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("context", DocumentReference.ContextSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

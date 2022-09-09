@@ -43,24 +43,16 @@ class PractitionerPractitionerRoleSchema:
         healthcareService: The list of healthcare services that this worker provides for this role's
     Organization/Location(s).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # managingOrganization
+        # managingOrganization
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # role
+        # role
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # specialty
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # location
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # healthcareService
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("PractitionerPractitionerRole") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

@@ -97,56 +97,38 @@ class ImplementationGuideSchema:
         page: A page / section in the implementation guide. The root page is the
     implementation guide home page.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # url
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # version
+        # version
              # type = string
-            # name
-             # type = string
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # experimental
+        # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # publisher
-             # type = string
-            # contact
-        Not mapped: ImplementationGuideContact
-            # date
+        # contact
+        from spark_fhir_schemas.dstu2.complex_types.implementationguide.contact import ImplementationGuide.ContactSchema
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # description
-             # type = string
-            # useContext
+        # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # copyright
-             # type = string
-            # fhirVersion
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # dependency
-        Not mapped: ImplementationGuideDependency
-            # package
-        Not mapped: ImplementationGuidePackage
-            # global
-        Not mapped: ImplementationGuideGlobal
-            # binary
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # page
-        Not mapped: ImplementationGuidePage
+        # dependency
+        from spark_fhir_schemas.dstu2.complex_types.implementationguide.dependency import ImplementationGuide.DependencySchema
+        # package
+        from spark_fhir_schemas.dstu2.complex_types.implementationguide.package import ImplementationGuide.PackageSchema
+        # global
+        from spark_fhir_schemas.dstu2.complex_types.implementationguide.global import ImplementationGuide.GlobalSchema
+        # page
+        from spark_fhir_schemas.dstu2.complex_types.implementationguide.page import ImplementationGuide.PageSchema
         if (max_recursion_limit and nesting_list.count("ImplementationGuide") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -214,7 +196,7 @@ class ImplementationGuideSchema:
                 # guide.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", ImplementationGuideContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", ImplementationGuide.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date this version of the implementation guide was published. The date must
                 # change when the business version changes, if it does, and it must change if
                 # the status code changes. In addition, it should change when the substantive
@@ -239,18 +221,18 @@ class ImplementationGuideSchema:
                 # Another implementation guide that this implementation depends on. Typically,
                 # an implementation guide uses value sets, profiles etc.defined in other
                 # implementation guides.
-                StructField("dependency", ImplementationGuideDependencySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dependency", ImplementationGuide.DependencySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A logical group of resources. Logical groups can be used when building pages.
-                StructField("package", ImplementationGuidePackageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("package", ImplementationGuide.PackageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A set of profiles that all resources covered by this implementation guide must
                 # conform to.
-                StructField("global", ImplementationGuideGlobalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("global", ImplementationGuide.GlobalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A binary file that is included in the  implementation guide when it is
                 # published.
                 StructField("binary", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A page / section in the implementation guide. The root page is the
                 # implementation guide home page.
-                StructField("page", ImplementationGuidePageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("page", ImplementationGuide.PageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

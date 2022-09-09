@@ -49,41 +49,21 @@ class VisionPrescriptionDispenseSchema:
         brand: Brand recommendations or restrictions.
         notes: Notes for special requirements such as coatings and lens materials.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # product
+        # product
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # eye
-             # type = code
-            # sphere
+        # eye
+        # type = code
+        # sphere
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # cylinder
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # axis
+        # axis
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # prism
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # base
-             # type = code
-            # add
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # power
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # backCurve
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # diameter
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # duration
-        Not mapped: Quantity
-            # color
-             # type = string
-            # brand
-             # type = string
-            # notes
+        # duration
+        from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
+        # color
              # type = string
         if (max_recursion_limit and nesting_list.count("VisionPrescriptionDispense") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -133,7 +113,7 @@ class VisionPrescriptionDispenseSchema:
                 # Contact lens diameter measured in millimeters.
                 StructField("diameter", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The recommended maximum wear period for the lens.
-                StructField("duration", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("duration", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Special color or pattern.
                 StructField("color", StringType(), True),
                 # Brand recommendations or restrictions.

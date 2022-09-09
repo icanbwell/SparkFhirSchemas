@@ -45,17 +45,13 @@ class MessageHeaderResponseSchema:
     successful or not, and whether it should be resent or not.
         details: Full details of any issues found in the message.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # code
-             # type = code
-            # details
+        # code
+        # type = code
+        # details
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("MessageHeaderResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

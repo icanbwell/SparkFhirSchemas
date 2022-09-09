@@ -39,19 +39,17 @@ class ContactPointSchema:
     ranked with lower values coming before higher values.
         period: Time period when the contact point was/is in use.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # system
-             # type = code
-            # value
+        # system
+        # type = code
+        # value
              # type = string
-            # use
-             # type = code
-            # rank
+        # rank
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("ContactPoint") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

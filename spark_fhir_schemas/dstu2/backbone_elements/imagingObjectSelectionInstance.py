@@ -55,20 +55,16 @@ class ImagingObjectSelectionInstanceSchema:
         url: WADO-RS URL to retrieve the DICOM SOP Instance.
         frames: Identity and location information of the frames in the selected instance.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # sopClass
+        # sopClass
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # uid
-        from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # url
+        # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # frames
-        Not mapped: ImagingObjectSelectionFrames
+        # frames
+        from spark_fhir_schemas.dstu2.complex_types.imagingobjectselection.frames import ImagingObjectSelection.FramesSchema
         if (max_recursion_limit and nesting_list.count("ImagingObjectSelectionInstance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -100,7 +96,7 @@ class ImagingObjectSelectionInstanceSchema:
                 # WADO-RS URL to retrieve the DICOM SOP Instance.
                 StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identity and location information of the frames in the selected instance.
-                StructField("frames", ImagingObjectSelectionFramesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("frames", ImagingObjectSelection.FramesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

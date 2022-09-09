@@ -47,22 +47,18 @@ class ValueSetConceptSchema:
     of the relationships is variable (is-a/contains/categorizes) and can only be
     determined by examining the definitions of the concepts.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # abstract
+        # abstract
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # display
+        # display
              # type = string
-            # definition
-             # type = string
-            # designation
-        Not mapped: ValueSetDesignation
+        # designation
+        from spark_fhir_schemas.dstu2.complex_types.valueset.designation import ValueSet.DesignationSchema
         if (max_recursion_limit and nesting_list.count("ValueSetConcept") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -102,11 +98,11 @@ class ValueSetConceptSchema:
                 StructField("definition", StringType(), True),
                 # Additional representations for the concept - other languages, aliases,
                 # specialized purposes, used for particular purposes, etc.
-                StructField("designation", ValueSetDesignationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("designation", ValueSet.DesignationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Defines children of a concept to produce a hierarchy of concepts. The nature
                 # of the relationships is variable (is-a/contains/categorizes) and can only be
                 # determined by examining the definitions of the concepts.
-                StructField("concept", ValueSetConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("concept", ValueSet.ConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

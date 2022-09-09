@@ -80,52 +80,30 @@ class SearchParameterSchema:
     the xpath query.
         target: Types of resource (if a resource is referenced).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # url
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # name
+        # name
              # type = string
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # experimental
+        # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # publisher
-             # type = string
-            # contact
-        Not mapped: SearchParameterContact
-            # date
+        # contact
+        from spark_fhir_schemas.dstu2.complex_types.searchparameter.contact import SearchParameter.ContactSchema
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # requirements
-             # type = string
-            # code
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # base
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # type
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # description
-             # type = string
-            # xpath
-             # type = string
-            # xpathUsage
-             # type = code
-            # target
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
+        # xpathUsage
+        # type = code
         if (max_recursion_limit and nesting_list.count("SearchParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -188,7 +166,7 @@ class SearchParameterSchema:
                 # parameter.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", SearchParameterContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", SearchParameter.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date  (and optionally time) when the search parameter definition was
                 # published. The date must change when the business version changes, if it does,
                 # and it must change if the status code changes. In addition, it should change

@@ -42,19 +42,13 @@ class ClaimPayeeSchema:
         person: The person other than the subscriber who is to be reimbursed for the claim
     (the party to whom any benefit is assigned).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # provider
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # organization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # person
+        # provider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("ClaimPayee") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

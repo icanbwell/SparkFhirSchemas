@@ -34,15 +34,13 @@ class ElementDefinitionMappingSchema:
         language: Identifies the computable language in which mapping.map is expressed.
         map: Expresses what part of the target specification corresponds to this element.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identity
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # map
+        # map
              # type = string
         if (max_recursion_limit and nesting_list.count("ElementDefinitionMapping") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

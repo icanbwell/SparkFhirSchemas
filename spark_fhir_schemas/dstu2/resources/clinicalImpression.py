@@ -92,58 +92,36 @@ class ClinicalImpressionSchema:
         plan: Plan of action after assessment.
         action: Actions taken during assessment.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # patient
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # assessor
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # status
-             # type = code
-            # date
+        # status
+        # type = code
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # description
+        # description
              # type = string
-            # previous
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # problem
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # triggerCodeableConcept
+        # triggerCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # triggerReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # investigations
-        Not mapped: ClinicalImpressionInvestigations
-            # protocol
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # summary
-             # type = string
-            # finding
-        Not mapped: ClinicalImpressionFinding
-            # resolved
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # ruledOut
-        Not mapped: ClinicalImpressionRuledOut
-            # prognosis
-             # type = string
-            # plan
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # action
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+        # investigations
+        from spark_fhir_schemas.dstu2.complex_types.clinicalimpression.investigations import ClinicalImpression.InvestigationsSchema
+        # finding
+        from spark_fhir_schemas.dstu2.complex_types.clinicalimpression.finding import ClinicalImpression.FindingSchema
+        # ruledOut
+        from spark_fhir_schemas.dstu2.complex_types.clinicalimpression.ruledout import ClinicalImpression.RuledOutSchema
         if (max_recursion_limit and nesting_list.count("ClinicalImpression") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -217,7 +195,7 @@ class ClinicalImpressionSchema:
                 # the assessment. These investigations may include data generated during the
                 # assessment process, or data previously generated and recorded that is
                 # pertinent to the outcomes.
-                StructField("investigations", ClinicalImpressionInvestigationsSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("investigations", ClinicalImpression.InvestigationsSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Reference to a specific published clinical protocol that was followed during
                 # this assessment, and/or that provides evidence in support of the diagnosis.
                 StructField("protocol", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -225,11 +203,11 @@ class ClinicalImpressionSchema:
                 StructField("summary", StringType(), True),
                 # Specific findings or diagnoses that was considered likely or relevant to
                 # ongoing treatment.
-                StructField("finding", ClinicalImpressionFindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("finding", ClinicalImpression.FindingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diagnoses/conditions resolved since the last assessment.
                 StructField("resolved", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Diagnosis considered not possible.
-                StructField("ruledOut", ClinicalImpressionRuledOutSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ruledOut", ClinicalImpression.RuledOutSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Estimate of likely outcome.
                 StructField("prognosis", StringType(), True),
                 # Plan of action after assessment.

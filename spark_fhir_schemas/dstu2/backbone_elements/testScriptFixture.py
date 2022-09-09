@@ -45,17 +45,13 @@ class TestScriptFixtureSchema:
         resource: Reference to the resource (containing the contents of the resource needed for
     operations).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # autocreate
+        # autocreate
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # autodelete
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # resource
+        # resource
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("TestScriptFixture") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

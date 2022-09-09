@@ -43,24 +43,22 @@ class BundleEntrySchema:
         response: Additional information about how this entry should be processed as part of a
     transaction.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # link
-        Not mapped: BundleLink
-            # fullUrl
+        # link
+        from spark_fhir_schemas.dstu2.complex_types.bundle.link import Bundle.LinkSchema
+        # fullUrl
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # resource
-        Not mapped: ResourceContainer
-            # search
-        Not mapped: BundleSearch
-            # request
-        Not mapped: BundleRequest
-            # response
-        Not mapped: BundleResponse
+        # resource
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # search
+        from spark_fhir_schemas.dstu2.complex_types.bundle.search import Bundle.SearchSchema
+        # request
+        from spark_fhir_schemas.dstu2.complex_types.bundle.request import Bundle.RequestSchema
+        # response
+        from spark_fhir_schemas.dstu2.complex_types.bundle.response import Bundle.ResponseSchema
         if (max_recursion_limit and nesting_list.count("BundleEntry") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -86,7 +84,7 @@ class BundleEntrySchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A series of links that provide context to this entry.
-                StructField("link", BundleLinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("link", Bundle.LinkSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The Absolute URL for the resource. This must be provided for all resources.
                 # The fullUrl SHALL not disagree with the id in the resource. The fullUrl is a
                 # version independent reference to the resource.
@@ -94,13 +92,13 @@ class BundleEntrySchema:
                 # The Resources for the entry.
                 StructField("resource", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Information about the search process that lead to the creation of this entry.
-                StructField("search", BundleSearchSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("search", Bundle.SearchSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Additional information about how this entry should be processed as part of a
                 # transaction.
-                StructField("request", BundleRequestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("request", Bundle.RequestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Additional information about how this entry should be processed as part of a
                 # transaction.
-                StructField("response", BundleResponseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("response", Bundle.ResponseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

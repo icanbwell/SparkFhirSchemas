@@ -45,20 +45,18 @@ class ConformanceMessagingSchema:
     becoming an authorized messaging exchange partner.
         event: A description of the solution's support for an event at this end-point.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # endpoint
-        Not mapped: ConformanceEndpoint
-            # reliableCache
+        # endpoint
+        from spark_fhir_schemas.dstu2.complex_types.conformance.endpoint import Conformance.EndpointSchema
+        # reliableCache
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # documentation
+        # documentation
              # type = string
-            # event
-        Not mapped: ConformanceEvent
+        # event
+        from spark_fhir_schemas.dstu2.complex_types.conformance.event import Conformance.EventSchema
         if (max_recursion_limit and nesting_list.count("ConformanceMessaging") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -85,7 +83,7 @@ class ConformanceMessagingSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An endpoint (network accessible address) to which messages and/or replies are
                 # to be sent.
-                StructField("endpoint", ConformanceEndpointSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("endpoint", Conformance.EndpointSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Length if the receiver's reliable messaging cache in minutes (if a receiver)
                 # or how long the cache length on the receiver should be (if a sender).
                 StructField("reliableCache", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -94,7 +92,7 @@ class ConformanceMessagingSchema:
                 # becoming an authorized messaging exchange partner.
                 StructField("documentation", StringType(), True),
                 # A description of the solution's support for an event at this end-point.
-                StructField("event", ConformanceEventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("event", Conformance.EventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

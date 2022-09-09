@@ -41,22 +41,18 @@ class DiagnosticOrderItemSchema:
         event: A summary of the events of interest that have occurred as this item of the
     request is processed.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # specimen
+        # specimen
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # bodySite
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # status
-             # type = code
-            # event
-        Not mapped: DiagnosticOrderEvent
+        # status
+        # type = code
+        # event
+        from spark_fhir_schemas.dstu2.complex_types.diagnosticorder.event import DiagnosticOrder.EventSchema
         if (max_recursion_limit and nesting_list.count("DiagnosticOrderItem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -93,7 +89,7 @@ class DiagnosticOrderItemSchema:
                 StructField("status", StringType(), True),
                 # A summary of the events of interest that have occurred as this item of the
                 # request is processed.
-                StructField("event", DiagnosticOrderEventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("event", DiagnosticOrder.EventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

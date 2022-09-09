@@ -76,53 +76,37 @@ class ProcessRequestSchema:
         period: A period of time during which the fulfilling resources would have been
     created.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # action
-             # type = code
-            # identifier
+        # action
+        # type = code
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # ruleset
+        # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # originalRuleset
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # created
+        # created
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # target
+        # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # provider
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # organization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # request
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # response
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # nullify
+        # nullify
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # reference
+        # reference
              # type = string
-            # item
-        Not mapped: ProcessRequestItem
-            # include
-             # type = string
-            # exclude
-             # type = string
-            # period
+        # item
+        from spark_fhir_schemas.dstu2.complex_types.processrequest.item import ProcessRequest.ItemSchema
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("ProcessRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -200,7 +184,7 @@ class ProcessRequestSchema:
                 StructField("reference", StringType(), True),
                 # List of top level items to be re-adjudicated, if none specified then the
                 # entire submission is re-adjudicated.
-                StructField("item", ProcessRequestItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("item", ProcessRequest.ItemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Names of resource types to include.
                 StructField("include", StringType(), True),
                 # Names of resource types to exclude.

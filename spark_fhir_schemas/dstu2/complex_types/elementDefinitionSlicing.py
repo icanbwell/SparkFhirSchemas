@@ -44,18 +44,16 @@ class ElementDefinitionSlicingSchema:
     profile authors can also say that additional slices are only allowed at the
     end.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # discriminator
+        # discriminator
              # type = string
-            # description
-             # type = string
-            # ordered
+        # ordered
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # rules
-             # type = code
+        # rules
+        # type = code
         if (max_recursion_limit and nesting_list.count("ElementDefinitionSlicing") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

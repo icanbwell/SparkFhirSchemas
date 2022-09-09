@@ -70,37 +70,31 @@ class AppointmentResponseSchema:
     confirmation of the time) or can be empty.
         comment: Additional comments about the appointment.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # appointment
+        # appointment
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # start
+        # start
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # end
-        from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # participantType
+        # participantType
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # actor
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # participantStatus
-             # type = code
-            # comment
+        # participantStatus
+        # type = code
+        # comment
              # type = string
         if (max_recursion_limit and nesting_list.count("AppointmentResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

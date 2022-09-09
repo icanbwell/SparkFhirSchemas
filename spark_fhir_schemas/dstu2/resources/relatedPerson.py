@@ -67,41 +67,37 @@ class RelatedPersonSchema:
         period: The period of time that this relationship is considered to be valid. If there
     are no dates defined, then the interval is unknown.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # patient
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # relationship
+        # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # name
+        # name
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # telecom
+        # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # gender
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # birthDate
+        # birthDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # address
+        # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # photo
+        # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("RelatedPerson") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

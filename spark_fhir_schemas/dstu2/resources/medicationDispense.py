@@ -87,56 +87,38 @@ class MedicationDispenseSchema:
     substitution is not expected but does happen.  This block explains what
     substitution did or did not happen and why.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # status
-             # type = code
-            # patient
+        # status
+        # type = code
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # dispenser
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # authorizingPrescription
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # quantity
-        Not mapped: Quantity
-            # daysSupply
-        Not mapped: Quantity
-            # medicationCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # medicationReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # whenPrepared
+        # quantity
+        from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
+        # whenPrepared
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # whenHandedOver
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # destination
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # receiver
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # note
+        # note
              # type = string
-            # dosageInstruction
-        Not mapped: MedicationDispenseDosageInstruction
-            # substitution
-        Not mapped: MedicationDispenseSubstitution
+        # dosageInstruction
+        from spark_fhir_schemas.dstu2.complex_types.medicationdispense.dosageinstruction import MedicationDispense.DosageInstructionSchema
+        # substitution
+        from spark_fhir_schemas.dstu2.complex_types.medicationdispense.substitution import MedicationDispense.SubstitutionSchema
         if (max_recursion_limit and nesting_list.count("MedicationDispense") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -198,9 +180,9 @@ class MedicationDispenseSchema:
                 # Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The amount of medication that has been dispensed. Includes unit of measure.
-                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The amount of medication expressed as a timing amount.
-                StructField("daysSupply", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("daysSupply", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("medicationCodeableConcept", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -221,12 +203,12 @@ class MedicationDispenseSchema:
                 # attributes.
                 StructField("note", StringType(), True),
                 # Indicates how the medication is to be used by the patient.
-                StructField("dosageInstruction", MedicationDispenseDosageInstructionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dosageInstruction", MedicationDispense.DosageInstructionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates whether or not substitution was made as part of the dispense.  In
                 # some cases substitution will be expected but does not happen, in other cases
                 # substitution is not expected but does happen.  This block explains what
                 # substitution did or did not happen and why.
-                StructField("substitution", MedicationDispenseSubstitutionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("substitution", MedicationDispense.SubstitutionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

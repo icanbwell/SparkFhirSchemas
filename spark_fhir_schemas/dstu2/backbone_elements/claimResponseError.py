@@ -45,19 +45,13 @@ class ClaimResponseErrorSchema:
         code: An error code,froma specified code system, which details why the claim could
     not be adjudicated.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # sequenceLinkId
+        # sequenceLinkId
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # detailSequenceLinkId
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # subdetailSequenceLinkId
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("ClaimResponseError") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

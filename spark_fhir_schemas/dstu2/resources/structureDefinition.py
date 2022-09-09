@@ -114,72 +114,42 @@ class StructureDefinitionSchema:
         differential: A differential view is expressed relative to the base StructureDefinition - a
     statement of differences that it applies.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # url
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # version
+        # version
              # type = string
-            # name
-             # type = string
-            # display
-             # type = string
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # experimental
+        # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # publisher
-             # type = string
-            # contact
-        Not mapped: StructureDefinitionContact
-            # date
+        # contact
+        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.contact import StructureDefinition.ContactSchema
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # description
-             # type = string
-            # useContext
+        # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # requirements
-             # type = string
-            # copyright
-             # type = string
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # fhirVersion
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # mapping
-        Not mapped: StructureDefinitionMapping
-            # kind
-             # type = code
-            # constrainedType
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # abstract
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # contextType
-             # type = code
-            # context
-             # type = string
-            # base
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # snapshot
-        Not mapped: StructureDefinitionSnapshot
-            # differential
-        Not mapped: StructureDefinitionDifferential
+        # mapping
+        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.mapping import StructureDefinition.MappingSchema
+        # kind
+        # type = code
+        # snapshot
+        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.snapshot import StructureDefinition.SnapshotSchema
+        # differential
+        from spark_fhir_schemas.dstu2.complex_types.structuredefinition.differential import StructureDefinition.DifferentialSchema
         if (max_recursion_limit and nesting_list.count("StructureDefinition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -255,7 +225,7 @@ class StructureDefinitionSchema:
                 # definition.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", StructureDefinitionContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", StructureDefinition.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date this version of the structure definition was published. The date must
                 # change when the business version changes, if it does, and it must change if
                 # the status code changes. In addition, it should change when the substantive
@@ -283,7 +253,7 @@ class StructureDefinitionSchema:
                 # number, e.g. [publication].[major].[minor], which is 1.0.2 for this version.
                 StructField("fhirVersion", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An external specification that the content is mapped to.
-                StructField("mapping", StructureDefinitionMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mapping", StructureDefinition.MappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Defines the kind of structure that this definition is describing.
                 StructField("kind", StringType(), True),
                 # The type of type that is being constrained - a data type, an extension, a
@@ -305,10 +275,10 @@ class StructureDefinitionSchema:
                 StructField("base", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A snapshot view is expressed in a stand alone form that can be used and
                 # interpreted without considering the base StructureDefinition.
-                StructField("snapshot", StructureDefinitionSnapshotSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("snapshot", StructureDefinition.SnapshotSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A differential view is expressed relative to the base StructureDefinition - a
                 # statement of differences that it applies.
-                StructField("differential", StructureDefinitionDifferentialSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("differential", StructureDefinition.DifferentialSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

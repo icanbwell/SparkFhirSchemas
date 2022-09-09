@@ -47,24 +47,18 @@ class BundleRequestSchema:
     Create"](http.html#ccreate). This is just the query portion of the URL - what
     follows the "?" (not including the "?").
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # method
-             # type = code
-            # url
+        # method
+        # type = code
+        # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # ifNoneMatch
+        # ifNoneMatch
              # type = string
-            # ifModifiedSince
+        # ifModifiedSince
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # ifMatch
-             # type = string
-            # ifNoneExist
-             # type = string
         if (max_recursion_limit and nesting_list.count("BundleRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

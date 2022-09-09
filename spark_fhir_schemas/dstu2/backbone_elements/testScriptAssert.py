@@ -61,48 +61,18 @@ class TestScriptAssertSchema:
         warningOnly: Whether or not the test execution will produce a warning only on error for
     this assert.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # label
+        # label
              # type = string
-            # description
-             # type = string
-            # direction
-             # type = code
-            # compareToSourceId
-             # type = string
-            # compareToSourcePath
-             # type = string
-            # contentType
-             # type = code
-            # headerField
-             # type = string
-            # minimumId
-             # type = string
-            # navigationLinks
+        # direction
+        # type = code
+        # navigationLinks
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # operator
-             # type = code
-            # path
-             # type = string
-            # resource
+        # resource
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # response
-             # type = code
-            # responseCode
-             # type = string
-            # sourceId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # validateProfileId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # value
-             # type = string
-            # warningOnly
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         if (max_recursion_limit and nesting_list.count("TestScriptAssert") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

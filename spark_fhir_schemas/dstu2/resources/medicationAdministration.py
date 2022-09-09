@@ -89,54 +89,38 @@ class MedicationAdministrationSchema:
         dosage: Describes the medication dosage information details e.g. dose, rate, site,
     route, etc.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # status
-             # type = code
-            # patient
+        # status
+        # type = code
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # practitioner
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # prescription
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # wasNotGiven
+        # wasNotGiven
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # reasonNotGiven
+        # reasonNotGiven
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # reasonGiven
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # effectiveTimeDateTime
+        # effectiveTimeDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # effectiveTimePeriod
+        # effectiveTimePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # medicationCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # medicationReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # device
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # note
+        # note
              # type = string
-            # dosage
-        Not mapped: MedicationAdministrationDosage
+        # dosage
+        from spark_fhir_schemas.dstu2.complex_types.medicationadministration.dosage import MedicationAdministration.DosageSchema
         if (max_recursion_limit and nesting_list.count("MedicationAdministration") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -227,7 +211,7 @@ class MedicationAdministrationSchema:
                 StructField("note", StringType(), True),
                 # Describes the medication dosage information details e.g. dose, rate, site,
                 # route, etc.
-                StructField("dosage", MedicationAdministrationDosageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dosage", MedicationAdministration.DosageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

@@ -40,17 +40,15 @@ class OperationDefinitionBindingSchema:
         valueSetUri: None
         valueSetReference: None
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # strength
+        # strength
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # valueSetUri
+        # valueSetUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # valueSetReference
+        # valueSetReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("OperationDefinitionBinding") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

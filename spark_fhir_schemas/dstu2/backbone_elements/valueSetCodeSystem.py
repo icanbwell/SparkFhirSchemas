@@ -45,20 +45,18 @@ class ValueSetCodeSystemSchema:
     hierarchical, but the definitions must be consulted to determine what the
     meaning of the hierarchical relationships are.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # system
+        # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # version
+        # version
              # type = string
-            # caseSensitive
+        # caseSensitive
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # concept
-        Not mapped: ValueSetConcept
+        # concept
+        from spark_fhir_schemas.dstu2.complex_types.valueset.concept import ValueSet.ConceptSchema
         if (max_recursion_limit and nesting_list.count("ValueSetCodeSystem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -98,7 +96,7 @@ class ValueSetCodeSystemSchema:
                 # Concepts that are in the code system. The concept definitions are inherently
                 # hierarchical, but the definitions must be consulted to determine what the
                 # meaning of the hierarchical relationships are.
-                StructField("concept", ValueSetConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("concept", ValueSet.ConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

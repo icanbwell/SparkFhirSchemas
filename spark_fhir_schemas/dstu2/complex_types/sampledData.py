@@ -46,23 +46,17 @@ class SampledDataSchema:
     (character u20). The special values "E" (error), "L" (below detection limit)
     and "U" (above detection limit) can also be used in place of a decimal value.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # origin
-        Not mapped: Quantity
-            # period
+        # origin
+        from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
+        # period
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # factor
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # lowerLimit
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # upperLimit
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # dimensions
+        # dimensions
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # data
+        # data
              # type = string
         if (max_recursion_limit and nesting_list.count("SampledData") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -81,7 +75,7 @@ class SampledDataSchema:
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base quantity that a measured value of zero represents. In addition, this
                 # provides the units of the entire measurement series.
-                StructField("origin", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("origin", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The length of time between sampling times, measured in milliseconds.
                 StructField("period", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A correction factor that is applied to the sampled data points before they are

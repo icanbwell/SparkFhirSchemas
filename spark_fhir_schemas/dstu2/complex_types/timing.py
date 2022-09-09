@@ -46,7 +46,7 @@ class TimingSchema:
         # event
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         # repeat
-        from spark_fhir_schemas.dstu2.complex_types.timingrepeat import TimingRepeatSchema
+        from spark_fhir_schemas.dstu2.complex_types.timing.repeat import Timing.RepeatSchema
         # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("Timing") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -67,7 +67,7 @@ class TimingSchema:
                 # Identifies specific times when the event occurs.
                 StructField("event", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A set of rules that describe when the event should occur.
-                StructField("repeat", TimingRepeatSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("repeat", Timing.RepeatSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code for the timing pattern. Some codes such as BID are ubiquitous, but many
                 # institutions define their own additional codes.
                 StructField("code", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

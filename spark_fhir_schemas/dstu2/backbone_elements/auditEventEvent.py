@@ -47,26 +47,18 @@ class AuditEventEventSchema:
         outcomeDesc: A free text description of the outcome of the event.
         purposeOfEvent: The purposeOfUse (reason) that was used during the event being recorded.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # subtype
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # action
-             # type = code
-            # dateTime
+        # action
+        # type = code
+        # dateTime
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # outcome
-             # type = code
-            # outcomeDesc
+        # outcomeDesc
              # type = string
-            # purposeOfEvent
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("AuditEventEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

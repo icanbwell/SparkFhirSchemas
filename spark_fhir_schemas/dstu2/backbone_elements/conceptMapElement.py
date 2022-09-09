@@ -39,18 +39,16 @@ class ConceptMapElementSchema:
         code: Identity (code or path) or the element/item being mapped.
         target: A concept from the target value set that this concept maps to.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # codeSystem
+        # codeSystem
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # target
-        Not mapped: ConceptMapTarget
+        # target
+        from spark_fhir_schemas.dstu2.complex_types.conceptmap.target import ConceptMap.TargetSchema
         if (max_recursion_limit and nesting_list.count("ConceptMapElement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -81,7 +79,7 @@ class ConceptMapElementSchema:
                 # Identity (code or path) or the element/item being mapped.
                 StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A concept from the target value set that this concept maps to.
-                StructField("target", ConceptMapTargetSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("target", ConceptMap.TargetSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

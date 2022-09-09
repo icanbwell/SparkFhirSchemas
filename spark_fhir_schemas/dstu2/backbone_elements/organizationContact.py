@@ -44,19 +44,17 @@ class OrganizationContactSchema:
     party may be contacted.
         address: Visiting or postal addresses for the contact.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # purpose
+        # purpose
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # name
+        # name
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # telecom
+        # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # address
+        # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
         if (max_recursion_limit and nesting_list.count("OrganizationContact") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

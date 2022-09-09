@@ -44,20 +44,16 @@ class ImmunizationRecommendationProtocolSchema:
         series: One possible path to achieve presumed immunity against a disease - within the
     context of an authority.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # doseSequence
+        # doseSequence
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # description
+        # description
              # type = string
-            # authority
+        # authority
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # series
-             # type = string
         if (max_recursion_limit and nesting_list.count("ImmunizationRecommendationProtocol") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

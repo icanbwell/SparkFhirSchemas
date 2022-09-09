@@ -79,52 +79,34 @@ class CommunicationRequestSchema:
         priority: Characterizes how quickly the proposed act must be initiated. Includes
     concepts such as stat, urgent, routine.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # category
+        # category
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # sender
+        # sender
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # recipient
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # payload
-        Not mapped: CommunicationRequestPayload
-            # medium
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # requester
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # status
-             # type = code
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # scheduledDateTime
+        # payload
+        from spark_fhir_schemas.dstu2.complex_types.communicationrequest.payload import CommunicationRequest.PayloadSchema
+        # status
+        # type = code
+        # scheduledDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # scheduledPeriod
+        # scheduledPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # reason
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # requestedOn
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # subject
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # priority
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
         if (max_recursion_limit and nesting_list.count("CommunicationRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -185,7 +167,7 @@ class CommunicationRequestSchema:
                 # which is the intended target of the communication.
                 StructField("recipient", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Text, attachment(s), or resource(s) to be communicated to the recipient.
-                StructField("payload", CommunicationRequestPayloadSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("payload", CommunicationRequest.PayloadSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A channel that was used for this communication (e.g. email, fax).
                 StructField("medium", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The responsible person who authorizes this order, e.g. physician. This may be

@@ -47,24 +47,20 @@ class ValueSetExpansionSchema:
     suitable for a particular purpose, or to pick the correct expansion.
         contains: The codes that are contained in the value set expansion.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # timestamp
+        # timestamp
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # total
+        # total
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # offset
-        from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # parameter
-        Not mapped: ValueSetParameter
-            # contains
-        Not mapped: ValueSetContains
+        # parameter
+        from spark_fhir_schemas.dstu2.complex_types.valueset.parameter import ValueSet.ParameterSchema
+        # contains
+        from spark_fhir_schemas.dstu2.complex_types.valueset.contains import ValueSet.ContainsSchema
         if (max_recursion_limit and nesting_list.count("ValueSetExpansion") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -106,9 +102,9 @@ class ValueSetExpansionSchema:
                 # A parameter that controlled the expansion process. These parameters may be
                 # used by users of expanded value sets to check whether the expansion is
                 # suitable for a particular purpose, or to pick the correct expansion.
-                StructField("parameter", ValueSetParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("parameter", ValueSet.ParameterSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The codes that are contained in the value set expansion.
-                StructField("contains", ValueSetContainsSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contains", ValueSet.ContainsSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

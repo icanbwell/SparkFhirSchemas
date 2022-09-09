@@ -56,40 +56,24 @@ class TestScriptOperationSchema:
     requests.
         url: Complete request URL.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # resource
+        # resource
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # label
+        # label
              # type = string
-            # description
-             # type = string
-            # accept
-             # type = code
-            # contentType
-             # type = code
-            # destination
+        # accept
+        # type = code
+        # destination
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # encodeRequestUrl
+        # encodeRequestUrl
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # params
-             # type = string
-            # requestHeader
-        Not mapped: TestScriptRequestHeader
-            # responseId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # sourceId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # targetId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # url
-             # type = string
+        # requestHeader
+        from spark_fhir_schemas.dstu2.complex_types.testscript.requestheader import TestScript.RequestHeaderSchema
         if (max_recursion_limit and nesting_list.count("TestScriptOperation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -139,7 +123,7 @@ class TestScriptOperationSchema:
                 # explicitly.
                 StructField("params", StringType(), True),
                 # Header elements would be used to set HTTP headers.
-                StructField("requestHeader", TestScriptRequestHeaderSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("requestHeader", TestScript.RequestHeaderSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The fixture id (maybe new) to map to the response.
                 StructField("responseId", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The id of the fixture used as the body of a PUT or POST request.

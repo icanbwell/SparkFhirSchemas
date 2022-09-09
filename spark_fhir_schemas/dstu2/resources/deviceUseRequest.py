@@ -73,54 +73,36 @@ class DeviceUseRequestSchema:
         priority: Characterizes how quickly the  use of device must be initiated. Includes
     concepts such as stat, urgent, routine.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # bodySiteCodeableConcept
+        # bodySiteCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # bodySiteReference
+        # bodySiteReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # status
-             # type = code
-            # device
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # identifier
+        # status
+        # type = code
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # indication
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # notes
+        # notes
              # type = string
-            # prnReason
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # orderedOn
+        # orderedOn
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # recordedOn
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # subject
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # timingTiming
+        # timingTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # timingPeriod
+        # timingPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # timingDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # priority
-             # type = code
         if (max_recursion_limit and nesting_list.count("DeviceUseRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

@@ -48,25 +48,19 @@ class GroupCharacteristicSchema:
         period: The period over which the characteristic is tested; e.g. the patient had an
     operation during the month of June.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # valueCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # valueBoolean
+        # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # valueQuantity
+        # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # valueRange
+        # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # exclude
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("GroupCharacteristic") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

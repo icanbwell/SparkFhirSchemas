@@ -40,19 +40,15 @@ class HealthcareServiceAvailableTimeSchema:
         availableEndTime: The closing time of day. Note: If the AllDay flag is set, then this time is
     ignored.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # daysOfWeek
-             # type = code
-            # allDay
+        # daysOfWeek
+        # type = code
+        # allDay
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # availableStartTime
-        from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # availableEndTime
+        # availableStartTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
         if (max_recursion_limit and nesting_list.count("HealthcareServiceAvailableTime") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

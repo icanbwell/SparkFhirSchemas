@@ -38,18 +38,16 @@ class ClaimResponseDetailSchema:
         adjudication: The adjudications results.
         subDetail: The third tier service adjudications for submitted services.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # sequenceLinkId
+        # sequenceLinkId
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # adjudication
-        Not mapped: ClaimResponseAdjudication1
-            # subDetail
-        Not mapped: ClaimResponseSubDetail
+        # adjudication
+        from spark_fhir_schemas.dstu2.complex_types.claimresponse.adjudication1 import ClaimResponse.Adjudication1Schema
+        # subDetail
+        from spark_fhir_schemas.dstu2.complex_types.claimresponse.subdetail import ClaimResponse.SubDetailSchema
         if (max_recursion_limit and nesting_list.count("ClaimResponseDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -77,9 +75,9 @@ class ClaimResponseDetailSchema:
                 # A service line number.
                 StructField("sequenceLinkId", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The adjudications results.
-                StructField("adjudication", ClaimResponseAdjudication1Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("adjudication", ClaimResponse.Adjudication1Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The third tier service adjudications for submitted services.
-                StructField("subDetail", ClaimResponseSubDetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("subDetail", ClaimResponse.SubDetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

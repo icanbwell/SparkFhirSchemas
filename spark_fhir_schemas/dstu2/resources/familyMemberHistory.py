@@ -84,62 +84,46 @@ class FamilyMemberHistorySchema:
     resource, though there is nothing stopping multiple resources - one per
     condition.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # patient
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # date
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # status
-             # type = code
-            # name
+        # status
+        # type = code
+        # name
              # type = string
-            # relationship
+        # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # gender
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # bornPeriod
+        # bornPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # bornDate
+        # bornDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # bornString
-             # type = string
-            # ageQuantity
-        Not mapped: Quantity
-            # ageRange
+        # ageQuantity
+        from spark_fhir_schemas.dstu2.complex_types.age import AgeSchema
+        # ageRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # ageString
-             # type = string
-            # deceasedBoolean
+        # deceasedBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # deceasedQuantity
-        Not mapped: Quantity
-            # deceasedRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # deceasedDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # deceasedString
-             # type = string
-            # note
+        # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # condition
-        Not mapped: FamilyMemberHistoryCondition
+        # condition
+        from spark_fhir_schemas.dstu2.complex_types.familymemberhistory.condition import FamilyMemberHistory.ConditionSchema
         if (max_recursion_limit and nesting_list.count("FamilyMemberHistory") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -212,7 +196,7 @@ class FamilyMemberHistorySchema:
                 # None
                 StructField("bornString", StringType(), True),
                 # None
-                StructField("ageQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ageQuantity", AgeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("ageRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -220,7 +204,7 @@ class FamilyMemberHistorySchema:
                 # None
                 StructField("deceasedBoolean", BooleanType(), True),
                 # None
-                StructField("deceasedQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("deceasedQuantity", AgeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("deceasedRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -235,7 +219,7 @@ class FamilyMemberHistorySchema:
                 # a repeating section to allow a system to represent more than one condition per
                 # resource, though there is nothing stopping multiple resources - one per
                 # condition.
-                StructField("condition", FamilyMemberHistoryConditionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("condition", FamilyMemberHistory.ConditionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

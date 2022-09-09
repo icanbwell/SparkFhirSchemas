@@ -90,56 +90,38 @@ class MedicationOrderSchema:
         priorPrescription: A link to a resource representing an earlier order or prescription that this
     order supersedes.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # dateWritten
+        # dateWritten
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # status
-             # type = code
-            # dateEnded
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # reasonEnded
+        # status
+        # type = code
+        # reasonEnded
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # patient
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # prescriber
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # reasonCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # reasonReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # note
+        # note
              # type = string
-            # medicationCodeableConcept
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # medicationReference
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # dosageInstruction
-        Not mapped: MedicationOrderDosageInstruction
-            # dispenseRequest
-        Not mapped: MedicationOrderDispenseRequest
-            # substitution
-        Not mapped: MedicationOrderSubstitution
-            # priorPrescription
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
+        # dosageInstruction
+        from spark_fhir_schemas.dstu2.complex_types.medicationorder.dosageinstruction import MedicationOrder.DosageInstructionSchema
+        # dispenseRequest
+        from spark_fhir_schemas.dstu2.complex_types.medicationorder.dispenserequest import MedicationOrder.DispenseRequestSchema
+        # substitution
+        from spark_fhir_schemas.dstu2.complex_types.medicationorder.substitution import MedicationOrder.SubstitutionSchema
         if (max_recursion_limit and nesting_list.count("MedicationOrder") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -220,18 +202,18 @@ class MedicationOrderSchema:
                 # None
                 StructField("medicationReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates how the medication is to be used by the patient.
-                StructField("dosageInstruction", MedicationOrderDosageInstructionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dosageInstruction", MedicationOrder.DosageInstructionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the specific details for the dispense or medication supply part of a
                 # medication order (also known as a Medication Prescription).  Note that this
                 # information is NOT always sent with the order.  There may be in some settings
                 # (e.g. hospitals) institutional or system support for completing the dispense
                 # details in the pharmacy department.
-                StructField("dispenseRequest", MedicationOrderDispenseRequestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dispenseRequest", MedicationOrder.DispenseRequestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates whether or not substitution can or should be part of the dispense.
                 # In some cases substitution must happen, in other cases substitution must not
                 # happen, and in others it does not matter. This block explains the prescriber's
                 # intent. If nothing is specified substitution may be done.
-                StructField("substitution", MedicationOrderSubstitutionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("substitution", MedicationOrder.SubstitutionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A link to a resource representing an earlier order or prescription that this
                 # order supersedes.
                 StructField("priorPrescription", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

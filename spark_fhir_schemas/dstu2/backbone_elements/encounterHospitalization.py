@@ -49,34 +49,16 @@ class EncounterHospitalizationSchema:
         dischargeDiagnosis: The final diagnosis given a patient before release from the hospital after all
     testing, surgery, and workup are complete.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # preAdmissionIdentifier
+        # preAdmissionIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # origin
+        # origin
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # admitSource
+        # admitSource
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # admittingDiagnosis
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # reAdmission
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # dietPreference
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # specialCourtesy
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # specialArrangement
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # destination
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # dischargeDisposition
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # dischargeDiagnosis
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("EncounterHospitalization") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later

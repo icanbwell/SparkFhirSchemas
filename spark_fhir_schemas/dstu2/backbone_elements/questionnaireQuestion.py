@@ -54,30 +54,22 @@ class QuestionnaireQuestionSchema:
         group: Nested group, containing nested question for this question. The order of
     groups within the question is relevant.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # linkId
+        # linkId
              # type = string
-            # concept
+        # concept
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # text
-             # type = string
-            # type
-             # type = code
-            # required
+        # type
+        # type = code
+        # required
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # repeats
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # options
+        # options
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # option
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # group
-        Not mapped: QuestionnaireGroup
+        # group
+        from spark_fhir_schemas.dstu2.complex_types.questionnaire.group import Questionnaire.GroupSchema
         if (max_recursion_limit and nesting_list.count("QuestionnaireQuestion") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -127,7 +119,7 @@ class QuestionnaireQuestionSchema:
                 StructField("option", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Nested group, containing nested question for this question. The order of
                 # groups within the question is relevant.
-                StructField("group", QuestionnaireGroupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("group", Questionnaire.GroupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

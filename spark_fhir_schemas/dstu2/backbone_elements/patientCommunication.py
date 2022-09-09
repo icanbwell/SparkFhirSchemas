@@ -41,15 +41,13 @@ class PatientCommunicationSchema:
         preferred: Indicates whether or not the patient prefers this language (over other
     languages he masters up a certain level).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # preferred
+        # preferred
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         if (max_recursion_limit and nesting_list.count("PatientCommunication") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

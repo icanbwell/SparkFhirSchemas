@@ -59,22 +59,20 @@ class ProvenanceEntitySchema:
     understood as shorthand for saying that the agent was responsible for the
     activity which generated the entity.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # role
-             # type = code
-            # type
+        # role
+        # type = code
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # reference
+        # reference
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # display
+        # display
              # type = string
-            # agent
-        Not mapped: ProvenanceAgent
+        # agent
+        from spark_fhir_schemas.dstu2.complex_types.provenance.agent import Provenance.AgentSchema
         if (max_recursion_limit and nesting_list.count("ProvenanceEntity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -113,7 +111,7 @@ class ProvenanceEntitySchema:
                 # that entity, possibly along with other agents. This description can be
                 # understood as shorthand for saying that the agent was responsible for the
                 # activity which generated the entity.
-                StructField("agent", ProvenanceAgentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("agent", Provenance.AgentSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

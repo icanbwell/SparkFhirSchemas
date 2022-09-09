@@ -94,64 +94,46 @@ class TestScriptSchema:
         teardown: A series of operations required to clean up after the all the tests are
     executed (successfully or otherwise).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # url
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # version
+        # version
              # type = string
-            # name
-             # type = string
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # experimental
+        # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # publisher
-             # type = string
-            # contact
-        Not mapped: TestScriptContact
-            # date
+        # contact
+        from spark_fhir_schemas.dstu2.complex_types.testscript.contact import TestScript.ContactSchema
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # description
-             # type = string
-            # useContext
+        # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # requirements
-             # type = string
-            # copyright
-             # type = string
-            # metadata
-        Not mapped: TestScriptMetadata
-            # multiserver
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # fixture
-        Not mapped: TestScriptFixture
-            # profile
+        # metadata
+        from spark_fhir_schemas.dstu2.complex_types.testscript.metadata import TestScript.MetadataSchema
+        # fixture
+        from spark_fhir_schemas.dstu2.complex_types.testscript.fixture import TestScript.FixtureSchema
+        # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # variable
-        Not mapped: TestScriptVariable
-            # setup
-        Not mapped: TestScriptSetup
-            # test
-        Not mapped: TestScriptTest
-            # teardown
-        Not mapped: TestScriptTeardown
+        # variable
+        from spark_fhir_schemas.dstu2.complex_types.testscript.variable import TestScript.VariableSchema
+        # setup
+        from spark_fhir_schemas.dstu2.complex_types.testscript.setup import TestScript.SetupSchema
+        # test
+        from spark_fhir_schemas.dstu2.complex_types.testscript.test import TestScript.TestSchema
+        # teardown
+        from spark_fhir_schemas.dstu2.complex_types.testscript.teardown import TestScript.TeardownSchema
         if (max_recursion_limit and nesting_list.count("TestScript") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -218,7 +200,7 @@ class TestScriptSchema:
                 # The name of the individual or organization that published the Test Script.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.
-                StructField("contact", TestScriptContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contact", TestScript.ContactSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The date this version of the test tcript was published. The date must change
                 # when the business version changes, if it does, and it must change if the
                 # status code changes. In addition, it should change when the substantive
@@ -239,26 +221,26 @@ class TestScriptSchema:
                 StructField("copyright", StringType(), True),
                 # The required capability must exist and are assumed to function correctly on
                 # the FHIR server being tested.
-                StructField("metadata", TestScriptMetadataSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("metadata", TestScript.MetadataSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If the tests apply to more than one FHIR server (e.g. cross-server
                 # interoperability tests) then multiserver=true. Defaults to false if value is
                 # unspecified.
                 StructField("multiserver", BooleanType(), True),
                 # Fixture in the test script - by reference (uri). All fixtures are required for
                 # the test script to execute.
-                StructField("fixture", TestScriptFixtureSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("fixture", TestScript.FixtureSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Reference to the profile to be used for validation.
                 StructField("profile", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Variable is set based either on element value in response body or on header
                 # field value in the response headers.
-                StructField("variable", TestScriptVariableSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("variable", TestScript.VariableSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A series of required setup operations before tests are executed.
-                StructField("setup", TestScriptSetupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("setup", TestScript.SetupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A test in this script.
-                StructField("test", TestScriptTestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("test", TestScript.TestSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A series of operations required to clean up after the all the tests are
                 # executed (successfully or otherwise).
-                StructField("teardown", TestScriptTeardownSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("teardown", TestScript.TeardownSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

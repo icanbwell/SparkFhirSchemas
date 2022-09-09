@@ -64,46 +64,28 @@ class ClaimItemSchema:
         detail: Second tier of goods and services.
         prosthesis: The materials and placement date of prior fixed prosthesis.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # sequence
+        # sequence
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # provider
+        # provider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # diagnosisLinkId
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # service
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # serviceDate
+        # serviceDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # quantity
-        Not mapped: Quantity
-            # unitPrice
-        Not mapped: Quantity
-            # factor
+        # quantity
+        from spark_fhir_schemas.dstu2.complex_types.simplequantity import SimpleQuantitySchema
+        # unitPrice
+        from spark_fhir_schemas.dstu2.complex_types.money import MoneySchema
+        # factor
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # points
-        from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # net
-        Not mapped: Quantity
-            # udi
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # bodySite
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # subSite
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # modifier
-        from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # detail
-        Not mapped: ClaimDetail
-            # prosthesis
-        Not mapped: ClaimProsthesis
+        # detail
+        from spark_fhir_schemas.dstu2.complex_types.claim.detail import Claim.DetailSchema
+        # prosthesis
+        from spark_fhir_schemas.dstu2.complex_types.claim.prosthesis import Claim.ProsthesisSchema
         if (max_recursion_limit and nesting_list.count("ClaimItem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -142,10 +124,10 @@ class ClaimItemSchema:
                 # The date when the enclosed suite of services were performed or completed.
                 StructField("serviceDate", DateType(), True),
                 # The number of repetitions of a service or product.
-                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If the item is a node then this is the fee for the product or service,
                 # otherwise this is the total of the fees for the children of the group.
-                StructField("unitPrice", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("unitPrice", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A real number that represents a multiplier used in determining the overall
                 # value of services delivered and/or goods received. The concept of a Factor
                 # allows for a discount or surcharge multiplier to be applied to a monetary
@@ -160,7 +142,7 @@ class ClaimItemSchema:
                 # charge. For example, the formula: unit Quantity * unit Price (Cost per Point)
                 # * factor Number  * points = net Amount. Quantity, factor and points are
                 # assumed to be 1 if not supplied.
-                StructField("net", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("net", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of Unique Device Identifiers associated with this line item.
                 StructField("udi", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Physical service site on the patient (limb, tooth, etc.).
@@ -171,9 +153,9 @@ class ClaimItemSchema:
                 # cosmetic or associated with TMJ, or an appliance was lost or stolen.
                 StructField("modifier", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Second tier of goods and services.
-                StructField("detail", ClaimDetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("detail", Claim.DetailSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The materials and placement date of prior fixed prosthesis.
-                StructField("prosthesis", ClaimProsthesisSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("prosthesis", Claim.ProsthesisSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

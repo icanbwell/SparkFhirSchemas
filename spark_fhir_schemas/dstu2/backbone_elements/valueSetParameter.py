@@ -40,25 +40,21 @@ class ValueSetParameterSchema:
         valueUri: None
         valueCode: None
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # name
+        # name
              # type = string
-            # valueString
-             # type = string
-            # valueBoolean
+        # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # valueInteger
+        # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # valueDecimal
+        # valueDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # valueUri
+        # valueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # valueCode
+        # valueCode
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
         if (max_recursion_limit and nesting_list.count("ValueSetParameter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

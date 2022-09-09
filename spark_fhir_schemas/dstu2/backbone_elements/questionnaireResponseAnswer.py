@@ -52,40 +52,38 @@ class QuestionnaireResponseAnswerSchema:
         group: Nested group, containing nested question for this question. The order of
     groups within the question is relevant.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # valueBoolean
+        # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # valueDecimal
+        # valueDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # valueInteger
+        # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # valueDate
+        # valueDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # valueDateTime
+        # valueDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # valueInstant
+        # valueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # valueTime
+        # valueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # valueString
+        # valueString
              # type = string
-            # valueUri
+        # valueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # valueAttachment
+        # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # valueCoding
+        # valueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # valueQuantity
+        # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # valueReference
+        # valueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # group
-        Not mapped: QuestionnaireResponseGroup
+        # group
+        from spark_fhir_schemas.dstu2.complex_types.questionnaireresponse.group import QuestionnaireResponse.GroupSchema
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponseAnswer") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -138,7 +136,7 @@ class QuestionnaireResponseAnswerSchema:
                 StructField("valueReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Nested group, containing nested question for this question. The order of
                 # groups within the question is relevant.
-                StructField("group", QuestionnaireResponseGroupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("group", QuestionnaireResponse.GroupSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

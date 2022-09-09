@@ -88,66 +88,40 @@ class HealthcareServiceSchema:
     availability. Succinctly describing all possible exceptions to normal site
     availability as details in the available Times and not available Times.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.resourcecontainer import ResourceContainerSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # providedBy
+        # providedBy
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # serviceCategory
+        # serviceCategory
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # serviceType
-        Not mapped: HealthcareServiceServiceType
-            # location
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # serviceName
+        # serviceType
+        from spark_fhir_schemas.dstu2.complex_types.healthcareservice.servicetype import HealthcareService.ServiceTypeSchema
+        # serviceName
              # type = string
-            # comment
-             # type = string
-            # extraDetails
-             # type = string
-            # photo
+        # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # telecom
+        # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # coverageArea
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # serviceProvisionCode
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # eligibility
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # eligibilityNote
-             # type = string
-            # programName
-             # type = string
-            # characteristic
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # referralMethod
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # publicKey
-             # type = string
-            # appointmentRequired
+        # appointmentRequired
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # availableTime
-        Not mapped: HealthcareServiceAvailableTime
-            # notAvailable
-        Not mapped: HealthcareServiceNotAvailable
-            # availabilityExceptions
-             # type = string
+        # availableTime
+        from spark_fhir_schemas.dstu2.complex_types.healthcareservice.availabletime import HealthcareService.AvailableTimeSchema
+        # notAvailable
+        from spark_fhir_schemas.dstu2.complex_types.healthcareservice.notavailable import HealthcareService.NotAvailableSchema
         if (max_recursion_limit and nesting_list.count("HealthcareService") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -200,7 +174,7 @@ class HealthcareServiceSchema:
                 # Identifies the broad category of service being performed or delivered.
                 StructField("serviceCategory", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A specific type of service that may be delivered or performed.
-                StructField("serviceType", HealthcareServiceServiceTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("serviceType", HealthcareService.ServiceTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The location where this healthcare service may be provided.
                 StructField("location", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Further description of the service as it would be presented to a consumer
@@ -244,10 +218,10 @@ class HealthcareServiceSchema:
                 # Indicates if an appointment is required for access to this service.
                 StructField("appointmentRequired", BooleanType(), True),
                 # A collection of times that the Service Site is available.
-                StructField("availableTime", HealthcareServiceAvailableTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("availableTime", HealthcareService.AvailableTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The HealthcareService is not available during this period of time due to the
                 # provided reason.
-                StructField("notAvailable", HealthcareServiceNotAvailableSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("notAvailable", HealthcareService.NotAvailableSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A description of site availability exceptions, e.g. public holiday
                 # availability. Succinctly describing all possible exceptions to normal site
                 # availability as details in the available Times and not available Times.

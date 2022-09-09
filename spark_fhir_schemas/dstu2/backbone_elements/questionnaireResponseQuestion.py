@@ -41,18 +41,14 @@ class QuestionnaireResponseQuestionSchema:
         text: The actual question as shown to the user to prompt them for an answer.
         answer: The respondent's answer(s) to the question.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # linkId
+        # linkId
              # type = string
-            # text
-             # type = string
-            # answer
-        Not mapped: QuestionnaireResponseAnswer
+        # answer
+        from spark_fhir_schemas.dstu2.complex_types.questionnaireresponse.answer import QuestionnaireResponse.AnswerSchema
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponseQuestion") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -83,7 +79,7 @@ class QuestionnaireResponseQuestionSchema:
                 # The actual question as shown to the user to prompt them for an answer.
                 StructField("text", StringType(), True),
                 # The respondent's answer(s) to the question.
-                StructField("answer", QuestionnaireResponseAnswerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("answer", QuestionnaireResponse.AnswerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:
