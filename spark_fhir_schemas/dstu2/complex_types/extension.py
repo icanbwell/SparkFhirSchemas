@@ -64,77 +64,73 @@ class ExtensionSchema:
         valueTiming: None
         valueMeta: None
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # url
+        # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # valueBoolean
+        # valueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # valueInteger
+        # valueInteger
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # valueDecimal
+        # valueDecimal
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
-            # valueBase64Binary
+        # valueBase64Binary
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
-            # valueInstant
+        # valueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # valueString
+        # valueString
              # type = string
-            # valueUri
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # valueDate
+        # valueDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # valueDateTime
+        # valueDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # valueTime
+        # valueTime
         from spark_fhir_schemas.dstu2.simple_types.time import timeSchema
-            # valueCode
+        # valueCode
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # valueOid
+        # valueOid
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
-            # valueUuid
+        # valueUuid
         from spark_fhir_schemas.dstu2.simple_types.uuid import uuidSchema
-            # valueId
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # valueUnsignedInt
+        # valueUnsignedInt
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # valuePositiveInt
+        # valuePositiveInt
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # valueMarkdown
+        # valueMarkdown
         from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
-            # valueAnnotation
+        # valueAnnotation
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # valueAttachment
+        # valueAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # valueIdentifier
+        # valueIdentifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # valueCodeableConcept
+        # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # valueCoding
+        # valueCoding
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # valueQuantity
+        # valueQuantity
         from spark_fhir_schemas.dstu2.complex_types.quantity import QuantitySchema
-            # valueRange
+        # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # valuePeriod
+        # valuePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # valueRatio
+        # valueRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
-            # valueReference
+        # valueReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # valueSampledData
+        # valueSampledData
         from spark_fhir_schemas.dstu2.complex_types.sampleddata import SampledDataSchema
-            # valueSignature
+        # valueSignature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
-            # valueHumanName
+        # valueHumanName
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # valueAddress
+        # valueAddress
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # valueContactPoint
+        # valueContactPoint
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # valueTiming
+        # valueTiming
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
-            # valueMeta
+        # valueMeta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
         if (max_recursion_limit and nesting_list.count("Extension") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

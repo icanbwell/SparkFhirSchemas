@@ -43,19 +43,17 @@ class CodingSchema:
         userSelected: Indicates that this coding was chosen by a user directly - i.e. off a pick
     list of available items (codes or displays).
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # system
+        # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # version
+        # version
              # type = string
-            # code
+        # code
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # display
-             # type = string
-            # userSelected
+        # userSelected
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         if (max_recursion_limit and nesting_list.count("Coding") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

@@ -48,29 +48,15 @@ class AddressSchema:
         country: Country - a nation as commonly understood or generally accepted.
         period: Time period when address was/is in use.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # use
-             # type = code
-            # type
-             # type = code
-            # text
+        # use
+        # type = code
+        # text
              # type = string
-            # line
-             # type = string
-            # city
-             # type = string
-            # district
-             # type = string
-            # state
-             # type = string
-            # postalCode
-             # type = string
-            # country
-             # type = string
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("Address") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

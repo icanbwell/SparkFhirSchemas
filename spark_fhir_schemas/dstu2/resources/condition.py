@@ -89,72 +89,46 @@ class ConditionSchema:
         notes: Additional information about the Condition. This is a general notes/comments
     entry  for description of the Condition, its diagnosis and prognosis.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # patient
+        # patient
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # encounter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # asserter
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # dateRecorded
+        # dateRecorded
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # code
+        # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # category
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # clinicalStatus
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # verificationStatus
-             # type = code
-            # severity
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # onsetDateTime
+        # verificationStatus
+        # type = code
+        # onsetDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # onsetQuantity
+        # onsetQuantity
         Not mapped: Quantity
-            # onsetPeriod
+        # onsetPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # onsetRange
+        # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # onsetString
+        # onsetString
              # type = string
-            # abatementDateTime
-        from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # abatementQuantity
-        Not mapped: Quantity
-            # abatementBoolean
+        # abatementBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # abatementPeriod
-        from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # abatementRange
-        from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
-            # abatementString
-             # type = string
-            # stage
+        # stage
         Not mapped: ConditionStage
-            # evidence
+        # evidence
         Not mapped: ConditionEvidence
-            # bodySite
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # notes
-             # type = string
         if (max_recursion_limit and nesting_list.count("Condition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -183,7 +157,7 @@ class ConditionSchema:
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
                 # have their own independent transaction scope.
-                StructField("contained", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contained", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and

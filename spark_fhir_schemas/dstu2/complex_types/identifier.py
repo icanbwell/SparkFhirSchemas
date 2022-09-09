@@ -37,21 +37,21 @@ class IdentifierSchema:
         period: Time period during which identifier is/was valid for use.
         assigner: Organization that issued/manages the identifier.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # use
-             # type = code
-            # type
+        # use
+        # type = code
+        # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # system
+        # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # value
+        # value
              # type = string
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # assigner
+        # assigner
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("Identifier") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

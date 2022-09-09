@@ -79,53 +79,37 @@ class GoalSchema:
         outcome: Identifies the change (or lack of change) at the point where the goal was
     deepmed to be cancelled or achieved.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # startDate
+        # startDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # startCodeableConcept
+        # startCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # targetDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # targetQuantity
+        # targetQuantity
         Not mapped: Quantity
-            # category
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # description
+        # description
              # type = string
-            # status
-             # type = code
-            # statusDate
-        from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # statusReason
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # author
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # priority
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # addresses
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # note
+        # status
+        # type = code
+        # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
-            # outcome
+        # outcome
         Not mapped: GoalOutcome
         if (max_recursion_limit and nesting_list.count("Goal") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -155,7 +139,7 @@ class GoalSchema:
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
                 # have their own independent transaction scope.
-                StructField("contained", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contained", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and

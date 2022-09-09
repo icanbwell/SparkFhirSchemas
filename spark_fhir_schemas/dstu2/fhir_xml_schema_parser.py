@@ -692,6 +692,56 @@ class FhirXmlSchemaParser:
                 fhir_properties = FhirXmlSchemaParser.generate_properties_for_class(
                     entity_name=complex_type_name, inner_complex_type=complex_type
                 )
+            elif complex_type_name == "ResourceContainer":
+                entity_type = "Element"
+                fhir_properties = [
+                    FhirProperty(
+                        name="id",
+                        fhir_name="id",
+                        javascript_clean_name="id",
+                        type_="id",
+                        cleaned_type="Element",
+                        type_snake_case="element",
+                        optional=True,
+                        is_list=False,
+                        documentation=[
+                            "The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes."
+                        ],
+                        fhir_type="Element",
+                        reference_target_resources=[],
+                        reference_target_resources_names=[],
+                        is_back_bone_element=False,
+                        is_basic_type=True,
+                        codeable_type=None,
+                        is_resource=False,
+                        is_extension=False,
+                        is_code=False,
+                        is_complex=False
+                    ),
+                    FhirProperty(
+                        name="meta",
+                        fhir_name="meta",
+                        javascript_clean_name="meta",
+                        type_="Meta",
+                        cleaned_type="Meta",
+                        type_snake_case="meta",
+                        optional=True,
+                        is_list=False,
+                        documentation=[
+                            "The metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content may not always be associated with version changes to the resource."
+                        ],
+                        fhir_type="Element",
+                        reference_target_resources=[],
+                        reference_target_resources_names=[],
+                        is_back_bone_element=False,
+                        is_basic_type=False,
+                        codeable_type=None,
+                        is_resource=False,
+                        is_extension=False,
+                        is_code=False,
+                        is_complex=False
+                    )
+                ]
             else:
                 fhir_properties = []
 

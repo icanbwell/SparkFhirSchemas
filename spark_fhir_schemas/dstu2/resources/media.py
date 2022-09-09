@@ -76,45 +76,35 @@ class MediaSchema:
         content: The actual content of the media - inline or by direct reference to the media
     source file.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
-             # type = code
-            # subtype
+        # type
+        # type = code
+        # subtype
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # subject
+        # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # operator
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # view
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # deviceName
+        # deviceName
              # type = string
-            # height
+        # height
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # width
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # frames
-        from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
-            # duration
+        # duration
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # content
+        # content
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         if (max_recursion_limit and nesting_list.count("Media") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -144,7 +134,7 @@ class MediaSchema:
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
                 # have their own independent transaction scope.
-                StructField("contained", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contained", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and

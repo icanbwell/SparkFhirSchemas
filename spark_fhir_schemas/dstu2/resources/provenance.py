@@ -87,41 +87,33 @@ class ProvenanceSchema:
         signature: A digital signature on the target Reference(s). The signer should match a
     Provenance.agent. The purpose of the signature is indicated.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # target
+        # target
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # period
+        # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
-            # recorded
+        # recorded
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # reason
+        # reason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # activity
-        from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # location
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # policy
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # agent
+        # agent
         Not mapped: ProvenanceAgent
-            # entity
+        # entity
         Not mapped: ProvenanceEntity
-            # signature
+        # signature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
         if (max_recursion_limit and nesting_list.count("Provenance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -151,7 +143,7 @@ class ProvenanceSchema:
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
                 # have their own independent transaction scope.
-                StructField("contained", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contained", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and

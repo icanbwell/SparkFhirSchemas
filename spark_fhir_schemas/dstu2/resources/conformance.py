@@ -109,63 +109,41 @@ class ConformanceSchema:
         messaging: A description of the messaging capabilities of the solution.
         document: A document definition.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # url
-        from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # version
+        # version
              # type = string
-            # name
-             # type = string
-            # status
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # experimental
+        # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # publisher
-             # type = string
-            # contact
+        # contact
         Not mapped: ConformanceContact
-            # date
+        # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # description
-             # type = string
-            # requirements
-             # type = string
-            # copyright
-             # type = string
-            # kind
-             # type = code
-            # software
+        # kind
+        # type = code
+        # software
         Not mapped: ConformanceSoftware
-            # implementation
+        # implementation
         Not mapped: ConformanceImplementation
-            # fhirVersion
-        from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # acceptUnknown
-             # type = code
-            # format
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # profile
+        # profile
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # rest
+        # rest
         Not mapped: ConformanceRest
-            # messaging
+        # messaging
         Not mapped: ConformanceMessaging
-            # document
+        # document
         Not mapped: ConformanceDocument
         if (max_recursion_limit and nesting_list.count("Conformance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -195,7 +173,7 @@ class ConformanceSchema:
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
                 # have their own independent transaction scope.
-                StructField("contained", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contained", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and

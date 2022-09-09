@@ -75,59 +75,49 @@ class PatientSchema:
         managingOrganization: Organization that is the custodian of the patient record.
         link: Link to another patient resource that concerns the same actual patient.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # text
+        # text
         from spark_fhir_schemas.dstu2.complex_types.narrative import NarrativeSchema
-            # contained
-        Not mapped: ResourceContainer
-            # extension
+        # contained
+        from spark_fhir_schemas.dstu2.complex_types.element import ElementSchema
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # modifierExtension
-        from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # identifier
+        # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
-            # active
+        # active
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # name
+        # name
         from spark_fhir_schemas.dstu2.complex_types.humanname import HumanNameSchema
-            # telecom
+        # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
-            # gender
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # birthDate
+        # birthDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
-            # deceasedBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # deceasedDateTime
+        # deceasedDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
-            # address
+        # address
         from spark_fhir_schemas.dstu2.complex_types.address import AddressSchema
-            # maritalStatus
+        # maritalStatus
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
-            # multipleBirthBoolean
-        from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
-            # multipleBirthInteger
+        # multipleBirthInteger
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
-            # photo
+        # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
-            # contact
+        # contact
         Not mapped: PatientContact
-            # animal
+        # animal
         Not mapped: PatientAnimal
-            # communication
+        # communication
         Not mapped: PatientCommunication
-            # careProvider
+        # careProvider
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # managingOrganization
-        from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # link
+        # link
         Not mapped: PatientLink
         if (max_recursion_limit and nesting_list.count("Patient") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
@@ -157,7 +147,7 @@ class PatientSchema:
                 # These resources do not have an independent existence apart from the resource
                 # that contains them - they cannot be identified independently, and nor can they
                 # have their own independent transaction scope.
-                StructField("contained", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contained", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # May be used to represent additional information that is not part of the basic
                 # definition of the resource. In order to make the use of extensions safe and
                 # manageable, there is a strict set of governance  applied to the definition and

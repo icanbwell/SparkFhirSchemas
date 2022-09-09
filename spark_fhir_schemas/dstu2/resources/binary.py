@@ -32,17 +32,15 @@ class BinarySchema:
         contentType: MimeType of the binary content represented as a standard MimeType (BCP 13).
         content: The actual content, base64 encoded.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # contentType
-        from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # content
+        # content
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
         if (max_recursion_limit and nesting_list.count("Binary") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

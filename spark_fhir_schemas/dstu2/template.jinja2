@@ -25,14 +25,14 @@ class {{fhir_entity.cleaned_name}}Schema:
         {{ property.name }}: {{ property.documentation[0] | wordwrap(78) | replace('\n', '\n    ') | replace('\r', '\n    ') }}
     {%  endfor %}
         """
-{% for property in fhir_entity.properties %}
+{% for property in fhir_entity.properties_unique %}
     {% if property.cleaned_type and property.cleaned_type not in ["string","boolean","date","number"] %}
         {%  if property.cleaned_type != fhir_entity.cleaned_name %}
-            # {{ property.name }}
+        # {{ property.name }}
             {% if property.is_resource %}
         from spark_fhir_schemas.dstu2.resources.{{property.cleaned_type.lower()}} import {{property.cleaned_type}}Schema
             {% elif property.is_code %}
-             # type = code
+        # type = code
             {% elif property.type_ == "string" %}
              # type = string
             {% elif property.is_basic_type %}

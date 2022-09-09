@@ -35,23 +35,23 @@ class BundleSchema:
     about a resource (transactions and history only).
         signature: Digital Signature - base64 encoded. XML DigSIg or a JWT.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # type
-             # type = code
-            # total
+        # type
+        # type = code
+        # total
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
-            # link
+        # link
         Not mapped: BundleLink
-            # entry
+        # entry
         Not mapped: BundleEntry
-            # signature
+        # signature
         from spark_fhir_schemas.dstu2.complex_types.signature import SignatureSchema
         if (max_recursion_limit and nesting_list.count("Bundle") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

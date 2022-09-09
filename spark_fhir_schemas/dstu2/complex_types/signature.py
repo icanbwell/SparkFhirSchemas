@@ -45,21 +45,21 @@ class SignatureSchema:
     JWT, and image/* for a graphical image of a signature.
         blob: The base64 encoding of the Signature content.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # extension
+        # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
-            # type
+        # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
-            # when
+        # when
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
-            # whoUri
+        # whoUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # whoReference
+        # whoReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
-            # contentType
+        # contentType
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # blob
+        # blob
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
         if (max_recursion_limit and nesting_list.count("Signature") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])

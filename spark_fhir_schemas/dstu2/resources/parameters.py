@@ -33,15 +33,15 @@ class ParametersSchema:
         language: The base language in which the resource is written.
         parameter: A parameter passed to or received from the operation.
         """
-            # id
+        # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
-            # meta
+        # meta
         from spark_fhir_schemas.dstu2.complex_types.meta import MetaSchema
-            # implicitRules
+        # implicitRules
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
-            # language
+        # language
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
-            # parameter
+        # parameter
         Not mapped: ParametersParameter
         if (max_recursion_limit and nesting_list.count("Parameters") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
