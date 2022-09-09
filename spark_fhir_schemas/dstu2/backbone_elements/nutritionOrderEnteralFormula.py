@@ -99,13 +99,13 @@ class NutritionOrderEnteralFormulaSchema:
                 StructField("baseFormulaType", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The product or brand name of the enteral or infant formula product such as
                 # "ACME Adult Standard Formula".
-                StructField("baseFormulaProductName", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("baseFormulaProductName", StringType(), True),
                 # Indicates the type of modular component such as protein, carbohydrate, fat or
                 # fiber to be provided in addition to or mixed with the base formula.
                 StructField("additiveType", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The product or brand name of the type of modular component to be added to the
                 # formula.
-                StructField("additiveProductName", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("additiveProductName", StringType(), True),
                 # The amount of energy (Calories) that the formula should provide per specified
                 # volume, typically per mL or fluid oz.  For example, an infant may require a
                 # formula that provides 24 Calories per fluid ounce or an adult may require an
@@ -125,7 +125,7 @@ class NutritionOrderEnteralFormulaSchema:
                 StructField("maxVolumeToDeliver", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Free text formula administration, feeding instructions or additional
                 # instructions or information.
-                StructField("administrationInstruction", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("administrationInstruction", StringType(), True),
             ]
         )
         if not include_extension:

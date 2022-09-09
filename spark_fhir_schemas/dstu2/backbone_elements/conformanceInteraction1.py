@@ -75,7 +75,7 @@ class ConformanceInteraction1Schema:
                 # Guidance specific to the implementation of this operation, such as limitations
                 # on the kind of transactions allowed, or information about system wide search
                 # is implemented.
-                StructField("documentation", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("documentation", StringType(), True),
             ]
         )
         if not include_extension:

@@ -85,7 +85,7 @@ class ConformanceMessagingSchema:
                 # Documentation about the system's messaging capabilities for this endpoint not
                 # otherwise documented by the conformance statement.  For example, process for
                 # becoming an authorized messaging exchange partner.
-                StructField("documentation", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("documentation", StringType(), True),
                 # A description of the solution's support for an event at this end-point.
                 StructField("event", ConformanceEventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

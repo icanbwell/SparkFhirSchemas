@@ -81,13 +81,13 @@ class SubscriptionChannelSchema:
                 # The type of channel to send notifications on.
                 StructField("type", SubscriptionChannelTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The uri that describes the actual end-point to send messages to.
-                StructField("endpoint", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("endpoint", StringType(), True),
                 # The mime type to send the payload in - either application/xml+fhir, or
                 # application/json+fhir. If the mime type is blank, then there is no payload in
                 # the notification, just a notification.
-                StructField("payload", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("payload", StringType(), True),
                 # Additional headers / information to send as part of the notification.
-                StructField("header", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("header", StringType(), True),
             ]
         )
         if not include_extension:

@@ -79,12 +79,12 @@ class TestScriptFixtureSchema:
                 # fixture is automatically created on each server being tested during setup,
                 # therefore no create operation is required for this fixture in the
                 # TestScript.setup section.
-                StructField("autocreate", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("autocreate", BooleanType(), True),
                 # Whether or not to implicitly delete the fixture during teardown If true, the
                 # fixture is automatically deleted on each server being tested during teardown,
                 # therefore no delete operation is required for this fixture in the
                 # TestScript.teardown section.
-                StructField("autodelete", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("autodelete", BooleanType(), True),
                 # Reference to the resource (containing the contents of the resource needed for
                 # operations).
                 StructField("resource", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -59,7 +59,7 @@ class CodeableConceptSchema:
                 # A human language representation of the concept as seen/selected/uttered by the
                 # user who entered the data and/or which represents the intended meaning of the
                 # user.
-                StructField("text", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("text", StringType(), True),
             ]
         )
         if not include_extension:

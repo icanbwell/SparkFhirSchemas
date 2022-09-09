@@ -141,14 +141,14 @@ class MedicationStatementDosageSchema:
                 # Free text dosage information as reported about a patient's medication use.
                 # When coded dosage information is present, the free text may still be present
                 # for display to humans.
-                StructField("text", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("text", StringType(), True),
                 # The timing schedule for giving the medication to the patient.  The Schedule
                 # data type allows many different expressions, for example.  "Every  8 hours";
                 # "Three times a day"; "1/2 an hour before breakfast for 10 days from 23-Dec
                 # 2011:";  "15 Oct 2013, 17 Oct 2013 and 1 Nov 2013".
                 StructField("timing", TimingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("asNeededBoolean", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("asNeededBoolean", BooleanType(), True),
                 # None
                 StructField("asNeededCodeableConcept", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

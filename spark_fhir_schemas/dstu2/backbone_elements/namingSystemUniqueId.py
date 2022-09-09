@@ -79,9 +79,9 @@ class NamingSystemUniqueIdSchema:
                 StructField("type", NamingSystemIdentifierTypeCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The string that should be sent over the wire to identify the code system or
                 # identifier system.
-                StructField("value", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("value", StringType(), True),
                 # Indicates whether this identifier is the "preferred" identifier of this type.
-                StructField("preferred", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("preferred", BooleanType(), True),
                 # Identifies the period of time over which this identifier is considered
                 # appropriate to refer to the naming system.  Outside of this window, the
                 # identifier might be non-deterministic.

@@ -85,21 +85,21 @@ class BundleRequestSchema:
                 StructField("method", HTTPVerbCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The URL for this entry, relative to the root (the address to which the request
                 # is posted).
-                StructField("url", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("url", StringType(), True),
                 # If the ETag values match, return a 304 Not modified status. See the API
                 # documentation for ["Conditional Read"](http.html#cread).
-                StructField("ifNoneMatch", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ifNoneMatch", StringType(), True),
                 # Only perform the operation if the last updated date matches. See the API
                 # documentation for ["Conditional Read"](http.html#cread).
                 StructField("ifModifiedSince", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Only perform the operation if the Etag value matches. For more information,
                 # see the API section ["Managing Resource Contention"](http.html#concurrency).
-                StructField("ifMatch", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ifMatch", StringType(), True),
                 # Instruct the server not to perform the create if a specified resource already
                 # exists. For further information, see the API documentation for ["Conditional
                 # Create"](http.html#ccreate). This is just the query portion of the URL - what
                 # follows the "?" (not including the "?").
-                StructField("ifNoneExist", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ifNoneExist", StringType(), True),
             ]
         )
         if not include_extension:

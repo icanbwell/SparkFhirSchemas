@@ -71,7 +71,7 @@ class ElementDefinitionTypeSchema:
                 # content must conform to all of them. When an implementation guide is
                 # specified, the resource SHALL conform to at least one profile defined in the
                 # implementation guide.
-                StructField("profile", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("profile", StringType(), True),
                 # If the type is a reference to another resource, how the resource is or can be
                 # aggregated - is it a contained resource, or a reference, and if the context is
                 # a bundle, is it included in the bundle.

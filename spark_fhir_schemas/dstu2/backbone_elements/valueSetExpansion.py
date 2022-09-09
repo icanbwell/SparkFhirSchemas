@@ -83,7 +83,7 @@ class ValueSetExpansionSchema:
                 # An identifier that uniquely identifies this expansion of the valueset. Systems
                 # may re-use the same identifier as long as the expansion and the definition
                 # remain the same, but are not required to do so.
-                StructField("identifier", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("identifier", StringType(), True),
                 # The time at which the expansion was produced by the expanding system.
                 StructField("timestamp", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The total number of concepts in the expansion. If the number of concept nodes

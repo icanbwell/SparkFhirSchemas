@@ -75,7 +75,7 @@ class ValueSetConcept1Schema:
                 # The text to display to the user for this concept in the context of this
                 # valueset. If no display is provided, then applications using the value set use
                 # the display specified for the code by the system.
-                StructField("display", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("display", StringType(), True),
                 # Additional representations for this concept when used in this value set -
                 # other languages, aliases, specialized purposes, used for particular purposes,
                 # etc.

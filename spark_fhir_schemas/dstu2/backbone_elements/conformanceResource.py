@@ -120,22 +120,22 @@ class ConformanceResourceSchema:
                 StructField("versioning", ResourceVersionPolicyCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A flag for whether the server is able to return past versions as part of the
                 # vRead operation.
-                StructField("readHistory", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("readHistory", BooleanType(), True),
                 # A flag to indicate that the server allows or needs to allow the client to
                 # create new identities on the server (e.g. that is, the client PUTs to a
                 # location where there is no existing resource). Allowing this operation means
                 # that the server allows the client to create new identities on the server.
-                StructField("updateCreate", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("updateCreate", BooleanType(), True),
                 # A flag that indicates that the server supports conditional create.
-                StructField("conditionalCreate", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("conditionalCreate", BooleanType(), True),
                 # A flag that indicates that the server supports conditional update.
-                StructField("conditionalUpdate", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("conditionalUpdate", BooleanType(), True),
                 # A code that indicates how the server supports conditional delete.
                 StructField("conditionalDelete", ConditionalDeleteStatusCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A list of _include values supported by the server.
-                StructField("searchInclude", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("searchInclude", StringType(), True),
                 # A list of _revinclude (reverse include) values supported by the server.
-                StructField("searchRevInclude", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("searchRevInclude", StringType(), True),
                 # Search parameters for implementations to support and/or make use of - either
                 # references to ones defined in the specification, or additional ones defined
                 # for/by the implementation.

@@ -52,7 +52,9 @@ class {{fhir_entity.cleaned_name}}Schema:
         return FloatType()
     {% elif fhir_entity.base_type == "integer" %}
         return IntegerType()
-    {% elif fhir_entity.base_type == "base64Binary" %}
+    {% elif fhir_entity.type_ == "Element" %}
+        return StringType()
+    {% elif fhir_entity.base_type == "uri" %}
         return StringType()
     {%  elif not fhir_entity.base_type %}
         return StringType()
@@ -102,23 +104,25 @@ class {{fhir_entity.cleaned_name}}Schema:
                 {% elif property.base_type == "number" or property.cleaned_type == "number" %}
                 StructField("{{property.name}}",ArrayType(IntegerType()), True),
                 {% endif %}
-            {% elif not property.base_type and not property.cleaned_type %}
+            {% elif not property.base_type and not property.type_ %}
                 StructField("{{property.name}}", StringType(), True),
-            {% elif property.base_type == "date" or property.cleaned_type == "date" %}
+            {% elif property.base_type == "date" or property.type_ == "date" %}
                 StructField("{{property.name}}", DateType(), True),
-            {% elif (property.base_type == "number" or property.cleaned_type == "number") and ("Decimal" in property.name) %}
+            {% elif (property.base_type == "number" or property.type_ == "number") and ("Decimal" in property.name) %}
                 StructField("{{property.name}}", FloatType(), True),
-            {% elif (property.base_type == "number" or property.cleaned_type == "number") and ("\\." in property.Pattern) %}
+            {% elif (property.base_type == "number" or property.type_ == "number") and ("\\." in property.Pattern) %}
                 StructField("{{property.name}}", FloatType(), True),
-            {% elif (property.base_type == "string" or property.cleaned_type == "string") and ("DateTime" in property.name) %}
+            {% elif (property.base_type == "string" or property.type_ == "string") and ("DateTime" in property.name) %}
                 StructField("{{property.name}}", TimestampType(), True),
-            {% elif (property.base_type == "string" or property.cleaned_type == "string") and ("Date" in property.name) %}
+            {% elif (property.base_type == "string" or property.type_ == "string") and ("Date" in property.name) %}
                 StructField("{{property.name}}", DateType(), True),
-            {% elif property.base_type == "string" or property.cleaned_type == "string" %}
+            {% elif property.base_type == "uri" or property.type_ == "uri" %}
                 StructField("{{property.name}}", StringType(), True),
-            {% elif property.base_type == "boolean" or property.cleaned_type == "boolean" %}
+            {% elif property.base_type == "string" or property.type_ == "string" %}
+                StructField("{{property.name}}", StringType(), True),
+            {% elif property.base_type == "boolean" or property.type_ == "boolean" %}
                 StructField("{{property.name}}", BooleanType(), True),
-            {% elif property.base_type == "number" or property.cleaned_type == "number" %}
+            {% elif property.base_type == "number" or property.type_ == "number" %}
                 StructField("{{property.name}}", IntegerType(), True),
 
             {% else %}

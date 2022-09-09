@@ -91,7 +91,7 @@ class SampledDataSchema:
                 # A series of data points which are decimal values separated by a single space
                 # (character u20). The special values "E" (error), "L" (below detection limit)
                 # and "U" (above detection limit) can also be used in place of a decimal value.
-                StructField("data", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("data", StringType(), True),
             ]
         )
         if not include_extension:

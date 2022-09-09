@@ -79,7 +79,7 @@ class DeviceComponentProductionSpecificationSchema:
                 # has a partition for private OID semantic that the manufacture can make use of.
                 StructField("componentId", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the printable string defining the component.
-                StructField("productionSpec", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("productionSpec", StringType(), True),
             ]
         )
         if not include_extension:

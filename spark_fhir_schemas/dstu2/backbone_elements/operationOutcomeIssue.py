@@ -91,11 +91,11 @@ class OperationOutcomeIssueSchema:
                 # Additional diagnostic information about the issue.  Typically, this may be a
                 # description of how a value is erroneous, or a stack dump to help trace the
                 # issue.
-                StructField("diagnostics", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("diagnostics", StringType(), True),
                 # A simple XPath limited to element names, repetition indicators and the default
                 # child access that identifies one of the elements in the resource that caused
                 # this issue to be raised.
-                StructField("location", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("location", StringType(), True),
             ]
         )
         if not include_extension:

@@ -70,14 +70,14 @@ class ElementDefinitionSlicingSchema:
                 # value of the child elements in the instance data SHALL completely distinguish
                 # which slice the element in the resource matches based on the allowed values
                 # for those elements in each of the slices.
-                StructField("discriminator", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("discriminator", StringType(), True),
                 # A human-readable text description of how the slicing works. If there is no
                 # discriminator, this is required to be present to provide whatever information
                 # is possible about how the slices can be differentiated.
-                StructField("description", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("description", StringType(), True),
                 # If the matching elements have to occur in the same order as defined in the
                 # profile.
-                StructField("ordered", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ordered", BooleanType(), True),
                 # Whether additional slices are allowed or not. When the slices are ordered,
                 # profile authors can also say that additional slices are only allowed at the
                 # end.

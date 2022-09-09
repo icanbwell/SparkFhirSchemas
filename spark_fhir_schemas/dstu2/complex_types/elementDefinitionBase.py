@@ -61,11 +61,11 @@ class ElementDefinitionBaseSchema:
                 # ElementDefinition.path for that element. Across FHIR, there is only one base
                 # definition of any element - that is, an element definition on a
                 # [[[StructureDefinition]]] without a StructureDefinition.base.
-                StructField("path", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("path", StringType(), True),
                 # Minimum cardinality of the base element identified by the path.
                 StructField("min", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Maximum cardinality of the base element identified by the path.
-                StructField("max", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("max", StringType(), True),
             ]
         )
         if not include_extension:

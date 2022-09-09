@@ -78,16 +78,16 @@ class ValueSetCodeSystemSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI that is used to reference this code system, including in
                 # [Coding]{datatypes.html#Coding}.system.
-                StructField("system", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("system", StringType(), True),
                 # The version of this code system that defines the codes. Note that the version
                 # is optional because a well maintained code system does not suffer from
                 # versioning, and therefore the version does not need to be maintained. However
                 # many code systems are not well maintained, and the version needs to be defined
                 # and tracked.
-                StructField("version", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("version", StringType(), True),
                 # If code comparison is case sensitive when codes within this system are
                 # compared to each other.
-                StructField("caseSensitive", ElementSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("caseSensitive", BooleanType(), True),
                 # Concepts that are in the code system. The concept definitions are inherently
                 # hierarchical, but the definitions must be consulted to determine what the
                 # meaning of the hierarchical relationships are.
