@@ -73,9 +73,9 @@ class AuditEventParticipantSchema:
             # userId
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # altId
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # requestor
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # location
@@ -136,7 +136,7 @@ class AuditEventParticipantSchema:
                 # single activity may have multiple applicable policies, such as patient
                 # consent, guarantor funding, etc. The policy would also indicate the security
                 # token used.
-                StructField("policy", StringType(), True),
+                StructField("policy", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Type of media involved. Used when the event is about exporting/importing onto
                 # media.
                 StructField("media", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

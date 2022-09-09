@@ -67,9 +67,9 @@ class TestScriptOperationSchema:
             # resource
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # label
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # accept
              # type = code
             # contentType
@@ -79,7 +79,7 @@ class TestScriptOperationSchema:
             # encodeRequestUrl
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # params
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # requestHeader
         Not mapped: TestScriptRequestHeader
             # responseId
@@ -89,7 +89,7 @@ class TestScriptOperationSchema:
             # targetId
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # url
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("TestScriptOperation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -125,10 +125,10 @@ class TestScriptOperationSchema:
                 StructField("description", StringType(), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Accept'
                 # header.
-                StructField("accept", ContentTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("accept", StringType(), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Content-
                 # Type' header.
-                StructField("contentType", ContentTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contentType", StringType(), True),
                 # Which server to perform the operation on.
                 StructField("destination", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether or not to implicitly send the request url in encoded format. The

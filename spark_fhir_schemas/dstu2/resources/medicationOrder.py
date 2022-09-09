@@ -127,7 +127,7 @@ class MedicationOrderSchema:
             # reasonReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # note
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # medicationCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # medicationReference
@@ -195,7 +195,7 @@ class MedicationOrderSchema:
                 StructField("dateWritten", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code specifying the state of the order.  Generally this will be active or
                 # completed state.
-                StructField("status", MedicationOrderStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The date (and perhaps time) when the prescription was stopped.
                 StructField("dateEnded", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The reason why the prescription was stopped, if it was.

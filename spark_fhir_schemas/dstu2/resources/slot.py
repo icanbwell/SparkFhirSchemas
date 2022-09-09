@@ -96,7 +96,7 @@ class SlotSchema:
             # overbooked
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # comment
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("Slot") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -153,7 +153,7 @@ class SlotSchema:
                 # information.
                 StructField("schedule", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # busy | free | busy-unavailable | busy-tentative.
-                StructField("freeBusyType", SlotStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("freeBusyType", StringType(), True),
                 # Date/Time that the slot is to begin.
                 StructField("start", instantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Date/Time that the slot is to conclude.

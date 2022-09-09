@@ -56,7 +56,7 @@ class ConformanceMessagingSchema:
             # reliableCache
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
             # documentation
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # event
         Not mapped: ConformanceEvent
         if (max_recursion_limit and nesting_list.count("ConformanceMessaging") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

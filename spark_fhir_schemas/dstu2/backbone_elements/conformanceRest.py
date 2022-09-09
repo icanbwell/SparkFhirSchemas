@@ -64,7 +64,7 @@ class ConformanceRestSchema:
             # mode
              # type = code
             # documentation
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # security
         Not mapped: ConformanceSecurity
             # resource
@@ -105,7 +105,7 @@ class ConformanceRestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies whether this portion of the statement is describing ability to
                 # initiate or receive restful operations.
-                StructField("mode", RestfulConformanceModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mode", StringType(), True),
                 # Information about the system's restful capabilities that apply across all
                 # applications, such as security.
                 StructField("documentation", StringType(), True),
@@ -118,7 +118,7 @@ class ConformanceRestSchema:
                 # A specification of restful operations supported by the system.
                 StructField("interaction", ConformanceInteraction1Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code that indicates how transactions are supported.
-                StructField("transactionMode", TransactionModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("transactionMode", StringType(), True),
                 # Search parameters that are supported for searching all resources for
                 # implementations to support and/or make use of - either references to ones
                 # defined in the specification, or additional ones defined for/by the

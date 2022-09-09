@@ -48,9 +48,9 @@ class TestScriptTestSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # metadata
         Not mapped: TestScriptMetadata
             # action

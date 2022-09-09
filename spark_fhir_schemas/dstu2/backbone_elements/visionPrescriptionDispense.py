@@ -80,11 +80,11 @@ class VisionPrescriptionDispenseSchema:
             # duration
         Not mapped: SimpleQuantity
             # color
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # brand
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # notes
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("VisionPrescriptionDispense") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -113,7 +113,7 @@ class VisionPrescriptionDispenseSchema:
                 # patient.
                 StructField("product", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The eye for which the lens applies.
-                StructField("eye", VisionEyesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("eye", StringType(), True),
                 # Lens power measured in diopters (0.25 units).
                 StructField("sphere", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Power adjustment for astigmatism measured in diopters (0.25 units).
@@ -123,7 +123,7 @@ class VisionPrescriptionDispenseSchema:
                 # Amount of prism to compensate for eye alignment in fractional units.
                 StructField("prism", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The relative base, or reference lens edge, for the prism.
-                StructField("base", VisionBaseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("base", StringType(), True),
                 # Power adjustment for multifocal lenses measured in diopters (0.25 units).
                 StructField("add", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Contact lens power measured in diopters (0.25 units).

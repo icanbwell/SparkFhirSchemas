@@ -54,11 +54,11 @@ class QuestionnaireResponseGroupSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # linkId
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # title
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # text
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # subject
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # question

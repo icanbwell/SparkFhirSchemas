@@ -123,7 +123,7 @@ class ImmunizationSchema:
             # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # lotNumber
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # expirationDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
             # site

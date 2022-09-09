@@ -54,7 +54,7 @@ class ConceptMapDependsOnSchema:
             # codeSystem
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # code
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("ConceptMapDependsOn") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -83,10 +83,10 @@ class ConceptMapDependsOnSchema:
                 # element in a FHIR resource, or a specific reference to a data element in a
                 # different specification (e.g. HL7 v2) or a general reference to a kind of data
                 # field, or a reference to a value set with an appropriately narrow definition.
-                StructField("element", StringType(), True),
+                StructField("element", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI that identifies the code system of the dependency code (if the
                 # source/dependency is a value set that crosses code systems).
-                StructField("codeSystem", StringType(), True),
+                StructField("codeSystem", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identity (code or path) or the element/item/ValueSet that the map depends on /
                 # refers to.
                 StructField("code", StringType(), True),

@@ -46,7 +46,7 @@ class AuditEventDetailSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # type
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # value
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
         if (max_recursion_limit and nesting_list.count("AuditEventDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

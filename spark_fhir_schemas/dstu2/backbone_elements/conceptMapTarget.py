@@ -64,7 +64,7 @@ class ConceptMapTargetSchema:
             # equivalence
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # comments
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # dependsOn
         Not mapped: ConceptMapDependsOn
             # product
@@ -95,7 +95,7 @@ class ConceptMapTargetSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI that identifies the code system of the target code (if the
                 # target is a value set that cross code systems).
-                StructField("codeSystem", StringType(), True),
+                StructField("codeSystem", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identity (code or path) or the element/item that the map refers to.
                 StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The equivalence between the source and target concepts (counting for the

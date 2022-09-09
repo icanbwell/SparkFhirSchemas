@@ -90,15 +90,15 @@ class SubscriptionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # criteria
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
             # reason
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
              # type = code
             # error
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # channel
         Not mapped: SubscriptionChannel
             # end
@@ -160,7 +160,7 @@ class SubscriptionSchema:
                 StructField("reason", StringType(), True),
                 # The status of the subscription, which marks the server state for managing the
                 # subscription.
-                StructField("status", SubscriptionStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A record of the last error that occurred when the server processed a
                 # notification.
                 StructField("error", StringType(), True),

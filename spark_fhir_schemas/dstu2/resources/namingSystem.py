@@ -97,27 +97,27 @@ class NamingSystemSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # kind
              # type = code
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         Not mapped: NamingSystemContact
             # responsible
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # usage
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # uniqueId
         Not mapped: NamingSystemUniqueId
             # replacedBy
@@ -173,7 +173,7 @@ class NamingSystemSchema:
                 StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the purpose for the naming system - what kinds of things does it
                 # make unique?
-                StructField("kind", NamingSystemTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("kind", StringType(), True),
                 # The name of the individual or organization that published the naming system.
                 StructField("publisher", StringType(), True),
                 # Contacts to assist a user in finding and communicating with the publisher.

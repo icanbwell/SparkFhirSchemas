@@ -158,7 +158,7 @@ class MedicationStatementSchema:
             # effectivePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # note
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # supportingInformation
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # medicationCodeableConcept
@@ -229,7 +229,7 @@ class MedicationStatementSchema:
                 # A code representing the patient or other source's judgment about the state of
                 # the medication used that this statement is about.  Generally this will be
                 # active or completed.
-                StructField("status", MedicationStatementStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # Set this to true if the record is saying that the medication was NOT taken.
                 StructField("wasNotTaken", BooleanType(), True),
                 # A code indicating why the medication was not taken.

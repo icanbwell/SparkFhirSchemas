@@ -45,11 +45,11 @@ class BundleResponseSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # status
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # location
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # etag
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # lastModified
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
         if (max_recursion_limit and nesting_list.count("BundleResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -79,7 +79,7 @@ class BundleResponseSchema:
                 # The status code returned by processing this entry.
                 StructField("status", StringType(), True),
                 # The location header created by processing this operation.
-                StructField("location", StringType(), True),
+                StructField("location", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The etag for the resource, it the operation for the entry produced a versioned
                 # resource.
                 StructField("etag", StringType(), True),

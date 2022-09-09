@@ -105,7 +105,7 @@ class MediaSchema:
             # view
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # deviceName
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # height
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # width
@@ -163,7 +163,7 @@ class MediaSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether the media is a photo (still image), an audio recording, or a video
                 # recording.
-                StructField("type", DigitalMediaTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # Details of the type of the media - usually, how it was acquired (what type of
                 # device). If images sourced from a DICOM system, are wrapped in a Media
                 # resource, then this is the modality.

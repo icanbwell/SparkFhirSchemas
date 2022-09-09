@@ -44,7 +44,7 @@ class ElementDefinitionBindingSchema:
             # strength
              # type = code
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # valueSetUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # valueSetReference
@@ -67,7 +67,7 @@ class ElementDefinitionBindingSchema:
                 # Indicates the degree of conformance expectations associated with this binding
                 # - that is, the degree to which the provided value set must be adhered to in
                 # the instances.
-                StructField("strength", BindingStrengthSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("strength", StringType(), True),
                 # Describes the intended use of this particular set of codes.
                 StructField("description", StringType(), True),
                 # None

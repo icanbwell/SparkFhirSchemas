@@ -53,7 +53,7 @@ class SpecimenContainerSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # capacity

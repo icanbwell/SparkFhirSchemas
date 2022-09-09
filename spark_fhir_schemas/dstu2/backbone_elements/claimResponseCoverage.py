@@ -59,11 +59,11 @@ class ClaimResponseCoverageSchema:
             # coverage
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # businessArrangement
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # relationship
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # preAuthRef
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # claimResponse
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # originalRuleset

@@ -88,9 +88,9 @@ class ConformanceResourceSchema:
             # conditionalDelete
              # type = code
             # searchInclude
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # searchRevInclude
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # searchParam
         Not mapped: ConformanceSearchParam
         if (max_recursion_limit and nesting_list.count("ConformanceResource") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -132,7 +132,7 @@ class ConformanceResourceSchema:
                 # versionId meta-property on resources. If the value is 'versioned-update', then
                 # the server supports all the versioning features, including using e-tags for
                 # version integrity in the API.
-                StructField("versioning", ResourceVersionPolicySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("versioning", StringType(), True),
                 # A flag for whether the server is able to return past versions as part of the
                 # vRead operation.
                 StructField("readHistory", BooleanType(), True),
@@ -146,7 +146,7 @@ class ConformanceResourceSchema:
                 # A flag that indicates that the server supports conditional update.
                 StructField("conditionalUpdate", BooleanType(), True),
                 # A code that indicates how the server supports conditional delete.
-                StructField("conditionalDelete", ConditionalDeleteStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("conditionalDelete", StringType(), True),
                 # A list of _include values supported by the server.
                 StructField("searchInclude", StringType(), True),
                 # A list of _revinclude (reverse include) values supported by the server.

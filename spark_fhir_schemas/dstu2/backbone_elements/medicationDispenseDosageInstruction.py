@@ -72,7 +72,7 @@ class MedicationDispenseDosageInstructionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # text
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # additionalInstructions
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # timing

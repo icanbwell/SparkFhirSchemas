@@ -116,7 +116,7 @@ class CompositionSchema:
             # class
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # title
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
              # type = code
             # confidentiality
@@ -198,7 +198,7 @@ class CompositionSchema:
                 StructField("title", StringType(), True),
                 # The workflow/clinical status of this composition. The status is a marker for
                 # the clinical standing of the document.
-                StructField("status", CompositionStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The code specifying the level of confidentiality of the Composition.
                 StructField("confidentiality", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Who or what the composition is about. The composition can be about a person,

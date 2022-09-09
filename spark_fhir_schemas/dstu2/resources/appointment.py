@@ -109,7 +109,7 @@ class AppointmentSchema:
             # priority
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # start
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # end
@@ -119,7 +119,7 @@ class AppointmentSchema:
             # slot
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # comment
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # participant
         Not mapped: AppointmentParticipant
         if (max_recursion_limit and nesting_list.count("Appointment") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -175,7 +175,7 @@ class AppointmentSchema:
                 # The overall status of the Appointment. Each of the participants has their own
                 # participation status which indicates their involvement in the process, however
                 # this status indicates the shared status.
-                StructField("status", AppointmentStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The type of appointment that is being booked (This may also be associated with
                 # participants for location, and/or a HealthcareService).
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

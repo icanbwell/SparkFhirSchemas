@@ -132,7 +132,7 @@ class MedicationDispenseSchema:
             # receiver
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # note
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # dosageInstruction
         Not mapped: MedicationDispenseDosageInstruction
             # substitution
@@ -186,7 +186,7 @@ class MedicationDispenseSchema:
                 # assigned outside FHIR.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code specifying the state of the set of dispense events.
-                StructField("status", MedicationDispenseStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A link to a resource representing the person to whom the medication will be
                 # given.
                 StructField("patient", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

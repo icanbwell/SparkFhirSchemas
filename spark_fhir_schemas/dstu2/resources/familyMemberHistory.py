@@ -109,7 +109,7 @@ class FamilyMemberHistorySchema:
             # status
              # type = code
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # relationship
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # gender
@@ -119,13 +119,13 @@ class FamilyMemberHistorySchema:
             # bornDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
             # bornString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # ageQuantity
         Not mapped: Age
             # ageRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # ageString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # deceasedBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # deceasedQuantity
@@ -135,7 +135,7 @@ class FamilyMemberHistorySchema:
             # deceasedDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
             # deceasedString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
             # condition
@@ -195,7 +195,7 @@ class FamilyMemberHistorySchema:
                 # The date (and possibly time) when the family member history was taken.
                 StructField("date", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code specifying a state of a Family Member History record.
-                StructField("status", FamilyHistoryStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # This will either be a name or a description; e.g. "Aunt Susan", "my cousin
                 # with the red hair".
                 StructField("name", StringType(), True),

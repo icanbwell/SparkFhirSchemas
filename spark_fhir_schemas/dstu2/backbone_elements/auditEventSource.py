@@ -49,7 +49,7 @@ class AuditEventSourceSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # site
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # type

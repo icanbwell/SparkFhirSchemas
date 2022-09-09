@@ -145,7 +145,7 @@ class ObservationSchema:
             # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # valueString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # valueRatio
@@ -165,7 +165,7 @@ class ObservationSchema:
             # interpretation
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # comments
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # method
@@ -228,7 +228,7 @@ class ObservationSchema:
                 # A unique identifier for the simple observation instance.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the result value.
-                StructField("status", ObservationStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A code that classifies the general type of observation being made.  This is
                 # used  for searching, sorting and display purposes.
                 StructField("category", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

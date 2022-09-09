@@ -134,7 +134,7 @@ class ConditionSchema:
             # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # onsetString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # abatementDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # abatementQuantity
@@ -146,7 +146,7 @@ class ConditionSchema:
             # abatementRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # abatementString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # stage
         Not mapped: ConditionStage
             # evidence
@@ -154,7 +154,7 @@ class ConditionSchema:
             # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # notes
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("Condition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -220,7 +220,7 @@ class ConditionSchema:
                 # The clinical status of the condition.
                 StructField("clinicalStatus", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The verification status to support the clinical status of the condition.
-                StructField("verificationStatus", ConditionVerificationStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("verificationStatus", StringType(), True),
                 # A subjective assessment of the severity of the condition as evaluated by the
                 # clinician.
                 StructField("severity", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

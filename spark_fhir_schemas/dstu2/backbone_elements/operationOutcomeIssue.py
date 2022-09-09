@@ -60,9 +60,9 @@ class OperationOutcomeIssueSchema:
             # details
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # diagnostics
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # location
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("OperationOutcomeIssue") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -88,11 +88,11 @@ class OperationOutcomeIssueSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates whether the issue indicates a variation from successful processing.
-                StructField("severity", IssueSeveritySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("severity", StringType(), True),
                 # Describes the type of the issue. The system that creates an OperationOutcome
                 # SHALL choose the most applicable code from the IssueType value set, and may
                 # additional provide its own code for the error in the details element.
-                StructField("code", IssueTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("code", StringType(), True),
                 # Additional details about the error. This may be a text description of the
                 # error, or a system code that identifies the error.
                 StructField("details", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

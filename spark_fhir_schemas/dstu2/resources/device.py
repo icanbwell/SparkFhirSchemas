@@ -117,19 +117,19 @@ class DeviceSchema:
             # status
              # type = code
             # manufacturer
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # model
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # manufactureDate
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # expiry
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # udi
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # lotNumber
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # owner
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # location
@@ -195,7 +195,7 @@ class DeviceSchema:
                 # not captured in an existing element.
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Status of the Device availability.
-                StructField("status", DeviceStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A name of the manufacturer.
                 StructField("manufacturer", StringType(), True),
                 # The "model" is an identifier assigned by the manufacturer to identify the

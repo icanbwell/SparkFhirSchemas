@@ -48,9 +48,9 @@ class QuestionnaireResponseQuestionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # linkId
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # text
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # answer
         Not mapped: QuestionnaireResponseAnswer
         if (max_recursion_limit and nesting_list.count("QuestionnaireResponseQuestion") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

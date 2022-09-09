@@ -90,7 +90,7 @@ class BundleEntrySchema:
                 # The Absolute URL for the resource. This must be provided for all resources.
                 # The fullUrl SHALL not disagree with the id in the resource. The fullUrl is a
                 # version independent reference to the resource.
-                StructField("fullUrl", StringType(), True),
+                StructField("fullUrl", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The Resources for the entry.
                 StructField("resource", ResourceContainerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Information about the search process that lead to the creation of this entry.

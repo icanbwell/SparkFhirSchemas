@@ -58,13 +58,13 @@ class BundleRequestSchema:
             # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # ifNoneMatch
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # ifModifiedSince
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # ifMatch
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # ifNoneExist
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("BundleRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -91,7 +91,7 @@ class BundleRequestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The HTTP verb for this entry in either a update history, or a transaction/
                 # transaction response.
-                StructField("method", HTTPVerbSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("method", StringType(), True),
                 # The URL for this entry, relative to the root (the address to which the request
                 # is posted).
                 StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

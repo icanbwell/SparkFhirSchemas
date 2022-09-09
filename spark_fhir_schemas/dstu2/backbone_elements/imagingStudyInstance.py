@@ -64,9 +64,9 @@ class ImagingStudyInstanceSchema:
             # sopClass
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
             # type
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # title
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # content
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
         if (max_recursion_limit and nesting_list.count("ImagingStudyInstance") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

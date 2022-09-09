@@ -105,7 +105,7 @@ class MedicationStatementDosageSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # text
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # timing
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
             # asNeededBoolean

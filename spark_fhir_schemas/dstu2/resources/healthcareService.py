@@ -115,11 +115,11 @@ class HealthcareServiceSchema:
             # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # serviceName
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # comment
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # extraDetails
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # photo
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
             # telecom
@@ -131,15 +131,15 @@ class HealthcareServiceSchema:
             # eligibility
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # eligibilityNote
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # programName
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # characteristic
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # referralMethod
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # publicKey
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # appointmentRequired
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # availableTime
@@ -147,7 +147,7 @@ class HealthcareServiceSchema:
             # notAvailable
         Not mapped: HealthcareServiceNotAvailable
             # availabilityExceptions
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("HealthcareService") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -163,7 +163,7 @@ class HealthcareServiceSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be

@@ -58,7 +58,7 @@ class TestScriptCapabilitySchema:
             # validated
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # destination
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
             # link
@@ -102,7 +102,7 @@ class TestScriptCapabilitySchema:
                 StructField("destination", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Links to the FHIR specification that describes this interaction and the
                 # resources involved in more detail.
-                StructField("link", StringType(), True),
+                StructField("link", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Minimum conformance required of server for test script to execute
                 # successfully.   If server does not meet at a minimum the reference conformance
                 # definition, then all tests in this script are skipped.

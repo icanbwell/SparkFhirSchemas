@@ -111,9 +111,9 @@ class OperationDefinitionSchema:
             # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # kind
@@ -121,21 +121,21 @@ class OperationDefinitionSchema:
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         Not mapped: OperationDefinitionContact
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # requirements
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # idempotent
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # code
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # notes
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # base
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # system
@@ -206,7 +206,7 @@ class OperationDefinitionSchema:
                 # The status of the profile.
                 StructField("status", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether this is an operation or a named query.
-                StructField("kind", OperationKindSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("kind", StringType(), True),
                 # This profile was authored for testing purposes (or
                 # education/evaluation/marketing), and is not intended to be used for genuine
                 # usage.

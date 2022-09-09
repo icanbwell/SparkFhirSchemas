@@ -134,7 +134,7 @@ class MedicationAdministrationSchema:
             # device
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # note
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # dosage
         Not mapped: MedicationAdministrationDosage
         if (max_recursion_limit and nesting_list.count("MedicationAdministration") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -194,7 +194,7 @@ class MedicationAdministrationSchema:
                 # some long running administrations such as infusions it is possible for an
                 # administration to be started but not completed or it may be paused while some
                 # other process is under way.
-                StructField("status", MedicationAdministrationStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The person or animal receiving the medication.
                 StructField("patient", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The individual who was responsible for giving the medication to the patient.

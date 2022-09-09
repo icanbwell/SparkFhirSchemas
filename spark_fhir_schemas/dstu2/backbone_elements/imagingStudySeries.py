@@ -67,7 +67,7 @@ class ImagingStudySeriesSchema:
             # uid
         from spark_fhir_schemas.dstu2.simple_types.oid import oidSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # numberOfInstances
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
             # availability
@@ -117,7 +117,7 @@ class ImagingStudySeriesSchema:
                 # Number of SOP Instances in Series.
                 StructField("numberOfInstances", unsignedIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Availability of series (online, offline or nearline).
-                StructField("availability", InstanceAvailabilitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("availability", StringType(), True),
                 # URI/URL specifying the location of the referenced series using WADO-RS.
                 StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Body part examined. See  DICOM Part 16 Annex L for the mapping from DICOM to

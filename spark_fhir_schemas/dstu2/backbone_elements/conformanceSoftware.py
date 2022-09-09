@@ -47,9 +47,9 @@ class ConformanceSoftwareSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # releaseDate
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
         if (max_recursion_limit and nesting_list.count("ConformanceSoftware") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

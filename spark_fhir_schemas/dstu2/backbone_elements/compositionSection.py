@@ -70,7 +70,7 @@ class CompositionSectionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # title
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # text

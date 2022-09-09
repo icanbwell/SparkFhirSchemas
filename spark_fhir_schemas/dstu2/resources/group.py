@@ -93,7 +93,7 @@ class GroupSchema:
             # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # quantity
         from spark_fhir_schemas.dstu2.simple_types.unsignedint import unsignedIntSchema
             # characteristic
@@ -149,7 +149,7 @@ class GroupSchema:
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the broad classification of the kind of resources the group
                 # includes.
-                StructField("type", GroupTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("type", StringType(), True),
                 # If true, indicates that the resource refers to a specific group of real
                 # individuals.  If false, the group defines a set of intended individuals.
                 StructField("actual", BooleanType(), True),

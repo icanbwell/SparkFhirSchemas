@@ -47,7 +47,7 @@ class CommunicationPayloadSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # contentString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contentAttachment
         from spark_fhir_schemas.dstu2.complex_types.attachment import AttachmentSchema
             # contentReference

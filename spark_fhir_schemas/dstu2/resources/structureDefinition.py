@@ -135,29 +135,29 @@ class StructureDefinitionSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # display
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         Not mapped: StructureDefinitionContact
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # requirements
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # copyright
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # fhirVersion
@@ -173,7 +173,7 @@ class StructureDefinitionSchema:
             # contextType
              # type = code
             # context
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # base
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # snapshot
@@ -285,7 +285,7 @@ class StructureDefinitionSchema:
                 # An external specification that the content is mapped to.
                 StructField("mapping", StructureDefinitionMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Defines the kind of structure that this definition is describing.
-                StructField("kind", StructureDefinitionKindSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("kind", StringType(), True),
                 # The type of type that is being constrained - a data type, an extension, a
                 # resource, including abstract ones. If this field is present, it indicates that
                 # the structure definition is a constraint. If it is not present, then the
@@ -296,7 +296,7 @@ class StructureDefinitionSchema:
                 StructField("abstract", BooleanType(), True),
                 # If this is an extension, Identifies the context within FHIR resources where
                 # the extension can be used.
-                StructField("contextType", ExtensionContextSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("contextType", StringType(), True),
                 # Identifies the types of resource or data type elements to which the extension
                 # can be applied.
                 StructField("context", StringType(), True),

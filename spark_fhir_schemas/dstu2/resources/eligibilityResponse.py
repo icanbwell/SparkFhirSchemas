@@ -89,7 +89,7 @@ class EligibilityResponseSchema:
             # outcome
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # disposition
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # ruleset
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # originalRuleset
@@ -117,7 +117,7 @@ class EligibilityResponseSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be

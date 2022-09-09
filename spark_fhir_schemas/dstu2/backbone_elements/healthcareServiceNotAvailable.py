@@ -43,7 +43,7 @@ class HealthcareServiceNotAvailableSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # during
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("HealthcareServiceNotAvailable") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

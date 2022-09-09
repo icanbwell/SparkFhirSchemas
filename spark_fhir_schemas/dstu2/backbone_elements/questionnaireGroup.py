@@ -59,13 +59,13 @@ class QuestionnaireGroupSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # linkId
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # title
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # concept
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # text
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # required
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # repeats

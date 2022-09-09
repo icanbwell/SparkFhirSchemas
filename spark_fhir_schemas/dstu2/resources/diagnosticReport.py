@@ -141,7 +141,7 @@ class DiagnosticReportSchema:
             # image
         Not mapped: DiagnosticReportImage
             # conclusion
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # codedDiagnosis
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # presentedForm
@@ -195,7 +195,7 @@ class DiagnosticReportSchema:
                 # Information System of the diagnostic service provider.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the diagnostic report as a whole.
-                StructField("status", DiagnosticReportStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # A code that classifies the clinical discipline, department or diagnostic
                 # service that created the report (e.g. cardiology, biochemistry, hematology,
                 # MRI). This is used for searching, sorting and display purposes.

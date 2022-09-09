@@ -50,11 +50,11 @@ class CodingSchema:
             # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # code
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # display
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # userSelected
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
         if (max_recursion_limit and nesting_list.count("Coding") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

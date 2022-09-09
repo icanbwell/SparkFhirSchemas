@@ -63,7 +63,7 @@ class ObservationComponentSchema:
             # valueCodeableConcept
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # valueString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # valueRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # valueRatio

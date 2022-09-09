@@ -97,7 +97,7 @@ class DetectedIssueSchema:
             # implicated
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # detail
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # author
@@ -159,7 +159,7 @@ class DetectedIssueSchema:
                 StructField("category", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the degree of importance associated with the identified issue based
                 # on the potential impact on the patient.
-                StructField("severity", DetectedIssueSeveritySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("severity", StringType(), True),
                 # Indicates the resource representing the current activity or proposed activity
                 # that is potentially problematic.
                 StructField("implicated", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

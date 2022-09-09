@@ -53,9 +53,9 @@ class DataElementMappingSchema:
             # uri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # comments
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
         if (max_recursion_limit and nesting_list.count("DataElementMapping") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -85,7 +85,7 @@ class DataElementMappingSchema:
                 StructField("identity", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI that identifies the specification that this mapping is
                 # expressed to.
-                StructField("uri", StringType(), True),
+                StructField("uri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A name for the specification that is being mapped to.
                 StructField("name", StringType(), True),
                 # Comments about this mapping, including version notes, issues, scope

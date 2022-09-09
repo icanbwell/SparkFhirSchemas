@@ -79,7 +79,7 @@ class ExtensionSchema:
             # valueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # valueString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # valueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # valueDate

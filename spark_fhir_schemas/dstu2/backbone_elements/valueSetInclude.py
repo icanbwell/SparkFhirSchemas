@@ -49,7 +49,7 @@ class ValueSetIncludeSchema:
             # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # concept
         Not mapped: ValueSetConcept1
             # filter
@@ -80,7 +80,7 @@ class ValueSetIncludeSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI which is the code system from which the selected codes come
                 # from.
-                StructField("system", StringType(), True),
+                StructField("system", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The version of the code system that the codes are selected from.
                 StructField("version", StringType(), True),
                 # Specifies a concept to be included or excluded.

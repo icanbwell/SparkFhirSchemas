@@ -59,11 +59,11 @@ class ImmunizationVaccinationProtocolSchema:
             # doseSequence
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # authority
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # series
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # seriesDoses
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # targetDisease

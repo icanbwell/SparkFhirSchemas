@@ -64,7 +64,7 @@ class AuditEventEventSchema:
             # outcome
              # type = code
             # outcomeDesc
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # purposeOfEvent
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
         if (max_recursion_limit and nesting_list.count("AuditEventEvent") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -99,11 +99,11 @@ class AuditEventEventSchema:
                 StructField("subtype", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicator for type of action performed during the event that generated the
                 # audit.
-                StructField("action", AuditEventActionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("action", StringType(), True),
                 # The time when the event occurred on the source.
                 StructField("dateTime", instantSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates whether the event succeeded or failed.
-                StructField("outcome", AuditEventOutcomeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("outcome", StringType(), True),
                 # A free text description of the outcome of the event.
                 StructField("outcomeDesc", StringType(), True),
                 # The purposeOfUse (reason) that was used during the event being recorded.

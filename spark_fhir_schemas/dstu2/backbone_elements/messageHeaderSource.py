@@ -55,11 +55,11 @@ class MessageHeaderSourceSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # software
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
             # endpoint
@@ -99,7 +99,7 @@ class MessageHeaderSourceSchema:
                 # message communications.
                 StructField("contact", ContactPointSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the routing target to send acknowledgements to.
-                StructField("endpoint", StringType(), True),
+                StructField("endpoint", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

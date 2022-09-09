@@ -72,7 +72,7 @@ class ProvenanceEntitySchema:
             # reference
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # display
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # agent
         Not mapped: ProvenanceAgent
         if (max_recursion_limit and nesting_list.count("ProvenanceEntity") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -100,7 +100,7 @@ class ProvenanceEntitySchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # How the entity was used during the activity.
-                StructField("role", ProvenanceEntityRoleSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("role", StringType(), True),
                 # The type of the entity. If the entity is a resource, then this is a resource
                 # type.
                 StructField("type", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

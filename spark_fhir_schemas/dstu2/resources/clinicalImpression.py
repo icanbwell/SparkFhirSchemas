@@ -117,7 +117,7 @@ class ClinicalImpressionSchema:
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # previous
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # problem
@@ -131,7 +131,7 @@ class ClinicalImpressionSchema:
             # protocol
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # summary
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # finding
         Not mapped: ClinicalImpressionFinding
             # resolved
@@ -139,7 +139,7 @@ class ClinicalImpressionSchema:
             # ruledOut
         Not mapped: ClinicalImpressionRuledOut
             # prognosis
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # plan
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # action
@@ -194,7 +194,7 @@ class ClinicalImpressionSchema:
                 # The clinician performing the assessment.
                 StructField("assessor", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the workflow status of the assessment.
-                StructField("status", ClinicalImpressionStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The point in time at which the assessment was concluded (not when it was
                 # recorded).
                 StructField("date", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

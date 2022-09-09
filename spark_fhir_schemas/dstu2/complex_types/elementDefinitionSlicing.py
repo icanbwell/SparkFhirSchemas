@@ -49,9 +49,9 @@ class ElementDefinitionSlicingSchema:
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # discriminator
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # ordered
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # rules
@@ -87,7 +87,7 @@ class ElementDefinitionSlicingSchema:
                 # Whether additional slices are allowed or not. When the slices are ordered,
                 # profile authors can also say that additional slices are only allowed at the
                 # end.
-                StructField("rules", SlicingRulesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("rules", StringType(), True),
             ]
         )
         if not include_extension:

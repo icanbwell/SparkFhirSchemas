@@ -111,11 +111,11 @@ class CoverageSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # group
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # plan
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # subPlan
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # dependent
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # sequence

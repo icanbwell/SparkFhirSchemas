@@ -107,15 +107,15 @@ class DataElementSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         Not mapped: DataElementContact
             # date
@@ -123,7 +123,7 @@ class DataElementSchema:
             # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # copyright
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # stringency
              # type = code
             # mapping
@@ -215,7 +215,7 @@ class DataElementSchema:
                 # publishing of the details of the definition of the data element.
                 StructField("copyright", StringType(), True),
                 # Identifies how precise the data element is in its definition.
-                StructField("stringency", DataElementStringencySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("stringency", StringType(), True),
                 # Identifies a specification (other than a terminology) that the elements which
                 # make up the DataElement have some correspondence with.
                 StructField("mapping", DataElementMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

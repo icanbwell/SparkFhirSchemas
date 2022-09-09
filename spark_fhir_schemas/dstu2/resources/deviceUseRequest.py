@@ -104,7 +104,7 @@ class DeviceUseRequestSchema:
             # indication
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # notes
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # prnReason
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # orderedOn
@@ -171,7 +171,7 @@ class DeviceUseRequestSchema:
                 # None
                 StructField("bodySiteReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of the request.
-                StructField("status", DeviceUseRequestStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The details of the device  to be used.
                 StructField("device", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An encounter that provides additional context in which this request is made.
@@ -201,7 +201,7 @@ class DeviceUseRequestSchema:
                 StructField("timingDateTime", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Characterizes how quickly the  use of device must be initiated. Includes
                 # concepts such as stat, urgent, routine.
-                StructField("priority", DeviceUseRequestPrioritySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("priority", StringType(), True),
             ]
         )
         if not include_extension:

@@ -115,13 +115,13 @@ class ProcessRequestSchema:
             # nullify
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # reference
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # item
         Not mapped: ProcessRequestItem
             # include
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # exclude
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("ProcessRequest") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -171,7 +171,7 @@ class ProcessRequestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of processing action being requested, for example Reversal,
                 # Readjudication, StatusRequest,PendedRequest.
-                StructField("action", ActionListSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("action", StringType(), True),
                 # The ProcessRequest business identifier.
                 StructField("identifier", IdentifierSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The version of the style of resource contents. This should be mapped to the

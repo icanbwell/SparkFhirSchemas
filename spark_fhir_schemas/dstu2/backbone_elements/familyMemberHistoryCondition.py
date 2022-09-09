@@ -62,7 +62,7 @@ class FamilyMemberHistoryConditionSchema:
             # onsetPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # onsetString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
         if (max_recursion_limit and nesting_list.count("FamilyMemberHistoryCondition") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

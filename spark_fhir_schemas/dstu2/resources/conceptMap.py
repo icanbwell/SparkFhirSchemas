@@ -110,27 +110,27 @@ class ConceptMapSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         Not mapped: ConceptMapContact
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # requirements
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # copyright
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # sourceUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # sourceReference
@@ -156,7 +156,7 @@ class ConceptMapSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -190,7 +190,7 @@ class ConceptMapSchema:
                 # referenced in a specification, model, design or an instance. This SHALL be a
                 # URL, SHOULD be globally unique, and SHOULD be an address at which this concept
                 # map is (or will be) published.
-                StructField("url", StringType(), True),
+                StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Formal identifier that is used to identify this concept map when it is
                 # represented in other formats, or referenced in a specification, model, design
                 # or an instance.
@@ -230,11 +230,11 @@ class ConceptMapSchema:
                 # A copyright statement relating to the concept map and/or its contents.
                 StructField("copyright", StringType(), True),
                 # None
-                StructField("sourceUri", StringType(), True),
+                StructField("sourceUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("sourceReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("targetUri", StringType(), True),
+                StructField("targetUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("targetReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Mappings for an individual concept in the source to one or more concepts in

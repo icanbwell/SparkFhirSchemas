@@ -89,7 +89,7 @@ class ListSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # title
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # code
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # subject
@@ -107,7 +107,7 @@ class ListSchema:
             # mode
              # type = code
             # note
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # entry
         Not mapped: ListEntry
             # emptyReason
@@ -173,7 +173,7 @@ class ListSchema:
                 # The encounter that is the context in which this list was created.
                 StructField("encounter", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates the current state of this list.
-                StructField("status", ListStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The date that the list was prepared.
                 StructField("date", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # What order applies to the items in the list.
@@ -182,7 +182,7 @@ class ListSchema:
                 # being maintained on an ongoing basis, or if it represents a snapshot of a list
                 # of items from another source, or whether it is a prepared list where items may
                 # be marked as added, modified or deleted.
-                StructField("mode", ListModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("mode", StringType(), True),
                 # Comments that apply to the overall list.
                 StructField("note", StringType(), True),
                 # Entries in this list.

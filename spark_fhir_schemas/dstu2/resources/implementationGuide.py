@@ -116,25 +116,25 @@ class ImplementationGuideSchema:
             # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # experimental
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # contact
         Not mapped: ImplementationGuideContact
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # useContext
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # copyright
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # fhirVersion
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # dependency
@@ -162,7 +162,7 @@ class ImplementationGuideSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -196,7 +196,7 @@ class ImplementationGuideSchema:
                 # referenced in a specification, model, design or an instance. This SHALL be a
                 # URL, SHOULD be globally unique, and SHOULD be an address at which this
                 # implementation guide is (or will be) published.
-                StructField("url", StringType(), True),
+                StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The identifier that is used to identify this version of the Implementation
                 # Guide when it is referenced in a specification, model, design or instance.
                 # This is an arbitrary value managed by the Implementation Guide author
@@ -247,7 +247,7 @@ class ImplementationGuideSchema:
                 StructField("global", ImplementationGuideGlobalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A binary file that is included in the  implementation guide when it is
                 # published.
-                StructField("binary", StringType(), True),
+                StructField("binary", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A page / section in the implementation guide. The root page is the
                 # implementation guide home page.
                 StructField("page", ImplementationGuidePageSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

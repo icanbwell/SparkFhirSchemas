@@ -46,7 +46,7 @@ class ConformanceContactSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
         if (max_recursion_limit and nesting_list.count("ConformanceContact") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

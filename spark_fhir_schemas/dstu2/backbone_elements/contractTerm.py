@@ -74,7 +74,7 @@ class ContractTermSchema:
             # actor
         Not mapped: ContractActor1
             # text
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # valuedItem
         Not mapped: ContractValuedItem1
         if (max_recursion_limit and nesting_list.count("ContractTerm") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):

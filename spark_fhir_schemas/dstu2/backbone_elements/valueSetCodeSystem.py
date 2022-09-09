@@ -54,7 +54,7 @@ class ValueSetCodeSystemSchema:
             # system
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # caseSensitive
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # concept
@@ -85,7 +85,7 @@ class ValueSetCodeSystemSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI that is used to reference this code system, including in
                 # [Coding]{datatypes.html#Coding}.system.
-                StructField("system", StringType(), True),
+                StructField("system", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The version of this code system that defines the codes. Note that the version
                 # is optional because a well maintained code system does not suffer from
                 # versioning, and therefore the version does not need to be maintained. However

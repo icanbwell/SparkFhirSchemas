@@ -307,19 +307,19 @@ class ElementDefinitionSchema:
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # path
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # representation
              # type = code
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # label
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # slicing
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionslicing import ElementDefinitionSlicingSchema
             # short
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # definition
         from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
             # comments
@@ -327,17 +327,17 @@ class ElementDefinitionSchema:
             # requirements
         from spark_fhir_schemas.dstu2.simple_types.markdown import markdownSchema
             # alias
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # min
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
             # max
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # base
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitionbase import ElementDefinitionBaseSchema
             # type
         from spark_fhir_schemas.dstu2.complex_types.elementdefinitiontype import ElementDefinitionTypeSchema
             # nameReference
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # defaultValueBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # defaultValueInteger
@@ -349,7 +349,7 @@ class ElementDefinitionSchema:
             # defaultValueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # defaultValueString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # defaultValueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # defaultValueDate
@@ -419,7 +419,7 @@ class ElementDefinitionSchema:
             # fixedInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # fixedString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # fixedUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # fixedDate
@@ -487,7 +487,7 @@ class ElementDefinitionSchema:
             # patternInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # patternString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # patternUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # patternDate
@@ -555,7 +555,7 @@ class ElementDefinitionSchema:
             # exampleInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # exampleString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # exampleUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # exampleDate
@@ -623,7 +623,7 @@ class ElementDefinitionSchema:
             # minValueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # minValueString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # minValueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # minValueDate
@@ -691,7 +691,7 @@ class ElementDefinitionSchema:
             # maxValueInstant
         from spark_fhir_schemas.dstu2.simple_types.instant import instantSchema
             # maxValueString
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # maxValueUri
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # maxValueDate
@@ -784,7 +784,7 @@ class ElementDefinitionSchema:
                 StructField("path", StringType(), True),
                 # Codes that define how this element is represented in instances, when the
                 # deviation varies from the normal case.
-                StructField("representation", PropertyRepresentationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("representation", StringType(), True),
                 # The name of this element definition (to refer to it from other element
                 # definitions using ElementDefinition.nameReference). This is a unique name
                 # referring to a specific set of constraints applied to this element. One use of

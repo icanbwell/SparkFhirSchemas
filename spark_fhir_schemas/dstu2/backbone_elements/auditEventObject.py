@@ -70,9 +70,9 @@ class AuditEventObjectSchema:
             # securityLabel
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # name
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # description
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # query
         from spark_fhir_schemas.dstu2.simple_types.base64binary import base64BinarySchema
             # detail

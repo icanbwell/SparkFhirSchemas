@@ -88,13 +88,13 @@ class QuestionnaireSchema:
             # identifier
         from spark_fhir_schemas.dstu2.complex_types.identifier import IdentifierSchema
             # version
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # status
              # type = code
             # date
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # publisher
-        from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
+             # type = string
             # telecom
         from spark_fhir_schemas.dstu2.complex_types.contactpoint import ContactPointSchema
             # subjectType
@@ -155,7 +155,7 @@ class QuestionnaireSchema:
                 # remain the same when the resource is updated.
                 StructField("version", StringType(), True),
                 # The lifecycle status of the questionnaire as a whole.
-                StructField("status", QuestionnaireStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("status", StringType(), True),
                 # The date that this questionnaire was last changed.
                 StructField("date", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Organization or person responsible for developing and maintaining the
