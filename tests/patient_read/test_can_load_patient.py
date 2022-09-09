@@ -35,7 +35,7 @@ def test_can_load_patient(spark_session: SparkSession) -> None:
 
     patient_schema: Union[StructType, DataType] = PatientSchema.get_schema()
     assert isinstance(patient_schema, StructType)
-    result_df: DataFrame = df.sql_ctx.read.schema(patient_schema).json(
+    result_df: DataFrame = df.sparkSession.read.schema(patient_schema).json(
         str(minified_json_path)
     )
 
