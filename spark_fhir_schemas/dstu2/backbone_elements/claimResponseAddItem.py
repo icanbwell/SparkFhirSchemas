@@ -52,7 +52,7 @@ class ClaimResponseAddItemSchema:
             # service
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # fee
-        Not mapped: Money
+        Not mapped: Quantity
             # noteNumberLinkId
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # adjudication
@@ -88,7 +88,7 @@ class ClaimResponseAddItemSchema:
                 # A code to indicate the Professional Service or Product supplied.
                 StructField("service", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The fee charged for the professional service or product..
-                StructField("fee", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("fee", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A list of note references to the notes provided below.
                 StructField("noteNumberLinkId", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The adjudications results.

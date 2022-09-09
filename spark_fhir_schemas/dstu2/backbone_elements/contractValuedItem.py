@@ -69,15 +69,15 @@ class ContractValuedItemSchema:
             # effectiveTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # unitPrice
-        Not mapped: Money
+        Not mapped: Quantity
             # factor
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # points
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # net
-        Not mapped: Money
+        Not mapped: Quantity
         if (max_recursion_limit and nesting_list.count("ContractValuedItem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -113,9 +113,9 @@ class ContractValuedItemSchema:
                 StructField("effectiveTime", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Specifies the units by which the Contract Valued Item is measured or counted,
                 # and quantifies the countable or measurable Contract Valued Item instances.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A Contract Valued Item unit valuation measure.
-                StructField("unitPrice", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("unitPrice", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A real number that represents a multiplier used in determining the overall
                 # value of the Contract Valued Item delivered. The concept of a Factor allows
                 # for a discount or surcharge multiplier to be applied to a monetary amount.
@@ -129,7 +129,7 @@ class ContractValuedItemSchema:
                 # unitPriceAmt. For example, the formula: unit Quantity * unit Price (Cost per
                 # Point) * factor Number  * points = net Amount. Quantity, factor and points are
                 # assumed to be 1 if not supplied.
-                StructField("net", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("net", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

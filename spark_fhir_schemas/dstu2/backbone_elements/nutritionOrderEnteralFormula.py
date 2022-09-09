@@ -73,13 +73,13 @@ class NutritionOrderEnteralFormulaSchema:
             # additiveProductName
              # type = string
             # caloricDensity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # routeofAdministration
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # administration
         Not mapped: NutritionOrderAdministration
             # maxVolumeToDeliver
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # administrationInstruction
              # type = string
         if (max_recursion_limit and nesting_list.count("NutritionOrderEnteralFormula") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -122,7 +122,7 @@ class NutritionOrderEnteralFormulaSchema:
                 # volume, typically per mL or fluid oz.  For example, an infant may require a
                 # formula that provides 24 Calories per fluid ounce or an adult may require an
                 # enteral formula that provides 1.5 Calorie/mL.
-                StructField("caloricDensity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("caloricDensity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The route or physiological path of administration into the patient's
                 # gastrointestinal  tract for purposes of providing the formula feeding, e.g.
                 # nasogastric tube.
@@ -134,7 +134,7 @@ class NutritionOrderEnteralFormulaSchema:
                 StructField("administration", NutritionOrderAdministrationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The maximum total quantity of formula that may be administered to a subject
                 # over the period of time, e.g. 1440 mL over 24 hours.
-                StructField("maxVolumeToDeliver", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("maxVolumeToDeliver", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Free text formula administration, feeding instructions or additional
                 # instructions or information.
                 StructField("administrationInstruction", StringType(), True),

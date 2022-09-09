@@ -56,9 +56,9 @@ class ObservationReferenceRangeSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # low
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # high
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # meaning
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # age
@@ -93,12 +93,12 @@ class ObservationReferenceRangeSchema:
                 # reference range endpoint is inclusive of the value (e.g.  reference range is
                 # >=5 - <=9).   If the low bound is omitted,  it is assumed to be meaningless
                 # (e.g. reference range is <=2.3).
-                StructField("low", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("low", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The value of the high bound of the reference range.  The high bound of the
                 # reference range endpoint is inclusive of the value (e.g.  reference range is
                 # >=5 - <=9).   If the high bound is omitted,  it is assumed to be meaningless
                 # (e.g. reference range is >= 2.3).
-                StructField("high", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("high", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Code for the meaning of the reference range.
                 StructField("meaning", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The age at which this reference range is applicable. This is a neonatal age

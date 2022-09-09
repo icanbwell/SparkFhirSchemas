@@ -121,7 +121,7 @@ class FamilyMemberHistorySchema:
             # bornString
              # type = string
             # ageQuantity
-        Not mapped: Age
+        Not mapped: Quantity
             # ageRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # ageString
@@ -129,7 +129,7 @@ class FamilyMemberHistorySchema:
             # deceasedBoolean
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # deceasedQuantity
-        Not mapped: Age
+        Not mapped: Quantity
             # deceasedRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # deceasedDate
@@ -212,7 +212,7 @@ class FamilyMemberHistorySchema:
                 # None
                 StructField("bornString", StringType(), True),
                 # None
-                StructField("ageQuantity", AgeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("ageQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("ageRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
@@ -220,7 +220,7 @@ class FamilyMemberHistorySchema:
                 # None
                 StructField("deceasedBoolean", BooleanType(), True),
                 # None
-                StructField("deceasedQuantity", AgeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("deceasedQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("deceasedRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

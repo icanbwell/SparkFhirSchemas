@@ -59,7 +59,7 @@ class SpecimenCollectionSchema:
             # collectedPeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # method
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # bodySite
@@ -99,7 +99,7 @@ class SpecimenCollectionSchema:
                 StructField("collectedPeriod", PeriodSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The quantity of specimen collected; for instance the volume of a blood sample,
                 # or the physical measurement of an anatomic pathology sample.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A coded value specifying the technique that is used to perform the procedure.
                 StructField("method", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Anatomical location from which the specimen was collected (if subject is a

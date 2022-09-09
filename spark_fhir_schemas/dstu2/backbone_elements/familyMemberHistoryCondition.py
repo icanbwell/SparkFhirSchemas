@@ -56,7 +56,7 @@ class FamilyMemberHistoryConditionSchema:
             # outcome
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # onsetQuantity
-        Not mapped: Age
+        Not mapped: Quantity
             # onsetRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # onsetPeriod
@@ -97,7 +97,7 @@ class FamilyMemberHistoryConditionSchema:
                 # resulted in death, deceased date is captured on the relation.
                 StructField("outcome", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("onsetQuantity", AgeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("onsetQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("onsetRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

@@ -103,9 +103,9 @@ class CarePlanDetailSchema:
             # productReference
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # dailyAmount
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # description
              # type = string
         if (max_recursion_limit and nesting_list.count("CarePlanDetail") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -170,10 +170,10 @@ class CarePlanDetailSchema:
                 # None
                 StructField("productReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the quantity expected to be consumed in a given day.
-                StructField("dailyAmount", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("dailyAmount", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the quantity expected to be supplied, administered or consumed by
                 # the subject.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # This provides a textual description of constraints on the intended activity
                 # occurrence, including relation to other activities.  It may also include
                 # objectives, pre-conditions and end-conditions.  Finally, it may convey

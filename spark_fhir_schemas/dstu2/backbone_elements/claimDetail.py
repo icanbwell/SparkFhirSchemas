@@ -69,15 +69,15 @@ class ClaimDetailSchema:
             # service
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # unitPrice
-        Not mapped: Money
+        Not mapped: Quantity
             # factor
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # points
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # net
-        Not mapped: Money
+        Not mapped: Quantity
             # udi
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # subDetail
@@ -114,10 +114,10 @@ class ClaimDetailSchema:
                 # indicate the Professional Service or Product supplied.
                 StructField("service", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The number of repetitions of a service or product.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If the item is a node then this is the fee for the product or service,
                 # otherwise this is the total of the fees for the children of the group.
-                StructField("unitPrice", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("unitPrice", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A real number that represents a multiplier used in determining the overall
                 # value of services delivered and/or goods received. The concept of a Factor
                 # allows for a discount or surcharge multiplier to be applied to a monetary
@@ -132,7 +132,7 @@ class ClaimDetailSchema:
                 # charge. For example, the formula: unit Quantity * unit Price (Cost per Point)
                 # * factor Number  * points = net Amount. Quantity, factor and points are
                 # assumed to be 1 if not supplied.
-                StructField("net", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("net", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # List of Unique Device Identifiers associated with this line item.
                 StructField("udi", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Third tier of goods and services.

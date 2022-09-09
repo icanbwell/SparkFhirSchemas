@@ -56,7 +56,7 @@ class NutritionOrderSupplementSchema:
             # schedule
         from spark_fhir_schemas.dstu2.complex_types.timing import TimingSchema
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # instruction
              # type = string
         if (max_recursion_limit and nesting_list.count("NutritionOrderSupplement") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -92,7 +92,7 @@ class NutritionOrderSupplementSchema:
                 # The time period and frequency at which the supplement(s) should be given.
                 StructField("schedule", TimingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The amount of the nutritional supplement to be given.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Free text or additional instructions or information pertaining to the oral
                 # supplement.
                 StructField("instruction", StringType(), True),

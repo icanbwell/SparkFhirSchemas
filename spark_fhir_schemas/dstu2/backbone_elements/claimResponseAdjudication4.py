@@ -48,7 +48,7 @@ class ClaimResponseAdjudication4Schema:
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # amount
-        Not mapped: Money
+        Not mapped: Quantity
             # value
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
         if (max_recursion_limit and nesting_list.count("ClaimResponseAdjudication4") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -78,7 +78,7 @@ class ClaimResponseAdjudication4Schema:
                 # Code indicating: Co-Pay, deductible, eligible, benefit, tax, etc.
                 StructField("code", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Monetary amount associated with the code.
-                StructField("amount", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("amount", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A non-monetary value for example a percentage. Mutually exclusive to the
                 # amount element above.
                 StructField("value", decimalSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -92,7 +92,7 @@ class MedicationDispenseDosageInstructionSchema:
             # doseRange
         from spark_fhir_schemas.dstu2.complex_types.range import RangeSchema
             # doseQuantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # rateRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
             # rateRange
@@ -153,7 +153,7 @@ class MedicationDispenseDosageInstructionSchema:
                 # None
                 StructField("doseRange", RangeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
-                StructField("doseQuantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("doseQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("rateRatio", RatioSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None

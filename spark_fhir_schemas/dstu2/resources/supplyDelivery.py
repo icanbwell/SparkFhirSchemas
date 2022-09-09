@@ -91,7 +91,7 @@ class SupplyDeliverySchema:
             # type
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # suppliedItem
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # supplier
@@ -159,7 +159,7 @@ class SupplyDeliverySchema:
                 # Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.
                 StructField("type", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The amount of supply that has been dispensed. Includes unit of measure.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the medication, substance or device being dispensed. This is either
                 # a link to a resource representing the details of the item or a simple
                 # attribute carrying a code that identifies the item from a known list.

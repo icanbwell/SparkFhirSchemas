@@ -76,7 +76,7 @@ class MedicationAdministrationDosageSchema:
             # method
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # quantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # rateRatio
         from spark_fhir_schemas.dstu2.complex_types.ratio import RatioSchema
             # rateRange
@@ -126,7 +126,7 @@ class MedicationAdministrationDosageSchema:
                 # The amount of the medication given at one administration event.   Use this
                 # value when the administration is essentially an instantaneous event such as a
                 # swallowing a tablet or giving an injection.
-                StructField("quantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("quantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("rateRatio", RatioSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
