@@ -62,7 +62,7 @@ class ConformanceRestSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # mode
-        from spark_fhir_schemas.dstu2.simple_types.restfulconformancemode import RestfulConformanceModeSchema
+             # type = code
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # security
@@ -72,7 +72,7 @@ class ConformanceRestSchema:
             # interaction
         Not mapped: ConformanceInteraction1
             # transactionMode
-        from spark_fhir_schemas.dstu2.simple_types.transactionmode import TransactionModeSchema
+             # type = code
             # searchParam
         Not mapped: ConformanceSearchParam
             # operation
@@ -105,7 +105,7 @@ class ConformanceRestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies whether this portion of the statement is describing ability to
                 # initiate or receive restful operations.
-                StructField("mode", StringType(), True),
+                StructField("mode", RestfulConformanceModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Information about the system's restful capabilities that apply across all
                 # applications, such as security.
                 StructField("documentation", StringType(), True),
@@ -118,7 +118,7 @@ class ConformanceRestSchema:
                 # A specification of restful operations supported by the system.
                 StructField("interaction", ConformanceInteraction1Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code that indicates how transactions are supported.
-                StructField("transactionMode", StringType(), True),
+                StructField("transactionMode", TransactionModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Search parameters that are supported for searching all resources for
                 # implementations to support and/or make use of - either references to ones
                 # defined in the specification, or additional ones defined for/by the
@@ -129,7 +129,7 @@ class ConformanceRestSchema:
                 StructField("operation", ConformanceOperationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # An absolute URI which is a reference to the definition of a compartment hosted
                 # by the system.
-                StructField("compartment", StringType(), True),
+                StructField("compartment", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

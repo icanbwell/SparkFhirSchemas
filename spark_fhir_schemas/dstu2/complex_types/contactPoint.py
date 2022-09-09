@@ -44,11 +44,11 @@ class ContactPointSchema:
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # system
-        from spark_fhir_schemas.dstu2.simple_types.contactpointsystem import ContactPointSystemSchema
+             # type = code
             # value
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # use
-        from spark_fhir_schemas.dstu2.simple_types.contactpointuse import ContactPointUseSchema
+             # type = code
             # rank
         from spark_fhir_schemas.dstu2.simple_types.positiveint import positiveIntSchema
             # period
@@ -70,12 +70,12 @@ class ContactPointSchema:
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Telecommunications form for contact point - what communications system is
                 # required to make use of the contact.
-                StructField("system", StringType(), True),
+                StructField("system", ContactPointSystemSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The actual contact point details, in a form that is meaningful to the
                 # designated communication system (i.e. phone number or email address).
                 StructField("value", StringType(), True),
                 # Identifies the purpose for the contact point.
-                StructField("use", StringType(), True),
+                StructField("use", ContactPointUseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Specifies a preferred order in which to use a set of contacts. Contacts are
                 # ranked with lower values coming before higher values.
                 StructField("rank", positiveIntSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

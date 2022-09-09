@@ -71,9 +71,9 @@ class TestScriptOperationSchema:
             # description
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # accept
-        from spark_fhir_schemas.dstu2.simple_types.contenttype import ContentTypeSchema
+             # type = code
             # contentType
-        from spark_fhir_schemas.dstu2.simple_types.contenttype import ContentTypeSchema
+             # type = code
             # destination
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
             # encodeRequestUrl
@@ -125,10 +125,10 @@ class TestScriptOperationSchema:
                 StructField("description", StringType(), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Accept'
                 # header.
-                StructField("accept", StringType(), True),
+                StructField("accept", ContentTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Content-
                 # Type' header.
-                StructField("contentType", StringType(), True),
+                StructField("contentType", ContentTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Which server to perform the operation on.
                 StructField("destination", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether or not to implicitly send the request url in encoded format. The

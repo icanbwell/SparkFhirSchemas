@@ -76,7 +76,7 @@ class ConformanceResourceSchema:
             # interaction
         Not mapped: ConformanceInteraction
             # versioning
-        from spark_fhir_schemas.dstu2.simple_types.resourceversionpolicy import ResourceVersionPolicySchema
+             # type = code
             # readHistory
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # updateCreate
@@ -86,7 +86,7 @@ class ConformanceResourceSchema:
             # conditionalUpdate
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # conditionalDelete
-        from spark_fhir_schemas.dstu2.simple_types.conditionaldeletestatus import ConditionalDeleteStatusSchema
+             # type = code
             # searchInclude
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # searchRevInclude
@@ -132,7 +132,7 @@ class ConformanceResourceSchema:
                 # versionId meta-property on resources. If the value is 'versioned-update', then
                 # the server supports all the versioning features, including using e-tags for
                 # version integrity in the API.
-                StructField("versioning", StringType(), True),
+                StructField("versioning", ResourceVersionPolicySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A flag for whether the server is able to return past versions as part of the
                 # vRead operation.
                 StructField("readHistory", BooleanType(), True),
@@ -146,7 +146,7 @@ class ConformanceResourceSchema:
                 # A flag that indicates that the server supports conditional update.
                 StructField("conditionalUpdate", BooleanType(), True),
                 # A code that indicates how the server supports conditional delete.
-                StructField("conditionalDelete", StringType(), True),
+                StructField("conditionalDelete", ConditionalDeleteStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A list of _include values supported by the server.
                 StructField("searchInclude", StringType(), True),
                 # A list of _revinclude (reverse include) values supported by the server.

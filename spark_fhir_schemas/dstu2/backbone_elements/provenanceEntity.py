@@ -66,7 +66,7 @@ class ProvenanceEntitySchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # role
-        from spark_fhir_schemas.dstu2.simple_types.provenanceentityrole import ProvenanceEntityRoleSchema
+             # type = code
             # type
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # reference
@@ -100,13 +100,13 @@ class ProvenanceEntitySchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # How the entity was used during the activity.
-                StructField("role", StringType(), True),
+                StructField("role", ProvenanceEntityRoleSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of the entity. If the entity is a resource, then this is a resource
                 # type.
                 StructField("type", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identity of the  Entity used. May be a logical or physical uri and maybe
                 # absolute or relative.
-                StructField("reference", StringType(), True),
+                StructField("reference", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Human-readable description of the entity.
                 StructField("display", StringType(), True),
                 # The entity is attributed to an agent to express the agent's responsibility for

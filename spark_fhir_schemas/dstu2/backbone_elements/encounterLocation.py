@@ -49,7 +49,7 @@ class EncounterLocationSchema:
             # location
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # status
-        from spark_fhir_schemas.dstu2.simple_types.encounterlocationstatus import EncounterLocationStatusSchema
+             # type = code
             # period
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
         if (max_recursion_limit and nesting_list.count("EncounterLocation") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -81,7 +81,7 @@ class EncounterLocationSchema:
                 # The status of the participants' presence at the specified location during the
                 # period specified. If the participant is is no longer at the location, then the
                 # period will have an end date/time.
-                StructField("status", StringType(), True),
+                StructField("status", EncounterLocationStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Time period during which the patient was present at the location.
                 StructField("period", PeriodSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

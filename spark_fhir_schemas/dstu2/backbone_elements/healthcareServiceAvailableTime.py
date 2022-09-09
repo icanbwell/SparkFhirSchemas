@@ -47,7 +47,7 @@ class HealthcareServiceAvailableTimeSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # daysOfWeek
-        from spark_fhir_schemas.dstu2.simple_types.daysofweek import DaysOfWeekSchema
+             # type = code
             # allDay
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # availableStartTime
@@ -80,7 +80,7 @@ class HealthcareServiceAvailableTimeSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Indicates which days of the week are available between the start and end
                 # Times.
-                StructField("daysOfWeek", StringType(), True),
+                StructField("daysOfWeek", DaysOfWeekSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Is this always available? (hence times are irrelevant) e.g. 24 hour service.
                 StructField("allDay", BooleanType(), True),
                 # The opening time of day. Note: If the AllDay flag is set, then this time is

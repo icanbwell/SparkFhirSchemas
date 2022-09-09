@@ -48,7 +48,7 @@ class ConformanceInteractionSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # code
-        from spark_fhir_schemas.dstu2.simple_types.typerestfulinteraction import TypeRestfulInteractionSchema
+             # type = code
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
         if (max_recursion_limit and nesting_list.count("ConformanceInteraction") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -76,7 +76,7 @@ class ConformanceInteractionSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Coded identifier of the operation, supported by the system resource.
-                StructField("code", StringType(), True),
+                StructField("code", TypeRestfulInteractionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Guidance specific to the implementation of this operation, such as 'delete is
                 # a logical delete' or 'updates are only allowed with version id' or 'creates
                 # permitted from pre-authorized certificates only'.

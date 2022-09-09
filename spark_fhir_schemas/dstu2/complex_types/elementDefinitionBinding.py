@@ -42,7 +42,7 @@ class ElementDefinitionBindingSchema:
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # strength
-        from spark_fhir_schemas.dstu2.simple_types.bindingstrength import BindingStrengthSchema
+             # type = code
             # description
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # valueSetUri
@@ -67,11 +67,11 @@ class ElementDefinitionBindingSchema:
                 # Indicates the degree of conformance expectations associated with this binding
                 # - that is, the degree to which the provided value set must be adhered to in
                 # the instances.
-                StructField("strength", StringType(), True),
+                StructField("strength", BindingStrengthSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Describes the intended use of this particular set of codes.
                 StructField("description", StringType(), True),
                 # None
-                StructField("valueSetUri", StringType(), True),
+                StructField("valueSetUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("valueSetReference", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

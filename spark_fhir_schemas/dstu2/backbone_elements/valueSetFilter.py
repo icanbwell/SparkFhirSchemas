@@ -46,7 +46,7 @@ class ValueSetFilterSchema:
             # property
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # op
-        from spark_fhir_schemas.dstu2.simple_types.filteroperator import FilterOperatorSchema
+             # type = code
             # value
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
         if (max_recursion_limit and nesting_list.count("ValueSetFilter") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -76,7 +76,7 @@ class ValueSetFilterSchema:
                 # A code that identifies a property defined in the code system.
                 StructField("property", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The kind of operation to perform as a part of the filter criteria.
-                StructField("op", StringType(), True),
+                StructField("op", FilterOperatorSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The match value may be either a code defined by the system, or a string value,
                 # which is a regex match on the literal string of the property value.
                 StructField("value", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

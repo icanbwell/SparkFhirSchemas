@@ -67,7 +67,7 @@ class QuestionnaireQuestionSchema:
             # text
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # type
-        from spark_fhir_schemas.dstu2.simple_types.answerformat import AnswerFormatSchema
+             # type = code
             # required
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # repeats
@@ -112,7 +112,7 @@ class QuestionnaireQuestionSchema:
                 StructField("text", StringType(), True),
                 # The expected format of the answer, e.g. the type of input (string, integer) or
                 # whether a (multiple) choice is expected.
-                StructField("type", StringType(), True),
+                StructField("type", AnswerFormatSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If true, indicates that the question must be answered and have required groups
                 # within it also present.  If false, the question and any contained groups may
                 # be skipped when answering the questionnaire.

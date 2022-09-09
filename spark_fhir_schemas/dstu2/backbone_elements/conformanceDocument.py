@@ -50,7 +50,7 @@ class ConformanceDocumentSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # mode
-        from spark_fhir_schemas.dstu2.simple_types.documentmode import DocumentModeSchema
+             # type = code
             # documentation
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # profile
@@ -81,7 +81,7 @@ class ConformanceDocumentSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Mode of this document declaration - whether application is producer or
                 # consumer.
-                StructField("mode", StringType(), True),
+                StructField("mode", DocumentModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A description of how the application supports or uses the specified document
                 # profile.  For example, when are documents created, what action is taken with
                 # consumed documents, etc.

@@ -125,7 +125,7 @@ class DataElementSchema:
             # copyright
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # stringency
-        from spark_fhir_schemas.dstu2.simple_types.dataelementstringency import DataElementStringencySchema
+             # type = code
             # mapping
         Not mapped: DataElementMapping
             # element
@@ -145,7 +145,7 @@ class DataElementSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -179,7 +179,7 @@ class DataElementSchema:
                 # referenced in a specification, model, design or an instance. This SHALL be a
                 # URL, SHOULD be globally unique, and SHOULD be an address at which this data
                 # element is (or will be) published.
-                StructField("url", StringType(), True),
+                StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Formal identifier that is used to identify this data element when it is
                 # represented in other formats, or referenced in a specification, model, design
                 # or an instance.
@@ -215,7 +215,7 @@ class DataElementSchema:
                 # publishing of the details of the definition of the data element.
                 StructField("copyright", StringType(), True),
                 # Identifies how precise the data element is in its definition.
-                StructField("stringency", StringType(), True),
+                StructField("stringency", DataElementStringencySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies a specification (other than a terminology) that the elements which
                 # make up the DataElement have some correspondence with.
                 StructField("mapping", DataElementMappingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

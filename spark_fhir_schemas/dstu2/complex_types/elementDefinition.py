@@ -309,7 +309,7 @@ class ElementDefinitionSchema:
             # path
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # representation
-        from spark_fhir_schemas.dstu2.simple_types.propertyrepresentation import PropertyRepresentationSchema
+             # type = code
             # name
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # label
@@ -784,7 +784,7 @@ class ElementDefinitionSchema:
                 StructField("path", StringType(), True),
                 # Codes that define how this element is represented in instances, when the
                 # deviation varies from the normal case.
-                StructField("representation", StringType(), True),
+                StructField("representation", PropertyRepresentationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The name of this element definition (to refer to it from other element
                 # definitions using ElementDefinition.nameReference). This is a unique name
                 # referring to a specific set of constraints applied to this element. One use of
@@ -852,7 +852,7 @@ class ElementDefinitionSchema:
                 # None
                 StructField("defaultValueString", StringType(), True),
                 # None
-                StructField("defaultValueUri", StringType(), True),
+                StructField("defaultValueUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("defaultValueDate", DateType(), True),
                 # None
@@ -923,7 +923,7 @@ class ElementDefinitionSchema:
                 # None
                 StructField("fixedString", StringType(), True),
                 # None
-                StructField("fixedUri", StringType(), True),
+                StructField("fixedUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("fixedDate", DateType(), True),
                 # None
@@ -991,7 +991,7 @@ class ElementDefinitionSchema:
                 # None
                 StructField("patternString", StringType(), True),
                 # None
-                StructField("patternUri", StringType(), True),
+                StructField("patternUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("patternDate", DateType(), True),
                 # None
@@ -1059,7 +1059,7 @@ class ElementDefinitionSchema:
                 # None
                 StructField("exampleString", StringType(), True),
                 # None
-                StructField("exampleUri", StringType(), True),
+                StructField("exampleUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("exampleDate", DateType(), True),
                 # None
@@ -1127,7 +1127,7 @@ class ElementDefinitionSchema:
                 # None
                 StructField("minValueString", StringType(), True),
                 # None
-                StructField("minValueUri", StringType(), True),
+                StructField("minValueUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("minValueDate", DateType(), True),
                 # None
@@ -1195,7 +1195,7 @@ class ElementDefinitionSchema:
                 # None
                 StructField("maxValueString", StringType(), True),
                 # None
-                StructField("maxValueUri", StringType(), True),
+                StructField("maxValueUri", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # None
                 StructField("maxValueDate", DateType(), True),
                 # None

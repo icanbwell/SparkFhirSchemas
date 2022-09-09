@@ -31,6 +31,8 @@ class {{fhir_entity.cleaned_name}}Schema:
             # {{ property.name }}
             {% if property.is_resource %}
         from spark_fhir_schemas.dstu2.resources.{{property.cleaned_type.lower()}} import {{property.cleaned_type}}Schema
+            {% elif property.is_code %}
+             # type = code
             {% elif property.is_basic_type %}
         from spark_fhir_schemas.dstu2.simple_types.{{property.type_.lower()}} import {{property.type_}}Schema
             {% elif property.is_complex or property.fhir_type == "Element" %}
@@ -107,8 +109,6 @@ class {{fhir_entity.cleaned_name}}Schema:
                 {% endif %}
             {% elif not property.base_type and not property.type_ %}
                 StructField("{{property.name}}", StringType(), True),
-            {% elif property.is_code %}
-                StructField("{{property.name}}", StringType(), True),
             {% elif property.base_type == "date" or property.type_ == "date" %}
                 StructField("{{property.name}}", DateType(), True),
             {% elif (property.base_type == "number" or property.type_ == "number") and ("Decimal" in property.name) %}
@@ -119,8 +119,6 @@ class {{fhir_entity.cleaned_name}}Schema:
                 StructField("{{property.name}}", TimestampType(), True),
             {% elif (property.base_type == "string" or property.type_ == "string") and ("Date" in property.name) %}
                 StructField("{{property.name}}", DateType(), True),
-            {% elif property.base_type == "uri" or property.type_ == "uri" %}
-                StructField("{{property.name}}", StringType(), True),
             {% elif property.base_type == "string" or property.type_ == "string" %}
                 StructField("{{property.name}}", StringType(), True),
             {% elif property.base_type == "boolean" or property.type_ == "boolean" %}
@@ -129,6 +127,8 @@ class {{fhir_entity.cleaned_name}}Schema:
                 StructField("{{property.name}}", IntegerType(), True),
             {% elif property.is_basic_type %}
                 StructField("{{property.name}}", {{property.type_}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+            {% elif property.is_code %}
+                StructField("{{property.name}}", StringType(), True),
             {% else %}
                 StructField("{{property.name}}", {{property.cleaned_type}}Schema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             {% endif%}

@@ -72,13 +72,13 @@ class TestScriptAssertSchema:
             # description
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # direction
-        from spark_fhir_schemas.dstu2.simple_types.assertiondirectiontype import AssertionDirectionTypeSchema
+             # type = code
             # compareToSourceId
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # compareToSourcePath
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # contentType
-        from spark_fhir_schemas.dstu2.simple_types.contenttype import ContentTypeSchema
+             # type = code
             # headerField
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # minimumId
@@ -86,13 +86,13 @@ class TestScriptAssertSchema:
             # navigationLinks
         from spark_fhir_schemas.dstu2.simple_types.boolean import booleanSchema
             # operator
-        from spark_fhir_schemas.dstu2.simple_types.assertionoperatortype import AssertionOperatorTypeSchema
+             # type = code
             # path
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # resource
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # response
-        from spark_fhir_schemas.dstu2.simple_types.assertionresponsetypes import AssertionResponseTypesSchema
+             # type = code
             # responseCode
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # sourceId
@@ -133,7 +133,7 @@ class TestScriptAssertSchema:
                 # purposes.
                 StructField("description", StringType(), True),
                 # The direction to use for the assertion.
-                StructField("direction", StringType(), True),
+                StructField("direction", AssertionDirectionTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Id of fixture used to compare the "sourceId/path" evaluations to.
                 StructField("compareToSourceId", StringType(), True),
                 # XPath or JSONPath expression against fixture used to compare the
@@ -141,7 +141,7 @@ class TestScriptAssertSchema:
                 StructField("compareToSourcePath", StringType(), True),
                 # The content-type or mime-type to use for RESTful operation in the 'Content-
                 # Type' header.
-                StructField("contentType", StringType(), True),
+                StructField("contentType", ContentTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The HTTP header field name e.g. 'Location'.
                 StructField("headerField", StringType(), True),
                 # The ID of a fixture.  Asserts that the response contains at a minimumId the
@@ -151,7 +151,7 @@ class TestScriptAssertSchema:
                 # links.
                 StructField("navigationLinks", BooleanType(), True),
                 # The operator type.
-                StructField("operator", StringType(), True),
+                StructField("operator", AssertionOperatorTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The XPath or JSONPath expression to be evaluated against the fixture
                 # representing the response received from server.
                 StructField("path", StringType(), True),
@@ -159,7 +159,7 @@ class TestScriptAssertSchema:
                 StructField("resource", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # okay | created | noContent | notModified | bad | forbidden | notFound |
                 # methodNotAllowed | conflict | gone | preconditionFailed | unprocessable.
-                StructField("response", StringType(), True),
+                StructField("response", AssertionResponseTypesSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The value of the HTTP response code to be tested.
                 StructField("responseCode", StringType(), True),
                 # Fixture to evaluate the XPath/JSONPath expression or the headerField  against.

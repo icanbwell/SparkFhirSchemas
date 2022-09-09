@@ -54,7 +54,7 @@ class BundleRequestSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # method
-        from spark_fhir_schemas.dstu2.simple_types.httpverb import HTTPVerbSchema
+             # type = code
             # url
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # ifNoneMatch
@@ -91,10 +91,10 @@ class BundleRequestSchema:
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The HTTP verb for this entry in either a update history, or a transaction/
                 # transaction response.
-                StructField("method", StringType(), True),
+                StructField("method", HTTPVerbSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The URL for this entry, relative to the root (the address to which the request
                 # is posted).
-                StructField("url", StringType(), True),
+                StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If the ETag values match, return a 304 Not modified status. See the API
                 # documentation for ["Conditional Read"](http.html#cread).
                 StructField("ifNoneMatch", StringType(), True),

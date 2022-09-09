@@ -54,7 +54,7 @@ class MessageHeaderResponseSchema:
             # identifier
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # code
-        from spark_fhir_schemas.dstu2.simple_types.responsetype import ResponseTypeSchema
+             # type = code
             # details
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
         if (max_recursion_limit and nesting_list.count("MessageHeaderResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -85,7 +85,7 @@ class MessageHeaderResponseSchema:
                 StructField("identifier", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Code that identifies the type of response to the message - whether it was
                 # successful or not, and whether it should be resent or not.
-                StructField("code", StringType(), True),
+                StructField("code", ResponseTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Full details of any issues found in the message.
                 StructField("details", ReferenceSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

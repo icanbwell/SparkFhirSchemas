@@ -53,9 +53,9 @@ class AddressSchema:
             # extension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # use
-        from spark_fhir_schemas.dstu2.simple_types.addressuse import AddressUseSchema
+             # type = code
             # type
-        from spark_fhir_schemas.dstu2.simple_types.addresstype import AddressTypeSchema
+             # type = code
             # text
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # line
@@ -88,10 +88,10 @@ class AddressSchema:
                 # the extension.
                 StructField("extension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The purpose of this address.
-                StructField("use", StringType(), True),
+                StructField("use", AddressUseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Distinguishes between physical addresses (those you can visit) and mailing
                 # addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.
-                StructField("type", StringType(), True),
+                StructField("type", AddressTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A full text representation of the address.
                 StructField("text", StringType(), True),
                 # This component contains the house number, apartment number, street name,

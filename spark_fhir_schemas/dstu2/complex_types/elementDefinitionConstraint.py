@@ -50,7 +50,7 @@ class ElementDefinitionConstraintSchema:
             # requirements
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # severity
-        from spark_fhir_schemas.dstu2.simple_types.constraintseverity import ConstraintSeveritySchema
+             # type = code
             # human
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # xpath
@@ -78,7 +78,7 @@ class ElementDefinitionConstraintSchema:
                 StructField("requirements", StringType(), True),
                 # Identifies the impact constraint violation has on the conformance of the
                 # instance.
-                StructField("severity", StringType(), True),
+                StructField("severity", ConstraintSeveritySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Text that can be used to describe the constraint in messages identifying that
                 # the constraint has been violated.
                 StructField("human", StringType(), True),

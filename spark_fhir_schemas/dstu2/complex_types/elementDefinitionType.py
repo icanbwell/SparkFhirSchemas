@@ -51,7 +51,7 @@ class ElementDefinitionTypeSchema:
             # profile
         from spark_fhir_schemas.dstu2.simple_types.uri import uriSchema
             # aggregation
-        from spark_fhir_schemas.dstu2.simple_types.aggregationmode import AggregationModeSchema
+             # type = code
         if (max_recursion_limit and nesting_list.count("ElementDefinitionType") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
             return StructType([StructField("id", StringType(), True)])
         # add my name to recursion list for later
@@ -76,11 +76,11 @@ class ElementDefinitionTypeSchema:
                 # content must conform to all of them. When an implementation guide is
                 # specified, the resource SHALL conform to at least one profile defined in the
                 # implementation guide.
-                StructField("profile", StringType(), True),
+                StructField("profile", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # If the type is a reference to another resource, how the resource is or can be
                 # aggregated - is it a contained resource, or a reference, and if the context is
                 # a bundle, is it included in the bundle.
-                StructField("aggregation", StringType(), True),
+                StructField("aggregation", AggregationModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]
         )
         if not include_extension:

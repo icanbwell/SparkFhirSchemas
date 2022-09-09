@@ -56,9 +56,9 @@ class ConformanceEventSchema:
             # code
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # category
-        from spark_fhir_schemas.dstu2.simple_types.messagesignificancecategory import MessageSignificanceCategorySchema
+             # type = code
             # mode
-        from spark_fhir_schemas.dstu2.simple_types.conformanceeventmode import ConformanceEventModeSchema
+             # type = code
             # focus
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # request
@@ -94,10 +94,10 @@ class ConformanceEventSchema:
                 # A coded identifier of a supported messaging event.
                 StructField("code", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The impact of the content of the message.
-                StructField("category", StringType(), True),
+                StructField("category", MessageSignificanceCategorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The mode of this event declaration - whether application is sender or
                 # receiver.
-                StructField("mode", StringType(), True),
+                StructField("mode", ConformanceEventModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A resource associated with the event.  This is the resource that defines the
                 # event.
                 StructField("focus", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

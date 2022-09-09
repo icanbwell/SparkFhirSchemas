@@ -48,7 +48,7 @@ class QuantitySchema:
             # value
         from spark_fhir_schemas.dstu2.simple_types.decimal import decimalSchema
             # comparator
-        from spark_fhir_schemas.dstu2.simple_types.quantitycomparator import QuantityComparatorSchema
+             # type = code
             # unit
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # system
@@ -76,11 +76,11 @@ class QuantitySchema:
                 # How the value should be understood and represented - whether the actual value
                 # is greater or less than the stated value due to measurement issues; e.g. if
                 # the comparator is "<" , then the real value is < stated value.
-                StructField("comparator", StringType(), True),
+                StructField("comparator", QuantityComparatorSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable form of the unit.
                 StructField("unit", StringType(), True),
                 # The identification of the system that provides the coded form of the unit.
-                StructField("system", StringType(), True),
+                StructField("system", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A computer processable form of the unit in some unit representation system.
                 StructField("code", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
             ]

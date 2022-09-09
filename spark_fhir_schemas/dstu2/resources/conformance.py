@@ -148,7 +148,7 @@ class ConformanceSchema:
             # copyright
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # kind
-        from spark_fhir_schemas.dstu2.simple_types.conformancestatementkind import ConformanceStatementKindSchema
+             # type = code
             # software
         Not mapped: ConformanceSoftware
             # implementation
@@ -156,7 +156,7 @@ class ConformanceSchema:
             # fhirVersion
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
             # acceptUnknown
-        from spark_fhir_schemas.dstu2.simple_types.unknowncontentcode import UnknownContentCodeSchema
+             # type = code
             # format
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # profile
@@ -182,7 +182,7 @@ class ConformanceSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -216,7 +216,7 @@ class ConformanceSchema:
                 # referenced in a specification, model, design or an instance. This SHALL be a
                 # URL, SHOULD be globally unique, and SHOULD be an address at which this
                 # conformance statement is (or will be) published.
-                StructField("url", StringType(), True),
+                StructField("url", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The identifier that is used to identify this version of the conformance
                 # statement when it is referenced in a specification, model, design or instance.
                 # This is an arbitrary value managed by the profile author manually and the
@@ -255,7 +255,7 @@ class ConformanceSchema:
                 # The way that this statement is intended to be used, to describe an actual
                 # running instance of software, a particular product (kind not instance of
                 # software) or a class of implementation (e.g. a desired purchase).
-                StructField("kind", StringType(), True),
+                StructField("kind", ConformanceStatementKindSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Software that is covered by this conformance statement.  It is used when the
                 # conformance statement describes the capabilities of a particular software
                 # version, independent of an installation.
@@ -269,7 +269,7 @@ class ConformanceSchema:
                 StructField("fhirVersion", idSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A code that indicates whether the application accepts unknown elements or
                 # extensions when reading resources.
-                StructField("acceptUnknown", StringType(), True),
+                StructField("acceptUnknown", UnknownContentCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A list of the formats supported by this implementation using their content
                 # types.
                 StructField("format", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

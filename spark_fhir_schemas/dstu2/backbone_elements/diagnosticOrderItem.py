@@ -54,7 +54,7 @@ class DiagnosticOrderItemSchema:
             # bodySite
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # status
-        from spark_fhir_schemas.dstu2.simple_types.diagnosticorderstatus import DiagnosticOrderStatusSchema
+             # type = code
             # event
         Not mapped: DiagnosticOrderEvent
         if (max_recursion_limit and nesting_list.count("DiagnosticOrderItem") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -90,7 +90,7 @@ class DiagnosticOrderItemSchema:
                 # target site.
                 StructField("bodySite", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The status of this individual item within the order.
-                StructField("status", StringType(), True),
+                StructField("status", DiagnosticOrderStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A summary of the events of interest that have occurred as this item of the
                 # request is processed.
                 StructField("event", DiagnosticOrderEventSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

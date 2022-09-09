@@ -70,7 +70,7 @@ class ConformanceSearchParamSchema:
             # target
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # modifier
-        from spark_fhir_schemas.dstu2.simple_types.searchmodifiercode import SearchModifierCodeSchema
+             # type = code
             # chain
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
         if (max_recursion_limit and nesting_list.count("ConformanceSearchParam") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -102,7 +102,7 @@ class ConformanceSearchParamSchema:
                 # An absolute URI that is a formal reference to where this parameter was first
                 # defined, so that a client can be confident of the meaning of the search
                 # parameter (a reference to [[[SearchParameter.url]]]).
-                StructField("definition", StringType(), True),
+                StructField("definition", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of value a search parameter refers to, and how the content is
                 # interpreted.
                 StructField("type", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
@@ -112,7 +112,7 @@ class ConformanceSearchParamSchema:
                 # Types of resource (if a resource is referenced).
                 StructField("target", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A modifier supported for the search parameter.
-                StructField("modifier", StringType(), True),
+                StructField("modifier", SearchModifierCodeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Contains the names of any search parameters which may be chained to the
                 # containing search parameter. Chained parameters may be added to search
                 # parameters of type reference, and specify that resources will only be returned

@@ -99,7 +99,7 @@ class AppointmentResponseSchema:
             # actor
         from spark_fhir_schemas.dstu2.complex_types.reference import ReferenceSchema
             # participantStatus
-        from spark_fhir_schemas.dstu2.simple_types.participantstatus import ParticipantStatusSchema
+             # type = code
             # comment
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
         if (max_recursion_limit and nesting_list.count("AppointmentResponse") >= max_recursion_limit) or (max_nesting_depth and nesting_depth >= max_nesting_depth):
@@ -117,7 +117,7 @@ class AppointmentResponseSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -169,7 +169,7 @@ class AppointmentResponseSchema:
                 # times should be interpreted as a requested time change. When the status is
                 # accepted, the times can either be the time of the appointment (as a
                 # confirmation of the time) or can be empty.
-                StructField("participantStatus", StringType(), True),
+                StructField("participantStatus", ParticipantStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Additional comments about the appointment.
                 StructField("comment", StringType(), True),
             ]

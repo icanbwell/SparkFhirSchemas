@@ -112,7 +112,7 @@ class GoalSchema:
             # description
         from spark_fhir_schemas.dstu2.simple_types.string import stringSchema
             # status
-        from spark_fhir_schemas.dstu2.simple_types.goalstatus import GoalStatusSchema
+             # type = code
             # statusDate
         from spark_fhir_schemas.dstu2.simple_types.date import dateSchema
             # statusReason
@@ -142,7 +142,7 @@ class GoalSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -193,7 +193,7 @@ class GoalSchema:
                 # Human-readable description of a specific desired objective of care.
                 StructField("description", StringType(), True),
                 # Indicates whether the goal has been reached and is still considered relevant.
-                StructField("status", StringType(), True),
+                StructField("status", GoalStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies when the current status.  I.e. When initially created, when
                 # achieved, when cancelled, etc.
                 StructField("statusDate", DateType(), True),

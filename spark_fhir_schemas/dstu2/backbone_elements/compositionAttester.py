@@ -55,7 +55,7 @@ class CompositionAttesterSchema:
             # modifierExtension
         from spark_fhir_schemas.dstu2.complex_types.extension import ExtensionSchema
             # mode
-        from spark_fhir_schemas.dstu2.simple_types.compositionattestationmode import CompositionAttestationModeSchema
+             # type = code
             # time
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # party
@@ -85,7 +85,7 @@ class CompositionAttesterSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField("modifierExtension", ExtensionSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The type of attestation the authenticator offers.
-                StructField("mode", StringType(), True),
+                StructField("mode", CompositionAttestationModeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # When composition was attested by the party.
                 StructField("time", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Who attested the composition in the specified way.

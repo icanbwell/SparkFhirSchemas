@@ -108,13 +108,13 @@ class AllergyIntoleranceSchema:
             # substance
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # status
-        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancestatus import AllergyIntoleranceStatusSchema
+             # type = code
             # criticality
-        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecriticality import AllergyIntoleranceCriticalitySchema
+             # type = code
             # type
-        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancetype import AllergyIntoleranceTypeSchema
+             # type = code
             # category
-        from spark_fhir_schemas.dstu2.simple_types.allergyintolerancecategory import AllergyIntoleranceCategorySchema
+             # type = code
             # lastOccurence
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
             # note
@@ -136,7 +136,7 @@ class AllergyIntoleranceSchema:
                 StructField("meta", MetaSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A reference to a set of rules that were followed when the resource was
                 # constructed, and which must be understood when processing the content.
-                StructField("implicitRules", StringType(), True),
+                StructField("implicitRules", uriSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The base language in which the resource is written.
                 StructField("language", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # A human-readable narrative that contains a summary of the resource, and may be
@@ -186,15 +186,15 @@ class AllergyIntoleranceSchema:
                 StructField("substance", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Assertion about certainty associated with the propensity, or potential risk,
                 # of a reaction to the identified Substance.
-                StructField("status", StringType(), True),
+                StructField("status", AllergyIntoleranceStatusSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Estimate of the potential clinical harm, or seriousness, of the reaction to
                 # the identified Substance.
-                StructField("criticality", StringType(), True),
+                StructField("criticality", AllergyIntoleranceCriticalitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identification of the underlying physiological mechanism for the reaction
                 # risk.
-                StructField("type", StringType(), True),
+                StructField("type", AllergyIntoleranceTypeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Category of the identified Substance.
-                StructField("category", StringType(), True),
+                StructField("category", AllergyIntoleranceCategorySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Represents the date and/or time of the last known occurrence of a reaction
                 # event.
                 StructField("lastOccurence", dateTimeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

@@ -56,7 +56,7 @@ class OperationDefinitionParameterSchema:
             # name
         from spark_fhir_schemas.dstu2.simple_types.code import codeSchema
             # use
-        from spark_fhir_schemas.dstu2.simple_types.operationparameteruse import OperationParameterUseSchema
+             # type = code
             # min
         from spark_fhir_schemas.dstu2.simple_types.integer import integerSchema
             # max
@@ -96,7 +96,7 @@ class OperationDefinitionParameterSchema:
                 # The name of used to identify the parameter.
                 StructField("name", codeSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Whether this is an input or an output parameter.
-                StructField("use", StringType(), True),
+                StructField("use", OperationParameterUseSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The minimum number of times this parameter SHALL appear in the request or
                 # response.
                 StructField("min", integerSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
