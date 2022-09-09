@@ -54,21 +54,25 @@ def main() -> int:
     if os.path.exists(classes_resources_folder):
         shutil.rmtree(classes_resources_folder)
     os.mkdir(classes_resources_folder)
+    classes_resources_folder.joinpath("__init__.py").touch()
 
     classes_simple_types_folder = classes_dir.joinpath("simple_types")
     if os.path.exists(classes_simple_types_folder):
         shutil.rmtree(classes_simple_types_folder)
     os.mkdir(classes_simple_types_folder)
+    classes_simple_types_folder.joinpath("__init__.py").touch()
 
     classes_complex_types_folder = classes_dir.joinpath("complex_types")
     if os.path.exists(classes_complex_types_folder):
         shutil.rmtree(classes_complex_types_folder)
     os.mkdir(classes_complex_types_folder)
+    classes_complex_types_folder.joinpath("__init__.py").touch()
 
     classes_backbone_elements_folder = classes_dir.joinpath("backbone_elements")
     if os.path.exists(classes_backbone_elements_folder):
         shutil.rmtree(classes_backbone_elements_folder)
     os.mkdir(classes_backbone_elements_folder)
+    classes_backbone_elements_folder.joinpath("__init__.py").touch()
 
     # schema_file_path = classes_dir.joinpath("myschema.json")
 
