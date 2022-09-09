@@ -209,32 +209,30 @@ class FhirXmlSchemaParser:
 
         # In DSTU2, xhtml type is missing
         if not any([f for f in fhir_entities if f.fhir_name == "xhtml"]):
-            fhir_entities.extend([
-                FhirEntity(
-                    fhir_name="xhtml",
-                    cleaned_name="xhtml",
-                    name_snake_case="xhtml",
-                    properties=[],
-                    documentation=[
-                        "Limited xhtml content"
-                    ],
-                    type_="Element",
-                    is_back_bone_element=False,
-                    base_type="xhtml",
-                    base_type_list=[
-                        "xhtml"
-                    ],
-                    source="fhir-base.xsd",
-                    is_value_set=False,
-                    value_set_concepts=None,
-                    value_set_url=None,
-                    is_basic_type=True,
-                    value_set_url_list=None,
-                    is_resource=False,
-                    is_extension=False,
-                    properties_unique=[]
-                )
-            ])
+            fhir_entities.extend(
+                [
+                    FhirEntity(
+                        fhir_name="xhtml",
+                        cleaned_name="xhtml",
+                        name_snake_case="xhtml",
+                        properties=[],
+                        documentation=["Limited xhtml content"],
+                        type_="Element",
+                        is_back_bone_element=False,
+                        base_type="xhtml",
+                        base_type_list=["xhtml"],
+                        source="fhir-base.xsd",
+                        is_value_set=False,
+                        value_set_concepts=None,
+                        value_set_url=None,
+                        is_basic_type=True,
+                        value_set_url_list=None,
+                        is_resource=False,
+                        is_extension=False,
+                        properties_unique=[],
+                    )
+                ]
+            )
         for fhir_entity in fhir_entities:
             logger.info(f"2nd pass: setting flags on {fhir_entity.fhir_name}")
             if fhir_entity.fhir_name == "Resource":
@@ -801,7 +799,7 @@ class FhirXmlSchemaParser:
                     type_=entity_type,
                     documentation=documentation_entries,
                     properties=fhir_properties,
-                    is_back_bone_element="." in entity_type if entity_type else False,
+                    is_back_bone_element="." in complex_type_name if complex_type_name else False,
                     base_type=base_type,
                     base_type_list=[base_type] if base_type else [],
                     source=str(resource_xsd_file.parts[-1]),
@@ -815,7 +813,7 @@ class FhirXmlSchemaParser:
                     type_=entity_type.replace("-primitive", ""),
                     documentation=documentation_entries,
                     properties=[],
-                    is_back_bone_element="." in entity_type if entity_type else False,
+                    is_back_bone_element="." in complex_type_name if complex_type_name else False,
                     base_type=base_type,
                     base_type_list=[base_type] if base_type else [],
                     source=str(resource_xsd_file.parts[-1]),
