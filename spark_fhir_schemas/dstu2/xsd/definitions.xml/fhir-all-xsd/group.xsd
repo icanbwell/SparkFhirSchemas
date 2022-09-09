@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Fri, Nov 1, 2019 09:29+1100 for FHIR v4.0.1 
+  Generated on Sat, Oct 24, 2015 07:41+1100 for FHIR v1.0.2 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -38,12 +38,12 @@
   <xs:include schemaLocation="fhir-base.xsd"/>
   <xs:element name="Group" type="Group">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively, and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
+      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="Group">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively, and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
+      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -52,11 +52,6 @@
           <xs:element name="identifier" minOccurs="0" maxOccurs="unbounded" type="Identifier">
             <xs:annotation>
               <xs:documentation xml:lang="en">A unique business identifier for this group.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="active" minOccurs="0" maxOccurs="1" type="boolean">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Indicates whether the record for the group is available for use or is merely being retained for historical purposes.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="type" minOccurs="1" maxOccurs="1" type="GroupType">
@@ -84,14 +79,9 @@
               <xs:documentation xml:lang="en">A count of the number of resource instances that are part of the group.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="managingEntity" minOccurs="0" maxOccurs="1" type="Reference">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Entity responsible for defining and maintaining Group characteristics and/or registered members.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
           <xs:element name="characteristic" type="Group.Characteristic" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Identifies traits whose presence r absence is shared by members of the group.</xs:documentation>
+              <xs:documentation xml:lang="en">Identifies the traits shared by members of the group.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="member" type="Group.Member" minOccurs="0" maxOccurs="unbounded">
@@ -105,7 +95,7 @@
   </xs:complexType>
   <xs:complexType name="Group.Characteristic">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively, and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
+      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -123,7 +113,6 @@
             <xs:element name="valueBoolean" type="boolean"/>
             <xs:element name="valueQuantity" type="Quantity"/>
             <xs:element name="valueRange" type="Range"/>
-            <xs:element name="valueReference" type="Reference"/>
           </xs:choice>
           <xs:element name="exclude" minOccurs="1" maxOccurs="1" type="boolean">
             <xs:annotation>
@@ -141,14 +130,14 @@
   </xs:complexType>
   <xs:complexType name="Group.Member">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively, and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
+      <xs:documentation xml:lang="en">Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected to act collectively and are not formally or legally recognized; i.e. a collection of entities that isn't an Organization.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="entity" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A reference to the entity that is a member of the group. Must be consistent with Group.type. If the entity is another group, then the type must be the same.</xs:documentation>
+              <xs:documentation xml:lang="en">A reference to the entity that is a member of the group. Must be consistent with Group.type.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">
@@ -166,42 +155,42 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:simpleType name="GroupType-list">
-    <xs:restriction base="code-primitive">
+    <xs:restriction base="xs:string">
       <xs:enumeration value="person">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Person</xs:documentation>
+          <xs:documentation xml:lang="en">Group contains &quot;person&quot; Patient resources</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="animal">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Animal</xs:documentation>
+          <xs:documentation xml:lang="en">Group contains &quot;animal&quot; Patient resources</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="practitioner">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Practitioner</xs:documentation>
+          <xs:documentation xml:lang="en">Group contains healthcare practitioner resources</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="device">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Device</xs:documentation>
+          <xs:documentation xml:lang="en">Group contains Device resources</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="medication">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Medication</xs:documentation>
+          <xs:documentation xml:lang="en">Group contains Medication resources</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="substance">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Substance</xs:documentation>
+          <xs:documentation xml:lang="en">Group contains Substance resources</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="GroupType">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Types of resources that are part of group.</xs:documentation>
+      <xs:documentation xml:lang="en">Types of resources that are part of group</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>

@@ -668,6 +668,7 @@ class FhirXmlSchemaParser:
             inner_complex_type: Optional[ObjectifiedElement] = (
                 complex_type["complexContent"]["extension"]
                 if hasattr(complex_type, "complexContent")
+                and hasattr(complex_type["complexContent"], "extension")
                 else None
             )
             entity_type: Optional[str] = None
@@ -913,18 +914,20 @@ class FhirXmlSchemaParser:
             entry: ObjectifiedElement
             for entry in entries:
                 structure_definition: ObjectifiedElement = entry["resource"][
-                    "StructureDefinition"
+                    "DataElement"
                 ]
                 # name: str = structure_definition["name"].get("value")
-                snapshot_element: ObjectifiedElement = structure_definition["snapshot"][
-                    "element"
-                ]
-                types: ObjectifiedElement = snapshot_element["type"]
+                snapshot_element: ObjectifiedElement = structure_definition["element"]
+                types: ObjectifiedElement = (
+                    snapshot_element["type"]
+                    if hasattr(snapshot_element, "type")
+                    else []
+                )
                 type_: ObjectifiedElement
                 for type_ in types:
                     type_code_obj = type_["code"]
                     type_code: str = type_code_obj.get("value")
-                    if type_code.endswith("Reference"):
+                    if type_code is not None and type_code.endswith("Reference"):
                         if not hasattr(type_, "targetProfile"):
                             logger.warning(
                                 f'ASSERT: targetProfile not in {type_} for {snapshot_element["path"].get("value")}'
@@ -968,12 +971,10 @@ class FhirXmlSchemaParser:
             entry: ObjectifiedElement
             for entry in entries:
                 structure_definition: ObjectifiedElement = entry["resource"][
-                    "StructureDefinition"
+                    "DataElement"
                 ]
                 # name: str = structure_definition["name"].get("value")
-                snapshot_element: ObjectifiedElement = structure_definition["snapshot"][
-                    "element"
-                ]
+                snapshot_element: ObjectifiedElement = structure_definition["element"]
                 if hasattr(snapshot_element, "binding"):
                     types: ObjectifiedElement = snapshot_element["type"]
                     type_: ObjectifiedElement
@@ -987,7 +988,11 @@ class FhirXmlSchemaParser:
                             bindings: ObjectifiedElement = snapshot_element["binding"]
                             binding: ObjectifiedElement
                             for binding in bindings:
-                                extension_code_list = binding["extension"]
+                                extension_code_list = (
+                                    binding["extension"]
+                                    if hasattr(binding, "extension")
+                                    else []
+                                )
                                 url: str = "http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName"
                                 value_set_url = (
                                     binding["valueSet"].get("value")
@@ -1080,7 +1085,11 @@ class FhirXmlSchemaParser:
                         )
                     )
             if hasattr(value_set, "compose"):
-                compose_includes: ObjectifiedElement = value_set["compose"]["include"]
+                compose_includes: ObjectifiedElement = (
+                    value_set["compose"]["include"]
+                    if hasattr(value_set["compose"], "include")
+                    else []
+                )
                 compose_include: ObjectifiedElement
                 for compose_include in compose_includes:
                     is_code_system = hasattr(compose_include, "system")
@@ -1311,7 +1320,11 @@ class FhirXmlSchemaParser:
             fhir_concepts = []
             value_set_url_list = set()
             if hasattr(value_set, "compose"):
-                compose_includes: ObjectifiedElement = value_set["compose"]["include"]
+                compose_includes: ObjectifiedElement = (
+                    value_set["compose"]["include"]
+                    if hasattr(value_set["compose"], "include")
+                    else []
+                )
                 compose_include: ObjectifiedElement
                 for compose_include in compose_includes:
                     is_code_system = hasattr(compose_include, "system")

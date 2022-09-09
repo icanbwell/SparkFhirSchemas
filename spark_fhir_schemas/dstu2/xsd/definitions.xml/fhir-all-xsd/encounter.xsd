@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Fri, Nov 1, 2019 09:29+1100 for FHIR v4.0.1 
+  Generated on Sat, Oct 24, 2015 07:41+1100 for FHIR v1.0.2 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -54,9 +54,9 @@
               <xs:documentation xml:lang="en">Identifier(s) by which this encounter is known.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="status" minOccurs="1" maxOccurs="1" type="EncounterStatus">
+          <xs:element name="status" minOccurs="1" maxOccurs="1" type="EncounterState">
             <xs:annotation>
-              <xs:documentation xml:lang="en">planned | arrived | triaged | in-progress | onleave | finished | cancelled +.</xs:documentation>
+              <xs:documentation xml:lang="en">planned | arrived | in-progress | onleave | finished | cancelled.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="statusHistory" type="Encounter.StatusHistory" minOccurs="0" maxOccurs="unbounded">
@@ -64,14 +64,9 @@
               <xs:documentation xml:lang="en">The status history permits the encounter resource to contain the status history without needing to read through the historical versions of the resource, or even have the server store them.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="class" minOccurs="1" maxOccurs="1" type="Coding">
+          <xs:element name="class" minOccurs="0" maxOccurs="1" type="EncounterClass">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Concepts representing classification of patient encounter such as ambulatory (outpatient), inpatient, emergency, home health or others due to local variations.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="classHistory" type="Encounter.ClassHistory" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The class history permits the tracking of the encounters transitions without needing to go  through the resource history.  This would be used for a case where an admission starts of as an emergency encounter, then transitions into an inpatient scenario. Doing this and not restarting a new encounter ensures that any lab/diagnostic results can more easily follow the patient and not require re-processing and not get lost or cancelled during a kind of discharge from emergency to inpatient.</xs:documentation>
+              <xs:documentation xml:lang="en">inpatient | outpatient | ambulatory | emergency +.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="type" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
@@ -79,37 +74,32 @@
               <xs:documentation xml:lang="en">Specific type of encounter (e.g. e-mail consultation, surgical day-care, skilled nursing, rehabilitation).</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="serviceType" minOccurs="0" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Broad categorization of the service that is to be provided (e.g. cardiology).</xs:documentation>
-           </xs:annotation>
-          </xs:element>
           <xs:element name="priority" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">Indicates the urgency of the encounter.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="subject" minOccurs="0" maxOccurs="1" type="Reference">
+          <xs:element name="patient" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The patient or group present at the encounter.</xs:documentation>
+              <xs:documentation xml:lang="en">The patient present at the encounter.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="episodeOfCare" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Where a specific encounter should be classified as a part of a specific episode(s) of care this field should be used. This association can facilitate grouping of related encounters together for a specific purpose, such as government reporting, issue tracking, association via a common problem.  The association is recorded on the encounter as these are typically created after the episode of care and grouped on entry rather than editing the episode of care to append another encounter to it (the episode of care could span years).</xs:documentation>
+              <xs:documentation xml:lang="en">Where a specific encounter should be classified as a part of a specific episode(s) of care this field should be used. This association can facilitate grouping of related encounters together for a specific purpose, such as government reporting, issue tracking, association via a common problem.  The association is recorded on the encounter as these are typically created after the episode of care, and grouped on entry rather than editing the episode of care to append another encounter to it (the episode of care could span years).</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="basedOn" minOccurs="0" maxOccurs="unbounded" type="Reference">
+          <xs:element name="incomingReferral" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The request this encounter satisfies (e.g. incoming referral or procedure request).</xs:documentation>
+              <xs:documentation xml:lang="en">The referral request this encounter satisfies (incoming referral).</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="participant" type="Encounter.Participant" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The list of people responsible for providing the service.</xs:documentation>
+              <xs:documentation xml:lang="en">The list of people responsible for providing the service.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="appointment" minOccurs="0" maxOccurs="unbounded" type="Reference">
+          <xs:element name="appointment" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
               <xs:documentation xml:lang="en">The appointment that scheduled this encounter.</xs:documentation>
            </xs:annotation>
@@ -124,24 +114,14 @@
               <xs:documentation xml:lang="en">Quantity of time the encounter lasted. This excludes the time during leaves of absence.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="reasonCode" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+          <xs:element name="reason" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">Reason the encounter takes place, expressed as a code. For admissions, this can be used for a coded admission diagnosis.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="reasonReference" minOccurs="0" maxOccurs="unbounded" type="Reference">
+          <xs:element name="indication" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Reason the encounter takes place, expressed as a code. For admissions, this can be used for a coded admission diagnosis.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="diagnosis" type="Encounter.Diagnosis" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The list of diagnosis relevant to this encounter.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="account" minOccurs="0" maxOccurs="unbounded" type="Reference">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The set of accounts that may be used for billing for this Encounter.</xs:documentation>
+              <xs:documentation xml:lang="en">Reason the encounter takes place, as specified using information from another resource. For admissions, this is the admission diagnosis. The indication will typically be a Condition (with other resources referenced in the evidence.detail), or a Procedure.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="hospitalization" type="Encounter.Hospitalization" minOccurs="0" maxOccurs="1">
@@ -156,7 +136,7 @@
           </xs:element>
           <xs:element name="serviceProvider" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The organization that is primarily responsible for this Encounter's services. This MAY be the same as the organization on the Patient record, however it could be different, such as if the actor performing the services was from an external organization (which may be billed seperately) for an external consultation.  Refer to the example bundle showing an abbreviated set of Encounters for a colonoscopy.</xs:documentation>
+              <xs:documentation xml:lang="en">An organization that is in charge of maintaining the information of this Encounter (e.g. who maintains the report or the master service catalog item, etc.). This MAY be the same as the organization on the Patient record, however it could be different. This MAY not be not the Service Delivery Location's Organization.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="partOf" minOccurs="0" maxOccurs="1" type="Reference">
@@ -175,35 +155,14 @@
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
-          <xs:element name="status" minOccurs="1" maxOccurs="1" type="EncounterStatus">
+          <xs:element name="status" minOccurs="1" maxOccurs="1" type="EncounterState">
             <xs:annotation>
-              <xs:documentation xml:lang="en">planned | arrived | triaged | in-progress | onleave | finished | cancelled +.</xs:documentation>
+              <xs:documentation xml:lang="en">planned | arrived | in-progress | onleave | finished | cancelled.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="period" minOccurs="1" maxOccurs="1" type="Period">
             <xs:annotation>
               <xs:documentation xml:lang="en">The time that the episode was in the specified status.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Encounter.ClassHistory">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">An interaction between a patient and healthcare provider(s) for the purpose of providing healthcare service(s) or assessing the health status of a patient.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="class" minOccurs="1" maxOccurs="1" type="Coding">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">inpatient | outpatient | ambulatory | emergency +.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="period" minOccurs="1" maxOccurs="1" type="Period">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The time that the episode was in the specified class.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -224,38 +183,12 @@
           </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The period of time that the specified participant participated in the encounter. These can overlap or be sub-sets of the overall encounter's period.</xs:documentation>
+              <xs:documentation xml:lang="en">The period of time that the specified participant was present during the encounter. These can overlap or be sub-sets of the overall encounters period.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="individual" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
               <xs:documentation xml:lang="en">Persons involved in the encounter other than the patient.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Encounter.Diagnosis">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">An interaction between a patient and healthcare provider(s) for the purpose of providing healthcare service(s) or assessing the health status of a patient.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="condition" minOccurs="1" maxOccurs="1" type="Reference">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Reason the encounter takes place, as specified using information from another resource. For admissions, this is the admission diagnosis. The indication will typically be a Condition (with other resources referenced in the evidence.detail), or a Procedure.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="use" minOccurs="0" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Role that this diagnosis has within the encounter (e.g. admission, billing, discharge …).</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="rank" minOccurs="0" maxOccurs="1" type="positiveInt">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Ranking of the diagnosis (for each role type).</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -276,12 +209,17 @@
           </xs:element>
           <xs:element name="origin" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The location/organization from which the patient came before admission.</xs:documentation>
+              <xs:documentation xml:lang="en">The location from which the patient came before admission.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="admitSource" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">From where patient was admitted (physician referral, transfer).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="admittingDiagnosis" minOccurs="0" maxOccurs="unbounded" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The admitting diagnosis field is used to record the diagnosis codes as reported by admitting practitioner. This could be different or in addition to the conditions reported as reason-condition(s) for the encounter.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="reAdmission" minOccurs="0" maxOccurs="1" type="CodeableConcept">
@@ -301,17 +239,22 @@
           </xs:element>
           <xs:element name="specialArrangement" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Any special requests that have been made for this hospitalization encounter, such as the provision of specific equipment or other things.</xs:documentation>
+              <xs:documentation xml:lang="en">Wheelchair, translator, stretcher, etc.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="destination" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Location/organization to which the patient is discharged.</xs:documentation>
+              <xs:documentation xml:lang="en">Location to which the patient is discharged.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="dischargeDisposition" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">Category or kind of location after discharge.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="dischargeDiagnosis" minOccurs="0" maxOccurs="unbounded" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The final diagnosis given a patient before release from the hospital after all testing, surgery, and workup are complete.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -332,12 +275,7 @@
           </xs:element>
           <xs:element name="status" minOccurs="0" maxOccurs="1" type="EncounterLocationStatus">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The status of the participants' presence at the specified location during the period specified. If the participant is no longer at the location, then the period will have an end date/time.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="physicalType" minOccurs="0" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">This will be used to specify the required levels (bed/ward/room/etc.) desired to be recorded to simplify either messaging or query.</xs:documentation>
+              <xs:documentation xml:lang="en">The status of the participants' presence at the specified location during the period specified. If the participant is is no longer at the location, then the period will have an end date/time.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">
@@ -350,25 +288,29 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:simpleType name="EncounterLocationStatus-list">
-    <xs:restriction base="code-primitive">
+    <xs:restriction base="xs:string">
       <xs:enumeration value="planned">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Planned</xs:documentation>
+          <xs:documentation xml:lang="en">The patient is planned to be moved to this location at some point in the future.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="active">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Active</xs:documentation>
+          <xs:documentation xml:lang="en">The patient is currently at this location, or was between the period specified.
+
+A system may update these records when the patient leaves the location to either reserved, or completed</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="reserved">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Reserved</xs:documentation>
+          <xs:documentation xml:lang="en">This location is held empty for this patient.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="completed">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Completed</xs:documentation>
+          <xs:documentation xml:lang="en">The patient was at this location during the period specified.
+
+Not to be used when the patient is currently at the location</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -384,63 +326,108 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="EncounterStatus-list">
-    <xs:restriction base="code-primitive">
-      <xs:enumeration value="planned">
+  <xs:simpleType name="EncounterClass-list">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="inpatient">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Planned</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter during which the patient is hospitalized and stays overnight.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="arrived">
+      <xs:enumeration value="outpatient">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Arrived</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter during which the patient is not hospitalized overnight.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="triaged">
+      <xs:enumeration value="ambulatory">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Triaged</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter where the patient visits the practitioner in his/her office, e.g. a G.P. visit.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="in-progress">
+      <xs:enumeration value="emergency">
         <xs:annotation>
-          <xs:documentation xml:lang="en">In Progress</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter in the Emergency Care Department.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="onleave">
+      <xs:enumeration value="home">
         <xs:annotation>
-          <xs:documentation xml:lang="en">On Leave</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter where the practitioner visits the patient at his/her home.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="finished">
+      <xs:enumeration value="field">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Finished</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter taking place outside the regular environment for giving care.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="cancelled">
+      <xs:enumeration value="daytime">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Cancelled</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter where the patient needs more prolonged treatment or investigations than outpatients, but who do not need to stay in the hospital overnight.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="entered-in-error">
+      <xs:enumeration value="virtual">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Entered in Error</xs:documentation>
+          <xs:documentation xml:lang="en">An encounter that takes place where the patient and practitioner do not physically meet but use electronic means for contact.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="unknown">
+      <xs:enumeration value="other">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Unknown</xs:documentation>
+          <xs:documentation xml:lang="en">Any other encounter type that is not described by one of the other values. Where this is used it is expected that an implementer will include an extension value to define what the actual other type is.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="EncounterStatus">
+  <xs:complexType name="EncounterClass">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Current state of the encounter.</xs:documentation>
+      <xs:documentation xml:lang="en">Classification of the encounter</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="Element">
-        <xs:attribute name="value" type="EncounterStatus-list" use="optional"/>
+        <xs:attribute name="value" type="EncounterClass-list" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="EncounterState-list">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="planned">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Encounter has not yet started.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="arrived">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Patient is present for the encounter, however is not currently meeting with a practitioner.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="in-progress">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Encounter has begun and the patient is present / the practitioner and the patient are meeting.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="onleave">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Encounter has begun, but the patient is temporarily on leave.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="finished">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Encounter has ended.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cancelled">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The Encounter has ended before it has begun.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="EncounterState">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Current state of the encounter</xs:documentation>
+      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="EncounterState-list" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
