@@ -100,7 +100,7 @@ class AccountSchema:
             # currency
         from spark_fhir_schemas.dstu2.complex_types.coding import CodingSchema
             # balance
-        Not mapped: Money
+        Not mapped: Quantity
             # coveragePeriod
         from spark_fhir_schemas.dstu2.complex_types.period import PeriodSchema
             # subject
@@ -170,7 +170,7 @@ class AccountSchema:
                 StructField("currency", CodingSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Represents the sum of all credits less all debits associated with the account.
                 # Might be positive, zero or negative.
-                StructField("balance", MoneySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("balance", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Identifies the period of time the account applies to; e.g. accounts created
                 # per fiscal year, quarter, etc.
                 StructField("coveragePeriod", PeriodSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),

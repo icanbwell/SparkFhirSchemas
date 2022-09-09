@@ -131,7 +131,7 @@ class ImmunizationSchema:
             # route
         from spark_fhir_schemas.dstu2.complex_types.codeableconcept import CodeableConceptSchema
             # doseQuantity
-        Not mapped: SimpleQuantity
+        Not mapped: Quantity
             # note
         from spark_fhir_schemas.dstu2.complex_types.annotation import AnnotationSchema
             # explanation
@@ -219,7 +219,7 @@ class ImmunizationSchema:
                 # The path by which the vaccine product is taken into the body.
                 StructField("route", CodeableConceptSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # The quantity of vaccine product that was administered.
-                StructField("doseQuantity", SimpleQuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
+                StructField("doseQuantity", QuantitySchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
                 # Extra information about the immunization that is not conveyed by the other
                 # attributes.
                 StructField("note", AnnotationSchema.get_schema(max_nesting_depth=max_nesting_depth,nesting_depth=nesting_depth+1,nesting_list=my_nesting_list,max_recursion_limit=max_recursion_limit,include_extension=include_extension,extension_fields=extension_fields, extension_depth=extension_depth+1, max_extension_depth=max_extension_depth), True),
