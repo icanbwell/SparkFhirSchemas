@@ -112,6 +112,18 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def fix_errors_in_xsd(fhir_entities: List[FhirEntity]):
+    for fhir_entity in fhir_entities:
+        if fhir_entity.fhir_name == "Condition":
+            for fhir_property in fhir_entity.properties:
+                if (
+                    fhir_property.fhir_name == "onsetQuantity"
+                ):  # error in DSTU2 xsd schema
+                    fhir_property.fhir_name = "onsetAge"
+                    fhir_property.javascript_clean_name = "onsetAge"
+                    fhir_property.name = "onsetAge"
+
+
 class FhirXmlSchemaParser:
     cleaned_type_mapping: Dict[str, str] = {
         # "boolean": "Boolean",
@@ -233,6 +245,9 @@ class FhirXmlSchemaParser:
                     )
                 ]
             )
+
+        fix_errors_in_xsd(fhir_entities)
+
         for fhir_entity in fhir_entities:
             logger.info(f"2nd pass: setting flags on {fhir_entity.fhir_name}")
             if fhir_entity.fhir_name == "Resource":
@@ -290,9 +305,16 @@ class FhirXmlSchemaParser:
                         f"WARNING: base type {fhir_entity.base_type} not found"
                     )
                 else:
-                    fhir_entity.properties = (
-                        fhir_base_entity[0].properties + fhir_entity.properties
-                    )
+                    # add any missing properties from base type
+                    fhir_entity.properties = fhir_base_entity[0].properties + [
+                        p
+                        for p in fhir_entity.properties
+                        if p.fhir_name
+                        not in [
+                            fhir_property.fhir_name
+                            for fhir_property in fhir_base_entity[0].properties
+                        ]
+                    ]
                     # add the base class
                     fhir_entity.base_type_list.append(fhir_base_entity[0].fhir_name)
                     # and any base classes of the base class
@@ -388,6 +410,17 @@ class FhirXmlSchemaParser:
                         for c in value_sets
                         if c.name == fhir_property.type_
                     ][0]
+
+        # check for duplicates
+        print("------ Checking for duplicate properties -------")
+        for fhir_entity in fhir_entities:
+            property_names: List[str] = []
+            for fhir_property in fhir_entity.properties:
+                if [p for p in property_names if p == fhir_property.fhir_name]:
+                    print(
+                        f"***ERROR*** entity: {fhir_entity.fhir_name} has duplicate property: {fhir_property.fhir_name}"
+                    )
+                property_names.append(fhir_property.fhir_name)
 
         # create list of unique properties
         for fhir_entity in fhir_entities:
