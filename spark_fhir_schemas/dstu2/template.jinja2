@@ -47,7 +47,7 @@ class {{fhir_entity.cleaned_name}}Schema:
         {% endif %}
     {% endif %}
 {% endfor %}
-{% if not fhir_entity.properties_unique %}
+{% if not fhir_entity.properties %}
 {#    if it is a simple property #}
     {% if fhir_entity.base_type == "string" %}
         return StringType()
