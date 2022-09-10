@@ -62,7 +62,7 @@ def test_can_read_period_with_date(spark_session: SparkSession) -> None:
     )
     print(period_schema)
     assert isinstance(period_schema, StructType)
-    result_df: DataFrame = df.sql_ctx.read.schema(period_schema).json(
+    result_df: DataFrame = df.sparkSession.read.schema(period_schema).json(
         str(minified_json_path)
     )
     assert result_df.collect()[0][2] == datetime.date(2022, 2, 1)
@@ -92,7 +92,7 @@ def test_can_read_period_with_datetime(spark_session: SparkSession) -> None:
 
     period_schema: Union[StructType, DataType] = PeriodSchema.get_schema()
     assert isinstance(period_schema, StructType)
-    result_df: DataFrame = df.sql_ctx.read.schema(period_schema).json(
+    result_df: DataFrame = df.sparkSession.read.schema(period_schema).json(
         str(minified_json_path)
     )
     assert result_df.collect()[0][2] == datetime.datetime(2022, 2, 1)
@@ -124,7 +124,7 @@ def test_can_read_period_with_datetime_populated(spark_session: SparkSession) ->
 
     period_schema: Union[StructType, DataType] = PeriodSchema.get_schema()
     assert isinstance(period_schema, StructType)
-    result_df: DataFrame = df.sql_ctx.read.schema(period_schema).json(
+    result_df: DataFrame = df.sparkSession.read.schema(period_schema).json(
         str(minified_json_path)
     )
     assert result_df.collect()[0][2] == datetime.datetime(2022, 1, 18, 14, 54, 57)
