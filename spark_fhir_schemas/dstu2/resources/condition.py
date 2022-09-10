@@ -102,7 +102,7 @@ class ConditionSchema:
             severity: A subjective assessment of the severity of the condition as evaluated by the
         clinician.
             onsetDateTime: None
-            onsetQuantity: None
+            onsetAge: None
             onsetPeriod: None
             onsetRange: None
             onsetString: None
@@ -156,7 +156,7 @@ class ConditionSchema:
         # onsetDateTime
         from spark_fhir_schemas.dstu2.simple_types.datetime import dateTimeSchema
 
-        # onsetQuantity
+        # onsetAge
         from spark_fhir_schemas.dstu2.complex_types.age import AgeSchema
 
         # onsetPeriod
@@ -454,7 +454,7 @@ class ConditionSchema:
                 ),
                 # None
                 StructField(
-                    "onsetQuantity",
+                    "onsetAge",
                     AgeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,

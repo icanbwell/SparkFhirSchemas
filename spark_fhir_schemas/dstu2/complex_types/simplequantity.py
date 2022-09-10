@@ -52,14 +52,6 @@ class SimpleQuantitySchema:
             unit: A human-readable form of the unit.
             system: The identification of the system that provides the coded form of the unit.
             code: A computer processable form of the unit in some unit representation system.
-            id: None
-            extension: Exception as inherited from Element
-            value: The value of the measured amount. The value includes an implicit precision in
-        the presentation of the value.
-            comparator: Not allowed to be used in this context
-            unit: A human-readable form of the unit.
-            system: The identification of the system that provides the coded form of the unit.
-            code: A computer processable form of the unit in some unit representation system.
         """
         # id
         from spark_fhir_schemas.dstu2.simple_types.id import idSchema
@@ -140,75 +132,6 @@ class SimpleQuantitySchema:
                 # How the value should be understood and represented - whether the actual value
                 # is greater or less than the stated value due to measurement issues; e.g. if
                 # the comparator is "<" , then the real value is < stated value.
-                StructField("comparator", StringType(), True),
-                # A human-readable form of the unit.
-                StructField("unit", StringType(), True),
-                # The identification of the system that provides the coded form of the unit.
-                StructField(
-                    "system",
-                    uriSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                    ),
-                    True,
-                ),
-                # A computer processable form of the unit in some unit representation system.
-                StructField("code", StringType(), True),
-                # None
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                    ),
-                    True,
-                ),
-                # Exception as inherited from Element
-                StructField(
-                    "extension",
-                    ArrayType(
-                        ExtensionSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth + 1,
-                            max_extension_depth=max_extension_depth,
-                        )
-                    ),
-                    True,
-                ),
-                # The value of the measured amount. The value includes an implicit precision in
-                # the presentation of the value.
-                StructField(
-                    "value",
-                    decimalSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                    ),
-                    True,
-                ),
-                # Not allowed to be used in this context
                 StructField("comparator", StringType(), True),
                 # A human-readable form of the unit.
                 StructField("unit", StringType(), True),
