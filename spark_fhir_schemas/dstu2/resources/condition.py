@@ -4,6 +4,7 @@ from pyspark.sql.types import (
     StructType,
     StructField,
     StringType,
+    ArrayType,
     DateType,
     BooleanType,
     DataType,
@@ -259,15 +260,17 @@ class ConditionSchema:
                 # have their own independent transaction scope.
                 StructField(
                     "contained",
-                    ResourceContainerSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ResourceContainerSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -279,15 +282,17 @@ class ConditionSchema:
                 # the extension.
                 StructField(
                     "extension",
-                    ExtensionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -301,15 +306,17 @@ class ConditionSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField(
                     "modifierExtension",
-                    ExtensionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -319,15 +326,17 @@ class ConditionSchema:
                 # printed documentation).
                 StructField(
                     "identifier",
-                    IdentifierSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        IdentifierSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -574,30 +583,34 @@ class ConditionSchema:
                 # condition is suspected or confirmed.
                 StructField(
                     "evidence",
-                    ConditionEvidenceSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ConditionEvidenceSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
                 # The anatomical location where this condition manifests itself.
                 StructField(
                     "bodySite",
-                    CodeableConceptSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        CodeableConceptSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),

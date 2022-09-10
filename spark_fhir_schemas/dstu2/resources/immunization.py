@@ -4,6 +4,7 @@ from pyspark.sql.types import (
     StructType,
     StructField,
     StringType,
+    ArrayType,
     DateType,
     BooleanType,
     DataType,
@@ -256,15 +257,17 @@ class ImmunizationSchema:
                 # have their own independent transaction scope.
                 StructField(
                     "contained",
-                    ResourceContainerSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ResourceContainerSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -276,15 +279,17 @@ class ImmunizationSchema:
                 # the extension.
                 StructField(
                     "extension",
-                    ExtensionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -298,30 +303,34 @@ class ImmunizationSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField(
                     "modifierExtension",
-                    ExtensionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
                 # A unique identifier assigned to this immunization record.
                 StructField(
                     "identifier",
-                    IdentifierSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        IdentifierSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -505,15 +514,17 @@ class ImmunizationSchema:
                 # attributes.
                 StructField(
                     "note",
-                    AnnotationSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        AnnotationSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -536,15 +547,17 @@ class ImmunizationSchema:
                 # immunization.
                 StructField(
                     "reaction",
-                    ImmunizationReactionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ImmunizationReactionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -552,15 +565,17 @@ class ImmunizationSchema:
                 # administered.
                 StructField(
                     "vaccinationProtocol",
-                    ImmunizationVaccinationProtocolSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ImmunizationVaccinationProtocolSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),

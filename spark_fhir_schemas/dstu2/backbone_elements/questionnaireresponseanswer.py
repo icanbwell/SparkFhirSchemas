@@ -4,6 +4,7 @@ from pyspark.sql.types import (
     StructType,
     StructField,
     StringType,
+    ArrayType,
     DateType,
     BooleanType,
     DataType,
@@ -155,15 +156,17 @@ class QuestionnaireResponseAnswerSchema:
                 # the extension.
                 StructField(
                     "extension",
-                    ExtensionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -177,15 +180,17 @@ class QuestionnaireResponseAnswerSchema:
                 # processing a resource are required to check for modifier extensions.
                 StructField(
                     "modifierExtension",
-                    ExtensionSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        ExtensionSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
@@ -349,15 +354,17 @@ class QuestionnaireResponseAnswerSchema:
                 # groups within the question is relevant.
                 StructField(
                     "group",
-                    QuestionnaireResponseGroupSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
+                    ArrayType(
+                        QuestionnaireResponseGroupSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth + 1,
+                            max_extension_depth=max_extension_depth,
+                        )
                     ),
                     True,
                 ),
