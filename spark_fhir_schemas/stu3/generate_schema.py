@@ -98,6 +98,7 @@ def main() -> int:
     properties_blocked: List[str] = ["modifierExtension"]
     complex_types: List[str] = []
     resource_types: List[str] = []
+    resource_types_fhir_name: List[str] = []
 
     # first pass, decide which items are resources or simple_types or complex_types
     # have to do two passes since an item at the beginning of the file may refer to an item at the end
@@ -110,6 +111,7 @@ def main() -> int:
         if resource_name in resources_dict:
             print(f"Added Resource: {resource_name}")
             resource_types.append(resource_name.lower())
+            resource_types_fhir_name.append(resource_name)
         elif "properties" not in resource and "allOf" not in resource:
             print(f"Added Simple Type: {resource_name}")
             simple_types.append(resource_name.lower())
@@ -277,6 +279,17 @@ def main() -> int:
                     file2.write(result)
 
             # print(result)
+    with open(data_dir.joinpath("template_index.jinja2"), "r") as file:
+        template_contents_index: str = file.read()
+        from jinja2 import Template
+
+        template_index = Template(
+            template_contents_index, trim_blocks=True, lstrip_blocks=True
+        )
+        result_index: str = template_index.render(resources=resource_types_fhir_name)
+        with open(resources_folder.joinpath("resource_schema_index.py"), "w") as file2:
+            file2.write(result_index)
+
     return 0
 
 

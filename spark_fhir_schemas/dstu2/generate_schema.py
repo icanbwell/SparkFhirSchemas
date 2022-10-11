@@ -83,6 +83,7 @@ def main() -> int:
     with open(schema_pickle_file_path, "r") as file2:
         contents = file2.read()
     fhir_entities: List[FhirEntity] = jsonpickle.decode(contents)
+    resource_types_fhir_name: List[str] = []
 
     # now print the result
     for fhir_entity in fhir_entities:
@@ -108,6 +109,7 @@ def main() -> int:
             #     with open(file_path, "w") as file2:
             #         file2.write(result)
         elif fhir_entity.is_resource:
+            resource_types_fhir_name.append(resource_name)
             # write Javascript classes
             with open(data_dir.joinpath("template.jinja2"), "r") as file:
                 template_contents = file.read()
@@ -223,6 +225,18 @@ def main() -> int:
             print(f"{resource_name}: {fhir_entity.type_} is not supported")
         # print(result)
 
+    with open(data_dir.joinpath("template_index.jinja2"), "r") as file:
+        template_contents_index: str = file.read()
+        from jinja2 import Template
+
+        template_index = Template(
+            template_contents_index, trim_blocks=True, lstrip_blocks=True
+        )
+        result_index: str = template_index.render(resources=resource_types_fhir_name)
+        with open(
+            classes_resources_folder.joinpath("resource_schema_index.py"), "w"
+        ) as file2:
+            file2.write(result_index)
     return 0
 
 
