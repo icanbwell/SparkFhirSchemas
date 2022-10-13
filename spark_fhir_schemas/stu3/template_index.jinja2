@@ -1,0 +1,15 @@
+from typing import Any
+
+class ResourceSchemaIndex:
+    @staticmethod
+    def get(resource_type: str) -> Any:
+        if resource_type is None:
+            raise Exception("Invalid resource type")
+{% for resource in resources %}
+        elif resource_type == "{{resource}}":
+            from spark_fhir_schemas.stu3.complex_types.{{resource.lower()}} import {{resource}}Schema
+            return {{resource}}Schema
+{% endfor %}
+        else:
+            raise Exception(f"Resource Type {resource_type} is unknown")
+
