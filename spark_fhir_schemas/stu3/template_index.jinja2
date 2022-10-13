@@ -7,7 +7,7 @@ class ResourceSchemaIndex:
             raise Exception("Invalid resource type")
 {% for resource in resources %}
         elif resource_type == "{{resource}}":
-            from spark_fhir_schemas.r4.resources.{{resource.lower()}} import {{resource}}Schema
+            from spark_fhir_schemas.stu3.complex_types.{{resource.lower()}} import {{resource}}Schema
             return {{resource}}Schema
 {% endfor %}
         else:

@@ -111,7 +111,6 @@ def main() -> int:
         if resource_name in resources_dict:
             print(f"Added Resource: {resource_name}")
             resource_types.append(resource_name.lower())
-            resource_types_fhir_name.append(resource_name)
         elif "properties" not in resource and "allOf" not in resource:
             print(f"Added Simple Type: {resource_name}")
             simple_types.append(resource_name.lower())
@@ -272,6 +271,7 @@ def main() -> int:
                     file2.write(result)
             else:
                 file_path = complex_types_folder.joinpath(f"{resource_name.lower()}.py")
+                resource_types_fhir_name.append(resource_name)
                 print(
                     f"Writing complex_type: {resource_name.lower()} to {file_path}..."
                 )
@@ -287,7 +287,9 @@ def main() -> int:
             template_contents_index, trim_blocks=True, lstrip_blocks=True
         )
         result_index: str = template_index.render(resources=resource_types_fhir_name)
-        with open(resources_folder.joinpath("resource_schema_index.py"), "w") as file2:
+        with open(
+            complex_types_folder.joinpath("resource_schema_index.py"), "w"
+        ) as file2:
             file2.write(result_index)
 
     return 0

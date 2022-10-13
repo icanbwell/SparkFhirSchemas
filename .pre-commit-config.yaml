@@ -14,13 +14,6 @@ repos:
         entry: autoflake
         require_serial: true
         args: [ '--in-place', '--remove-all-unused-imports', '--ignore-init-module-imports']
-      - id: flake8
-        name: flake8
-        language: system
-        types: [python]
-        entry: flake8
-        require_serial: true
-        args: [ "--per-file-ignores=__init__.py:F401,anonymizer.py:E731"]
       - id: black
         name: black
         language: system
