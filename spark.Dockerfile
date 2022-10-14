@@ -1,4 +1,4 @@
-FROM imranq2/helix.spark:3.3.0.1-slim
+FROM imranq2/helix.spark:3.3.0.8-slim
 # https://github.com/icanbwell/helix.spark
 USER root
 
@@ -9,7 +9,7 @@ COPY Pipfile* /sfs/
 WORKDIR /sfs
 
 RUN df -h # for space monitoring
-RUN pipenv sync --dev --system
+RUN pip install pipenv && pipenv sync --dev --system
 
 
 # override entrypoint to remove extra logging
