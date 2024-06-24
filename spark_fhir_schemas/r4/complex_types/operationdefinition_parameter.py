@@ -212,7 +212,23 @@ class OperationDefinition_ParameterSchema:
                     True,
                 ),
                 # Whether this is an input or an output parameter.
-                StructField("use", StringType(), True),
+                StructField(
+                    "use",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".use",
+                    ),
+                    True,
+                ),
                 # The minimum number of times this parameter SHALL appear in the request or
                 # response.
                 StructField(
@@ -284,7 +300,23 @@ class OperationDefinition_ParameterSchema:
                 ),
                 # How the parameter is understood as a search parameter. This is only used if
                 # the parameter type is 'string'.
-                StructField("searchType", StringType(), True),
+                StructField(
+                    "searchType",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".searchtype",
+                    ),
+                    True,
+                ),
                 # Binds to a value set if this parameter is coded (code, Coding,
                 # CodeableConcept).
                 StructField(

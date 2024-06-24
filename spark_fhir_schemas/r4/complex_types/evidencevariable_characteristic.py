@@ -7,7 +7,6 @@ from pyspark.sql.types import (
     ArrayType,
     BooleanType,
     DataType,
-    TimestampType,
 )
 
 
@@ -15,8 +14,8 @@ from pyspark.sql.types import (
 # noinspection PyPep8Naming
 class EvidenceVariable_CharacteristicSchema:
     """
-    The EvidenceVariable resource describes a "PICO" element that knowledge
-    (evidence, assertion, recommendation) is about.
+    The EvidenceVariable resource describes an element that knowledge (Evidence)
+    is about.
     """
 
     # noinspection PyDefaultArgument
@@ -35,8 +34,8 @@ class EvidenceVariable_CharacteristicSchema:
         parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
-        The EvidenceVariable resource describes a "PICO" element that knowledge
-        (evidence, assertion, recommendation) is about.
+        The EvidenceVariable resource describes an element that knowledge (Evidence)
+        is about.
 
 
         id: Unique id for the element within a resource (for internal references). This
@@ -85,30 +84,14 @@ class EvidenceVariable_CharacteristicSchema:
             as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in
             the last year).
 
-        definitionDataRequirement: Define members of the evidence element using Codes (such as condition,
-            medication, or observation), Expressions ( using an expression language such
-            as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in
-            the last year).
+        method: Method used for describing characteristic.
 
-        definitionTriggerDefinition: Define members of the evidence element using Codes (such as condition,
-            medication, or observation), Expressions ( using an expression language such
-            as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in
-            the last year).
-
-        usageContext: Use UsageContext to define the members of the population, such as Age Ranges,
-            Genders, Settings.
+        device: Device used for determining characteristic.
 
         exclude: When true, members with this characteristic are excluded from the element.
 
-        participantEffectiveDateTime: Indicates what effective period the study covers.
-
-        participantEffectivePeriod: Indicates what effective period the study covers.
-
-        participantEffectiveDuration: Indicates what effective period the study covers.
-
-        participantEffectiveTiming: Indicates what effective period the study covers.
-
-        timeFromStart: Indicates duration from the participant's study entry.
+        timeFromStart: Indicates duration, period, or point of observation from the participant's
+            study entry.
 
         groupMeasure: Indicates how elements are aggregated within the study effective period.
 
@@ -138,16 +121,10 @@ class EvidenceVariable_CharacteristicSchema:
             CodeableConceptSchema,
         )
         from spark_fhir_schemas.r4.complex_types.expression import ExpressionSchema
-        from spark_fhir_schemas.r4.complex_types.datarequirement import (
-            DataRequirementSchema,
+        from spark_fhir_schemas.r4.complex_types.evidencevariable_timefromstart import (
+            EvidenceVariable_TimeFromStartSchema,
         )
-        from spark_fhir_schemas.r4.complex_types.triggerdefinition import (
-            TriggerDefinitionSchema,
-        )
-        from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
-        from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
-        from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
 
         if (
             max_recursion_limit
@@ -294,13 +271,10 @@ class EvidenceVariable_CharacteristicSchema:
                     ),
                     True,
                 ),
-                # Define members of the evidence element using Codes (such as condition,
-                # medication, or observation), Expressions ( using an expression language such
-                # as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in
-                # the last year).
+                # Method used for describing characteristic.
                 StructField(
-                    "definitionDataRequirement",
-                    DataRequirementSchema.get_schema(
+                    "method",
+                    CodeableConceptSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -315,13 +289,10 @@ class EvidenceVariable_CharacteristicSchema:
                     ),
                     True,
                 ),
-                # Define members of the evidence element using Codes (such as condition,
-                # medication, or observation), Expressions ( using an expression language such
-                # as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in
-                # the last year).
+                # Device used for determining characteristic.
                 StructField(
-                    "definitionTriggerDefinition",
-                    TriggerDefinitionSchema.get_schema(
+                    "device",
+                    ReferenceSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -333,92 +304,16 @@ class EvidenceVariable_CharacteristicSchema:
                         include_modifierExtension=include_modifierExtension,
                         use_date_for=use_date_for,
                         parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Use UsageContext to define the members of the population, such as Age Ranges,
-                # Genders, Settings.
-                StructField(
-                    "usageContext",
-                    ArrayType(
-                        UsageContextSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
                     ),
                     True,
                 ),
                 # When true, members with this characteristic are excluded from the element.
                 StructField("exclude", BooleanType(), True),
-                # Indicates what effective period the study covers.
-                StructField("participantEffectiveDateTime", TimestampType(), True),
-                # Indicates what effective period the study covers.
-                StructField(
-                    "participantEffectivePeriod",
-                    PeriodSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Indicates what effective period the study covers.
-                StructField(
-                    "participantEffectiveDuration",
-                    DurationSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Indicates what effective period the study covers.
-                StructField(
-                    "participantEffectiveTiming",
-                    TimingSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Indicates duration from the participant's study entry.
+                # Indicates duration, period, or point of observation from the participant's
+                # study entry.
                 StructField(
                     "timeFromStart",
-                    DurationSchema.get_schema(
+                    EvidenceVariable_TimeFromStartSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -434,7 +329,23 @@ class EvidenceVariable_CharacteristicSchema:
                     True,
                 ),
                 # Indicates how elements are aggregated within the study effective period.
-                StructField("groupMeasure", StringType(), True),
+                StructField(
+                    "groupMeasure",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".groupmeasure",
+                    ),
+                    True,
+                ),
             ]
         )
         if not include_extension:

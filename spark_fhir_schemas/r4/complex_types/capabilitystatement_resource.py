@@ -338,7 +338,23 @@ class CapabilityStatement_ResourceSchema:
                 # versionId meta-property on resources. If the value is 'versioned-update', then
                 # the server supports all the versioning features, including using e-tags for
                 # version integrity in the API.
-                StructField("versioning", StringType(), True),
+                StructField(
+                    "versioning",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".versioning",
+                    ),
+                    True,
+                ),
                 # A flag for whether the server is able to return past versions as part of the
                 # vRead operation.
                 StructField("readHistory", BooleanType(), True),
@@ -350,12 +366,63 @@ class CapabilityStatement_ResourceSchema:
                 # A flag that indicates that the server supports conditional create.
                 StructField("conditionalCreate", BooleanType(), True),
                 # A code that indicates how the server supports conditional read.
-                StructField("conditionalRead", StringType(), True),
+                StructField(
+                    "conditionalRead",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".conditionalread",
+                    ),
+                    True,
+                ),
                 # A flag that indicates that the server supports conditional update.
                 StructField("conditionalUpdate", BooleanType(), True),
                 # A code that indicates how the server supports conditional delete.
-                StructField("conditionalDelete", StringType(), True),
+                StructField(
+                    "conditionalDelete",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".conditionaldelete",
+                    ),
+                    True,
+                ),
                 # A set of flags that defines how references are supported.
+                StructField(
+                    "referencePolicy",
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
                 # A list of _include values supported by the server.
                 StructField("searchInclude", ArrayType(StringType()), True),
                 # A list of _revinclude (reverse include) values supported by the server.

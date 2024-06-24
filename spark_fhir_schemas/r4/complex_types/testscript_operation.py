@@ -307,7 +307,23 @@ class TestScript_OperationSchema:
                 StructField("encodeRequestUrl", BooleanType(), True),
                 # The HTTP method the test engine MUST use for this operation regardless of any
                 # other operation details.
-                StructField("method", StringType(), True),
+                StructField(
+                    "method",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".method",
+                    ),
+                    True,
+                ),
                 # The server where the request message originates from.  Must be one of the
                 # server numbers listed in TestScript.origin section.
                 StructField(

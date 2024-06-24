@@ -142,7 +142,6 @@ class DeviceMetricSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -175,23 +174,7 @@ class DeviceMetricSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -456,16 +439,64 @@ class DeviceMetricSchema:
                 ),
                 # Indicates current operational state of the device. For example: On, Off,
                 # Standby, etc.
-                StructField("operationalStatus", StringType(), True),
+                StructField(
+                    "operationalStatus",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".operationalstatus",
+                    ),
+                    True,
+                ),
                 # Describes the color representation for the metric. This is often used to aid
                 # clinicians to track and identify parameter types by color. In practice,
                 # consider a Patient Monitor that has ECG/HR and Pleth for example; the
                 # parameters are displayed in different characteristic colors, such as HR-blue,
                 # BP-green, and PR and SpO2- magenta.
-                StructField("color", StringType(), True),
+                StructField(
+                    "color",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".color",
+                    ),
+                    True,
+                ),
                 # Indicates the category of the observation generation process. A DeviceMetric
                 # can be for example a setting, measurement, or calculation.
-                StructField("category", StringType(), True),
+                StructField(
+                    "category",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".category",
+                    ),
+                    True,
+                ),
                 # Describes the measurement repetition time. This is not necessarily the same as
                 # the update period. The measurement repetition time can range from milliseconds
                 # up to hours. An example for a measurement repetition time in the range of

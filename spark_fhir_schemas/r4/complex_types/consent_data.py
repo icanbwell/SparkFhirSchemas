@@ -82,6 +82,7 @@ class Consent_DataSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
 
         if (
@@ -156,7 +157,23 @@ class Consent_DataSchema:
                     True,
                 ),
                 # How the resource reference is interpreted when testing consent restrictions.
-                StructField("meaning", StringType(), True),
+                StructField(
+                    "meaning",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".meaning",
+                    ),
+                    True,
+                ),
                 # A reference to a specific resource that defines which resources are covered by
                 # this consent.
                 StructField(

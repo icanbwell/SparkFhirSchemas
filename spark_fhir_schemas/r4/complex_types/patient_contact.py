@@ -98,6 +98,7 @@ class Patient_ContactSchema:
         from spark_fhir_schemas.r4.complex_types.humanname import HumanNameSchema
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.address import AddressSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
 
@@ -250,7 +251,23 @@ class Patient_ContactSchema:
                 ),
                 # Administrative Gender - the gender that the contact person is considered to
                 # have for administration and record keeping purposes.
-                StructField("gender", StringType(), True),
+                StructField(
+                    "gender",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".gender",
+                    ),
+                    True,
+                ),
                 # Organization on behalf of which the contact is acting or for which the contact
                 # is working.
                 StructField(

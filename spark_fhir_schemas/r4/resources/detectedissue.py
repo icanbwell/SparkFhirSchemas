@@ -141,7 +141,6 @@ class DetectedIssueSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -177,23 +176,7 @@ class DetectedIssueSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -412,7 +395,23 @@ class DetectedIssueSchema:
                 ),
                 # Indicates the degree of importance associated with the identified issue based
                 # on the potential impact on the patient.
-                StructField("severity", StringType(), True),
+                StructField(
+                    "severity",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".severity",
+                    ),
+                    True,
+                ),
                 # Indicates the patient whose record the detected issue is associated with.
                 StructField(
                     "patient",

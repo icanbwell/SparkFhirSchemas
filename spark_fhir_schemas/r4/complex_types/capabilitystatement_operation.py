@@ -67,9 +67,9 @@ class CapabilityStatement_OperationSchema:
             ```http://hl7.org/fhir/OperationDefinition/ValueSet-expand```), that means it
             supports the full capabilities of the operation - e.g. both GET and POST
             invocation.  If it only supports a subset, it must define its own custom
-            [[[OperationDefinition]]] with a 'base' of the original OperationDefinition.
-            The custom definition would describe the specific subset of functionality
-            supported.
+            [OperationDefinition](operationdefinition.html#) with a 'base' of the original
+            OperationDefinition.  The custom definition would describe the specific subset
+            of functionality supported.
 
         documentation: Documentation that describes anything special about the operation behavior,
             possibly detailing different behavior for system, type and instance-level
@@ -182,9 +182,9 @@ class CapabilityStatement_OperationSchema:
                 # ```http://hl7.org/fhir/OperationDefinition/ValueSet-expand```), that means it
                 # supports the full capabilities of the operation - e.g. both GET and POST
                 # invocation.  If it only supports a subset, it must define its own custom
-                # [[[OperationDefinition]]] with a 'base' of the original OperationDefinition.
-                # The custom definition would describe the specific subset of functionality
-                # supported.
+                # [OperationDefinition](operationdefinition.html#) with a 'base' of the original
+                # OperationDefinition.  The custom definition would describe the specific subset
+                # of functionality supported.
                 StructField(
                     "definition",
                     canonicalSchema.get_schema(

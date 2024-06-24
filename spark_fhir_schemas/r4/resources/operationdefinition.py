@@ -197,7 +197,6 @@ class OperationDefinitionSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -239,23 +238,7 @@ class OperationDefinitionSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -455,9 +438,41 @@ class OperationDefinitionSchema:
                 StructField("title", StringType(), True),
                 # The status of this operation definition. Enables tracking the life-cycle of
                 # the content.
-                StructField("status", StringType(), True),
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
                 # Whether this is an operation or a named query.
-                StructField("kind", StringType(), True),
+                StructField(
+                    "kind",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".kind",
+                    ),
+                    True,
+                ),
                 # A Boolean value to indicate that this operation definition is authored for
                 # testing purposes (or education/evaluation/marketing) and is not intended to be
                 # used for genuine usage.

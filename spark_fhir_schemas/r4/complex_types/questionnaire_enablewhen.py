@@ -123,6 +123,7 @@ class Questionnaire_EnableWhenSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
@@ -204,7 +205,23 @@ class Questionnaire_EnableWhenSchema:
                 # this item is enabled.
                 StructField("question", StringType(), True),
                 # Specifies the criteria by which the question is enabled.
-                StructField("operator", StringType(), True),
+                StructField(
+                    "operator",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".operator",
+                    ),
+                    True,
+                ),
                 # A value that the referenced question is tested using the specified operator in
                 # order for the item to be enabled.
                 StructField("answerBoolean", BooleanType(), True),

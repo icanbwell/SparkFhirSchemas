@@ -5,7 +5,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     ArrayType,
-    DateType,
+    BooleanType,
     DataType,
 )
 
@@ -14,8 +14,8 @@ from pyspark.sql.types import (
 # noinspection PyPep8Naming
 class EvidenceVariableSchema:
     """
-    The EvidenceVariable resource describes a "PICO" element that knowledge
-    (evidence, assertion, recommendation) is about.
+    The EvidenceVariable resource describes an element that knowledge (Evidence)
+    is about.
     """
 
     # noinspection PyDefaultArgument
@@ -34,8 +34,8 @@ class EvidenceVariableSchema:
         parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
-        The EvidenceVariable resource describes a "PICO" element that knowledge
-        (evidence, assertion, recommendation) is about.
+        The EvidenceVariable resource describes an element that knowledge (Evidence)
+        is about.
 
 
         resourceType: This is a EvidenceVariable resource
@@ -128,12 +128,6 @@ class EvidenceVariableSchema:
             status code changes. In addition, it should change when the substantive
             content of the evidence variable changes.
 
-        publisher: The name of the organization or individual that published the evidence
-            variable.
-
-        contact: Contact details to assist a user in finding and communicating with the
-            publisher.
-
         description: A free text natural language description of the evidence variable from a
             consumer's perspective.
 
@@ -145,25 +139,11 @@ class EvidenceVariableSchema:
             may be used to assist with indexing and searching for appropriate evidence
             variable instances.
 
-        jurisdiction: A legal or geographic region in which the evidence variable is intended to be
-            used.
+        publisher: The name of the organization or individual that published the evidence
+            variable.
 
-        copyright: A copyright statement relating to the evidence variable and/or its contents.
-            Copyright statements are generally legal restrictions on the use and
-            publishing of the evidence variable.
-
-        approvalDate: The date on which the resource content was approved by the publisher. Approval
-            happens once when the content is officially approved for usage.
-
-        lastReviewDate: The date on which the resource content was last reviewed. Review happens
-            periodically after approval but does not change the original approval date.
-
-        effectivePeriod: The period during which the evidence variable content was or is planned to be
-            in active use.
-
-        topic: Descriptive topics related to the content of the EvidenceVariable. Topics
-            provide a high-level categorization grouping types of EvidenceVariables that
-            can be useful for filtering and searching.
+        contact: Contact details to assist a user in finding and communicating with the
+            publisher.
 
         author: An individiual or organization primarily involved in the creation and
             maintenance of the content.
@@ -180,10 +160,18 @@ class EvidenceVariableSchema:
         relatedArtifact: Related artifacts such as additional documentation, justification, or
             bibliographic references.
 
-        type: The type of evidence element, a population, an exposure, or an outcome.
+        actual: True if the actual variable measured, false if a conceptual representation of
+            the intended variable.
+
+        characteristicCombination: Used to specify if two or more characteristics are combined with OR or AND.
 
         characteristic: A characteristic that defines the members of the evidence element. Multiple
             characteristics are applied with "and" semantics.
+
+        handling: Used for an outcome to classify.
+
+        category: A grouping (or set of values) described along with other groupings to specify
+            the set of groupings allowed for the variable.
 
         """
         if extension_fields is None:
@@ -205,7 +193,6 @@ class EvidenceVariableSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -214,21 +201,20 @@ class EvidenceVariableSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
-        from spark_fhir_schemas.r4.complex_types.contactdetail import (
-            ContactDetailSchema,
-        )
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
-            CodeableConceptSchema,
+        from spark_fhir_schemas.r4.complex_types.contactdetail import (
+            ContactDetailSchema,
         )
-        from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.relatedartifact import (
             RelatedArtifactSchema,
         )
         from spark_fhir_schemas.r4.complex_types.evidencevariable_characteristic import (
             EvidenceVariable_CharacteristicSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.evidencevariable_category import (
+            EvidenceVariable_CategorySchema,
         )
 
         if (
@@ -247,23 +233,7 @@ class EvidenceVariableSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -495,7 +465,23 @@ class EvidenceVariableSchema:
                 StructField("subtitle", StringType(), True),
                 # The status of this evidence variable. Enables tracking the life-cycle of the
                 # content.
-                StructField("status", StringType(), True),
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
                 # The date  (and optionally time) when the evidence variable was published. The
                 # date must change when the business version changes and it must change if the
                 # status code changes. In addition, it should change when the substantive
@@ -514,30 +500,6 @@ class EvidenceVariableSchema:
                         include_modifierExtension=include_modifierExtension,
                         use_date_for=use_date_for,
                         parent_path=my_parent_path + ".date",
-                    ),
-                    True,
-                ),
-                # The name of the organization or individual that published the evidence
-                # variable.
-                StructField("publisher", StringType(), True),
-                # Contact details to assist a user in finding and communicating with the
-                # publisher.
-                StructField(
-                    "contact",
-                    ArrayType(
-                        ContactDetailSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
                     ),
                     True,
                 ),
@@ -604,79 +566,15 @@ class EvidenceVariableSchema:
                     ),
                     True,
                 ),
-                # A legal or geographic region in which the evidence variable is intended to be
-                # used.
+                # The name of the organization or individual that published the evidence
+                # variable.
+                StructField("publisher", StringType(), True),
+                # Contact details to assist a user in finding and communicating with the
+                # publisher.
                 StructField(
-                    "jurisdiction",
+                    "contact",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # A copyright statement relating to the evidence variable and/or its contents.
-                # Copyright statements are generally legal restrictions on the use and
-                # publishing of the evidence variable.
-                StructField(
-                    "copyright",
-                    markdownSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".copyright",
-                    ),
-                    True,
-                ),
-                # The date on which the resource content was approved by the publisher. Approval
-                # happens once when the content is officially approved for usage.
-                StructField("approvalDate", DateType(), True),
-                # The date on which the resource content was last reviewed. Review happens
-                # periodically after approval but does not change the original approval date.
-                StructField("lastReviewDate", DateType(), True),
-                # The period during which the evidence variable content was or is planned to be
-                # in active use.
-                StructField(
-                    "effectivePeriod",
-                    PeriodSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Descriptive topics related to the content of the EvidenceVariable. Topics
-                # provide a high-level categorization grouping types of EvidenceVariables that
-                # can be useful for filtering and searching.
-                StructField(
-                    "topic",
-                    ArrayType(
-                        CodeableConceptSchema.get_schema(
+                        ContactDetailSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
@@ -797,14 +695,72 @@ class EvidenceVariableSchema:
                     ),
                     True,
                 ),
-                # The type of evidence element, a population, an exposure, or an outcome.
-                StructField("type", StringType(), True),
+                # True if the actual variable measured, false if a conceptual representation of
+                # the intended variable.
+                StructField("actual", BooleanType(), True),
+                # Used to specify if two or more characteristics are combined with OR or AND.
+                StructField(
+                    "characteristicCombination",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".characteristiccombination",
+                    ),
+                    True,
+                ),
                 # A characteristic that defines the members of the evidence element. Multiple
                 # characteristics are applied with "and" semantics.
                 StructField(
                     "characteristic",
                     ArrayType(
                         EvidenceVariable_CharacteristicSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # Used for an outcome to classify.
+                StructField(
+                    "handling",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".handling",
+                    ),
+                    True,
+                ),
+                # A grouping (or set of values) described along with other groupings to specify
+                # the set of groupings allowed for the variable.
+                StructField(
+                    "category",
+                    ArrayType(
+                        EvidenceVariable_CategorySchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,

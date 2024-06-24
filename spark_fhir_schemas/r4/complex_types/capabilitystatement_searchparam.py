@@ -62,9 +62,10 @@ class CapabilityStatement_SearchParamSchema:
 
         definition: An absolute URI that is a formal reference to where this parameter was first
             defined, so that a client can be confident of the meaning of the search
-            parameter (a reference to [[[SearchParameter.url]]]). This element SHALL be
-            populated if the search parameter refers to a SearchParameter defined by the
-            FHIR core specification or externally defined IGs.
+            parameter (a reference to [SearchParameter.url](searchparameter-
+            definitions.html#SearchParameter.url)). This element SHALL be populated if the
+            search parameter refers to a SearchParameter defined by the FHIR core
+            specification or externally defined IGs.
 
         type: The type of value a search parameter refers to, and how the content is
             interpreted.
@@ -94,6 +95,7 @@ class CapabilityStatement_SearchParamSchema:
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.canonical import canonicalSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
 
         if (
@@ -174,9 +176,10 @@ class CapabilityStatement_SearchParamSchema:
                 StructField("name", StringType(), True),
                 # An absolute URI that is a formal reference to where this parameter was first
                 # defined, so that a client can be confident of the meaning of the search
-                # parameter (a reference to [[[SearchParameter.url]]]). This element SHALL be
-                # populated if the search parameter refers to a SearchParameter defined by the
-                # FHIR core specification or externally defined IGs.
+                # parameter (a reference to [SearchParameter.url](searchparameter-
+                # definitions.html#SearchParameter.url)). This element SHALL be populated if the
+                # search parameter refers to a SearchParameter defined by the FHIR core
+                # specification or externally defined IGs.
                 StructField(
                     "definition",
                     canonicalSchema.get_schema(
@@ -196,7 +199,23 @@ class CapabilityStatement_SearchParamSchema:
                 ),
                 # The type of value a search parameter refers to, and how the content is
                 # interpreted.
-                StructField("type", StringType(), True),
+                StructField(
+                    "type",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".type",
+                    ),
+                    True,
+                ),
                 # This allows documentation of any distinct behaviors about how the search
                 # parameter is used.  For example, text matching algorithms.
                 StructField(

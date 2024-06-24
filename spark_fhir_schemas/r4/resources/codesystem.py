@@ -201,7 +201,6 @@ class CodeSystemSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -244,23 +243,7 @@ class CodeSystemSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -483,7 +466,23 @@ class CodeSystemSchema:
                 StructField("title", StringType(), True),
                 # The date (and optionally time) when the code system resource was created or
                 # revised.
-                StructField("status", StringType(), True),
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
                 # A Boolean value to indicate that this code system is authored for testing
                 # purposes (or education/evaluation/marketing) and is not intended to be used
                 # for genuine usage.
@@ -656,7 +655,23 @@ class CodeSystemSchema:
                     True,
                 ),
                 # The meaning of the hierarchy of concepts as represented in this resource.
-                StructField("hierarchyMeaning", StringType(), True),
+                StructField(
+                    "hierarchyMeaning",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".hierarchymeaning",
+                    ),
+                    True,
+                ),
                 # The code system defines a compositional (post-coordination) grammar.
                 StructField("compositional", BooleanType(), True),
                 # This flag is used to signify that the code system does not commit to concept
@@ -665,7 +680,23 @@ class CodeSystemSchema:
                 StructField("versionNeeded", BooleanType(), True),
                 # The extent of the content of the code system (the concepts and codes it
                 # defines) are represented in this resource instance.
-                StructField("content", StringType(), True),
+                StructField(
+                    "content",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".content",
+                    ),
+                    True,
+                ),
                 # The canonical URL of the code system that this code system supplement is
                 # adding designations and properties to.
                 StructField(

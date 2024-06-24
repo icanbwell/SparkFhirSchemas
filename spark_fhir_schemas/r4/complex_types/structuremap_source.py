@@ -257,6 +257,7 @@ class StructureMap_SourceSchema:
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
 
         if (
             max_recursion_limit
@@ -974,7 +975,23 @@ class StructureMap_SourceSchema:
                 # Optional field for this source.
                 StructField("element", StringType(), True),
                 # How to handle the list mode for this element.
-                StructField("listMode", StringType(), True),
+                StructField(
+                    "listMode",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".listmode",
+                    ),
+                    True,
+                ),
                 # Named context for field, if a field is specified.
                 StructField(
                     "variable",

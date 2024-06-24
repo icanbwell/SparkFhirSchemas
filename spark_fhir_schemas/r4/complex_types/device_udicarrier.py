@@ -110,6 +110,7 @@ class Device_UdiCarrierSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.base64binary import base64BinarySchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
 
         if (
             max_recursion_limit
@@ -260,7 +261,23 @@ class Device_UdiCarrierSchema:
                 # barcode string as printed on the packaging of the device.
                 StructField("carrierHRF", StringType(), True),
                 # A coded entry to indicate how the data was entered.
-                StructField("entryType", StringType(), True),
+                StructField(
+                    "entryType",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".entrytype",
+                    ),
+                    True,
+                ),
             ]
         )
         if not include_extension:

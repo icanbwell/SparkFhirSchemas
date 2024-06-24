@@ -209,6 +209,9 @@ class ElementDefinitionSchema:
         defaultValueCodeableConcept: The value that should be used if there is no value stated in the instance
             (e.g. 'if not otherwise specified, the abstract is false').
 
+        defaultValueCodeableReference: The value that should be used if there is no value stated in the instance
+            (e.g. 'if not otherwise specified, the abstract is false').
+
         defaultValueCoding: The value that should be used if there is no value stated in the instance
             (e.g. 'if not otherwise specified, the abstract is false').
 
@@ -243,6 +246,9 @@ class ElementDefinitionSchema:
             (e.g. 'if not otherwise specified, the abstract is false').
 
         defaultValueRatio: The value that should be used if there is no value stated in the instance
+            (e.g. 'if not otherwise specified, the abstract is false').
+
+        defaultValueRatioRange: The value that should be used if there is no value stated in the instance
             (e.g. 'if not otherwise specified, the abstract is false').
 
         defaultValueReference: The value that should be used if there is no value stated in the instance
@@ -282,9 +288,6 @@ class ElementDefinitionSchema:
             (e.g. 'if not otherwise specified, the abstract is false').
 
         defaultValueDosage: The value that should be used if there is no value stated in the instance
-            (e.g. 'if not otherwise specified, the abstract is false').
-
-        defaultValueMeta: The value that should be used if there is no value stated in the instance
             (e.g. 'if not otherwise specified, the abstract is false').
 
         meaningWhenMissing: The Implicit meaning that is to be understood when this element is missing
@@ -414,6 +417,11 @@ class ElementDefinitionSchema:
             and all values must be an exact match (case and accent sensitive). Missing
             elements/attributes must also be missing.
 
+        fixedCodeableReference: Specifies a value that SHALL be exactly the value  for this element in the
+            instance. For purposes of comparison, non-significant whitespace is ignored,
+            and all values must be an exact match (case and accent sensitive). Missing
+            elements/attributes must also be missing.
+
         fixedCoding: Specifies a value that SHALL be exactly the value  for this element in the
             instance. For purposes of comparison, non-significant whitespace is ignored,
             and all values must be an exact match (case and accent sensitive). Missing
@@ -470,6 +478,11 @@ class ElementDefinitionSchema:
             elements/attributes must also be missing.
 
         fixedRatio: Specifies a value that SHALL be exactly the value  for this element in the
+            instance. For purposes of comparison, non-significant whitespace is ignored,
+            and all values must be an exact match (case and accent sensitive). Missing
+            elements/attributes must also be missing.
+
+        fixedRatioRange: Specifies a value that SHALL be exactly the value  for this element in the
             instance. For purposes of comparison, non-significant whitespace is ignored,
             and all values must be an exact match (case and accent sensitive). Missing
             elements/attributes must also be missing.
@@ -535,11 +548,6 @@ class ElementDefinitionSchema:
             elements/attributes must also be missing.
 
         fixedDosage: Specifies a value that SHALL be exactly the value  for this element in the
-            instance. For purposes of comparison, non-significant whitespace is ignored,
-            and all values must be an exact match (case and accent sensitive). Missing
-            elements/attributes must also be missing.
-
-        fixedMeta: Specifies a value that SHALL be exactly the value  for this element in the
             instance. For purposes of comparison, non-significant whitespace is ignored,
             and all values must be an exact match (case and accent sensitive). Missing
             elements/attributes must also be missing.
@@ -1000,6 +1008,25 @@ class ElementDefinitionSchema:
             2. If a complex object: it must match (recursively) the pattern value
             3. If an array: it must match (recursively) the pattern value.
 
+        patternCodeableReference: Specifies a value that the value in the instance SHALL follow - that is, any
+            value in the pattern must be found in the instance. Other additional values
+            may be found too. This is effectively constraint by example.
+
+            When pattern[x] is used to constrain a primitive, it means that the value
+            provided in the pattern[x] must match the instance value exactly.
+
+            When pattern[x] is used to constrain an array, it means that each element
+            provided in the pattern[x] array must (recursively) match at least one element
+            from the instance array.
+
+            When pattern[x] is used to constrain a complex object, it means that each
+            property in the pattern must be present in the complex object, and its value
+            must recursively match -- i.e.,
+
+            1. If primitive: it must match exactly the pattern value
+            2. If a complex object: it must match (recursively) the pattern value
+            3. If an array: it must match (recursively) the pattern value.
+
         patternCoding: Specifies a value that the value in the instance SHALL follow - that is, any
             value in the pattern must be found in the instance. Other additional values
             may be found too. This is effectively constraint by example.
@@ -1210,6 +1237,25 @@ class ElementDefinitionSchema:
             3. If an array: it must match (recursively) the pattern value.
 
         patternRatio: Specifies a value that the value in the instance SHALL follow - that is, any
+            value in the pattern must be found in the instance. Other additional values
+            may be found too. This is effectively constraint by example.
+
+            When pattern[x] is used to constrain a primitive, it means that the value
+            provided in the pattern[x] must match the instance value exactly.
+
+            When pattern[x] is used to constrain an array, it means that each element
+            provided in the pattern[x] array must (recursively) match at least one element
+            from the instance array.
+
+            When pattern[x] is used to constrain a complex object, it means that each
+            property in the pattern must be present in the complex object, and its value
+            must recursively match -- i.e.,
+
+            1. If primitive: it must match exactly the pattern value
+            2. If a complex object: it must match (recursively) the pattern value
+            3. If an array: it must match (recursively) the pattern value.
+
+        patternRatioRange: Specifies a value that the value in the instance SHALL follow - that is, any
             value in the pattern must be found in the instance. Other additional values
             may be found too. This is effectively constraint by example.
 
@@ -1475,25 +1521,6 @@ class ElementDefinitionSchema:
             2. If a complex object: it must match (recursively) the pattern value
             3. If an array: it must match (recursively) the pattern value.
 
-        patternMeta: Specifies a value that the value in the instance SHALL follow - that is, any
-            value in the pattern must be found in the instance. Other additional values
-            may be found too. This is effectively constraint by example.
-
-            When pattern[x] is used to constrain a primitive, it means that the value
-            provided in the pattern[x] must match the instance value exactly.
-
-            When pattern[x] is used to constrain an array, it means that each element
-            provided in the pattern[x] array must (recursively) match at least one element
-            from the instance array.
-
-            When pattern[x] is used to constrain a complex object, it means that each
-            property in the pattern must be present in the complex object, and its value
-            must recursively match -- i.e.,
-
-            1. If primitive: it must match exactly the pattern value
-            2. If a complex object: it must match (recursively) the pattern value
-            3. If an array: it must match (recursively) the pattern value.
-
         example: A sample value for this element demonstrating the type of information that
             would typically be found in the element.
 
@@ -1644,6 +1671,9 @@ class ElementDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
+        from spark_fhir_schemas.r4.complex_types.codeablereference import (
+            CodeableReferenceSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.count import CountSchema
         from spark_fhir_schemas.r4.complex_types.distance import DistanceSchema
@@ -1655,6 +1685,7 @@ class ElementDefinitionSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
+        from spark_fhir_schemas.r4.complex_types.ratiorange import RatioRangeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
@@ -1678,7 +1709,6 @@ class ElementDefinitionSchema:
         )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.complex_types.elementdefinition_example import (
             ElementDefinition_ExampleSchema,
         )
@@ -2139,6 +2169,25 @@ class ElementDefinitionSchema:
                 # The value that should be used if there is no value stated in the instance
                 # (e.g. 'if not otherwise specified, the abstract is false').
                 StructField(
+                    "defaultValueCodeableReference",
+                    CodeableReferenceSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # The value that should be used if there is no value stated in the instance
+                # (e.g. 'if not otherwise specified, the abstract is false').
+                StructField(
                     "defaultValueCoding",
                     CodingSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
@@ -2350,6 +2399,25 @@ class ElementDefinitionSchema:
                 StructField(
                     "defaultValueRatio",
                     RatioSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # The value that should be used if there is no value stated in the instance
+                # (e.g. 'if not otherwise specified, the abstract is false').
+                StructField(
+                    "defaultValueRatioRange",
+                    RatioRangeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -2611,25 +2679,6 @@ class ElementDefinitionSchema:
                     ),
                     True,
                 ),
-                # The value that should be used if there is no value stated in the instance
-                # (e.g. 'if not otherwise specified, the abstract is false').
-                StructField(
-                    "defaultValueMeta",
-                    MetaSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
                 # The Implicit meaning that is to be understood when this element is missing
                 # (e.g. 'when this element is missing, the period is ongoing').
                 StructField(
@@ -2839,6 +2888,27 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedCodeableConcept",
                     CodeableConceptSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Specifies a value that SHALL be exactly the value  for this element in the
+                # instance. For purposes of comparison, non-significant whitespace is ignored,
+                # and all values must be an exact match (case and accent sensitive). Missing
+                # elements/attributes must also be missing.
+                StructField(
+                    "fixedCodeableReference",
+                    CodeableReferenceSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -3091,6 +3161,27 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedRatio",
                     RatioSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Specifies a value that SHALL be exactly the value  for this element in the
+                # instance. For purposes of comparison, non-significant whitespace is ignored,
+                # and all values must be an exact match (case and accent sensitive). Missing
+                # elements/attributes must also be missing.
+                StructField(
+                    "fixedRatioRange",
+                    RatioRangeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -3364,27 +3455,6 @@ class ElementDefinitionSchema:
                 StructField(
                     "fixedDosage",
                     DosageSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Specifies a value that SHALL be exactly the value  for this element in the
-                # instance. For purposes of comparison, non-significant whitespace is ignored,
-                # and all values must be an exact match (case and accent sensitive). Missing
-                # elements/attributes must also be missing.
-                StructField(
-                    "fixedMeta",
-                    MetaSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -3954,6 +4024,41 @@ class ElementDefinitionSchema:
                 # 2. If a complex object: it must match (recursively) the pattern value
                 # 3. If an array: it must match (recursively) the pattern value.
                 StructField(
+                    "patternCodeableReference",
+                    CodeableReferenceSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Specifies a value that the value in the instance SHALL follow - that is, any
+                # value in the pattern must be found in the instance. Other additional values
+                # may be found too. This is effectively constraint by example.
+                #
+                # When pattern[x] is used to constrain a primitive, it means that the value
+                # provided in the pattern[x] must match the instance value exactly.
+                #
+                # When pattern[x] is used to constrain an array, it means that each element
+                # provided in the pattern[x] array must (recursively) match at least one element
+                # from the instance array.
+                #
+                # When pattern[x] is used to constrain a complex object, it means that each
+                # property in the pattern must be present in the complex object, and its value
+                # must recursively match -- i.e.,
+                #
+                # 1. If primitive: it must match exactly the pattern value
+                # 2. If a complex object: it must match (recursively) the pattern value
+                # 3. If an array: it must match (recursively) the pattern value.
+                StructField(
                     "patternCoding",
                     CodingSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
@@ -4341,6 +4446,41 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternRatio",
                     RatioSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Specifies a value that the value in the instance SHALL follow - that is, any
+                # value in the pattern must be found in the instance. Other additional values
+                # may be found too. This is effectively constraint by example.
+                #
+                # When pattern[x] is used to constrain a primitive, it means that the value
+                # provided in the pattern[x] must match the instance value exactly.
+                #
+                # When pattern[x] is used to constrain an array, it means that each element
+                # provided in the pattern[x] array must (recursively) match at least one element
+                # from the instance array.
+                #
+                # When pattern[x] is used to constrain a complex object, it means that each
+                # property in the pattern must be present in the complex object, and its value
+                # must recursively match -- i.e.,
+                #
+                # 1. If primitive: it must match exactly the pattern value
+                # 2. If a complex object: it must match (recursively) the pattern value
+                # 3. If an array: it must match (recursively) the pattern value.
+                StructField(
+                    "patternRatioRange",
+                    RatioRangeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -4796,41 +4936,6 @@ class ElementDefinitionSchema:
                 StructField(
                     "patternDosage",
                     DosageSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Specifies a value that the value in the instance SHALL follow - that is, any
-                # value in the pattern must be found in the instance. Other additional values
-                # may be found too. This is effectively constraint by example.
-                #
-                # When pattern[x] is used to constrain a primitive, it means that the value
-                # provided in the pattern[x] must match the instance value exactly.
-                #
-                # When pattern[x] is used to constrain an array, it means that each element
-                # provided in the pattern[x] array must (recursively) match at least one element
-                # from the instance array.
-                #
-                # When pattern[x] is used to constrain a complex object, it means that each
-                # property in the pattern must be present in the complex object, and its value
-                # must recursively match -- i.e.,
-                #
-                # 1. If primitive: it must match exactly the pattern value
-                # 2. If a complex object: it must match (recursively) the pattern value
-                # 3. If an array: it must match (recursively) the pattern value.
-                StructField(
-                    "patternMeta",
-                    MetaSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,

@@ -79,6 +79,7 @@ class Bundle_SearchSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
 
         if (
@@ -155,7 +156,23 @@ class Bundle_SearchSchema:
                 # Why this entry is in the result set - whether it's included as a match or
                 # because of an _include requirement, or to convey information or warning
                 # information about the search process.
-                StructField("mode", StringType(), True),
+                StructField(
+                    "mode",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".mode",
+                    ),
+                    True,
+                ),
                 # When searching, the server's search ranking score for the entry.
                 StructField(
                     "score",

@@ -106,6 +106,7 @@ class AllergyIntolerance_ReactionSchema:
             CodeableConceptSchema,
         )
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
 
         if (
@@ -253,7 +254,23 @@ class AllergyIntolerance_ReactionSchema:
                 ),
                 # Clinical assessment of the severity of the reaction event as a whole,
                 # potentially considering multiple different manifestations.
-                StructField("severity", StringType(), True),
+                StructField(
+                    "severity",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".severity",
+                    ),
+                    True,
+                ),
                 # Identification of the route by which the subject was exposed to the substance.
                 StructField(
                     "exposureRoute",

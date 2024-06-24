@@ -110,6 +110,7 @@ class MolecularSequence_ReferenceSeqSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
 
@@ -215,7 +216,23 @@ class MolecularSequence_ReferenceSeqSchema:
                 # A relative reference to a DNA strand based on gene orientation. The strand
                 # that contains the open reading frame of the gene is the "sense" strand, and
                 # the opposite complementary strand is the "antisense" strand.
-                StructField("orientation", StringType(), True),
+                StructField(
+                    "orientation",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".orientation",
+                    ),
+                    True,
+                ),
                 # Reference identifier of reference sequence submitted to NCBI. It must match
                 # the type in the MolecularSequence.type field. For example, the prefix, “NG_”
                 # identifies reference sequence for genes, “NM_” for messenger RNA transcripts,
@@ -260,7 +277,23 @@ class MolecularSequence_ReferenceSeqSchema:
                 # An absolute reference to a strand. The Watson strand is the strand whose
                 # 5'-end is on the short arm of the chromosome, and the Crick strand as the one
                 # whose 5'-end is on the long arm.
-                StructField("strand", StringType(), True),
+                StructField(
+                    "strand",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".strand",
+                    ),
+                    True,
+                ),
                 # Start position of the window on the reference sequence. If the coordinate
                 # system is either 0-based or 1-based, then start position is inclusive.
                 StructField(

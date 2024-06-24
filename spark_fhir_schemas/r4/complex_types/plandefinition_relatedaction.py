@@ -9,8 +9,9 @@ class PlanDefinition_RelatedActionSchema:
     """
     This resource allows for the definition of various types of plans as a
     sharable, consumable, and executable artifact. The resource is general enough
-    to support the description of a broad range of clinical artifacts such as
-    clinical decision support rules, order sets and protocols.
+    to support the description of a broad range of clinical and non-clinical
+    artifacts such as clinical decision support rules, order sets, protocols, and
+    drug quality specifications.
     """
 
     # noinspection PyDefaultArgument
@@ -31,8 +32,9 @@ class PlanDefinition_RelatedActionSchema:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
-        to support the description of a broad range of clinical artifacts such as
-        clinical decision support rules, order sets and protocols.
+        to support the description of a broad range of clinical and non-clinical
+        artifacts such as clinical decision support rules, order sets, protocols, and
+        drug quality specifications.
 
 
         id: Unique id for the element within a resource (for internal references). This
@@ -90,6 +92,7 @@ class PlanDefinition_RelatedActionSchema:
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
 
@@ -186,7 +189,23 @@ class PlanDefinition_RelatedActionSchema:
                     True,
                 ),
                 # The relationship of this action to the related action.
-                StructField("relationship", StringType(), True),
+                StructField(
+                    "relationship",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".relationship",
+                    ),
+                    True,
+                ),
                 # A duration or range of durations to apply to the relationship. For example,
                 # 30-60 minutes before.
                 StructField(

@@ -211,7 +211,6 @@ class CapabilityStatementSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -262,23 +261,7 @@ class CapabilityStatementSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -478,7 +461,23 @@ class CapabilityStatementSchema:
                 StructField("title", StringType(), True),
                 # The status of this capability statement. Enables tracking the life-cycle of
                 # the content.
-                StructField("status", StringType(), True),
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
                 # A Boolean value to indicate that this capability statement is authored for
                 # testing purposes (or education/evaluation/marketing) and is not intended to be
                 # used for genuine usage.
@@ -636,7 +635,23 @@ class CapabilityStatementSchema:
                 # The way that this statement is intended to be used, to describe an actual
                 # running instance of software, a particular product (kind, not instance of
                 # software) or a class of implementation (e.g. a desired purchase).
-                StructField("kind", StringType(), True),
+                StructField(
+                    "kind",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".kind",
+                    ),
+                    True,
+                ),
                 # Reference to a canonical URL of another CapabilityStatement that this software
                 # implements. This capability statement is a published API description that
                 # corresponds to a business service. The server may actually implement a subset
@@ -727,7 +742,23 @@ class CapabilityStatementSchema:
                 # The version of the FHIR specification that this CapabilityStatement describes
                 # (which SHALL be the same as the FHIR version of the CapabilityStatement
                 # itself). There is no default value.
-                StructField("fhirVersion", StringType(), True),
+                StructField(
+                    "fhirVersion",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".fhirversion",
+                    ),
+                    True,
+                ),
                 # A list of the formats supported by this implementation using their content
                 # types.
                 StructField(

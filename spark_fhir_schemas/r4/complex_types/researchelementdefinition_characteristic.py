@@ -149,6 +149,7 @@ class ResearchElementDefinition_CharacteristicSchema:
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.duration import DurationSchema
         from spark_fhir_schemas.r4.complex_types.timing import TimingSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
 
         if (
             max_recursion_limit
@@ -412,7 +413,23 @@ class ResearchElementDefinition_CharacteristicSchema:
                     True,
                 ),
                 # Indicates how elements are aggregated within the study effective period.
-                StructField("studyEffectiveGroupMeasure", StringType(), True),
+                StructField(
+                    "studyEffectiveGroupMeasure",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".studyeffectivegroupmeasure",
+                    ),
+                    True,
+                ),
                 # A narrative description of the time period the study covers.
                 StructField("participantEffectiveDescription", StringType(), True),
                 # Indicates what effective period the study covers.
@@ -490,7 +507,24 @@ class ResearchElementDefinition_CharacteristicSchema:
                     True,
                 ),
                 # Indicates how elements are aggregated within the study effective period.
-                StructField("participantEffectiveGroupMeasure", StringType(), True),
+                StructField(
+                    "participantEffectiveGroupMeasure",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path
+                        + ".participanteffectivegroupmeasure",
+                    ),
+                    True,
+                ),
             ]
         )
         if not include_extension:

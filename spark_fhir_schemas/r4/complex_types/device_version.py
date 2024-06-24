@@ -56,7 +56,7 @@ class Device_VersionSchema:
             or DomainResource (including cannot change the meaning of modifierExtension
             itself).
 
-        type: The type of the device version.
+        type: The type of the device version, e.g. manufacturer, approved, internal.
 
         component: A single component of the device version.
 
@@ -159,7 +159,7 @@ class Device_VersionSchema:
                     ),
                     True,
                 ),
-                # The type of the device version.
+                # The type of the device version, e.g. manufacturer, approved, internal.
                 StructField(
                     "type",
                     CodeableConceptSchema.get_schema(

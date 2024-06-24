@@ -212,7 +212,23 @@ class CodeSystem_PropertySchema:
                 StructField("description", StringType(), True),
                 # The type of the property value. Properties of type "code" contain a code
                 # defined by the code system (e.g. a reference to another defined concept).
-                StructField("type", StringType(), True),
+                StructField(
+                    "type",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".type",
+                    ),
+                    True,
+                ),
             ]
         )
         if not include_extension:

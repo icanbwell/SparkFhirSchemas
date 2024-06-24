@@ -16,6 +16,12 @@ class ResourceSchemaIndex:
             )
 
             return ActivityDefinitionSchema
+        elif resource_type == "AdministrableProductDefinition":
+            from spark_fhir_schemas.r4.resources.administrableproductdefinition import (
+                AdministrableProductDefinitionSchema,
+            )
+
+            return AdministrableProductDefinitionSchema
         elif resource_type == "AdverseEvent":
             from spark_fhir_schemas.r4.resources.adverseevent import AdverseEventSchema
 
@@ -92,6 +98,10 @@ class ResourceSchemaIndex:
             )
 
             return ChargeItemDefinitionSchema
+        elif resource_type == "Citation":
+            from spark_fhir_schemas.r4.resources.citation import CitationSchema
+
+            return CitationSchema
         elif resource_type == "Claim":
             from spark_fhir_schemas.r4.resources.claim import ClaimSchema
 
@@ -108,6 +118,12 @@ class ResourceSchemaIndex:
             )
 
             return ClinicalImpressionSchema
+        elif resource_type == "ClinicalUseDefinition":
+            from spark_fhir_schemas.r4.resources.clinicalusedefinition import (
+                ClinicalUseDefinitionSchema,
+            )
+
+            return ClinicalUseDefinitionSchema
         elif resource_type == "CodeSystem":
             from spark_fhir_schemas.r4.resources.codesystem import CodeSystemSchema
 
@@ -216,12 +232,6 @@ class ResourceSchemaIndex:
             )
 
             return DocumentReferenceSchema
-        elif resource_type == "EffectEvidenceSynthesis":
-            from spark_fhir_schemas.r4.resources.effectevidencesynthesis import (
-                EffectEvidenceSynthesisSchema,
-            )
-
-            return EffectEvidenceSynthesisSchema
         elif resource_type == "Encounter":
             from spark_fhir_schemas.r4.resources.encounter import EncounterSchema
 
@@ -258,6 +268,12 @@ class ResourceSchemaIndex:
             from spark_fhir_schemas.r4.resources.evidence import EvidenceSchema
 
             return EvidenceSchema
+        elif resource_type == "EvidenceReport":
+            from spark_fhir_schemas.r4.resources.evidencereport import (
+                EvidenceReportSchema,
+            )
+
+            return EvidenceReportSchema
         elif resource_type == "EvidenceVariable":
             from spark_fhir_schemas.r4.resources.evidencevariable import (
                 EvidenceVariableSchema,
@@ -338,6 +354,10 @@ class ResourceSchemaIndex:
             )
 
             return ImplementationGuideSchema
+        elif resource_type == "Ingredient":
+            from spark_fhir_schemas.r4.resources.ingredient import IngredientSchema
+
+            return IngredientSchema
         elif resource_type == "InsurancePlan":
             from spark_fhir_schemas.r4.resources.insuranceplan import (
                 InsurancePlanSchema,
@@ -364,6 +384,12 @@ class ResourceSchemaIndex:
             from spark_fhir_schemas.r4.resources.location import LocationSchema
 
             return LocationSchema
+        elif resource_type == "ManufacturedItemDefinition":
+            from spark_fhir_schemas.r4.resources.manufactureditemdefinition import (
+                ManufacturedItemDefinitionSchema,
+            )
+
+            return ManufacturedItemDefinitionSchema
         elif resource_type == "Measure":
             from spark_fhir_schemas.r4.resources.measure import MeasureSchema
 
@@ -412,66 +438,12 @@ class ResourceSchemaIndex:
             )
 
             return MedicationStatementSchema
-        elif resource_type == "MedicinalProduct":
-            from spark_fhir_schemas.r4.resources.medicinalproduct import (
-                MedicinalProductSchema,
+        elif resource_type == "MedicinalProductDefinition":
+            from spark_fhir_schemas.r4.resources.medicinalproductdefinition import (
+                MedicinalProductDefinitionSchema,
             )
 
-            return MedicinalProductSchema
-        elif resource_type == "MedicinalProductAuthorization":
-            from spark_fhir_schemas.r4.resources.medicinalproductauthorization import (
-                MedicinalProductAuthorizationSchema,
-            )
-
-            return MedicinalProductAuthorizationSchema
-        elif resource_type == "MedicinalProductContraindication":
-            from spark_fhir_schemas.r4.resources.medicinalproductcontraindication import (
-                MedicinalProductContraindicationSchema,
-            )
-
-            return MedicinalProductContraindicationSchema
-        elif resource_type == "MedicinalProductIndication":
-            from spark_fhir_schemas.r4.resources.medicinalproductindication import (
-                MedicinalProductIndicationSchema,
-            )
-
-            return MedicinalProductIndicationSchema
-        elif resource_type == "MedicinalProductIngredient":
-            from spark_fhir_schemas.r4.resources.medicinalproductingredient import (
-                MedicinalProductIngredientSchema,
-            )
-
-            return MedicinalProductIngredientSchema
-        elif resource_type == "MedicinalProductInteraction":
-            from spark_fhir_schemas.r4.resources.medicinalproductinteraction import (
-                MedicinalProductInteractionSchema,
-            )
-
-            return MedicinalProductInteractionSchema
-        elif resource_type == "MedicinalProductManufactured":
-            from spark_fhir_schemas.r4.resources.medicinalproductmanufactured import (
-                MedicinalProductManufacturedSchema,
-            )
-
-            return MedicinalProductManufacturedSchema
-        elif resource_type == "MedicinalProductPackaged":
-            from spark_fhir_schemas.r4.resources.medicinalproductpackaged import (
-                MedicinalProductPackagedSchema,
-            )
-
-            return MedicinalProductPackagedSchema
-        elif resource_type == "MedicinalProductPharmaceutical":
-            from spark_fhir_schemas.r4.resources.medicinalproductpharmaceutical import (
-                MedicinalProductPharmaceuticalSchema,
-            )
-
-            return MedicinalProductPharmaceuticalSchema
-        elif resource_type == "MedicinalProductUndesirableEffect":
-            from spark_fhir_schemas.r4.resources.medicinalproductundesirableeffect import (
-                MedicinalProductUndesirableEffectSchema,
-            )
-
-            return MedicinalProductUndesirableEffectSchema
+            return MedicinalProductDefinitionSchema
         elif resource_type == "MessageDefinition":
             from spark_fhir_schemas.r4.resources.messagedefinition import (
                 MessageDefinitionSchema,
@@ -500,6 +472,12 @@ class ResourceSchemaIndex:
             )
 
             return NutritionOrderSchema
+        elif resource_type == "NutritionProduct":
+            from spark_fhir_schemas.r4.resources.nutritionproduct import (
+                NutritionProductSchema,
+            )
+
+            return NutritionProductSchema
         elif resource_type == "Observation":
             from spark_fhir_schemas.r4.resources.observation import ObservationSchema
 
@@ -532,6 +510,12 @@ class ResourceSchemaIndex:
             )
 
             return OrganizationAffiliationSchema
+        elif resource_type == "PackagedProductDefinition":
+            from spark_fhir_schemas.r4.resources.packagedproductdefinition import (
+                PackagedProductDefinitionSchema,
+            )
+
+            return PackagedProductDefinitionSchema
         elif resource_type == "Parameters":
             from spark_fhir_schemas.r4.resources.parameters import ParametersSchema
 
@@ -592,6 +576,12 @@ class ResourceSchemaIndex:
             )
 
             return QuestionnaireResponseSchema
+        elif resource_type == "RegulatedAuthorization":
+            from spark_fhir_schemas.r4.resources.regulatedauthorization import (
+                RegulatedAuthorizationSchema,
+            )
+
+            return RegulatedAuthorizationSchema
         elif resource_type == "RelatedPerson":
             from spark_fhir_schemas.r4.resources.relatedperson import (
                 RelatedPersonSchema,
@@ -632,12 +622,6 @@ class ResourceSchemaIndex:
             )
 
             return RiskAssessmentSchema
-        elif resource_type == "RiskEvidenceSynthesis":
-            from spark_fhir_schemas.r4.resources.riskevidencesynthesis import (
-                RiskEvidenceSynthesisSchema,
-            )
-
-            return RiskEvidenceSynthesisSchema
         elif resource_type == "Schedule":
             from spark_fhir_schemas.r4.resources.schedule import ScheduleSchema
 
@@ -682,46 +666,28 @@ class ResourceSchemaIndex:
             from spark_fhir_schemas.r4.resources.subscription import SubscriptionSchema
 
             return SubscriptionSchema
+        elif resource_type == "SubscriptionStatus":
+            from spark_fhir_schemas.r4.resources.subscriptionstatus import (
+                SubscriptionStatusSchema,
+            )
+
+            return SubscriptionStatusSchema
+        elif resource_type == "SubscriptionTopic":
+            from spark_fhir_schemas.r4.resources.subscriptiontopic import (
+                SubscriptionTopicSchema,
+            )
+
+            return SubscriptionTopicSchema
         elif resource_type == "Substance":
             from spark_fhir_schemas.r4.resources.substance import SubstanceSchema
 
             return SubstanceSchema
-        elif resource_type == "SubstanceNucleicAcid":
-            from spark_fhir_schemas.r4.resources.substancenucleicacid import (
-                SubstanceNucleicAcidSchema,
+        elif resource_type == "SubstanceDefinition":
+            from spark_fhir_schemas.r4.resources.substancedefinition import (
+                SubstanceDefinitionSchema,
             )
 
-            return SubstanceNucleicAcidSchema
-        elif resource_type == "SubstancePolymer":
-            from spark_fhir_schemas.r4.resources.substancepolymer import (
-                SubstancePolymerSchema,
-            )
-
-            return SubstancePolymerSchema
-        elif resource_type == "SubstanceProtein":
-            from spark_fhir_schemas.r4.resources.substanceprotein import (
-                SubstanceProteinSchema,
-            )
-
-            return SubstanceProteinSchema
-        elif resource_type == "SubstanceReferenceInformation":
-            from spark_fhir_schemas.r4.resources.substancereferenceinformation import (
-                SubstanceReferenceInformationSchema,
-            )
-
-            return SubstanceReferenceInformationSchema
-        elif resource_type == "SubstanceSourceMaterial":
-            from spark_fhir_schemas.r4.resources.substancesourcematerial import (
-                SubstanceSourceMaterialSchema,
-            )
-
-            return SubstanceSourceMaterialSchema
-        elif resource_type == "SubstanceSpecification":
-            from spark_fhir_schemas.r4.resources.substancespecification import (
-                SubstanceSpecificationSchema,
-            )
-
-            return SubstanceSpecificationSchema
+            return SubstanceDefinitionSchema
         elif resource_type == "SupplyDelivery":
             from spark_fhir_schemas.r4.resources.supplydelivery import (
                 SupplyDeliverySchema,

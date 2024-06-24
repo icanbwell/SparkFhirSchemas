@@ -14,9 +14,10 @@ from pyspark.sql.types import (
 # noinspection PyPep8Naming
 class EvidenceSchema:
     """
-    The Evidence resource describes the conditional state (population and any
-    exposures being compared within the population) and outcome (if specified)
-    that the knowledge (evidence, assertion, recommendation) is about.
+    The Evidence Resource provides a machine-interpretable expression of an
+    evidence concept including the evidence variables (eg population,
+    exposures/interventions, comparators, outcomes, measured variables,
+    confounding variables), the statistics, and the certainty of this evidence.
     """
 
     # noinspection PyDefaultArgument
@@ -35,9 +36,10 @@ class EvidenceSchema:
         parent_path: Optional[str] = "",
     ) -> Union[StructType, DataType]:
         """
-        The Evidence resource describes the conditional state (population and any
-        exposures being compared within the population) and outcome (if specified)
-        that the knowledge (evidence, assertion, recommendation) is about.
+        The Evidence Resource provides a machine-interpretable expression of an
+        evidence concept including the evidence variables (eg population,
+        exposures/interventions, comparators, outcomes, measured variables,
+        confounding variables), the statistics, and the certainty of this evidence.
 
 
         resourceType: This is a Evidence resource
@@ -90,53 +92,33 @@ class EvidenceSchema:
         url: An absolute URI that is used to identify this evidence when it is referenced
             in a specification, model, design or an instance; also called its canonical
             identifier. This SHOULD be globally unique and SHOULD be a literal address at
-            which at which an authoritative instance of this evidence is (or will be)
+            which at which an authoritative instance of this summary is (or will be)
             published. This URL can be the target of a canonical reference. It SHALL
-            remain the same when the evidence is stored on different servers.
+            remain the same when the summary is stored on different servers.
 
-        identifier: A formal identifier that is used to identify this evidence when it is
+        identifier: A formal identifier that is used to identify this summary when it is
             represented in other formats, or referenced in a specification, model, design
             or an instance.
 
-        version: The identifier that is used to identify this version of the evidence when it
-            is referenced in a specification, model, design or instance. This is an
-            arbitrary value managed by the evidence author and is not expected to be
-            globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a
-            managed version is not available. There is also no expectation that versions
-            can be placed in a lexicographical sequence. To provide a version consistent
-            with the Decision Support Service specification, use the format
-            Major.Minor.Revision (e.g. 1.0.0). For more information on versioning
-            knowledge assets, refer to the Decision Support Service specification. Note
-            that a version is required for non-experimental active artifacts.
+        version: The identifier that is used to identify this version of the summary when it is
+            referenced in a specification, model, design or instance. This is an arbitrary
+            value managed by the summary author and is not expected to be globally unique.
+            For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is
+            not available. There is also no expectation that versions can be placed in a
+            lexicographical sequence.
 
-        name: A natural language name identifying the evidence. This name should be usable
-            as an identifier for the module by machine processing applications such as
-            code generation.
+        title: A short, descriptive, user-friendly title for the summary.
 
-        title: A short, descriptive, user-friendly title for the evidence.
+        citeAsReference: Citation Resource or display of suggested citation for this evidence.
 
-        shortTitle: The short title provides an alternate title for use in informal descriptive
-            contexts where the full, formal title is not necessary.
+        citeAsMarkdown: Citation Resource or display of suggested citation for this evidence.
 
-        subtitle: An explanatory or alternate title for the Evidence giving additional
-            information about its content.
+        status: The status of this summary. Enables tracking the life-cycle of the content.
 
-        status: The status of this evidence. Enables tracking the life-cycle of the content.
-
-        date: The date  (and optionally time) when the evidence was published. The date must
+        date: The date  (and optionally time) when the summary was published. The date must
             change when the business version changes and it must change if the status code
             changes. In addition, it should change when the substantive content of the
-            evidence changes.
-
-        publisher: The name of the organization or individual that published the evidence.
-
-        contact: Contact details to assist a user in finding and communicating with the
-            publisher.
-
-        description: A free text natural language description of the evidence from a consumer's
-            perspective.
-
-        note: A human-readable string to clarify or explain concepts about the resource.
+            summary changes.
 
         useContext: The content was developed with a focus and intent of supporting the contexts
             that are listed. These contexts may be general categories (gender, age, ...)
@@ -144,48 +126,48 @@ class EvidenceSchema:
             may be used to assist with indexing and searching for appropriate evidence
             instances.
 
-        jurisdiction: A legal or geographic region in which the evidence is intended to be used.
-
-        copyright: A copyright statement relating to the evidence and/or its contents. Copyright
-            statements are generally legal restrictions on the use and publishing of the
-            evidence.
-
         approvalDate: The date on which the resource content was approved by the publisher. Approval
             happens once when the content is officially approved for usage.
 
         lastReviewDate: The date on which the resource content was last reviewed. Review happens
             periodically after approval but does not change the original approval date.
 
-        effectivePeriod: The period during which the evidence content was or is planned to be in active
-            use.
+        publisher: The name of the organization or individual that published the evidence.
 
-        topic: Descriptive topics related to the content of the Evidence. Topics provide a
-            high-level categorization grouping types of Evidences that can be useful for
-            filtering and searching.
+        contact: Contact details to assist a user in finding and communicating with the
+            publisher.
 
-        author: An individiual or organization primarily involved in the creation and
+        author: An individiual, organization, or device primarily involved in the creation and
             maintenance of the content.
 
-        editor: An individual or organization primarily responsible for internal coherence of
-            the content.
+        editor: An individiual, organization, or device primarily responsible for internal
+            coherence of the content.
 
-        reviewer: An individual or organization primarily responsible for review of some aspect
-            of the content.
+        reviewer: An individiual, organization, or device primarily responsible for review of
+            some aspect of the content.
 
-        endorser: An individual or organization responsible for officially endorsing the content
-            for use in some setting.
+        endorser: An individiual, organization, or device responsible for officially endorsing
+            the content for use in some setting.
 
-        relatedArtifact: Related artifacts such as additional documentation, justification, or
-            bibliographic references.
+        relatedArtifact: Link or citation to artifact associated with the summary.
 
-        exposureBackground: A reference to a EvidenceVariable resource that defines the population for the
-            research.
+        description: A free text natural language description of the evidence from a consumer's
+            perspective.
 
-        exposureVariant: A reference to a EvidenceVariable resource that defines the exposure for the
-            research.
+        assertion: Declarative description of the Evidence.
 
-        outcome: A reference to a EvidenceVariable resomece that defines the outcome for the
-            research.
+        note: Footnotes and/or explanatory notes.
+
+        variableDefinition: Evidence variable such as population, exposure, or outcome.
+
+        synthesisType: The method to combine studies.
+
+        studyType: The type of study that produced this evidence.
+
+        statistic: Values and parameters for a single statistic.
+
+        certainty: Assessment of certainty, confidence in the estimates, or quality of the
+            evidence.
 
         """
         if extension_fields is None:
@@ -207,7 +189,6 @@ class EvidenceSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -215,21 +196,29 @@ class EvidenceSchema:
         from spark_fhir_schemas.r4.complex_types.resourcelist import ResourceListSchema
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.identifier import IdentifierSchema
+        from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
+        from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.contactdetail import (
             ContactDetailSchema,
         )
-        from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
-        from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
-        from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
-        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
-            CodeableConceptSchema,
-        )
-        from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.relatedartifact import (
             RelatedArtifactSchema,
         )
-        from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+        from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
+        from spark_fhir_schemas.r4.complex_types.annotation import AnnotationSchema
+        from spark_fhir_schemas.r4.complex_types.evidence_variabledefinition import (
+            Evidence_VariableDefinitionSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.codeableconcept import (
+            CodeableConceptSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.evidence_statistic import (
+            Evidence_StatisticSchema,
+        )
+        from spark_fhir_schemas.r4.complex_types.evidence_certainty import (
+            Evidence_CertaintySchema,
+        )
 
         if (
             max_recursion_limit
@@ -245,23 +234,7 @@ class EvidenceSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -425,9 +398,9 @@ class EvidenceSchema:
                 # An absolute URI that is used to identify this evidence when it is referenced
                 # in a specification, model, design or an instance; also called its canonical
                 # identifier. This SHOULD be globally unique and SHOULD be a literal address at
-                # which at which an authoritative instance of this evidence is (or will be)
+                # which at which an authoritative instance of this summary is (or will be)
                 # published. This URL can be the target of a canonical reference. It SHALL
-                # remain the same when the evidence is stored on different servers.
+                # remain the same when the summary is stored on different servers.
                 StructField(
                     "url",
                     uriSchema.get_schema(
@@ -445,7 +418,7 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
-                # A formal identifier that is used to identify this evidence when it is
+                # A formal identifier that is used to identify this summary when it is
                 # represented in other formats, or referenced in a specification, model, design
                 # or an instance.
                 StructField(
@@ -467,35 +440,57 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
-                # The identifier that is used to identify this version of the evidence when it
-                # is referenced in a specification, model, design or instance. This is an
-                # arbitrary value managed by the evidence author and is not expected to be
-                # globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a
-                # managed version is not available. There is also no expectation that versions
-                # can be placed in a lexicographical sequence. To provide a version consistent
-                # with the Decision Support Service specification, use the format
-                # Major.Minor.Revision (e.g. 1.0.0). For more information on versioning
-                # knowledge assets, refer to the Decision Support Service specification. Note
-                # that a version is required for non-experimental active artifacts.
+                # The identifier that is used to identify this version of the summary when it is
+                # referenced in a specification, model, design or instance. This is an arbitrary
+                # value managed by the summary author and is not expected to be globally unique.
+                # For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is
+                # not available. There is also no expectation that versions can be placed in a
+                # lexicographical sequence.
                 StructField("version", StringType(), True),
-                # A natural language name identifying the evidence. This name should be usable
-                # as an identifier for the module by machine processing applications such as
-                # code generation.
-                StructField("name", StringType(), True),
-                # A short, descriptive, user-friendly title for the evidence.
+                # A short, descriptive, user-friendly title for the summary.
                 StructField("title", StringType(), True),
-                # The short title provides an alternate title for use in informal descriptive
-                # contexts where the full, formal title is not necessary.
-                StructField("shortTitle", StringType(), True),
-                # An explanatory or alternate title for the Evidence giving additional
-                # information about its content.
-                StructField("subtitle", StringType(), True),
-                # The status of this evidence. Enables tracking the life-cycle of the content.
-                StructField("status", StringType(), True),
-                # The date  (and optionally time) when the evidence was published. The date must
+                # Citation Resource or display of suggested citation for this evidence.
+                StructField(
+                    "citeAsReference",
+                    ReferenceSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Citation Resource or display of suggested citation for this evidence.
+                StructField("citeAsMarkdown", StringType(), True),
+                # The status of this summary. Enables tracking the life-cycle of the content.
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
+                # The date  (and optionally time) when the summary was published. The date must
                 # change when the business version changes and it must change if the status code
                 # changes. In addition, it should change when the substantive content of the
-                # evidence changes.
+                # summary changes.
                 StructField(
                     "date",
                     dateTimeSchema.get_schema(
@@ -513,6 +508,36 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
+                # The content was developed with a focus and intent of supporting the contexts
+                # that are listed. These contexts may be general categories (gender, age, ...)
+                # or may be references to specific programs (insurance plans, studies, ...) and
+                # may be used to assist with indexing and searching for appropriate evidence
+                # instances.
+                StructField(
+                    "useContext",
+                    ArrayType(
+                        UsageContextSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # The date on which the resource content was approved by the publisher. Approval
+                # happens once when the content is officially approved for usage.
+                StructField("approvalDate", DateType(), True),
+                # The date on which the resource content was last reviewed. Review happens
+                # periodically after approval but does not change the original approval date.
+                StructField("lastReviewDate", DateType(), True),
                 # The name of the organization or individual that published the evidence.
                 StructField("publisher", StringType(), True),
                 # Contact details to assist a user in finding and communicating with the
@@ -521,6 +546,110 @@ class EvidenceSchema:
                     "contact",
                     ArrayType(
                         ContactDetailSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # An individiual, organization, or device primarily involved in the creation and
+                # maintenance of the content.
+                StructField(
+                    "author",
+                    ArrayType(
+                        ContactDetailSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # An individiual, organization, or device primarily responsible for internal
+                # coherence of the content.
+                StructField(
+                    "editor",
+                    ArrayType(
+                        ContactDetailSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # An individiual, organization, or device primarily responsible for review of
+                # some aspect of the content.
+                StructField(
+                    "reviewer",
+                    ArrayType(
+                        ContactDetailSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # An individiual, organization, or device responsible for officially endorsing
+                # the content for use in some setting.
+                StructField(
+                    "endorser",
+                    ArrayType(
+                        ContactDetailSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
+                # Link or citation to artifact associated with the summary.
+                StructField(
+                    "relatedArtifact",
+                    ArrayType(
+                        RelatedArtifactSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
@@ -555,7 +684,25 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
-                # A human-readable string to clarify or explain concepts about the resource.
+                # Declarative description of the Evidence.
+                StructField(
+                    "assertion",
+                    markdownSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".assertion",
+                    ),
+                    True,
+                ),
+                # Footnotes and/or explanatory notes.
                 StructField(
                     "note",
                     ArrayType(
@@ -575,15 +722,11 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
-                # The content was developed with a focus and intent of supporting the contexts
-                # that are listed. These contexts may be general categories (gender, age, ...)
-                # or may be references to specific programs (insurance plans, studies, ...) and
-                # may be used to assist with indexing and searching for appropriate evidence
-                # instances.
+                # Evidence variable such as population, exposure, or outcome.
                 StructField(
-                    "useContext",
+                    "variableDefinition",
                     ArrayType(
-                        UsageContextSchema.get_schema(
+                        Evidence_VariableDefinitionSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
@@ -599,11 +742,47 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
-                # A legal or geographic region in which the evidence is intended to be used.
+                # The method to combine studies.
                 StructField(
-                    "jurisdiction",
+                    "synthesisType",
+                    CodeableConceptSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # The type of study that produced this evidence.
+                StructField(
+                    "studyType",
+                    CodeableConceptSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Values and parameters for a single statistic.
+                StructField(
+                    "statistic",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(
+                        Evidence_StatisticSchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,
@@ -619,224 +798,12 @@ class EvidenceSchema:
                     ),
                     True,
                 ),
-                # A copyright statement relating to the evidence and/or its contents. Copyright
-                # statements are generally legal restrictions on the use and publishing of the
+                # Assessment of certainty, confidence in the estimates, or quality of the
                 # evidence.
                 StructField(
-                    "copyright",
-                    markdownSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".copyright",
-                    ),
-                    True,
-                ),
-                # The date on which the resource content was approved by the publisher. Approval
-                # happens once when the content is officially approved for usage.
-                StructField("approvalDate", DateType(), True),
-                # The date on which the resource content was last reviewed. Review happens
-                # periodically after approval but does not change the original approval date.
-                StructField("lastReviewDate", DateType(), True),
-                # The period during which the evidence content was or is planned to be in active
-                # use.
-                StructField(
-                    "effectivePeriod",
-                    PeriodSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Descriptive topics related to the content of the Evidence. Topics provide a
-                # high-level categorization grouping types of Evidences that can be useful for
-                # filtering and searching.
-                StructField(
-                    "topic",
+                    "certainty",
                     ArrayType(
-                        CodeableConceptSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # An individiual or organization primarily involved in the creation and
-                # maintenance of the content.
-                StructField(
-                    "author",
-                    ArrayType(
-                        ContactDetailSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # An individual or organization primarily responsible for internal coherence of
-                # the content.
-                StructField(
-                    "editor",
-                    ArrayType(
-                        ContactDetailSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # An individual or organization primarily responsible for review of some aspect
-                # of the content.
-                StructField(
-                    "reviewer",
-                    ArrayType(
-                        ContactDetailSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # An individual or organization responsible for officially endorsing the content
-                # for use in some setting.
-                StructField(
-                    "endorser",
-                    ArrayType(
-                        ContactDetailSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # Related artifacts such as additional documentation, justification, or
-                # bibliographic references.
-                StructField(
-                    "relatedArtifact",
-                    ArrayType(
-                        RelatedArtifactSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # A reference to a EvidenceVariable resource that defines the population for the
-                # research.
-                StructField(
-                    "exposureBackground",
-                    ReferenceSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # A reference to a EvidenceVariable resource that defines the exposure for the
-                # research.
-                StructField(
-                    "exposureVariant",
-                    ArrayType(
-                        ReferenceSchema.get_schema(
-                            max_nesting_depth=max_nesting_depth,
-                            nesting_depth=nesting_depth + 1,
-                            nesting_list=my_nesting_list,
-                            max_recursion_limit=max_recursion_limit,
-                            include_extension=include_extension,
-                            extension_fields=extension_fields,
-                            extension_depth=extension_depth,
-                            max_extension_depth=max_extension_depth,
-                            include_modifierExtension=include_modifierExtension,
-                            use_date_for=use_date_for,
-                            parent_path=my_parent_path,
-                        )
-                    ),
-                    True,
-                ),
-                # A reference to a EvidenceVariable resomece that defines the outcome for the
-                # research.
-                StructField(
-                    "outcome",
-                    ArrayType(
-                        ReferenceSchema.get_schema(
+                        Evidence_CertaintySchema.get_schema(
                             max_nesting_depth=max_nesting_depth,
                             nesting_depth=nesting_depth + 1,
                             nesting_list=my_nesting_list,

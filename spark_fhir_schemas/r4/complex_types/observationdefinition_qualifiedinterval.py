@@ -96,6 +96,7 @@ class ObservationDefinition_QualifiedIntervalSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
@@ -179,7 +180,23 @@ class ObservationDefinition_QualifiedIntervalSchema:
                 ),
                 # The category of interval of values for continuous or ordinal observations
                 # conforming to this ObservationDefinition.
-                StructField("category", StringType(), True),
+                StructField(
+                    "category",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".category",
+                    ),
+                    True,
+                ),
                 # The low and high values determining the interval. There may be only one of the
                 # two.
                 StructField(
@@ -239,7 +256,23 @@ class ObservationDefinition_QualifiedIntervalSchema:
                     True,
                 ),
                 # Sex of the population the range applies to.
-                StructField("gender", StringType(), True),
+                StructField(
+                    "gender",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".gender",
+                    ),
+                    True,
+                ),
                 # The age at which this reference range is applicable. This is a neonatal age
                 # (e.g. number of weeks at term) if the meaning says so.
                 StructField(

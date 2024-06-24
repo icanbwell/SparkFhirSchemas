@@ -98,6 +98,7 @@ class OperationOutcome_IssueSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
@@ -176,11 +177,43 @@ class OperationOutcome_IssueSchema:
                     True,
                 ),
                 # Indicates whether the issue indicates a variation from successful processing.
-                StructField("severity", StringType(), True),
+                StructField(
+                    "severity",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".severity",
+                    ),
+                    True,
+                ),
                 # Describes the type of the issue. The system that creates an OperationOutcome
                 # SHALL choose the most applicable code from the IssueType value set, and may
                 # additional provide its own code for the error in the details element.
-                StructField("code", StringType(), True),
+                StructField(
+                    "code",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".code",
+                    ),
+                    True,
+                ),
                 # Additional details about the error. This may be a text description of the
                 # error or a system code that identifies the error.
                 StructField(

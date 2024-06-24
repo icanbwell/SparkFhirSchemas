@@ -92,8 +92,8 @@ class Subscription_ChannelSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
-        from spark_fhir_schemas.r4.simple_types.url import urlSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
+        from spark_fhir_schemas.r4.simple_types.url import urlSchema
 
         if (
             max_recursion_limit
@@ -169,7 +169,23 @@ class Subscription_ChannelSchema:
                     True,
                 ),
                 # The type of channel to send notifications on.
-                StructField("type", StringType(), True),
+                StructField(
+                    "type",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".type",
+                    ),
+                    True,
+                ),
                 # The url that describes the actual end-point to send messages to.
                 StructField(
                     "endpoint",

@@ -109,6 +109,7 @@ class ImplementationGuide_ResourceSchema:
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
 
         if (
@@ -206,6 +207,25 @@ class ImplementationGuide_ResourceSchema:
                 # Indicates the FHIR Version(s) this artifact is intended to apply to. If no
                 # versions are specified, the resource is assumed to apply to all the versions
                 # stated in ImplementationGuide.fhirVersion.
+                StructField(
+                    "fhirVersion",
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
                 # A human assigned name for the resource. All resources SHOULD have a name, but
                 # the name may be extracted from the resource (e.g. ValueSet.name).
                 StructField("name", StringType(), True),

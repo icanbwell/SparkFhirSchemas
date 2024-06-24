@@ -85,6 +85,7 @@ class CapabilityStatement_InteractionSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.markdown import markdownSchema
 
         if (
@@ -162,7 +163,23 @@ class CapabilityStatement_InteractionSchema:
                     True,
                 ),
                 # Coded identifier of the operation, supported by the system resource.
-                StructField("code", StringType(), True),
+                StructField(
+                    "code",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".code",
+                    ),
+                    True,
+                ),
                 # Guidance specific to the implementation of this operation, such as 'delete is
                 # a logical delete' or 'updates are only allowed with version id' or 'creates
                 # permitted from pre-authorized certificates only'.

@@ -106,6 +106,7 @@ class Consent_ProvisionSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.period import PeriodSchema
         from spark_fhir_schemas.r4.complex_types.consent_actor import (
             Consent_ActorSchema,
@@ -189,7 +190,23 @@ class Consent_ProvisionSchema:
                 ),
                 # Action  to take - permit or deny - when the rule conditions are met.  Not
                 # permitted in root rule, required in all nested rules.
-                StructField("type", StringType(), True),
+                StructField(
+                    "type",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".type",
+                    ),
+                    True,
+                ),
                 # The timeframe in this rule is valid.
                 StructField(
                     "period",

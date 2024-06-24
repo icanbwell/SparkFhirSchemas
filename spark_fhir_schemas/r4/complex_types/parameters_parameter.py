@@ -69,105 +69,105 @@ class Parameters_ParameterSchema:
 
         name: The name of the parameter (reference to the operation definition).
 
-        valueBase64Binary: If the parameter is a data type.
+        valueBase64Binary: Conveys the content if the parameter is a data type.
 
-        valueBoolean: If the parameter is a data type.
+        valueBoolean: Conveys the content if the parameter is a data type.
 
-        valueCanonical: If the parameter is a data type.
+        valueCanonical: Conveys the content if the parameter is a data type.
 
-        valueCode: If the parameter is a data type.
+        valueCode: Conveys the content if the parameter is a data type.
 
-        valueDate: If the parameter is a data type.
+        valueDate: Conveys the content if the parameter is a data type.
 
-        valueDateTime: If the parameter is a data type.
+        valueDateTime: Conveys the content if the parameter is a data type.
 
-        valueDecimal: If the parameter is a data type.
+        valueDecimal: Conveys the content if the parameter is a data type.
 
-        valueId: If the parameter is a data type.
+        valueId: Conveys the content if the parameter is a data type.
 
-        valueInstant: If the parameter is a data type.
+        valueInstant: Conveys the content if the parameter is a data type.
 
-        valueInteger: If the parameter is a data type.
+        valueInteger: Conveys the content if the parameter is a data type.
 
-        valueMarkdown: If the parameter is a data type.
+        valueMarkdown: Conveys the content if the parameter is a data type.
 
-        valueOid: If the parameter is a data type.
+        valueOid: Conveys the content if the parameter is a data type.
 
-        valuePositiveInt: If the parameter is a data type.
+        valuePositiveInt: Conveys the content if the parameter is a data type.
 
-        valueString: If the parameter is a data type.
+        valueString: Conveys the content if the parameter is a data type.
 
-        valueTime: If the parameter is a data type.
+        valueTime: Conveys the content if the parameter is a data type.
 
-        valueUnsignedInt: If the parameter is a data type.
+        valueUnsignedInt: Conveys the content if the parameter is a data type.
 
-        valueUri: If the parameter is a data type.
+        valueUri: Conveys the content if the parameter is a data type.
 
-        valueUrl: If the parameter is a data type.
+        valueUrl: Conveys the content if the parameter is a data type.
 
-        valueUuid: If the parameter is a data type.
+        valueUuid: Conveys the content if the parameter is a data type.
 
-        valueAddress: If the parameter is a data type.
+        valueAddress: Conveys the content if the parameter is a data type.
 
-        valueAge: If the parameter is a data type.
+        valueAge: Conveys the content if the parameter is a data type.
 
-        valueAnnotation: If the parameter is a data type.
+        valueAnnotation: Conveys the content if the parameter is a data type.
 
-        valueAttachment: If the parameter is a data type.
+        valueAttachment: Conveys the content if the parameter is a data type.
 
-        valueCodeableConcept: If the parameter is a data type.
+        valueCodeableConcept: Conveys the content if the parameter is a data type.
 
-        valueCoding: If the parameter is a data type.
+        valueCoding: Conveys the content if the parameter is a data type.
 
-        valueContactPoint: If the parameter is a data type.
+        valueContactPoint: Conveys the content if the parameter is a data type.
 
-        valueCount: If the parameter is a data type.
+        valueCount: Conveys the content if the parameter is a data type.
 
-        valueDistance: If the parameter is a data type.
+        valueDistance: Conveys the content if the parameter is a data type.
 
-        valueDuration: If the parameter is a data type.
+        valueDuration: Conveys the content if the parameter is a data type.
 
-        valueHumanName: If the parameter is a data type.
+        valueHumanName: Conveys the content if the parameter is a data type.
 
-        valueIdentifier: If the parameter is a data type.
+        valueIdentifier: Conveys the content if the parameter is a data type.
 
-        valueMoney: If the parameter is a data type.
+        valueMoney: Conveys the content if the parameter is a data type.
 
-        valuePeriod: If the parameter is a data type.
+        valuePeriod: Conveys the content if the parameter is a data type.
 
-        valueQuantity: If the parameter is a data type.
+        valueQuantity: Conveys the content if the parameter is a data type.
 
-        valueRange: If the parameter is a data type.
+        valueRange: Conveys the content if the parameter is a data type.
 
-        valueRatio: If the parameter is a data type.
+        valueRatio: Conveys the content if the parameter is a data type.
 
-        valueReference: If the parameter is a data type.
+        valueReference: Conveys the content if the parameter is a data type.
 
-        valueSampledData: If the parameter is a data type.
+        valueSampledData: Conveys the content if the parameter is a data type.
 
-        valueSignature: If the parameter is a data type.
+        valueSignature: Conveys the content if the parameter is a data type.
 
-        valueTiming: If the parameter is a data type.
+        valueTiming: Conveys the content if the parameter is a data type.
 
-        valueContactDetail: If the parameter is a data type.
+        valueContactDetail: Conveys the content if the parameter is a data type.
 
-        valueContributor: If the parameter is a data type.
+        valueContributor: Conveys the content if the parameter is a data type.
 
-        valueDataRequirement: If the parameter is a data type.
+        valueDataRequirement: Conveys the content if the parameter is a data type.
 
-        valueExpression: If the parameter is a data type.
+        valueExpression: Conveys the content if the parameter is a data type.
 
-        valueParameterDefinition: If the parameter is a data type.
+        valueParameterDefinition: Conveys the content if the parameter is a data type.
 
-        valueRelatedArtifact: If the parameter is a data type.
+        valueRelatedArtifact: Conveys the content if the parameter is a data type.
 
-        valueTriggerDefinition: If the parameter is a data type.
+        valueTriggerDefinition: Conveys the content if the parameter is a data type.
 
-        valueUsageContext: If the parameter is a data type.
+        valueUsageContext: Conveys the content if the parameter is a data type.
 
-        valueDosage: If the parameter is a data type.
+        valueDosage: Conveys the content if the parameter is a data type.
 
-        valueMeta: If the parameter is a data type.
+        valueMeta: Conveys the content if the parameter is a data type.
 
         resource: If the parameter is a whole resource.
 
@@ -314,45 +314,45 @@ class Parameters_ParameterSchema:
                 ),
                 # The name of the parameter (reference to the operation definition).
                 StructField("name", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueBase64Binary", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueBoolean", BooleanType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueCanonical", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueCode", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueDate", DateType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueDateTime", TimestampType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueDecimal", FloatType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueId", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueInstant", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueInteger", IntegerType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueMarkdown", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueOid", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valuePositiveInt", IntegerType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueString", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueTime", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueUnsignedInt", IntegerType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueUri", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueUrl", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField("valueUuid", StringType(), True),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueAddress",
                     AddressSchema.get_schema(
@@ -370,7 +370,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueAge",
                     AgeSchema.get_schema(
@@ -388,7 +388,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueAnnotation",
                     AnnotationSchema.get_schema(
@@ -406,7 +406,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueAttachment",
                     AttachmentSchema.get_schema(
@@ -424,7 +424,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueCodeableConcept",
                     CodeableConceptSchema.get_schema(
@@ -442,7 +442,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueCoding",
                     CodingSchema.get_schema(
@@ -460,7 +460,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueContactPoint",
                     ContactPointSchema.get_schema(
@@ -478,7 +478,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueCount",
                     CountSchema.get_schema(
@@ -496,7 +496,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueDistance",
                     DistanceSchema.get_schema(
@@ -514,7 +514,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueDuration",
                     DurationSchema.get_schema(
@@ -532,7 +532,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueHumanName",
                     HumanNameSchema.get_schema(
@@ -550,7 +550,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueIdentifier",
                     IdentifierSchema.get_schema(
@@ -568,7 +568,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueMoney",
                     MoneySchema.get_schema(
@@ -586,7 +586,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valuePeriod",
                     PeriodSchema.get_schema(
@@ -604,7 +604,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueQuantity",
                     QuantitySchema.get_schema(
@@ -622,7 +622,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueRange",
                     RangeSchema.get_schema(
@@ -640,7 +640,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueRatio",
                     RatioSchema.get_schema(
@@ -658,7 +658,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueReference",
                     ReferenceSchema.get_schema(
@@ -676,7 +676,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueSampledData",
                     SampledDataSchema.get_schema(
@@ -694,7 +694,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueSignature",
                     SignatureSchema.get_schema(
@@ -712,7 +712,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueTiming",
                     TimingSchema.get_schema(
@@ -730,7 +730,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueContactDetail",
                     ContactDetailSchema.get_schema(
@@ -748,7 +748,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueContributor",
                     ContributorSchema.get_schema(
@@ -766,7 +766,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueDataRequirement",
                     DataRequirementSchema.get_schema(
@@ -784,7 +784,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueExpression",
                     ExpressionSchema.get_schema(
@@ -802,7 +802,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueParameterDefinition",
                     ParameterDefinitionSchema.get_schema(
@@ -820,7 +820,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueRelatedArtifact",
                     RelatedArtifactSchema.get_schema(
@@ -838,7 +838,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueTriggerDefinition",
                     TriggerDefinitionSchema.get_schema(
@@ -856,7 +856,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueUsageContext",
                     UsageContextSchema.get_schema(
@@ -874,7 +874,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueDosage",
                     DosageSchema.get_schema(
@@ -892,7 +892,7 @@ class Parameters_ParameterSchema:
                     ),
                     True,
                 ),
-                # If the parameter is a data type.
+                # Conveys the content if the parameter is a data type.
                 StructField(
                     "valueMeta",
                     MetaSchema.get_schema(

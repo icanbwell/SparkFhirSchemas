@@ -107,6 +107,7 @@ class VisionPrescription_LensSpecificationSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
         from spark_fhir_schemas.r4.simple_types.integer import integerSchema
         from spark_fhir_schemas.r4.complex_types.visionprescription_prism import (
@@ -211,7 +212,23 @@ class VisionPrescription_LensSpecificationSchema:
                     True,
                 ),
                 # The eye for which the lens specification applies.
-                StructField("eye", StringType(), True),
+                StructField(
+                    "eye",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".eye",
+                    ),
+                    True,
+                ),
                 # Lens power measured in dioptres (0.25 units).
                 StructField(
                     "sphere",

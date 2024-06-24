@@ -79,6 +79,7 @@ class TestReport_ParticipantSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
 
         if (
@@ -155,7 +156,23 @@ class TestReport_ParticipantSchema:
                     True,
                 ),
                 # The type of participant.
-                StructField("type", StringType(), True),
+                StructField(
+                    "type",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".type",
+                    ),
+                    True,
+                ),
                 # The uri of the participant. An absolute URL is preferred.
                 StructField(
                     "uri",

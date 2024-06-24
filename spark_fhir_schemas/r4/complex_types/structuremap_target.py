@@ -92,6 +92,7 @@ class StructureMap_TargetSchema:
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.id import idSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.structuremap_parameter import (
             StructureMap_ParameterSchema,
         )
@@ -188,7 +189,23 @@ class StructureMap_TargetSchema:
                     True,
                 ),
                 # How to interpret the context.
-                StructField("contextType", StringType(), True),
+                StructField(
+                    "contextType",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".contexttype",
+                    ),
+                    True,
+                ),
                 # Field to create in the context.
                 StructField("element", StringType(), True),
                 # Named context for field, if desired, and a field is specified.
@@ -210,6 +227,25 @@ class StructureMap_TargetSchema:
                     True,
                 ),
                 # If field is a list, how to manage the list.
+                StructField(
+                    "listMode",
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
                 # Internal rule reference for shared list items.
                 StructField(
                     "listRuleId",
@@ -229,7 +265,23 @@ class StructureMap_TargetSchema:
                     True,
                 ),
                 # How the data is copied / created.
-                StructField("transform", StringType(), True),
+                StructField(
+                    "transform",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".transform",
+                    ),
+                    True,
+                ),
                 # Parameters to the transform.
                 StructField(
                     "parameter",

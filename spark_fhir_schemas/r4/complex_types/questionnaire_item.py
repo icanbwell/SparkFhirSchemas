@@ -66,10 +66,11 @@ class Questionnaire_ItemSchema:
         linkId: An identifier that is unique within the Questionnaire allowing linkage to the
             equivalent item in a QuestionnaireResponse resource.
 
-        definition: This element is a URI that refers to an [[[ElementDefinition]]] that provides
-            information about this item, including information that might otherwise be
-            included in the instance of the Questionnaire resource. A detailed description
-            of the construction of the URI is shown in Comments, below. If this element is
+        definition: This element is a URI that refers to an
+            [ElementDefinition](elementdefinition.html) that provides information about
+            this item, including information that might otherwise be included in the
+            instance of the Questionnaire resource. A detailed description of the
+            construction of the URI is shown in Comments, below. If this element is
             present then the following element values MAY be derived from the Element
             Definition if the corresponding elements of this Questionnaire resource
             instance have no value:
@@ -149,6 +150,7 @@ class Questionnaire_ItemSchema:
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.questionnaire_enablewhen import (
             Questionnaire_EnableWhenSchema,
         )
@@ -235,10 +237,11 @@ class Questionnaire_ItemSchema:
                 # An identifier that is unique within the Questionnaire allowing linkage to the
                 # equivalent item in a QuestionnaireResponse resource.
                 StructField("linkId", StringType(), True),
-                # This element is a URI that refers to an [[[ElementDefinition]]] that provides
-                # information about this item, including information that might otherwise be
-                # included in the instance of the Questionnaire resource. A detailed description
-                # of the construction of the URI is shown in Comments, below. If this element is
+                # This element is a URI that refers to an
+                # [ElementDefinition](elementdefinition.html) that provides information about
+                # this item, including information that might otherwise be included in the
+                # instance of the Questionnaire resource. A detailed description of the
+                # construction of the URI is shown in Comments, below. If this element is
                 # present then the following element values MAY be derived from the Element
                 # Definition if the corresponding elements of this Questionnaire resource
                 # instance have no value:
@@ -298,7 +301,23 @@ class Questionnaire_ItemSchema:
                 # The type of questionnaire item this is - whether text for display, a grouping
                 # of other items or a particular type of data to be captured (string, integer,
                 # coded choice, etc.).
-                StructField("type", StringType(), True),
+                StructField(
+                    "type",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".type",
+                    ),
+                    True,
+                ),
                 # A constraint indicating that this item should only be enabled (displayed/allow
                 # answers to be captured) when the specified condition is true.
                 StructField(
@@ -322,7 +341,23 @@ class Questionnaire_ItemSchema:
                 ),
                 # Controls how multiple enableWhen values are interpreted -  whether all or any
                 # must be true.
-                StructField("enableBehavior", StringType(), True),
+                StructField(
+                    "enableBehavior",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".enablebehavior",
+                    ),
+                    True,
+                ),
                 # An indication, if true, that the item must be present in a "completed"
                 # QuestionnaireResponse.  If false, the item may be skipped when answering the
                 # questionnaire.

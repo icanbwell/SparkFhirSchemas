@@ -221,7 +221,23 @@ class TestScript_AssertSchema:
                 # purposes.
                 StructField("description", StringType(), True),
                 # The direction to use for the assertion.
-                StructField("direction", StringType(), True),
+                StructField(
+                    "direction",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".direction",
+                    ),
+                    True,
+                ),
                 # Id of the source fixture used as the contents to be evaluated by either the
                 # "source/expression" or "sourceId/path" definition.
                 StructField("compareToSourceId", StringType(), True),
@@ -265,13 +281,45 @@ class TestScript_AssertSchema:
                 StructField("navigationLinks", BooleanType(), True),
                 # The operator type defines the conditional behavior of the assert. If not
                 # defined, the default is equals.
-                StructField("operator", StringType(), True),
+                StructField(
+                    "operator",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".operator",
+                    ),
+                    True,
+                ),
                 # The XPath or JSONPath expression to be evaluated against the fixture
                 # representing the response received from server.
                 StructField("path", StringType(), True),
                 # The request method or HTTP operation code to compare against that used by the
                 # client system under test.
-                StructField("requestMethod", StringType(), True),
+                StructField(
+                    "requestMethod",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".requestmethod",
+                    ),
+                    True,
+                ),
                 # The value to use in a comparison against the request URL path string.
                 StructField("requestURL", StringType(), True),
                 # The type of the resource.  See http://build.fhir.org/resourcelist.html.
@@ -294,7 +342,23 @@ class TestScript_AssertSchema:
                 ),
                 # okay | created | noContent | notModified | bad | forbidden | notFound |
                 # methodNotAllowed | conflict | gone | preconditionFailed | unprocessable.
-                StructField("response", StringType(), True),
+                StructField(
+                    "response",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".response",
+                    ),
+                    True,
+                ),
                 # The value of the HTTP response code to be tested.
                 StructField("responseCode", StringType(), True),
                 # Fixture to evaluate the XPath/JSONPath expression or the headerField  against.

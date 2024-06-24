@@ -16,8 +16,9 @@ class PlanDefinition_ActionSchema:
     """
     This resource allows for the definition of various types of plans as a
     sharable, consumable, and executable artifact. The resource is general enough
-    to support the description of a broad range of clinical artifacts such as
-    clinical decision support rules, order sets and protocols.
+    to support the description of a broad range of clinical and non-clinical
+    artifacts such as clinical decision support rules, order sets, protocols, and
+    drug quality specifications.
     """
 
     # noinspection PyDefaultArgument
@@ -38,8 +39,9 @@ class PlanDefinition_ActionSchema:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
-        to support the description of a broad range of clinical artifacts such as
-        clinical decision support rules, order sets and protocols.
+        to support the description of a broad range of clinical and non-clinical
+        artifacts such as clinical decision support rules, order sets, protocols, and
+        drug quality specifications.
 
 
         id: Unique id for the element within a resource (for internal references). This
@@ -67,7 +69,9 @@ class PlanDefinition_ActionSchema:
 
         prefix: A user-visible prefix for the action.
 
-        title: The title of the action displayed to a user.
+        title: The textual description of the action displayed to a user. For example, when
+            the action is a test to be performed, the title would be the title of the test
+            such as Assay by HPLC.
 
         description: A brief description of the action used to provide a summary to display to the
             user.
@@ -79,8 +83,10 @@ class PlanDefinition_ActionSchema:
         priority: Indicates how quickly the action should be addressed with respect to other
             actions.
 
-        code: A code that provides meaning for the action or action group. For example, a
-            section may have a LOINC code for the section of a documentation template.
+        code: A code that provides a meaning, grouping, or classification for the action or
+            action group. For example, a section may have a LOINC code for the section of
+            a documentation template. In pharmaceutical quality, an action (Test) such as
+            pH could be classified as a physical property.
 
         reason: A description of why this action is necessary or appropriate.
 
@@ -89,13 +95,31 @@ class PlanDefinition_ActionSchema:
             text commentary and links to web resources.
 
         goalId: Identifies goals that this action supports. The reference must be to a goal
-            element defined within this plan definition.
+            element defined within this plan definition. In pharmaceutical quality, a goal
+            represents acceptance criteria (Goal) for a given action (Test), so the goalId
+            would be the unique id of a defined goal element establishing the acceptance
+            criteria for the action.
 
-        subjectCodeableConcept: A code or group definition that describes the intended subject of the action
-            and its children, if any.
+        subjectCodeableConcept: A code, group definition, or canonical reference that describes the intended
+            subject of the action and its children, if any. Canonical references are
+            allowed to support the definition of protocols for drug and substance quality
+            specifications, and is allowed to reference a MedicinalProductDefinition,
+            SubstanceDefinition, AdministrableProductDefinition,
+            ManufacturedItemDefinition, or PackagedProductDefinition resource.
 
-        subjectReference: A code or group definition that describes the intended subject of the action
-            and its children, if any.
+        subjectReference: A code, group definition, or canonical reference that describes the intended
+            subject of the action and its children, if any. Canonical references are
+            allowed to support the definition of protocols for drug and substance quality
+            specifications, and is allowed to reference a MedicinalProductDefinition,
+            SubstanceDefinition, AdministrableProductDefinition,
+            ManufacturedItemDefinition, or PackagedProductDefinition resource.
+
+        subjectCanonical: A code, group definition, or canonical reference that describes the intended
+            subject of the action and its children, if any. Canonical references are
+            allowed to support the definition of protocols for drug and substance quality
+            specifications, and is allowed to reference a MedicinalProductDefinition,
+            SubstanceDefinition, AdministrableProductDefinition,
+            ManufacturedItemDefinition, or PackagedProductDefinition resource.
 
         trigger: A description of when the action should be triggered.
 
@@ -285,7 +309,9 @@ class PlanDefinition_ActionSchema:
                 ),
                 # A user-visible prefix for the action.
                 StructField("prefix", StringType(), True),
-                # The title of the action displayed to a user.
+                # The textual description of the action displayed to a user. For example, when
+                # the action is a test to be performed, the title would be the title of the test
+                # such as Assay by HPLC.
                 StructField("title", StringType(), True),
                 # A brief description of the action used to provide a summary to display to the
                 # user.
@@ -313,8 +339,10 @@ class PlanDefinition_ActionSchema:
                     ),
                     True,
                 ),
-                # A code that provides meaning for the action or action group. For example, a
-                # section may have a LOINC code for the section of a documentation template.
+                # A code that provides a meaning, grouping, or classification for the action or
+                # action group. For example, a section may have a LOINC code for the section of
+                # a documentation template. In pharmaceutical quality, an action (Test) such as
+                # pH could be classified as a physical property.
                 StructField(
                     "code",
                     ArrayType(
@@ -377,7 +405,10 @@ class PlanDefinition_ActionSchema:
                     True,
                 ),
                 # Identifies goals that this action supports. The reference must be to a goal
-                # element defined within this plan definition.
+                # element defined within this plan definition. In pharmaceutical quality, a goal
+                # represents acceptance criteria (Goal) for a given action (Test), so the goalId
+                # would be the unique id of a defined goal element establishing the acceptance
+                # criteria for the action.
                 StructField(
                     "goalId",
                     ArrayType(
@@ -397,8 +428,12 @@ class PlanDefinition_ActionSchema:
                     ),
                     True,
                 ),
-                # A code or group definition that describes the intended subject of the action
-                # and its children, if any.
+                # A code, group definition, or canonical reference that describes the intended
+                # subject of the action and its children, if any. Canonical references are
+                # allowed to support the definition of protocols for drug and substance quality
+                # specifications, and is allowed to reference a MedicinalProductDefinition,
+                # SubstanceDefinition, AdministrableProductDefinition,
+                # ManufacturedItemDefinition, or PackagedProductDefinition resource.
                 StructField(
                     "subjectCodeableConcept",
                     CodeableConceptSchema.get_schema(
@@ -416,8 +451,12 @@ class PlanDefinition_ActionSchema:
                     ),
                     True,
                 ),
-                # A code or group definition that describes the intended subject of the action
-                # and its children, if any.
+                # A code, group definition, or canonical reference that describes the intended
+                # subject of the action and its children, if any. Canonical references are
+                # allowed to support the definition of protocols for drug and substance quality
+                # specifications, and is allowed to reference a MedicinalProductDefinition,
+                # SubstanceDefinition, AdministrableProductDefinition,
+                # ManufacturedItemDefinition, or PackagedProductDefinition resource.
                 StructField(
                     "subjectReference",
                     ReferenceSchema.get_schema(
@@ -435,6 +474,13 @@ class PlanDefinition_ActionSchema:
                     ),
                     True,
                 ),
+                # A code, group definition, or canonical reference that describes the intended
+                # subject of the action and its children, if any. Canonical references are
+                # allowed to support the definition of protocols for drug and substance quality
+                # specifications, and is allowed to reference a MedicinalProductDefinition,
+                # SubstanceDefinition, AdministrableProductDefinition,
+                # ManufacturedItemDefinition, or PackagedProductDefinition resource.
+                StructField("subjectCanonical", StringType(), True),
                 # A description of when the action should be triggered.
                 StructField(
                     "trigger",
@@ -668,15 +714,95 @@ class PlanDefinition_ActionSchema:
                     True,
                 ),
                 # Defines the grouping behavior for the action and its children.
-                StructField("groupingBehavior", StringType(), True),
+                StructField(
+                    "groupingBehavior",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".groupingbehavior",
+                    ),
+                    True,
+                ),
                 # Defines the selection behavior for the action and its children.
-                StructField("selectionBehavior", StringType(), True),
+                StructField(
+                    "selectionBehavior",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".selectionbehavior",
+                    ),
+                    True,
+                ),
                 # Defines the required behavior for the action.
-                StructField("requiredBehavior", StringType(), True),
+                StructField(
+                    "requiredBehavior",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".requiredbehavior",
+                    ),
+                    True,
+                ),
                 # Defines whether the action should usually be preselected.
-                StructField("precheckBehavior", StringType(), True),
+                StructField(
+                    "precheckBehavior",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".precheckbehavior",
+                    ),
+                    True,
+                ),
                 # Defines whether the action can be selected multiple times.
-                StructField("cardinalityBehavior", StringType(), True),
+                StructField(
+                    "cardinalityBehavior",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".cardinalitybehavior",
+                    ),
+                    True,
+                ),
                 # A reference to an ActivityDefinition that describes the action to be taken in
                 # detail, or a PlanDefinition that describes a series of actions to be taken.
                 StructField("definitionCanonical", StringType(), True),

@@ -123,6 +123,9 @@ class ExtensionSchema:
         valueCodeableConcept: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
+        valueCodeableReference: Value of extension - must be one of a constrained set of the data types (see
+            [Extensibility](extensibility.html) for a list).
+
         valueCoding: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
@@ -157,6 +160,9 @@ class ExtensionSchema:
             [Extensibility](extensibility.html) for a list).
 
         valueRatio: Value of extension - must be one of a constrained set of the data types (see
+            [Extensibility](extensibility.html) for a list).
+
+        valueRatioRange: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
         valueReference: Value of extension - must be one of a constrained set of the data types (see
@@ -198,9 +204,6 @@ class ExtensionSchema:
         valueDosage: Value of extension - must be one of a constrained set of the data types (see
             [Extensibility](extensibility.html) for a list).
 
-        valueMeta: Value of extension - must be one of a constrained set of the data types (see
-            [Extensibility](extensibility.html) for a list).
-
         """
         if extension_fields is None:
             extension_fields = [
@@ -229,6 +232,9 @@ class ExtensionSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
+        from spark_fhir_schemas.r4.complex_types.codeablereference import (
+            CodeableReferenceSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.count import CountSchema
@@ -241,6 +247,7 @@ class ExtensionSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
+        from spark_fhir_schemas.r4.complex_types.ratiorange import RatioRangeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
@@ -264,7 +271,6 @@ class ExtensionSchema:
         )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
 
         if (
             max_recursion_limit
@@ -461,6 +467,25 @@ class ExtensionSchema:
                 StructField(
                     "valueCodeableConcept",
                     CodeableConceptSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Value of extension - must be one of a constrained set of the data types (see
+                # [Extensibility](extensibility.html) for a list).
+                StructField(
+                    "valueCodeableReference",
+                    CodeableReferenceSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -689,6 +714,25 @@ class ExtensionSchema:
                 StructField(
                     "valueRatio",
                     RatioSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # Value of extension - must be one of a constrained set of the data types (see
+                # [Extensibility](extensibility.html) for a list).
+                StructField(
+                    "valueRatioRange",
+                    RatioRangeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -936,25 +980,6 @@ class ExtensionSchema:
                 StructField(
                     "valueDosage",
                     DosageSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # Value of extension - must be one of a constrained set of the data types (see
-                # [Extensibility](extensibility.html) for a list).
-                StructField(
-                    "valueMeta",
-                    MetaSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,

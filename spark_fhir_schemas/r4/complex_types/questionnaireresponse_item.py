@@ -59,8 +59,8 @@ class QuestionnaireResponse_ItemSchema:
         linkId: The item from the Questionnaire that corresponds to this item in the
             QuestionnaireResponse resource.
 
-        definition: A reference to an [[[ElementDefinition]]] that provides the details for the
-            item.
+        definition: A reference to an [ElementDefinition](elementdefinition.html) that provides
+            the details for the item.
 
         text: Text that is displayed above the contents of the group or as the text of the
             question being answered.
@@ -171,8 +171,8 @@ class QuestionnaireResponse_ItemSchema:
                 # The item from the Questionnaire that corresponds to this item in the
                 # QuestionnaireResponse resource.
                 StructField("linkId", StringType(), True),
-                # A reference to an [[[ElementDefinition]]] that provides the details for the
-                # item.
+                # A reference to an [ElementDefinition](elementdefinition.html) that provides
+                # the details for the item.
                 StructField(
                     "definition",
                     uriSchema.get_schema(

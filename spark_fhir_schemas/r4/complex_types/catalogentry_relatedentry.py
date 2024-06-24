@@ -78,6 +78,7 @@ class CatalogEntry_RelatedEntrySchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
 
         if (
@@ -155,7 +156,23 @@ class CatalogEntry_RelatedEntrySchema:
                 ),
                 # The type of relation to the related item: child, parent, packageContent,
                 # containerPackage, usedIn, uses, requires, etc.
-                StructField("relationtype", StringType(), True),
+                StructField(
+                    "relationtype",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".relationtype",
+                    ),
+                    True,
+                ),
                 # The reference to the related item.
                 StructField(
                     "item",

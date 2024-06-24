@@ -199,7 +199,23 @@ class ConceptMap_TargetSchema:
                 # The equivalence between the source and target concepts (counting for the
                 # dependencies and products). The equivalence is read from target to source
                 # (e.g. the target is 'wider' than the source).
-                StructField("equivalence", StringType(), True),
+                StructField(
+                    "equivalence",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".equivalence",
+                    ),
+                    True,
+                ),
                 # A description of status/issues in mapping that conveys additional information
                 # not represented in  the structured data.
                 StructField("comment", StringType(), True),

@@ -91,6 +91,7 @@ class HealthcareService_AvailableTimeSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.time import timeSchema
 
         if (
@@ -169,6 +170,25 @@ class HealthcareService_AvailableTimeSchema:
                 ),
                 # Indicates which days of the week are available between the start and end
                 # Times.
+                StructField(
+                    "daysOfWeek",
+                    ArrayType(
+                        codeSchema.get_schema(
+                            max_nesting_depth=max_nesting_depth,
+                            nesting_depth=nesting_depth + 1,
+                            nesting_list=my_nesting_list,
+                            max_recursion_limit=max_recursion_limit,
+                            include_extension=include_extension,
+                            extension_fields=extension_fields,
+                            extension_depth=extension_depth,
+                            max_extension_depth=max_extension_depth,
+                            include_modifierExtension=include_modifierExtension,
+                            use_date_for=use_date_for,
+                            parent_path=my_parent_path,
+                        )
+                    ),
+                    True,
+                ),
                 # Is this always available? (hence times are irrelevant) e.g. 24 hour service.
                 StructField("allDay", BooleanType(), True),
                 # The opening time of day. Note: If the AllDay flag is set, then this time is

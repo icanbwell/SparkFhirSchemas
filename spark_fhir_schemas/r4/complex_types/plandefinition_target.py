@@ -9,8 +9,9 @@ class PlanDefinition_TargetSchema:
     """
     This resource allows for the definition of various types of plans as a
     sharable, consumable, and executable artifact. The resource is general enough
-    to support the description of a broad range of clinical artifacts such as
-    clinical decision support rules, order sets and protocols.
+    to support the description of a broad range of clinical and non-clinical
+    artifacts such as clinical decision support rules, order sets, protocols, and
+    drug quality specifications.
     """
 
     # noinspection PyDefaultArgument
@@ -31,8 +32,9 @@ class PlanDefinition_TargetSchema:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
-        to support the description of a broad range of clinical artifacts such as
-        clinical decision support rules, order sets and protocols.
+        to support the description of a broad range of clinical and non-clinical
+        artifacts such as clinical decision support rules, order sets, protocols, and
+        drug quality specifications.
 
 
         id: Unique id for the element within a resource (for internal references). This
@@ -62,25 +64,28 @@ class PlanDefinition_TargetSchema:
             or hemoglobin A1c level.
 
         detailQuantity: The target value of the measure to be achieved to signify fulfillment of the
-            goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
-            range can be specified. When a low value is missing, it indicates that the
-            goal is achieved at any value at or below the high value. Similarly, if the
-            high value is missing, it indicates that the goal is achieved at any value at
-            or above the low value.
+            goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT
+            0.6%, Clear solution, etc. Either the high or low or both values of the range
+            can be specified. When a low value is missing, it indicates that the goal is
+            achieved at any value at or below the high value. Similarly, if the high value
+            is missing, it indicates that the goal is achieved at any value at or above
+            the low value.
 
         detailRange: The target value of the measure to be achieved to signify fulfillment of the
-            goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
-            range can be specified. When a low value is missing, it indicates that the
-            goal is achieved at any value at or below the high value. Similarly, if the
-            high value is missing, it indicates that the goal is achieved at any value at
-            or above the low value.
+            goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT
+            0.6%, Clear solution, etc. Either the high or low or both values of the range
+            can be specified. When a low value is missing, it indicates that the goal is
+            achieved at any value at or below the high value. Similarly, if the high value
+            is missing, it indicates that the goal is achieved at any value at or above
+            the low value.
 
         detailCodeableConcept: The target value of the measure to be achieved to signify fulfillment of the
-            goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
-            range can be specified. When a low value is missing, it indicates that the
-            goal is achieved at any value at or below the high value. Similarly, if the
-            high value is missing, it indicates that the goal is achieved at any value at
-            or above the low value.
+            goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT
+            0.6%, Clear solution, etc. Either the high or low or both values of the range
+            can be specified. When a low value is missing, it indicates that the goal is
+            achieved at any value at or below the high value. Similarly, if the high value
+            is missing, it indicates that the goal is achieved at any value at or above
+            the low value.
 
         due: Indicates the timeframe after the start of the goal in which the goal should
             be met.
@@ -206,11 +211,12 @@ class PlanDefinition_TargetSchema:
                     True,
                 ),
                 # The target value of the measure to be achieved to signify fulfillment of the
-                # goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
-                # range can be specified. When a low value is missing, it indicates that the
-                # goal is achieved at any value at or below the high value. Similarly, if the
-                # high value is missing, it indicates that the goal is achieved at any value at
-                # or above the low value.
+                # goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT
+                # 0.6%, Clear solution, etc. Either the high or low or both values of the range
+                # can be specified. When a low value is missing, it indicates that the goal is
+                # achieved at any value at or below the high value. Similarly, if the high value
+                # is missing, it indicates that the goal is achieved at any value at or above
+                # the low value.
                 StructField(
                     "detailQuantity",
                     QuantitySchema.get_schema(
@@ -229,11 +235,12 @@ class PlanDefinition_TargetSchema:
                     True,
                 ),
                 # The target value of the measure to be achieved to signify fulfillment of the
-                # goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
-                # range can be specified. When a low value is missing, it indicates that the
-                # goal is achieved at any value at or below the high value. Similarly, if the
-                # high value is missing, it indicates that the goal is achieved at any value at
-                # or above the low value.
+                # goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT
+                # 0.6%, Clear solution, etc. Either the high or low or both values of the range
+                # can be specified. When a low value is missing, it indicates that the goal is
+                # achieved at any value at or below the high value. Similarly, if the high value
+                # is missing, it indicates that the goal is achieved at any value at or above
+                # the low value.
                 StructField(
                     "detailRange",
                     RangeSchema.get_schema(
@@ -252,11 +259,12 @@ class PlanDefinition_TargetSchema:
                     True,
                 ),
                 # The target value of the measure to be achieved to signify fulfillment of the
-                # goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the
-                # range can be specified. When a low value is missing, it indicates that the
-                # goal is achieved at any value at or below the high value. Similarly, if the
-                # high value is missing, it indicates that the goal is achieved at any value at
-                # or above the low value.
+                # goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT
+                # 0.6%, Clear solution, etc. Either the high or low or both values of the range
+                # can be specified. When a low value is missing, it indicates that the goal is
+                # achieved at any value at or below the high value. Similarly, if the high value
+                # is missing, it indicates that the goal is achieved at any value at or above
+                # the low value.
                 StructField(
                     "detailCodeableConcept",
                     CodeableConceptSchema.get_schema(

@@ -17,8 +17,9 @@ class PlanDefinitionSchema:
     """
     This resource allows for the definition of various types of plans as a
     sharable, consumable, and executable artifact. The resource is general enough
-    to support the description of a broad range of clinical artifacts such as
-    clinical decision support rules, order sets and protocols.
+    to support the description of a broad range of clinical and non-clinical
+    artifacts such as clinical decision support rules, order sets, protocols, and
+    drug quality specifications.
     """
 
     # noinspection PyDefaultArgument
@@ -39,8 +40,9 @@ class PlanDefinitionSchema:
         """
         This resource allows for the definition of various types of plans as a
         sharable, consumable, and executable artifact. The resource is general enough
-        to support the description of a broad range of clinical artifacts such as
-        clinical decision support rules, order sets and protocols.
+        to support the description of a broad range of clinical and non-clinical
+        artifacts such as clinical decision support rules, order sets, protocols, and
+        drug quality specifications.
 
 
         resourceType: This is a PlanDefinition resource
@@ -132,11 +134,26 @@ class PlanDefinitionSchema:
             purposes (or education/evaluation/marketing) and is not intended to be used
             for genuine usage.
 
-        subjectCodeableConcept: A code or group definition that describes the intended subject of the plan
-            definition.
+        subjectCodeableConcept: A code, group definition, or canonical reference that describes  or identifies
+            the intended subject of the plan definition. Canonical references are allowed
+            to support the definition of protocols for drug and substance quality
+            specifications, and is allowed to reference a MedicinalProductDefinition,
+            SubstanceDefinition, AdministrableProductDefinition,
+            ManufacturedItemDefinition, or PackagedProductDefinition resource.
 
-        subjectReference: A code or group definition that describes the intended subject of the plan
-            definition.
+        subjectReference: A code, group definition, or canonical reference that describes  or identifies
+            the intended subject of the plan definition. Canonical references are allowed
+            to support the definition of protocols for drug and substance quality
+            specifications, and is allowed to reference a MedicinalProductDefinition,
+            SubstanceDefinition, AdministrableProductDefinition,
+            ManufacturedItemDefinition, or PackagedProductDefinition resource.
+
+        subjectCanonical: A code, group definition, or canonical reference that describes  or identifies
+            the intended subject of the plan definition. Canonical references are allowed
+            to support the definition of protocols for drug and substance quality
+            specifications, and is allowed to reference a MedicinalProductDefinition,
+            SubstanceDefinition, AdministrableProductDefinition,
+            ManufacturedItemDefinition, or PackagedProductDefinition resource.
 
         date: The date  (and optionally time) when the plan definition was published. The
             date must change when the business version changes and it must change if the
@@ -201,12 +218,17 @@ class PlanDefinitionSchema:
         library: A reference to a Library resource containing any formal logic used by the plan
             definition.
 
-        goal: Goals that describe what the activities within the plan are intended to
-            achieve. For example, weight loss, restoring an activity of daily living,
-            obtaining herd immunity via immunization, meeting a process improvement
-            objective, etc.
+        goal: A goal describes an expected outcome that activities within the plan are
+            intended to achieve. For example, weight loss, restoring an activity of daily
+            living, obtaining herd immunity via immunization, meeting a process
+            improvement objective, meeting the acceptance criteria for a test as specified
+            by a quality specification, etc.
 
-        action: An action or group of actions to be taken as part of the plan.
+        action: An action or group of actions to be taken as part of the plan. For example, in
+            clinical care, an action would be to prescribe a particular indicated
+            medication, or perform a particular test as appropriate. In pharmaceutical
+            quality, an action would be the test that needs to be performed on a drug
+            product as defined in the quality specification.
 
         """
         if extension_fields is None:
@@ -228,7 +250,6 @@ class PlanDefinitionSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -274,23 +295,7 @@ class PlanDefinitionSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -538,13 +543,33 @@ class PlanDefinitionSchema:
                 ),
                 # The status of this plan definition. Enables tracking the life-cycle of the
                 # content.
-                StructField("status", StringType(), True),
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
                 # A Boolean value to indicate that this plan definition is authored for testing
                 # purposes (or education/evaluation/marketing) and is not intended to be used
                 # for genuine usage.
                 StructField("experimental", BooleanType(), True),
-                # A code or group definition that describes the intended subject of the plan
-                # definition.
+                # A code, group definition, or canonical reference that describes  or identifies
+                # the intended subject of the plan definition. Canonical references are allowed
+                # to support the definition of protocols for drug and substance quality
+                # specifications, and is allowed to reference a MedicinalProductDefinition,
+                # SubstanceDefinition, AdministrableProductDefinition,
+                # ManufacturedItemDefinition, or PackagedProductDefinition resource.
                 StructField(
                     "subjectCodeableConcept",
                     CodeableConceptSchema.get_schema(
@@ -562,8 +587,12 @@ class PlanDefinitionSchema:
                     ),
                     True,
                 ),
-                # A code or group definition that describes the intended subject of the plan
-                # definition.
+                # A code, group definition, or canonical reference that describes  or identifies
+                # the intended subject of the plan definition. Canonical references are allowed
+                # to support the definition of protocols for drug and substance quality
+                # specifications, and is allowed to reference a MedicinalProductDefinition,
+                # SubstanceDefinition, AdministrableProductDefinition,
+                # ManufacturedItemDefinition, or PackagedProductDefinition resource.
                 StructField(
                     "subjectReference",
                     ReferenceSchema.get_schema(
@@ -581,6 +610,13 @@ class PlanDefinitionSchema:
                     ),
                     True,
                 ),
+                # A code, group definition, or canonical reference that describes  or identifies
+                # the intended subject of the plan definition. Canonical references are allowed
+                # to support the definition of protocols for drug and substance quality
+                # specifications, and is allowed to reference a MedicinalProductDefinition,
+                # SubstanceDefinition, AdministrableProductDefinition,
+                # ManufacturedItemDefinition, or PackagedProductDefinition resource.
+                StructField("subjectCanonical", StringType(), True),
                 # The date  (and optionally time) when the plan definition was published. The
                 # date must change when the business version changes and it must change if the
                 # status code changes. In addition, it should change when the substantive
@@ -904,10 +940,11 @@ class PlanDefinitionSchema:
                     ),
                     True,
                 ),
-                # Goals that describe what the activities within the plan are intended to
-                # achieve. For example, weight loss, restoring an activity of daily living,
-                # obtaining herd immunity via immunization, meeting a process improvement
-                # objective, etc.
+                # A goal describes an expected outcome that activities within the plan are
+                # intended to achieve. For example, weight loss, restoring an activity of daily
+                # living, obtaining herd immunity via immunization, meeting a process
+                # improvement objective, meeting the acceptance criteria for a test as specified
+                # by a quality specification, etc.
                 StructField(
                     "goal",
                     ArrayType(
@@ -927,7 +964,11 @@ class PlanDefinitionSchema:
                     ),
                     True,
                 ),
-                # An action or group of actions to be taken as part of the plan.
+                # An action or group of actions to be taken as part of the plan. For example, in
+                # clinical care, an action would be to prescribe a particular indicated
+                # medication, or perform a particular test as appropriate. In pharmaceutical
+                # quality, an action would be the test that needs to be performed on a drug
+                # product as defined in the quality specification.
                 StructField(
                     "action",
                     ArrayType(

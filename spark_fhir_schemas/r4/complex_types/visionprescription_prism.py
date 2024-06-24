@@ -80,6 +80,7 @@ class VisionPrescription_PrismSchema:
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
         from spark_fhir_schemas.r4.simple_types.decimal import decimalSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
 
         if (
             max_recursion_limit
@@ -173,7 +174,23 @@ class VisionPrescription_PrismSchema:
                     True,
                 ),
                 # The relative base, or reference lens edge, for the prism.
-                StructField("base", StringType(), True),
+                StructField(
+                    "base",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".base",
+                    ),
+                    True,
+                ),
             ]
         )
         if not include_extension:

@@ -155,7 +155,7 @@ class StructureDefinitionSchema:
 
         fhirVersion: The version of the FHIR specification on which this StructureDefinition is
             based - this is the formal version of the specification, without the revision
-            number, e.g. [publication].[major].[minor], which is 4.0.1. for this version.
+            number, e.g. [publication].[major].[minor], which is 4.3.0 for this version.
 
         mapping: An external specification that the content is mapped to.
 
@@ -211,7 +211,6 @@ class StructureDefinitionSchema:
                 "valueCodeableConcept",
                 "valueAddress",
             ]
-        from spark_fhir_schemas.r4.simple_types.id import idSchema
         from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4.simple_types.uri import uriSchema
         from spark_fhir_schemas.r4.simple_types.code import codeSchema
@@ -261,23 +260,7 @@ class StructureDefinitionSchema:
                 StructField("resourceType", StringType(), True),
                 # The logical id of the resource, as used in the URL for the resource. Once
                 # assigned, this value never changes.
-                StructField(
-                    "id",
-                    idSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path + ".id",
-                    ),
-                    True,
-                ),
+                StructField("id", StringType(), True),
                 # The metadata about the resource. This is content that is maintained by the
                 # infrastructure. Changes to the content might not always be associated with
                 # version changes to the resource.
@@ -499,7 +482,23 @@ class StructureDefinitionSchema:
                 StructField("title", StringType(), True),
                 # The status of this structure definition. Enables tracking the life-cycle of
                 # the content.
-                StructField("status", StringType(), True),
+                StructField(
+                    "status",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".status",
+                    ),
+                    True,
+                ),
                 # A Boolean value to indicate that this structure definition is authored for
                 # testing purposes (or education/evaluation/marketing) and is not intended to be
                 # used for genuine usage.
@@ -676,8 +675,24 @@ class StructureDefinitionSchema:
                 ),
                 # The version of the FHIR specification on which this StructureDefinition is
                 # based - this is the formal version of the specification, without the revision
-                # number, e.g. [publication].[major].[minor], which is 4.0.1. for this version.
-                StructField("fhirVersion", StringType(), True),
+                # number, e.g. [publication].[major].[minor], which is 4.3.0 for this version.
+                StructField(
+                    "fhirVersion",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".fhirversion",
+                    ),
+                    True,
+                ),
                 # An external specification that the content is mapped to.
                 StructField(
                     "mapping",
@@ -699,7 +714,23 @@ class StructureDefinitionSchema:
                     True,
                 ),
                 # Defines the kind of structure that this definition is describing.
-                StructField("kind", StringType(), True),
+                StructField(
+                    "kind",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".kind",
+                    ),
+                    True,
+                ),
                 # Whether structure this definition describes is abstract or not  - that is,
                 # whether the structure is not intended to be instantiated. For Resources and
                 # Data types, abstract types will never be exchanged  between systems.
@@ -773,7 +804,23 @@ class StructureDefinitionSchema:
                     True,
                 ),
                 # How the type relates to the baseDefinition.
-                StructField("derivation", StringType(), True),
+                StructField(
+                    "derivation",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".derivation",
+                    ),
+                    True,
+                ),
                 # A snapshot view is expressed in a standalone form that can be used and
                 # interpreted without considering the base StructureDefinition.
                 StructField(

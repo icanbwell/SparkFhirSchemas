@@ -167,7 +167,23 @@ class GraphDefinition_CompartmentSchema:
                 # Defines how the compartment rule is used - whether it it is used to test
                 # whether resources are subject to the rule, or whether it is a rule that must
                 # be followed.
-                StructField("use", StringType(), True),
+                StructField(
+                    "use",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".use",
+                    ),
+                    True,
+                ),
                 # Identifies the compartment.
                 StructField(
                     "code",
@@ -187,7 +203,23 @@ class GraphDefinition_CompartmentSchema:
                     True,
                 ),
                 # identical | matching | different | no-rule | custom.
-                StructField("rule", StringType(), True),
+                StructField(
+                    "rule",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".rule",
+                    ),
+                    True,
+                ),
                 # Custom rule, as a FHIRPath expression.
                 StructField("expression", StringType(), True),
                 # Documentation for FHIRPath expression.

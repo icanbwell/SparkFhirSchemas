@@ -139,6 +139,9 @@ class ElementDefinition_ExampleSchema:
         valueCodeableConcept: The actual value for the element, which must be one of the types allowed for
             this element.
 
+        valueCodeableReference: The actual value for the element, which must be one of the types allowed for
+            this element.
+
         valueCoding: The actual value for the element, which must be one of the types allowed for
             this element.
 
@@ -173,6 +176,9 @@ class ElementDefinition_ExampleSchema:
             this element.
 
         valueRatio: The actual value for the element, which must be one of the types allowed for
+            this element.
+
+        valueRatioRange: The actual value for the element, which must be one of the types allowed for
             this element.
 
         valueReference: The actual value for the element, which must be one of the types allowed for
@@ -214,9 +220,6 @@ class ElementDefinition_ExampleSchema:
         valueDosage: The actual value for the element, which must be one of the types allowed for
             this element.
 
-        valueMeta: The actual value for the element, which must be one of the types allowed for
-            this element.
-
         """
         if extension_fields is None:
             extension_fields = [
@@ -245,6 +248,9 @@ class ElementDefinition_ExampleSchema:
         from spark_fhir_schemas.r4.complex_types.codeableconcept import (
             CodeableConceptSchema,
         )
+        from spark_fhir_schemas.r4.complex_types.codeablereference import (
+            CodeableReferenceSchema,
+        )
         from spark_fhir_schemas.r4.complex_types.coding import CodingSchema
         from spark_fhir_schemas.r4.complex_types.contactpoint import ContactPointSchema
         from spark_fhir_schemas.r4.complex_types.count import CountSchema
@@ -257,6 +263,7 @@ class ElementDefinition_ExampleSchema:
         from spark_fhir_schemas.r4.complex_types.quantity import QuantitySchema
         from spark_fhir_schemas.r4.complex_types.range import RangeSchema
         from spark_fhir_schemas.r4.complex_types.ratio import RatioSchema
+        from spark_fhir_schemas.r4.complex_types.ratiorange import RatioRangeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
         from spark_fhir_schemas.r4.complex_types.sampleddata import SampledDataSchema
         from spark_fhir_schemas.r4.complex_types.signature import SignatureSchema
@@ -280,7 +287,6 @@ class ElementDefinition_ExampleSchema:
         )
         from spark_fhir_schemas.r4.complex_types.usagecontext import UsageContextSchema
         from spark_fhir_schemas.r4.complex_types.dosage import DosageSchema
-        from spark_fhir_schemas.r4.complex_types.meta import MetaSchema
 
         if (
             max_recursion_limit
@@ -512,6 +518,25 @@ class ElementDefinition_ExampleSchema:
                 # The actual value for the element, which must be one of the types allowed for
                 # this element.
                 StructField(
+                    "valueCodeableReference",
+                    CodeableReferenceSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # The actual value for the element, which must be one of the types allowed for
+                # this element.
+                StructField(
                     "valueCoding",
                     CodingSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
@@ -723,6 +748,25 @@ class ElementDefinition_ExampleSchema:
                 StructField(
                     "valueRatio",
                     RatioSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path,
+                    ),
+                    True,
+                ),
+                # The actual value for the element, which must be one of the types allowed for
+                # this element.
+                StructField(
+                    "valueRatioRange",
+                    RatioRangeSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,
@@ -970,25 +1014,6 @@ class ElementDefinition_ExampleSchema:
                 StructField(
                     "valueDosage",
                     DosageSchema.get_schema(
-                        max_nesting_depth=max_nesting_depth,
-                        nesting_depth=nesting_depth + 1,
-                        nesting_list=my_nesting_list,
-                        max_recursion_limit=max_recursion_limit,
-                        include_extension=include_extension,
-                        extension_fields=extension_fields,
-                        extension_depth=extension_depth + 1,
-                        max_extension_depth=max_extension_depth,
-                        include_modifierExtension=include_modifierExtension,
-                        use_date_for=use_date_for,
-                        parent_path=my_parent_path,
-                    ),
-                    True,
-                ),
-                # The actual value for the element, which must be one of the types allowed for
-                # this element.
-                StructField(
-                    "valueMeta",
-                    MetaSchema.get_schema(
                         max_nesting_depth=max_nesting_depth,
                         nesting_depth=nesting_depth + 1,
                         nesting_list=my_nesting_list,

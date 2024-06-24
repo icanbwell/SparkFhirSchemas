@@ -9,7 +9,7 @@ class ValueSet_FilterSchema:
     """
     A ValueSet resource instance specifies a set of codes drawn from one or more
     code systems, intended for use in a particular context. Value sets link
-    between [[[CodeSystem]]] definitions and their use in [coded
+    between [CodeSystem](codesystem.html) definitions and their use in [coded
     elements](terminologies.html).
     """
 
@@ -31,7 +31,7 @@ class ValueSet_FilterSchema:
         """
         A ValueSet resource instance specifies a set of codes drawn from one or more
         code systems, intended for use in a particular context. Value sets link
-        between [[[CodeSystem]]] definitions and their use in [coded
+        between [CodeSystem](codesystem.html) definitions and their use in [coded
         elements](terminologies.html).
 
 
@@ -182,7 +182,23 @@ class ValueSet_FilterSchema:
                     True,
                 ),
                 # The kind of operation to perform as a part of the filter criteria.
-                StructField("op", StringType(), True),
+                StructField(
+                    "op",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".op",
+                    ),
+                    True,
+                ),
                 # The match value may be either a code defined by the system, or a string value,
                 # which is a regex match on the literal string of the property value  (if the
                 # filter represents a property defined in CodeSystem) or of the system filter

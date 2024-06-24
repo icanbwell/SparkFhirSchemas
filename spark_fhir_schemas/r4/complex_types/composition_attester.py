@@ -95,6 +95,7 @@ class Composition_AttesterSchema:
                 "valueAddress",
             ]
         from spark_fhir_schemas.r4.complex_types.extension import ExtensionSchema
+        from spark_fhir_schemas.r4.simple_types.code import codeSchema
         from spark_fhir_schemas.r4.simple_types.datetime import dateTimeSchema
         from spark_fhir_schemas.r4.complex_types.reference import ReferenceSchema
 
@@ -172,7 +173,23 @@ class Composition_AttesterSchema:
                     True,
                 ),
                 # The type of attestation the authenticator offers.
-                StructField("mode", StringType(), True),
+                StructField(
+                    "mode",
+                    codeSchema.get_schema(
+                        max_nesting_depth=max_nesting_depth,
+                        nesting_depth=nesting_depth + 1,
+                        nesting_list=my_nesting_list,
+                        max_recursion_limit=max_recursion_limit,
+                        include_extension=include_extension,
+                        extension_fields=extension_fields,
+                        extension_depth=extension_depth + 1,
+                        max_extension_depth=max_extension_depth,
+                        include_modifierExtension=include_modifierExtension,
+                        use_date_for=use_date_for,
+                        parent_path=my_parent_path + ".mode",
+                    ),
+                    True,
+                ),
                 # When the composition was attested by the party.
                 StructField(
                     "time",

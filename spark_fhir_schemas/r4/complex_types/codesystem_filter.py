@@ -57,7 +57,7 @@ class CodeSystem_FilterSchema:
             itself).
 
         code: The code that identifies this filter when it is used as a filter in
-            [[[ValueSet]]].compose.include.filter.
+            [ValueSet](valueset.html#).compose.include.filter.
 
         description: A description of how or why the filter is used.
 
@@ -160,7 +160,7 @@ class CodeSystem_FilterSchema:
                     True,
                 ),
                 # The code that identifies this filter when it is used as a filter in
-                # [[[ValueSet]]].compose.include.filter.
+                # [ValueSet](valueset.html#).compose.include.filter.
                 StructField(
                     "code",
                     codeSchema.get_schema(
