@@ -225,6 +225,7 @@ class MedicationRequestSchema:
                 "valueReference",
                 "valueCodeableConcept",
                 "valueAddress",
+                "valuePeriod",
             ]
         from spark_fhir_schemas.r4b.complex_types.meta import MetaSchema
         from spark_fhir_schemas.r4b.simple_types.uri import uriSchema
