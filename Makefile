@@ -3,22 +3,24 @@ LANG=en_US.utf-8
 export LANG
 
 Pipfile.lock: Pipfile
-	docker-compose run --rm --name spark_fhir_schemas dev pipenv lock --dev
+	docker compose run --rm --name spark_fhir_schemas dev sh -c "rm -f Pipfile.lock && pipenv lock --dev"
 
 .PHONY:devdocker
 devdocker: ## Builds the docker for dev
-	docker-compose build --no-cache
+	docker compose build --no-cache
 
 .PHONY:init
 init: devdocker up setup-pre-commit  ## Initializes the local developer environment
 
 .PHONY: up
 up: Pipfile.lock
-	docker-compose up --build -d --remove-orphans
+	docker compose up --build -d
 
 .PHONY: down
-down:
-	docker-compose down
+down: ## Brings down all the services in docker-compose
+	export DOCKER_CLIENT_TIMEOUT=300 && export COMPOSE_HTTP_TIMEOUT=300
+	docker compose down --remove-orphans && \
+	docker system prune -f
 
 .PHONY:clean-pre-commit
 clean-pre-commit: ## removes pre-commit hook
@@ -34,51 +36,46 @@ run-pre-commit: setup-pre-commit
 
 .PHONY:update
 update: down Pipfile.lock setup-pre-commit  ## Updates all the packages using Pipfile
-	docker-compose run --rm --name sfs_pipenv dev pipenv sync --dev && \
-	make devdocker && \
-	make pipenv-setup
+	docker compose run --rm --name sfs_pipenv dev pipenv sync --dev && \
+	make devdocker
 
 .PHONY:tests
 tests: up
-	docker-compose run --rm --name sfs_tests dev pytest tests
+	docker compose run --rm --name sfs_tests dev pytest tests
 
 .PHONY: sphinx-html
 sphinx-html:
-	docker-compose run --rm --name spark_fhir_schemas dev make -C docsrc html
+	docker compose run --rm --name spark_fhir_schemas dev make -C docsrc html
 	@echo "copy html to docs... why? https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316"
 	@rm -rf docs/*
 	@touch docs/.nojekyll
 	cp -a docsrc/_build/html/. docs
 
-.PHONY:pipenv-setup
-pipenv-setup:devdocker ## Brings up the bash shell in dev docker
-	docker-compose run --rm --name sfs_tests dev pipenv-setup sync --pipfile
-
 .PHONY:shell
 shell:devdocker ## Brings up the bash shell in dev docker
-	docker-compose run --rm --name sfs_shell dev /bin/bash
+	docker compose run --rm --name sfs_shell dev /bin/bash
 
 .PHONY:schema-r4
 schema-r4:
-	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/r4/generate_schema.py && \
+	docker compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/r4/generate_schema.py && \
 	make run-pre-commit
 	make run-pre-commit
 
 .PHONY:schema-r4b
 schema-r4b:
-	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/r4b/generate_schema.py && \
+	docker compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/r4b/generate_schema.py && \
 	make run-pre-commit
 	make run-pre-commit
 
 .PHONY:schema-stu3
 schema-stu3:
-	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/stu3/generate_schema.py && \
+	docker compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/stu3/generate_schema.py && \
 	make run-pre-commit
 	make run-pre-commit
 
 .PHONY:schema-dstu2
 schema-dstu2:
-	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/dstu2/generate_schema_file.py && \
-	docker-compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/dstu2/generate_schema.py && \
+	docker compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/dstu2/generate_schema_file.py && \
+	docker compose run --rm --name sfs_shell dev python3 spark_fhir_schemas/dstu2/generate_schema.py && \
 	make run-pre-commit
 	make run-pre-commit

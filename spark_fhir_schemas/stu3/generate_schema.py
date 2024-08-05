@@ -1,13 +1,12 @@
 import json
 import os
+from dataclasses import dataclass
 from pathlib import Path
 import shutil
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
-
-from attr import dataclass
 
 
 @dataclass
@@ -164,11 +163,15 @@ def main() -> int:
             ref_: Optional[str] = (
                 value["$ref"]
                 if "$ref" in value and type_ != "array"
-                else value["items"]["$ref"]
-                if "items" in value and "$ref" in value["items"]
-                else value["items"]["type"]
-                if "items" in value and "type" in value["items"]
-                else None
+                else (
+                    value["items"]["$ref"]
+                    if "items" in value and "$ref" in value["items"]
+                    else (
+                        value["items"]["type"]
+                        if "items" in value and "type" in value["items"]
+                        else None
+                    )
+                )
             )
             pattern = value["pattern"] if "pattern" in value else None
             # print(f"{key}:{value}")
@@ -189,19 +192,25 @@ def main() -> int:
                     [pi.UnderlyingDataType == reference_type for pi in properties_info]
                 ),
                 Description=description,
-                IsResourceType=reference_type.lower() in resources_dict
-                if reference_type
-                else False,
-                IsSimpleType=reference_type.lower() in simple_types
-                if reference_type
-                else (type_.lower() in simple_types if type_ else False),
-                IsComplexType=reference_type.lower() in complex_types
-                if reference_type
-                else False,
-                HideExtension=reference_type.lower() == "extension"
-                and resource_name in extensions_blocked_for_resources
-                if reference_type
-                else False,
+                IsResourceType=(
+                    reference_type.lower() in resources_dict
+                    if reference_type
+                    else False
+                ),
+                IsSimpleType=(
+                    reference_type.lower() in simple_types
+                    if reference_type
+                    else (type_.lower() in simple_types if type_ else False)
+                ),
+                IsComplexType=(
+                    reference_type.lower() in complex_types if reference_type else False
+                ),
+                HideExtension=(
+                    reference_type.lower() == "extension"
+                    and resource_name in extensions_blocked_for_resources
+                    if reference_type
+                    else False
+                ),
             )
             if resource_name.lower() == "extension":
                 # have to skip a few properties or Spark runs out of memory

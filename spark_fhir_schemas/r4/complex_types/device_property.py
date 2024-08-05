@@ -221,17 +221,21 @@ class Device_PropertySchema:
         )
         if not include_extension:
             schema.fields = [
-                c
-                if c.name != "extension"
-                else StructField("extension", StringType(), True)
+                (
+                    c
+                    if c.name != "extension"
+                    else StructField("extension", StringType(), True)
+                )
                 for c in schema.fields
             ]
 
         if not include_modifierExtension:
             schema.fields = [
-                c
-                if c.name != "modifierExtension"
-                else StructField("modifierExtension", StringType(), True)
+                (
+                    c
+                    if c.name != "modifierExtension"
+                    else StructField("modifierExtension", StringType(), True)
+                )
                 for c in schema.fields
             ]
 
