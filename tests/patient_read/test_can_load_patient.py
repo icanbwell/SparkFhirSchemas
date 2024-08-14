@@ -8,11 +8,13 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import DataType
 from pyspark.sql.types import StructType
 from spark_fhir_schemas.r4.resources.patient import PatientSchema
+from tests.conftest import clean_spark_session
 from tests.spark_json_helpers import create_jsonl_files
 
 
 def test_can_load_patient(spark_session: SparkSession) -> None:
     # Arrange
+    clean_spark_session(session=spark_session)
     data_dir: Path = Path(__file__).parent.joinpath("./")
 
     patient_test_folder: Path = data_dir.joinpath("test_files").joinpath("patient.json")

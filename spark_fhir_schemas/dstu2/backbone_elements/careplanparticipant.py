@@ -184,9 +184,11 @@ class CarePlanParticipantSchema:
         )
         if not include_extension:
             schema.fields = [
-                c
-                if c.name != "extension"
-                else StructField("extension", StringType(), True)
+                (
+                    c
+                    if c.name != "extension"
+                    else StructField("extension", StringType(), True)
+                )
                 for c in schema.fields
             ]
 
