@@ -1,4 +1,4 @@
-FROM imranq2/helix.spark:3.3.0.48-slim
+FROM imranq2/helix.spark:3.5.1.1-slim
 # https://github.com/icanbwell/helix.spark
 USER root
 
@@ -9,7 +9,7 @@ COPY Pipfile* /sfs/
 WORKDIR /sfs
 
 RUN df -h # for space monitoring
-RUN pipenv sync --dev --system
+RUN pipenv sync --dev --system && pipenv run pip install pyspark==3.5.1
 
 # override entrypoint to remove extra logging
 RUN mv /opt/minimal_entrypoint.sh /opt/entrypoint.sh
@@ -23,7 +23,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F23C5A6CF4
     update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1 && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
 
-RUN pip install pyspark==3.3.0
+RUN pip install pyspark==3.5.1
 RUN pip install pytest>=8.2.2
 
 COPY . /sfs

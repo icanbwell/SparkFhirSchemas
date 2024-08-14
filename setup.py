@@ -45,15 +45,15 @@ fix_setuptools()
 
 # create the package setup
 setup(
-    install_requires=["pyspark>=3.1.1"],
+    install_requires=["pyspark==3.5.1"],
     name=package_name,
     version=version,
     author="Imran Qureshi",
     author_email="imranq2@hotmail.com",
-    description="AutoMapper for Spark",
+    description="FHIR Schemas for Spark",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/imranq2/SparkAutoMapper",
+    url="https://github.com/icanbwell/SparkFhirSchemas",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
