@@ -8,6 +8,5 @@ services:
     image: sparkfhirschemas_dev
     volumes:
       - ./:/sfs/
-      - ~/.local/share/virtualenvs:/.local/share/virtualenvs:rw
-    container_name: sfs_dev
+    container_name: sparkfhirschemas_dev
     working_dir: /sfs
