@@ -12,6 +12,10 @@ devdocker: ## Builds the docker for dev
 .PHONY:init
 init: devdocker up setup-pre-commit  ## Initializes the local developer environment
 
+.PHONY:build
+build: ## Builds the docker for dev
+	docker compose build --progress=plain --parallel
+
 .PHONY: up
 up: Pipfile.lock
 	docker compose up --build -d
@@ -35,9 +39,10 @@ run-pre-commit: setup-pre-commit
 	./.git/hooks/pre-commit
 
 .PHONY:update
-update: down Pipfile.lock setup-pre-commit  ## Updates all the packages using Pipfile
+update: Pipfile.lock setup-pre-commit  ## Updates all the packages using Pipfile
 	docker compose run --rm --name sfs_pipenv dev pipenv sync --dev && \
-	make devdocker
+	make devdocker && \
+	make pipenv-setup
 
 .PHONY:tests
 tests: up
@@ -50,6 +55,11 @@ sphinx-html:
 	@rm -rf docs/*
 	@touch docs/.nojekyll
 	cp -a docsrc/_build/html/. docs
+
+.PHONY:pipenv-setup
+pipenv-setup:devdocker ## Run pipenv-setup to update setup.py with latest dependencies
+	docker compose run --rm --name spark_data_frame_comparer dev sh -c "pipenv run pipenv install --skip-lock --categories \"pipenvsetup\" && pipenv run pipenv-setup sync --pipfile" && \
+	make run-pre-commit
 
 .PHONY:shell
 shell:devdocker ## Brings up the bash shell in dev docker
