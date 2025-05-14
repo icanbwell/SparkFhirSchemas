@@ -22,7 +22,7 @@ except IOError:
 
 # create the package setup
 setup(
-    install_requires=["py4j==0.10.9.7", "pyspark==3.5.1"],
+    install_requires=["py4j==0.10.9.7", "pyspark==3.5.5"],
     name=package_name,
     version=version,
     author="Imran Qureshi",
