@@ -3,13 +3,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[packages]
-
-[dev-packages]
+[spark]
 # py4j is needed for connecting to the JVM
 py4j = "==0.10.9.7" # https://spark.apache.org/docs/latest/api/python/getting_started/install.html#dependencies
 # pyspark is needed for working with Spark
 pyspark = "==3.5.5"  # should match the version of spark we use for testing
+
+[dev-packages]
 # setuptools is needed for building the package
 setuptools = ">=72.1.0"
 packaging = ">=24.1"
