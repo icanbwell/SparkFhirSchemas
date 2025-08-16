@@ -17,12 +17,17 @@ try:
 except IOError:
     raise
 
-
 # classifiers list is here: https://pypi.org/classifiers/
 
 # create the package setup
 setup(
-    install_requires=["py4j==0.10.9.7", "pyspark==3.5.5"],
+    install_requires=[],
+    extras_require={
+        "spark": [
+            "py4j==0.10.9.7",
+            "pyspark==3.5.5",
+        ]
+    },
     name=package_name,
     version=version,
     author="Imran Qureshi",

@@ -2,8 +2,10 @@ LANG=en_US.utf-8
 
 export LANG
 
+.PHONY: Pipfile.lock
 Pipfile.lock: Pipfile
-	docker compose run --rm --name spark_fhir_schemas dev sh -c "rm -f Pipfile.lock && pipenv lock --dev"
+	docker compose run --rm --name spark_fhir_schemas dev \
+		/bin/bash -lc 'pipenv lock --clear --dev'
 
 .PHONY:devdocker
 devdocker: ## Builds the docker for dev
