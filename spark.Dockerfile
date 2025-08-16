@@ -5,11 +5,11 @@ USER root
 ENV PYTHONPATH=/sfs
 ENV CLASSPATH=/sfs/jars:$CLASSPATH
 
-COPY Pipfile* /sfs/
+COPY Pipfile Pipfile.lock /sfs/
 WORKDIR /sfs
 
 RUN df -h # for space monitoring
-RUN pipenv sync --dev --system --categories spark --extra-pip-args="--prefer-binary"
+RUN pipenv sync --system --dev --extra-pip-args="--prefer-binary"
 
 # override entrypoint to remove extra logging
 RUN mv /opt/minimal_entrypoint.sh /opt/entrypoint.sh

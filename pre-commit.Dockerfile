@@ -4,11 +4,11 @@ RUN apt-get update && \
     apt-get install -y git && \
     pip install pipenv
 
-COPY ${project_root}/Pipfile* ./
+COPY Pipfile Pipfile.lock ./
 
-RUN pipenv lock --dev && \
-    pipenv sync --dev --system --categories spark --verbose
+RUN pipenv sync --system --dev --verbose
 
 WORKDIR /sourcecode
 RUN git config --global --add safe.directory /sourcecode
-CMD pre-commit run --all-files
+
+CMD ["pre-commit", "run", "--all-files"]
