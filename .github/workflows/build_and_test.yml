@@ -8,10 +8,21 @@ on:
   pull_request:
     branches: [ main ]
 
+# Needed by aws-actions/configure-aws-credentials to request a GitHub OIDC token
+# for the services-account ECR role (see the ECR login step below).
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   build_and_test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    env:
+      # The runner already holds credentials after the ECR login step below, so
+      # `make ecr-login` must not pass a local `--profile services`.
+      AWS_SERVICES_PROFILE: ""
 
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +31,30 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.12'
+
+      # spark.Dockerfile now pulls helix.spark from the services account's private
+      # ECR (CIE-8032), so docker must be logged in there before any build. Both
+      # the pre-commit and tests steps below build it, via the `dev` compose
+      # service. pre-commit.Dockerfile itself stays on public Docker Hub.
+      #
+      # NOTE: this differs from the helix.pipelines precedent (PR #5301). That repo
+      # is private and runs on the self-hosted `main` runner, which already carries
+      # services-account credentials. This repo is PUBLIC and runs on ubuntu-latest,
+      # so it needs a dedicated GitHub-OIDC role in account 856965016623 with
+      # ECR read on `helix.spark`. Put its ARN in the
+      # repository/organization variable AWS_SERVICES_ECR_ROLE_ARN. Until that role
+      # exists this step fails, and pull requests from forks cannot use it at all
+      # (GitHub does not issue id-tokens to fork workflows).
+      - name: AWS Credentials (services account, for base image pulls)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ vars.AWS_SERVICES_ECR_ROLE_ARN }}
+          role-session-name: ${{ github.run_id }}-services
+          role-duration-seconds: 3600
+
+      - name: Login to Amazon ECR (services)
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: pre-commit
         run: make run-pre-commit

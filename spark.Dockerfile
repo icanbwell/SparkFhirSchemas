@@ -1,4 +1,8 @@
-FROM imranq2/helix.spark:3.5.5.0-slim
+# helix.spark is b.well's own image. Per CIE-8032 it is published to the services
+# account's private ECR (it is not an upstream image, so root.io does not mirror it).
+# Tag is unchanged on purpose: 3.5.5.0 == Spark 3.5.5, which must match the
+# pyspark==3.5.5 pin in Pipfile. Requires `make ecr-login` locally - see README.
+FROM 856965016623.dkr.ecr.us-east-1.amazonaws.com/helix.spark:3.5.5.0-slim
 # https://github.com/icanbwell/helix.spark
 USER root
 
