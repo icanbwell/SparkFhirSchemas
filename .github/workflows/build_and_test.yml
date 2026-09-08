@@ -8,12 +8,6 @@ on:
   pull_request:
     branches: [ main ]
 
-# Needed by aws-actions/configure-aws-credentials to request a GitHub OIDC token
-# for the services-account ECR role (see the ECR login step below).
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
   build_and_test:
     # The type of runner that the job will run on
@@ -32,26 +26,22 @@ jobs:
         with:
           python-version: '3.12'
 
-      # spark.Dockerfile now pulls helix.spark from the services account's private
-      # ECR (CIE-8032), so docker must be logged in there before any build. Both
-      # the pre-commit and tests steps below build it, via the `dev` compose
-      # service. pre-commit.Dockerfile itself stays on public Docker Hub.
+      # The helix.spark base image lives in the private services-account ECR
+      # (CIE-8032), so docker must authenticate before any build. This repo is PUBLIC
+      # and runs on GitHub-hosted runners, so it has no ambient AWS identity the way
+      # helix.pipelines does (that relies on its self-hosted runner's IRSA role).
+      # We therefore use a dedicated read-only IAM user's access key, matching the
+      # pattern helix.pipelines already uses for the dev account.
       #
-      # NOTE: this differs from the helix.pipelines precedent (PR #5301). That repo
-      # is private and runs on the self-hosted `main` runner, which already carries
-      # services-account credentials. This repo is PUBLIC and runs on ubuntu-latest,
-      # so it needs a dedicated GitHub-OIDC role in account 856965016623 with
-      # ECR read on `helix.spark`. Put its ARN in the
-      # repository/organization variable AWS_SERVICES_ECR_ROLE_ARN. Until that role
-      # exists this step fails, and pull requests from forks cannot use it at all
-      # (GitHub does not issue id-tokens to fork workflows).
+      # PREREQUISITE: the SERVICES_ECR_ACCESS_KEY_ID / SERVICES_ECR_SECRET_ACCESS_KEY
+      # org secrets must be scoped to this repo. Fork pull requests receive no secrets,
+      # so external-contributor PRs cannot build these images.
       - name: AWS Credentials (services account, for base image pulls)
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ vars.AWS_SERVICES_ECR_ROLE_ARN }}
-          role-session-name: ${{ github.run_id }}-services
-          role-duration-seconds: 3600
+          aws-access-key-id: ${{ secrets.SERVICES_ECR_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.SERVICES_ECR_SECRET_ACCESS_KEY }}
 
       - name: Login to Amazon ECR (services)
         uses: aws-actions/amazon-ecr-login@v2
